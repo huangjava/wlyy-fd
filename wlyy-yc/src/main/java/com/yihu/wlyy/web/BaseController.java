@@ -1,0 +1,352 @@
+package com.yihu.wlyy.web;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.util.StringUtils;
+
+public class BaseController {
+
+	private static Logger logger = LoggerFactory.getLogger(BaseController.class);
+
+	@Autowired
+	protected HttpServletRequest request;
+
+	/**
+	 * 獲取髮送請求用戶的uid
+	 * @return
+	 */
+	public String getUID() {
+		try {
+			String userAgent = request.getHeader("userAgent");
+			if(StringUtils.isEmpty(userAgent)){
+				userAgent = request.getHeader("User-Agent");
+			}
+			JSONObject json = new JSONObject(userAgent);
+			return json.getString("uid");
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public String getOpenid() {
+		try {
+			String userAgent = request.getHeader("userAgent");
+			if(StringUtils.isEmpty(userAgent)){
+				userAgent = request.getHeader("User-Agent");
+			}
+			JSONObject json = new JSONObject(userAgent);
+			return json.getString("openid");
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取用户ID
+	 * @return
+	 */
+	public long getId() {
+		try {
+			String userAgent = request.getHeader("userAgent");
+			if(StringUtils.isEmpty(userAgent)){
+				userAgent = request.getHeader("User-Agent");
+			}
+			JSONObject json = new JSONObject(userAgent);
+			return json.getLong("id");
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getIMEI() {
+		try {
+			String userAgent = request.getHeader("userAgent");
+			if(StringUtils.isEmpty(userAgent)){
+				userAgent = request.getHeader("User-Agent");
+			}
+			JSONObject json = new JSONObject(userAgent);
+			return json.getString("imei");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public String getToken() {
+		try {
+			String userAgent = request.getHeader("userAgent");
+			if(StringUtils.isEmpty(userAgent)){
+				userAgent = request.getHeader("User-Agent");
+			}
+			JSONObject json = new JSONObject(userAgent);
+			return json.getString("token");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public void error(Exception e) {
+		logger.error(getClass().getName() + ":", e.getMessage());
+		e.printStackTrace();
+	}
+
+	public void warn(Exception e) {
+		logger.warn(getClass().getName() + ":", e.getMessage());
+		e.printStackTrace();
+	}
+
+	/**
+	 * 返回接口处理结果
+	 * 
+	 * @param code 结果码，成功为200
+	 * @param msg 结果提示信息
+	 * @param value 结果数据
+	 * @return
+	 */
+	public String error(int code, String msg) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			ObjectMapper mapper = new ObjectMapper();
+			map.put("status", code);
+			map.put("msg", msg);
+			return mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			error(e);
+			return null;
+		}
+	}
+
+	/**
+	 * 接口处理成功
+	 * @param msg
+	 * @return
+	 */
+	public String success(String msg) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			ObjectMapper mapper = new ObjectMapper();
+			map.put("status", 200);
+			map.put("msg", msg);
+			return mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			error(e);
+			return null;
+		}
+	}
+
+	public String write(int code, String msg) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			ObjectMapper mapper = new ObjectMapper();
+			map.put("status", code);
+			map.put("msg", msg);
+			return mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			error(e);
+			return null;
+		}
+	}
+
+	/**
+	 * 返回接口处理结果
+	 * 
+	 * 
+	 * @param code 结果码，成功为200
+	 * @param msg 结果提示信息
+	 * @param value 结果数据
+	 * @return
+	 */
+	public String write(int code, String msg, String key, List<?> list) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			ObjectMapper mapper = new ObjectMapper();
+			map.put("status", code);
+			map.put("msg", msg);
+			map.put(key, list);
+			return mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "服务器异常，请稍候再试！");
+		}
+	}
+
+	/**
+	 * 返回接口处理结果
+	 * 
+	 * 
+	 * @param code 结果码，成功为200
+	 * @param msg 结果提示信息
+	 * @param value 结果数据
+	 * @return
+	 */
+	public String write(int code, String msg, String key, JSONObject value) {
+		try {
+			JSONObject json = new JSONObject();
+			json.put("status", code);
+			json.put("msg", msg);
+			json.put(key, value);
+			return json.toString();
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "服务器异常，请稍候再试！");
+		}
+	}
+
+	/**
+	 * 返回接口处理结果
+	 * 
+	 * 
+	 * @param code 结果码，成功为200
+	 * @param msg 结果提示信息
+	 * @param value 结果数据
+	 * @return
+	 */
+	public String write(int code, String msg, String key, JSONArray value) {
+		try {
+			JSONObject json = new JSONObject();
+			json.put("status", code);
+			json.put("msg", msg);
+			json.put(key, value);
+			return json.toString();
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "服务器异常，请稍候再试！");
+		}
+	}
+
+	/**
+	 * 返回接口处理结果
+	 * 
+	 * 
+	 * @param code 结果码，成功为200
+	 * @param msg 结果提示信息
+	 * @param total 总数
+	 * @param value 结果数据
+	 * @return
+	 */
+	public String write(int code, String msg, int total, String key, JSONArray value) {
+		try {
+			JSONObject json = new JSONObject();
+			json.put("status", code);
+			json.put("msg", msg);
+			json.put("total", total);
+			json.put(key, value);
+			return json.toString();
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "服务器异常，请稍候再试！");
+		}
+	}
+
+	/**
+	 * 返回接口处理结果
+	 * 
+	 * 
+	 * @param code 结果码，成功为200
+	 * @param msg 结果提示信息
+	 * @param value 结果数据
+	 * @return
+	 */
+	public String write(int code, String msg, String key, Object value) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			ObjectMapper mapper = new ObjectMapper();
+			map.put("status", code);
+			map.put("msg", msg);
+			map.put(key, value);
+			return mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "服务器异常，请稍候再试！");
+		}
+	}
+
+
+
+	/**
+	 * 返回接口处理结果
+	 * 
+	 * 
+	 * @param code 结果码，成功为200
+	 * @param msg 结果提示信息
+	 * @param value 结果数据
+	 * @return
+	 */
+	public String write(int code, String msg, String key, Map<?, ?> value) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			ObjectMapper mapper = new ObjectMapper();
+			map.put("status", code);
+			map.put("msg", msg);
+			map.put(key, value);
+			return mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "服务器异常，请稍候再试！");
+		}
+	}
+
+	/**
+	* 返回接口处理结果
+	*
+	* @param code 结果码，成功为200
+	* @param msg 结果提示信息
+	* @param value 结果数据
+	* @return
+	*/
+	public String write(int code, String msg, String key, String value) {
+		try {
+			Map<Object, Object> map = new HashMap<Object, Object>();
+			ObjectMapper mapper = new ObjectMapper();
+			map.put("status", code);
+			map.put("msg", msg);
+			map.put(key, value);
+			return mapper.writeValueAsString(map);
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "服务器异常，请稍候再试！");
+		}
+	}
+
+	public String trimEnd(String param, String trimChars) {
+		if (param.endsWith(trimChars)) {
+			param = param.substring(0, param.length() - trimChars.length());
+		}
+		return param;
+	}
+
+	/**
+	 * 无效用户消息返回
+	 * @param e
+	 * @param defaultCode
+	 * @param defaultMsg
+	 * @return
+	 */
+	public String invalidUserException(Exception e, int defaultCode, String defaultMsg) {
+		try {
+			// if (e instanceof UndeclaredThrowableException) {
+			// UndeclaredThrowableException ute = (UndeclaredThrowableException) e;
+			// InvalidUserException iue = (InvalidUserException) ute.getUndeclaredThrowable();
+			// if (iue != null) {
+			// return error(iue.getCode(), iue.getMsg());
+			// }
+			// }
+			return error(defaultCode, defaultMsg);
+		} catch (Exception e2) {
+			return null;
+		}
+	}
+
+}

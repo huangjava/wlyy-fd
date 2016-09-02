@@ -1,0 +1,44 @@
+.face-title {
+	width: 28px;
+	height: 28px;
+	position: absolute;
+	margin-top: 40px;
+	margin-left: -29px;
+}
+
+.face-title-name {
+	margin-left: -22px;
+	margin-top: 43px;
+	color: white;
+	font-size: 14px;
+}
+
+.c-mor-hold, .c-mor-hold ul{
+	height: 50px!important;
+}
+
+.c-mor-hold li{
+	height: 48px!important;
+}
+
+/*.mod-team .c-lab-mor li.curr a{
+	color: #17b3ec;
+}*/
+
+.c-lab-mor li.curr:before{
+	content: '';
+	display:block;
+	width: 100%;
+	height: .15rem;
+	background: #0894ec;
+	position: relative;
+	left: 0;
+	bottom: -40px;
+	/*border-bottom: 2px solid #0894ec;*/
+}
+
+.c-lab-mor li a{
+	display: block;
+	width: 100%;
+	height: 32px;
+}

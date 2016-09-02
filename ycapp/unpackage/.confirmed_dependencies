@@ -1,0 +1,1371 @@
+{
+	"html/home/html/suifangjihua.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/common_http.js"
+		]
+	},
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/common_http.js"
+		],
+		"refer": [
+			"html/home/html/main.html",
+			"html/login/html/login.html",
+			"html/yichangguanli/html/main.html"
+		]
+	},
+	"html/home/html/xiaoxi.html": {
+		"resources": [
+			"js/im_new.js",
+			"common/images/msg_02.png",
+			"common/images/msg_01.png",
+			"common/images/msg_05.png",
+			"common/images/msg_03.png",
+			"common/cross/css/cross.ui.css",
+			"js/app.js",
+			"common/css/jy-style.css",
+			"common/cross/css/cross.min.css",
+			"common/iconfont/iconfont.woff",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js",
+			"common/css/ss-doctor.css",
+			"common/cross/css/ui.all.min.css",
+			"common/cross/css/cross.css"
+		],
+		"refer": [
+			"html/qygl/html/qianyuexiaoxi.html",
+			"html/xiaoxi/html/jiankangzixun.html",
+			"html/home/html/gongzuozu.html",
+			"html/xiaoxi/html/tizhengzhibiao.html",
+			"html/login/html/login.html"
+		]
+	},
+	"html/home/html/mine.html": {
+		"resources": [
+			"common/images/demo-linehead.png",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"common/images/demo-por02.png",
+			"common/images/demo-por01.png",
+			"common/cross/css/cross.ui.css",
+			"js/app.js",
+			"common/css/jy-style.css",
+			"js/template.js",
+			"common/iconfont/iconfont.woff",
+			"common/iconfont/iconfont.css",
+			"common/cross/css/cross.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js",
+			"images/d-default.png",
+			"images/d-female.png",
+			"images/d-male.png",
+			"common/images/demo-por03.png",
+			"common/images/demo-por04.png"
+		],
+		"refer": [
+			"html/mine/html/set.html",
+			"html/mine/html/dailiqianyue.html",
+			"html/home/html/gongzuozu.html",
+			"html/login/html/login.html",
+			"html/mine/html/gerenziliao.html",
+			"html/mine/html/erweima.html",
+			"html/mine/html/worktime.html"
+		]
+	},
+	"html/home/html/main.html": {
+		"resources": [
+			"common/iconfont/iconfont.woff",
+			"js/app.js",
+			"common/iconfont/iconfont.css",
+			"html/home/js/main.js",
+			"html/home/html/xiaoxi.html",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/common_http.js",
+			"html/home/html/home1.html",
+			"html/home/html/home2.html",
+			"js/im_new.js",
+			"common/iconfont/iconfont.ttf",
+			"html/home/html/admin.html",
+			"html/js/common.js"
+		],
+		"refer": [
+			"html/home/html/suifangjihua.html",
+			"html/home/html/mine.html",
+			"html/home/html/xiaoxi.html",
+			"html/home/html/huanzhe.html",
+			"html/home/html/home1.html",
+			"html/home/html/home2.html",
+			"html/home/html/html1.html",
+			"html/login/html/login.html",
+			"html/home/html/admin.html",
+			"html/home/html/qiehuan.html"
+		]
+	},
+	"html/home/html/huanzhe.html": {
+		"resources": [
+			"images/gaoyou@2x.png",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"js/template.js",
+			"images/tangyou@2x.png",
+			"images/p-female.png",
+			"images/p-default.png",
+			"common/iconfont/iconfont.woff",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"html/home/js/huanzhe.js"
+		],
+		"refer": [
+			"html/huanzhe/html/huanzhexinxi.html",
+			"html/huanzhe/html/fzgl.html",
+			"html/login/html/login.html"
+		]
+	},
+	"html/login/html/login.html": {
+		"resources": [
+			"html/login/iconfont/iconfont.css",
+			"html/login/iconfont/iconfont.ttf",
+			"js/rtcsdk.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/security.js",
+			"html/login/css/login.css",
+			"html/login/images/logo.png",
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/common_http.js",
+			"js/im_new.js"
+		],
+		"refer": [
+			"html/home/html/main.html",
+			"html/yichangguanli/html/main.html"
+		]
+	},
+	"html/home/html/home1.html": {
+		"resources": [
+			"common/css/ss-doctor.css",
+			"common/cross/css/cross.min.css",
+			"images/d-default.png",
+			"js/template.js",
+			"common/cross/css/ui.all.min.css",
+			"images/d-female.png",
+			"js/im_new.js",
+			"html/home/images/qiehuan_btn.png"
+		]
+	},
+	"html/mine/html/set.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"js/im_new.js",
+			"html/mine/css/cross.ui.css",
+			"html/mine/js/base.js",
+			"html/mine/images/settings/icon6.png",
+			"html/mine/css/cross.css",
+			"html/mine/css/setting.css",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/js/common.js",
+			"html/js/common.js"
+		],
+		"refer": [
+			"html/login/html/login.html"
+		]
+	},
+	"html/home/html/home2.html": {
+		"resources": [
+			"images/doc-ico3.jpg",
+			"common/css/ss-doctor.css",
+			"images/d-default.png",
+			"images/doc-ico1.jpg",
+			"images/doc-ico2.jpg",
+			"common/cross/css/ui.all.min.css",
+			"common/iconfont/iconfont.woff",
+			"common/cross/css/cross.min.css",
+			"js/app.js",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js",
+			"js/template.js",
+			"images/d-male.png",
+			"html/home/images/loading_03.gif",
+			"html/home/css/home2.css",
+			"images/doc-ico1.png",
+			"images/d-female.png",
+			"html/home/js/home2.js",
+			"html/home/images/taolunzu_icon.png",
+			"html/home/images/qiehuan_btn.png",
+			"html/js/common.js"
+		],
+		"refer": [
+			"html/home/html/xiaoxi.html",
+			"html/mine/html/dailiqianyue.html",
+			"html/xiaoxi/html/jiankangzixun.html",
+			"html/home/html/huanzhe.html",
+			"html/home/html/suifangjihua.html",
+			"html/login/html/login.html",
+			"html/qygl/html/sign_manage.html",
+			"html/home/html/onebyonegongzuozu.html",
+			"html/manager/html/qianyuetongji1.html",
+			"html/home/html/gongzuozu.html",
+			"html/message/html/p2p.html"
+		]
+	},
+	"html/mine/html/dailiqianyue.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"common/iconfont/iconfont.css",
+			"common/cross/css/cross.css",
+			"js/upload_preview.js",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"widget/scale/scale.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"js/security.js",
+			"common/css/doc-style.css",
+			"js/common_http.js",
+			"html/mine/js/dailiqianyue.js"
+		],
+		"refer": [
+			"html/login/html/login.html",
+			"html/mine/html/hospital_list.html",
+			"html/qygl/html/xiaoxichuli_fzgl.html"
+		]
+	},
+	"html/home/html/gongzuozu.html": {
+		"resources": [
+			"html/home/css/cross.ui.css",
+			"html/home/css/cross.css",
+			"html/home/js/work_team.js",
+			"html/home/images/list-tb3.png",
+			"html/home/css/contacts.css",
+			"html/home/js/base.js",
+			"js/rtcsdk.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/template.js",
+			"js/common_http.js",
+			"images/d-default.png",
+			"js/im_new.js",
+			"html/js/common.js"
+		],
+		"refer": [
+			"html/message/html/qunzuduihua.html"
+		]
+	},
+	"html/ggzx/html/gonggongzixun.html": {
+		"resources": [
+			"js/app.js",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.min.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"html/ggzx/iconfont/iconfont.css",
+			"images/p-default.png",
+			"common/css/doc-style.css",
+			"js/template.js",
+			"js/common_http.js",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css"
+		],
+		"refer": [
+			"html/ggzx/html/ggzx-zixunxiangqing.html",
+			"html/login/html/login.html"
+		]
+	},
+	"html/zdzx/html/zhidingzixun.html": {
+		"resources": [
+			"html/zdzx/css/cross.css",
+			"images/noset.png",
+			"common/css/doc-style.css",
+			"html/zdzx/css/yy-qygl.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/zdzx/css/dhzs.css",
+			"html/zdzx/js/base.js",
+			"html/zdzx/css/yy-style.css",
+			"images/p-default.png",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"images/p-female.png"
+		],
+		"refer": [
+			"html/login/html/login.html",
+			"html/zdzx/html/jiankangzixunxiangqing.html",
+			"html/zxyy/html/xuanzeyiyuan.html",
+			"html/chat/html/index.html"
+		]
+	},
+	"html/xiaoxi/html/jiankangzixun.html": {
+		"resources": [
+			"html/ggzx/html/gonggongzixun.html",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"html/js/common.js"
+		],
+		"refer": [
+			"html/ggzx/html/gonggongzixun.html",
+			"html/zdzx/html/zhidingzixun.html"
+		]
+	},
+	"html/ggzx/html/ggzx-zixunxiangqing.html": {
+		"resources": [
+			"widget/scale/scale.js",
+			"html/ggzx/css/cross.css",
+			"common/cross/css/cross.ui.css",
+			"images/d-default.png",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/css/doc-style.css",
+			"html/ggzx/iconfont/iconfont.css",
+			"js/template.js",
+			"js/common_http.js",
+			"images/p-default.png",
+			"images/noset.png"
+		]
+	},
+	"html/huanzhe/html/huanzhexinxi.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"html/huanzhe/js/health-index.js",
+			"common/cross/css/cross.ui.css",
+			"images/noset.png",
+			"common/css/jy-style.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"common/iconfont/iconfont.css",
+			"widget/echarts/2.2.7/js/echarts-all.js",
+			"common/cross/css/cross.css",
+			"images/p-female.png",
+			"widget/swiper/3.1/swiper.min.css",
+			"widget/swiper/3.1/swiper.jquery.min.js",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"js/jquery/2.1.3/jquery.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"js/template.js",
+			"js/common_http.js",
+			"js/mui.js",
+			"html/huanzhe/js/index-charts.js",
+			"images/p-default.png",
+			"common/iconfont/iconfont.woff",
+			"html/huanzhe/images/adddoc.png",
+			"html/huanzhe/js/huanzhexinxi.js",
+			"common/css/ss-doctor.css",
+			"html/home/images/loading_03.gif",
+			"html/huanzhe/css/huanzhexinxi.css",
+			"images/p-male.png",
+			"html/jkjl/html/health-record.html"
+		],
+		"refer": [
+			"html/huanzhe/html/tzyj.html",
+			"html/huanzhe/html/xinzengsuishouji.html",
+			"html/zdzx/html/jiankangzixunxiangqing.html",
+			"html/huanzhe/html/hospital.html",
+			"html/mine/html/yaoqingqianyue.html",
+			"html/login/html/login.html",
+			"html/hzzd/html/xinzengzhidao.html",
+			"html/jkjl/html/health-record.html"
+		]
+	},
+	"html/qygl/html/sign_manage.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"html/qygl/images/hd-blue-bg.png",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"html/qygl/css/cross.css",
+			"html/qygl/css/cross.ui.css",
+			"html/qygl/images/hd-grey-bg.png",
+			"html/qygl/js/base.js",
+			"html/qygl/css/yy-qygl.css",
+			"js/app.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/template.js",
+			"js/common_http.js",
+			"images/p-default.png",
+			"html/qygl/js/sign_manage.js",
+			"html/js/common.js"
+		],
+		"refer": [
+			"html/login/html/login.html",
+			"html/qygl/html/patient-manage.html",
+			"html/qygl/html/xiaoxichuli.html"
+		]
+	},
+	"html/huanzhe/html/fzgl.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"html/huanzhe/iconfonts/iconfont.css",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/huanzhe/iconfonts/iconfont.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"html/huanzhe/html/fzgl-xuanzehuanzhe.html"
+		]
+	},
+	"html/zdzx/html/jiankangzixunxiangqing.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/chatBar/chatBar.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"widget/scale/scale.js",
+			"html/zdzx/js/iscroll2/5.1.3/js/iscroll.js",
+			"html/zdzx/iconfont/2/iconfont.woff",
+			"html/zdzx/iconfont/2/iconfont.css",
+			"html/zdzx/js/iscroll2/5.1.3/css/iscroll.css",
+			"common/iconfont/iconfont.woff",
+			"common/cross/css/cross.ui.css",
+			"js/app.js",
+			"common/css/jy-style.css",
+			"common/iconfont/iconfont.css",
+			"common/cross/css/cross.css",
+			"images/p-default.png",
+			"html/zdzx/css/yy-style.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/css/doc-style.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/zdzx/js/base.js",
+			"images/d-default.png",
+			"images/d-male.png"
+		],
+		"refer": [
+			"html/zdzx/html/yaoqingyisheng.html",
+			"html/login/html/login.html"
+		]
+	},
+	"html/zdzx/html/yaoqingyisheng.html": {
+		"resources": [
+			"common/cross/js/cross.js",
+			"common/cross/css/cross.ui.css",
+			"js/app.js",
+			"common/css/jy-style.css",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/common_http.js"
+		],
+		"refer": [
+			"html/login/html/login.html"
+		]
+	},
+	"html/zxyy/html/xuanzeyiyuan.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"widget/iscroll/5.1.3/js/iscroll.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/zxyy/iconfont/iconfont.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/zxyy/css/style.css",
+			"html/zxyy/css/cross.css",
+			"widget/iscroll/5.1.3/css/iscroll.css"
+		],
+		"refer": [
+			"html/zxyy/html/xuanzebumen.html"
+		]
+	},
+	"html/chat/html/index.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/chatBar/chatBar.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"widget/scale/scale.js",
+			"html/chat/js/index.js",
+			"common/iconfont/iconfont.woff",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"js/app.js",
+			"common/iconfont/iconfont.css",
+			"html/chat/js/iscroll2/5.1.3/css/iscroll.css",
+			"common/cross/css/cross.css",
+			"images/p-default.png",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/chat/iconfont/2/iconfont.css",
+			"common/css/doc-style.css",
+			"html/chat/iconfont/2/iconfont.woff",
+			"html/chat/css/yy-style.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/chat/js/iscroll2/5.1.3/js/iscroll.js",
+			"html/zdzx/iconfont/2/iconfont.css",
+			"html/zdzx/js/iscroll2/5.1.3/css/iscroll.css",
+			"html/zdzx/iconfont/2/iconfont.woff",
+			"html/zdzx/css/ys-style.css",
+			"html/zdzx/js/iscroll2/5.1.3/js/iscroll.js",
+			"html/zdzx/js/base.js",
+			"html/chat/js/base.js"
+		],
+		"refer": [
+			"html/login/html/login.html"
+		]
+	},
+	"html/qygl/html/qianyuexiaoxi.html": {
+		"resources": [
+			"images/noset.png",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"images/p-default.png",
+			"html/js/common.js"
+		],
+		"refer": [
+			"html/qygl/html/xiaoxichuli.html"
+		]
+	},
+	"html/qygl/html/xiaoxichuli.html": {
+		"resources": [
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"images/p-default.png"
+		]
+	},
+	"html/qygl/html/patient-manage.html": {
+		"resources": [
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/qygl/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/qygl/css/cross.ui.css",
+			"images/p-default.png",
+			"html/qygl/js/base.js",
+			"html/qygl/css/yy-qygl.css"
+		]
+	},
+	"html/mine/html/gerenziliao.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"images/d-default.png",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/mine/js/upload_photo_single.js",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"js/template.js",
+			"common/js/common.js",
+			"js/im_new.js",
+			"images/d-female.png"
+		],
+		"refer": [
+			"html/login/html/login.html"
+		]
+	},
+	"html/home/html/onebyonegongzuozu.html": {
+		"resources": [
+			"js/app.js",
+			"js/im_new.js",
+			"common/css/cyc.css",
+			"html/home/css/cross.ui.css",
+			"html/home/css/cross.css",
+			"js/rtcsdk.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/template.js",
+			"js/common_http.js",
+			"html/home/css/contacts.css",
+			"html/home/js/base.js",
+			"images/d-default.png"
+		],
+		"refer": [
+			"html/message/html/qunzuduihua.html"
+		]
+	},
+	"html/message/html/qunzuduihua.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"html/message/css/cross.ui.css",
+			"html/message/images/down.png",
+			"html/message/images/iconfont-zhu.png",
+			"html/message/css/scal.css",
+			"widget/scale/scale.js",
+			"html/message/css/cross.css",
+			"html/message/images/more-tb2.png",
+			"html/message/js/base.js",
+			"html/message/images/up.png",
+			"html/message/css/yy-style.css",
+			"html/message/images/more-tb1.png",
+			"html/message/images/iconfont-zhu1.png",
+			"js/im_new.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/template.js",
+			"js/common_http.js",
+			"html/js/common.js",
+			"images/d-female.png",
+			"images/d-default.png"
+		],
+		"refer": [
+			"html/message/html/qunzu_xiangqing.html"
+		]
+	},
+	"html/xiaoxi/html/tizhengzhibiao.html": {
+		"resources": [
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"js/template.js",
+			"images/noset.png",
+			"html/js/common.js"
+		]
+	},
+	"html/huanzhe/html/tzyj.html": {
+		"resources": [
+			"js/mui.min.js",
+			"common/cross/css/cross.ui.css",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"common/css/jy-style.css",
+			"common/iconfont/iconfont.css",
+			"js/jquery/2.1.3/jquery.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js"
+		]
+	},
+	"html/huanzhe/html/fzgl-xuanzehuanzhe.html": {
+		"resources": [
+			"common/cross/css/cross.ui.css",
+			"html/huanzhe/iconfonts/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"images/p-female.png",
+			"images/p-default.png",
+			"html/huanzhe/iconfonts/iconfont.ttf",
+			"images/gaoyou@2x.png",
+			"images/tangyou@2x.png"
+		]
+	},
+	"html/mine/html/hospital_list.html": {
+		"resources": [
+			"common/iconfont/iconfont.woff",
+			"common/css/ss-doctor.css",
+			"js/app.js",
+			"common/cross/css/cross.min.css",
+			"css/mui.min.css",
+			"html/mine/images/hospital.png",
+			"common/cross/css/ui.all.min.css",
+			"common/cross/css/cross.ui.css",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js",
+			"images/d-default.png"
+		]
+	},
+	"html/huanzhe/html/xinzengsuishouji.html": {
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"common/css/doc-style.css",
+			"common/iconfont/iconfont.woff",
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"common/iconfont/iconfont.css",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js"
+		]
+	},
+	"html/mine/html/erweima.html": {
+		"resources": [
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"html/mine/js/jquery.qrcode.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/mine/css/yy-style.css",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"common/cross/images/d-male.png"
+		]
+	},
+	"html/huanzhe/html/hospital.html": {
+		"resources": [
+			"html/huanzhe/images/hospital.png",
+			"images/d-default.png",
+			"fonts/mui.ttf",
+			"common/css/ss-doctor.css",
+			"js/app.js",
+			"common/cross/css/cross.min.css",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"common/cross/css/ui.all.min.css",
+			"common/iconfont/iconfont.woff",
+			"common/cross/css/cross.ui.css",
+			"common/iconfont/iconfont.css",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js"
+		],
+		"refer": [
+			"html/huanzhe/html/disease.html"
+		]
+	},
+	"html/huanzhe/html/disease.html": {
+		"resources": [
+			"common/css/ss-doctor.css",
+			"js/app.js",
+			"common/cross/css/cross.min.css",
+			"js/mui.min.js",
+			"common/cross/css/ui.all.min.css",
+			"common/iconfont/iconfont.woff",
+			"common/cross/css/cross.ui.css",
+			"common/iconfont/iconfont.css",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js"
+		],
+		"refer": [
+			"html/login/html/login.html"
+		]
+	},
+	"html/zxyy/html/tianxiexinxi.html": {
+		"resources": [
+			"html/zxyy/iconfont/iconfont.woff",
+			"js/security.js",
+			"common/cross/css/cross.ui.css",
+			"widget/iscroll/5.1.3/js/iscroll.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/zxyy/iconfont/iconfont.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/zxyy/css/style.css",
+			"html/zxyy/css/cross.css",
+			"images/d-female.png"
+		],
+		"refer": [
+			"html/login/html/login.html"
+		]
+	},
+	"html/zxyy/html/xuanzeyisheng.html": {
+		"resources": [
+			"images/d-male.png",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"images/d-default.png",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"images/d-female.png",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css"
+		],
+		"refer": [
+			"html/zxyy/html/tianxiexinxi.html"
+		]
+	},
+	"html/zxyy/html/xuanzebumen.html": {
+		"refer": [
+			"html/zxyy/html/xuanzeyisheng.html"
+		],
+		"resources": [
+			"common/cross/css/cross.css"
+		]
+	},
+	"html/manager/html/qianyuetongji1.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"common/css/doc-style.css",
+			"html/manager/html/qianyuetongji2.html",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"css/mui.min.css",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/manager/css/manager.css",
+			"html/manager/images/rili.png",
+			"html/manager/images/shuaxin_icon.png"
+		],
+		"refer": [
+			"html/manager/html/qianyuetongji2.html"
+		]
+	},
+	"html/manager/html/qianyuetongji2.html": {
+		"resources": [
+			"html/manager/js/qianyuetongji2.js",
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"css/mui.min.css",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"common/css/ss-doctor.css",
+			"common/iconfont/iconfont.woff",
+			"common/cross/css/cross.min.css",
+			"common/iconfont/iconfont.css",
+			"common/cross/css/ui.all.min.css",
+			"html/manager/css/manager.css",
+			"html/manager/images/qianyue_over.png",
+			"html/manager/images/qianyue.png",
+			"html/manager/images/jiandang_over.png",
+			"html/manager/images/jieyue_over.png",
+			"html/manager/images/jieyue.png",
+			"html/manager/images/jiandang.png",
+			"widget/echarts/2.2.7/js/echarts-all.js",
+			"html/manager/images/quyu.png",
+			"html/manager/images/checked.png",
+			"html/manager/js/mui.picker.min.js",
+			"html/manager/js/mui.dtpicker.js",
+			"html/manager/css/mui.dtpicker.css",
+			"html/manager/js/l-picker.js",
+			"html/manager/images/suifang.png",
+			"html/manager/images/zhidao.png",
+			"html/manager/images/zixun.png",
+			"html/manager/images/zixun_over.png",
+			"html/manager/images/zhidao_over.png",
+			"html/manager/images/suifang_over.png",
+			"html/manager/images/jt.png",
+			"images/noset.png"
+		],
+		"refer": [
+			"html/login/html/login.html",
+			"html/manager/html/analysis1.html"
+		]
+	},
+	"html/home/html/admin.html": {
+		"resources": [
+			"common/css/ss-doctor.css",
+			"common/cross/css/cross.min.css",
+			"images/s-admin.png",
+			"common/css/cyc.css",
+			"html/home/images/icon_5.png",
+			"images/admin_3.png",
+			"html/home/images/icon_6.png",
+			"images/tit2.png",
+			"html/home/images/icon_4.png",
+			"html/home/images/icon_3.png",
+			"html/home/images/icon_2.png",
+			"common/cross/css/ui.all.min.css",
+			"html/home/images/icon_1.png",
+			"images/admin_1.png",
+			"images/tit1.png",
+			"images/admin_4.png",
+			"images/admin_2.png",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js",
+			"html/home/images/icon_4_1.png",
+			"html/home/images/icon_6_1.png",
+			"html/home/images/icon_2_1.png",
+			"html/home/images/icon_5_1.png",
+			"html/home/images/icon_3_1.png",
+			"html/home/images/icon_1_1.png",
+			"images/admin_3_1.png",
+			"images/admin_4_1.png",
+			"html/home/css/admin.css",
+			"images/s-male.png",
+			"html/home/images/qiehuan_btn.png",
+			"html/js/common.js",
+			"images/s-female.png"
+		],
+		"refer": [
+			"html/manager/html/qianyuetongji1.html",
+			"html/home/html/qiehuan.html"
+		]
+	},
+	"html/manager/html/analysis2.html": {
+		"resources": [
+			"common/css/ss-doctor.css",
+			"images/tit5.png",
+			"images/tit3.png",
+			"common/cross/css/cross.min.css",
+			"widget/echarts/3.0/js/echarts.min.js",
+			"common/css/cyc.css",
+			"images/tit4.png",
+			"html/manager/js/l-picker.js",
+			"html/manager/css/manager.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"css/mui.min.css",
+			"js/common_http.js",
+			"js/template.js",
+			"html/manager/images/checked.png"
+		]
+	},
+	"html/manager/html/analysis1.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"html/manager/html/analysis2.html",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/manager/css/manager.css",
+			"css/mui.min.css",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/manager/images/rili.png"
+		],
+		"refer": [
+			"html/manager/html/analysis2.html"
+		]
+	},
+	"html/mine/html/yaoqingqianyue.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"common/iconfont/iconfont.css",
+			"common/cross/css/cross.css",
+			"js/upload_preview.js",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"widget/scale/scale.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"common/css/doc-style.css",
+			"js/security.js",
+			"js/common_http.js",
+			"html/mine/js/yaoqingqianyue.js"
+		]
+	},
+	"html/message/html/qunzu_xiangqing.html": {
+		"resources": [
+			"html/message/images/iconfont-zhu.png",
+			"html/message/css/contacts.css"
+		],
+		"refer": [
+			"html/mine/html/zuyuanziliao.html",
+			"html/message/html/yaoqingyisheng.html"
+		]
+	},
+	"html/message/html/p2p.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"js/im_new.js",
+			"html/message/css/cross.ui.css",
+			"html/js/common.js",
+			"html/message/images/down.png",
+			"html/message/css/scal.css",
+			"widget/scale/scale.js",
+			"js/mui.min.js",
+			"html/message/css/cross.css",
+			"html/message/images/more-tb2.png",
+			"js/jquery/2.1.3/jquery.js",
+			"html/message/js/base.js",
+			"html/message/js/p2p.js",
+			"html/message/images/up.png",
+			"html/message/css/yy-style.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/message/images/more-tb1.png",
+			"html/message/images/iconfont-zhu1.png",
+			"images/d-default.png",
+			"images/d-male.png"
+		],
+		"refer": [
+			"html/mine/html/zuyuanziliao.html"
+		]
+	},
+	"html/mine/html/zuyuanziliao.html": {
+		"resources": [
+			"common/cross/css/cross.ui.css",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"images/d-default.png",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js",
+			"js/template.js",
+			"images/d-male.png",
+			"images/d-female.png"
+		]
+	},
+	"html/mine/html/worktime.html": {
+		"resources": [
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/mine/images/close.png",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"html/mine/js/base.js"
+		]
+	},
+	"html/hzzd/html/xinzengzhidao.html": {
+		"resources": [
+			"js/mui.min.js",
+			"common/css/doc-style.css",
+			"js/upload_preview.js",
+			"html/hzzd/iconfont/iconfont.css",
+			"html/hzzd/css/cross.css",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js"
+		]
+	},
+	"html/qygl/html/xiaoxichuli_fzgl.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/template.js",
+			"html/qygl/iconfonts/iconfont.css"
+		]
+	},
+	"html/jkjl/html/health-record.html": {
+		"resources": [
+			"html/jkjl/images/yaowei.png",
+			"html/jkjl/js/xueya.js",
+			"html/jkjl/images/tizhong.png",
+			"html/jkjl/js/yongyao.js",
+			"html/jkjl/css/cross.ui.css",
+			"html/jkjl/html/ss-style.css",
+			"html/jkjl/js/yinshi.js",
+			"html/jkjl/css/cross.css",
+			"html/jkjl/js/health-record.js",
+			"html/jkjl/css/iscroll.css",
+			"html/jkjl/images/tuoyuan.png",
+			"html/jkjl/images/xueya.png",
+			"html/jkjl/js/xuetang.js",
+			"html/jkjl/css/health-record.css",
+			"html/jkjl/js/yundong.js",
+			"html/jkjl/js/iscroll-pull-up-down.js",
+			"html/jkjl/js/iscroll-probe.js",
+			"html/jkjl/js/yaowei.js",
+			"html/jkjl/images/xuetang-pre.png",
+			"html/jkjl/iconfont/iconfont.css",
+			"html/jkjl/images/xuanfu_btn.png",
+			"html/jkjl/js/health-index.js",
+			"html/jkjl/js/tizhong.js",
+			"widget/swiper/3.1/swiper.min.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"js/app.js",
+			"widget/swiper/3.1/swiper.jquery.min.js",
+			"js/common_http.js"
+		]
+	},
+	"html/home/html/qiehuan.html": {
+		"resources": [
+			"common/css/ss-doctor.css",
+			"common/cross/css/cross.min.css",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/home/css/admin.css",
+			"js/common_http.js",
+			"common/cross/css/ui.all.min.css",
+			"html/home/css/qiehuan.css",
+			"html/home/images/colorback.jpg",
+			"html/home/images/yisheng_btn.png",
+			"html/home/images/checked.png",
+			"html/home/images/guanliyuan_btn.png"
+		]
+	},
+	"html/message/html/yaoqingyisheng.html": {
+		"resources": [
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"common/css/cyc.css",
+			"common/iconfont/iconfont.css",
+			"common/cross/js/cross.js",
+			"common/cross/css/cross.css",
+			"js/app.js"
+		]
+	},
+	"html/yichangguanli/html/main.html": {
+		"resources": [
+			"common/iconfont/iconfont.woff",
+			"js/im_new.js",
+			"common/iconfont/iconfont.css",
+			"html/yichangguanli/js/main.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/js/common.js",
+			"common/cross/css/cross.css",
+			"js/mui.min.js",
+			"html/yichangguanli/html/yiqianyue.html",
+			"css/mui.min.css",
+			"js/common_http.js"
+		],
+		"refer": [
+			"html/yichangguanli/html/yiqianyue.html",
+			"html/yichangguanli/html/daiqianyue.html",
+			"html/yichangguanli/html/mine.html",
+			"html/login/html/login.html"
+		]
+	},
+	"html/yichangguanli/html/daiqianyue.html": {
+		"resources": [
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"html/yichangguanli/js/huanzhe.js",
+			"js/template.js",
+			"images/gaoyou@2x.png",
+			"images/p-female.png",
+			"common/iconfont/iconfont.woff",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"html/yichangguanli/js/yiqianyue.js",
+			"html/yichangguanli/js/daiqianyue.js",
+			"html/yichangguanli/css/qianyue.css",
+			"common/css/ss-doctor.css",
+			"html/yichangguanli/css/home2.css",
+			"common/cross/css/ui.all.min.css",
+			"common/cross/css/cross.min.css",
+			"images/noset.png",
+			"html/yichangguanli/js/common.js"
+		],
+		"refer": [
+			"html/yichangguanli/html/header1.html"
+		]
+	},
+	"html/yichangguanli/html/mine.html": {
+		"resources": [
+			"js/app.js",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"common/images/demo-por03.png",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"common/images/demo-por02.png",
+			"common/images/demo-por04.png",
+			"common/images/demo-por01.png",
+			"common/cross/css/cross.ui.css",
+			"common/images/demo-linehead.png",
+			"common/css/jy-style.css",
+			"js/template.js",
+			"common/iconfont/iconfont.css",
+			"common/cross/css/cross.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"js/common_http.js",
+			"images/d-male.png",
+			"html/yichangguanli/css/xinxi.css",
+			"html/yichangguanli/js/common.js",
+			"html/yichangguanli/js/templateHelp.js"
+		],
+		"refer": [
+			"html/login/html/login.html",
+			"html/mine/html/dailiqianyue.html",
+			"html/mine/html/set.html",
+			"html/yichangguanli/html/gerenziliao.html",
+			"html/yichangguanli/html/header1.html",
+			"html/yichangguanli/html/set.html"
+		]
+	},
+	"html/yichangguanli/html/yiqianyue.html": {
+		"resources": [
+			"html/yichangguanli/js/huanzhe.js",
+			"common/iconfont/iconfont.woff",
+			"common/cross/css/cross.ui.css",
+			"common/css/jy-style.css",
+			"common/iconfont/iconfont.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/template.js",
+			"js/common_http.js",
+			"html/yichangguanli/js/yiqianyue.js",
+			"images/gaoyou@2x.png",
+			"images/p-female.png",
+			"html/yichangguanli/css/qianyue.css",
+			"html/yichangguanli/js/common.js"
+		],
+		"refer": [
+			"html/huanzhe/html/huanzhexinxi.html",
+			"html/yichangguanli/html/header1.html",
+			"html/login/html/login.html"
+		]
+	},
+	"html/yichangguanli/html/header1.html": {
+		"resources": [
+			"common/css/doc-style.css",
+			"html/yichangguanli/html/juminxinxi.html",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"css/mui.min.css",
+			"common/cross/css/cross.css",
+			"html/yichangguanli/html/gerenziliao.html"
+		],
+		"refer": [
+			"html/yichangguanli/html/juminxinxi.html",
+			"html/yichangguanli/html/weiqianyuejuminxinxi.html",
+			"html/yichangguanli/html/gerenziliao.html"
+		]
+	},
+	"html/yichangguanli/html/juminxinxi.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"html/yichangguanli/js/juminxinxi.js",
+			"js/common_http.js",
+			"js/template.js",
+			"html/yichangguanli/css/xinxi.css",
+			"images/p-female.png",
+			"html/yichangguanli/js/templateHelp.js",
+			"images/d-female.png",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"html/yichangguanli/js/common.js"
+		],
+		"refer": [
+			"html/yichangguanli/html/modify1.html"
+		]
+	},
+	"html/yichangguanli/html/modify1.html": {
+		"resources": [
+			"html/yichangguanli/html/modify2.html",
+			"common/cross/css/cross.ui.css",
+			"css/mui.min.css",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js"
+		],
+		"refer": [
+			"html/yichangguanli/html/modify2.html"
+		]
+	},
+	"html/yichangguanli/html/modify2.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"html/yichangguanli/css/xinxi.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"js/template.js",
+			"html/yichangguanli/js/templateHelp.js",
+			"html/yichangguanli/js/modify2.js",
+			"html/yichangguanli/js/common.js"
+		]
+	},
+	"html/yichangguanli/html/weiqianyuejuminxinxi.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"html/yichangguanli/css/xinxi.css",
+			"html/yichangguanli/js/weiqianyuejuminxinxi.js",
+			"html/yichangguanli/js/templateHelp.js",
+			"common/cross/css/cross.ui.css",
+			"common/cross/css/cross.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/css/doc-style.css",
+			"html/yichangguanli/js/common.js",
+			"js/template.js",
+			"js/common_http.js"
+		]
+	},
+	"html/yichangguanli/html/gerenziliao.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"js/im_new.js",
+			"common/css/doc-style.css",
+			"common/cross/css/cross.ui.css",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"js/template.js",
+			"html/yichangguanli/js/upload_photo_single.js",
+			"html/yichangguanli/js/templateHelp.js",
+			"html/yichangguanli/js/common.js"
+		],
+		"refer": [
+			"html/yichangguanli/html/modify1.html",
+			"html/login/html/login.html"
+		]
+	},
+	"html/yichangguanli/html/set.html": {
+		"resources": [
+			"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+			"common/cross/css/cross.ui.css",
+			"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+			"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+			"js/im_new.js",
+			"js/mui.min.js",
+			"js/jquery/2.1.3/jquery.js",
+			"html/yichangguanli/css/setting.css",
+			"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+			"common/cross/css/cross.css",
+			"js/common_http.js",
+			"html/yichangguanli/js/base.js"
+		]
+	}
+}

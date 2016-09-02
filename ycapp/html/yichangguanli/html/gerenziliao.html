@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="yihu.com" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<title>个人资料</title>
+		<link rel="stylesheet" href="../../../common/cross/css/cross.css" type="text/css" />
+		<link rel="stylesheet" href="../../../common/cross/css/cross.ui.css" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../../../common/css/doc-style.css">
+			<style>
+				.c-list-value > input:focus{color: #4d5a5e;}
+				.c-input{text-align: right; color: #80989f;}
+			</style>
+	</head>
+
+	<body>
+	
+		<script type="text/html" id="detail_info_tmpl">
+			<ul class="c-list c-border-b">
+				<li class="c-list-link" id="edit_photo">
+					<div class="c-list-info">
+						<h4 class="c-nowrap">头像</h4>
+					</div>
+					<div class="c-list-value">
+						<div class="c-avatar-m c-images-cycle">
+							<img style="width: 50px;" src="{{setPhoto(photo, sex)}}"></div>
+					</div>
+					<span class="list-icon arrow-right"></span>
+				</li>
+				<li class="c-list-text c-list-link">
+					<div class="c-list-info">
+						<h4 class="c-nowrap">姓名</h4>
+					</div>
+					<div class="c-list-value c-f16">
+						{{name}}
+					</div>
+				</li>
+				<li class="c-list-text c-list-link">
+					<div class="c-list-info">
+						<h4 class="c-nowrap">性别</h4>
+					</div>
+					<div class="c-list-value c-f16">
+						{{sex | setSex}}
+					</div>
+				</li>
+				
+				<li class="c-list-text c-list-link">
+					<div class="c-list-info">
+						<h4 class="c-nowrap">手机号码</h4>
+					</div>
+					<div class="c-list-value c-f16">
+						{{mobile}}
+					</div>
+				</li>
+				
+				<li class="c-list-text c-list-link">
+					<div class="c-list-info">
+						<h4 class="c-nowrap">所在医院</h4>
+					</div>
+					<div class="c-list-value c-f16">
+						{{hospitalName}}
+					</div>
+				</li>
+				<li class="c-list-text c-list-link">
+					<div class="c-list-info">
+						<h4 class="c-nowrap">所属部门</h4>
+					</div>
+					<div class="c-list-value c-f16">
+						{{deptName}}
+					</div>
+				</li>
+				<li class="c-list-text c-list-link">
+					<div class="c-list-info">
+						<h4 class="c-nowrap">职称</h4>
+					</div>
+					<div class="c-list-value c-f16">
+						{{jobName}}
+					</div>
+				</li>
+				<li class="c-list-text c-list-link modify" data-type='3' data-title="修改擅长" data-cont="{{expertise}}" id="edit_expertise">
+					<div class="c-list-value">
+						<h4>擅长</h4>
+					</div>
+					<div class="c-list-info c-f16">
+						<label class="c-textarea c-border">
+                        <div id="doc_skill" style="padding: 10px; color: #909090;">{{expertise}}</div>
+                    </label>
+					</div>
+					<span class="list-icon arrow-right"></span>
+				</li>
+
+				<li class="c-list-text c-list-link modify" id="edit_introduce" data-title="修改简介" data-type='2' data-cont="{{introduce}}">
+					<div class="c-list-value">
+						<h4>简介</h4>
+					</div>
+					<div class="c-list-info c-f16">
+						<label class="c-textarea c-border">
+                        <div id="doc_brief" style="padding: 10px; color: #909090;">{{introduce}}</div>
+                    </label>
+
+					</div>
+					<span class="list-icon arrow-right"></span>
+				</li>
+
+				<li class="c-list-text c-list-link">
+					<div class="c-list-value">
+						<h4>地区</h4>
+					</div>
+					<div class="c-list-info c-t-right c-f16">
+						<div class="c-nowrap">
+							{{provinceName}}{{cityName}}
+						</div>
+					</div>
+				</li>
+			</ul>
+		</script>
+		<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script src="../../../js/template.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../js/common_http.js"></script>
+		<script src="../js/upload_photo_single.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css" />
+		<script type="text/javascript" src="../../../js/im_new.js"></script>
+		<script type="text/javascript" src="../js/templateHelp.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+			
+			mui.plusReady(function() {
+				
+				getDocInfo();
+			});
+
+			function getDocInfo(){
+				plus.nativeUI.showWaiting();
+				sendPost("doctor/baseinfo", {}, 
+					function(res) {
+						if(res && res.msg) {
+							plus.nativeUI.toast(res.msg);
+						} else {
+							plus.nativeUI.toast("数据加载失败");
+						}
+						plus.nativeUI.closeWaiting();
+					}, 
+					function(req) {
+						if(req.status == 200) {
+							var cont = template("detail_info_tmpl", req.data);
+							$("body").append(cont);
+							clickEvent();
+						} else {
+							mui.toast(req.msg);
+						}
+						plus.nativeUI.closeWaiting();
+					});
+			}
+			
+			function clickEvent() {
+				// 头像点击事件
+				document.getElementById('edit_photo').addEventListener('tap', function() {
+					var imgDom = this.querySelector("img");
+					var url1 = showActionSheet(imgDom, this, function(fileUrl){
+						var uploadServerUrl = server + "upload/image";
+						var task = plus.uploader.createUpload(uploadServerUrl, {
+							method: "post"
+						}, function(t, status) {
+							if (status == 200) {
+								mui.toast("头像上传成功！");
+								fileHttpUrl = JSON.parse(t.responseText).urls;
+							} else {
+								mui.toast("头像修改失败,请稍后重试");
+								plus.nativeUI.closeWaiting();
+							}
+						});
+						task.addFile(fileUrl, {})
+						task.start();
+					});
+				});
+				
+				// 其他修改点击事件
+				$('.modify').on('tap', function(){
+					openModifyWindow(
+						$(this).attr('data-title'), 
+						{type: $(this).attr('data-type'), val: $(this).attr('data-cont')});
+				})
+			}
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,147 @@
+﻿<!doctype html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="utf-8">
+		<title>待签约</title>
+		<link rel="stylesheet" type="text/css" href="../../../common/iconfont/iconfont.css">
+		<link rel="stylesheet" href="../../../common/cross/css/cross.css" type="text/css" />
+		<link rel="stylesheet" href="../../../common/cross/css/cross.ui.css" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../../../common/css/jy-style.css">
+		<link rel="stylesheet" type="text/css" href="../../../common/css/ss-doctor.css">
+		<link rel="stylesheet" type="text/css" href="../css/home2.css">
+		<link rel="stylesheet" type="text/css" href="../css/qianyue.css">
+	</head>
+
+	<body>
+		<div class="h45">
+			<div class="demo-comtop">
+				<a class="mui-action-back" style="display: none;"></a>
+				<h1>待 签 约</h1>
+				<!--<div class="header-link">
+					<a onclick="fzgl()" class="link"><i class="iconfont icon-huanzheshezhi"></i></a>
+				</div>-->
+			</div>
+		</div>
+		<div class="c-main ">
+			
+			<div class="c-ser-hold my-work c-boxs c-serdet">
+				<div class="c-ser-main">
+					<i class="iconfont icon-sousuo"></i>
+					<input type="text" class="c-ser-input c-boxs c-f14" placeholder="请输入居民姓名" data-form="clear">
+				</div>
+				<div class="c-ser-btn" id="search_name">
+					<a href="javascript:;">搜索</a>
+				</div>
+			</div>
+			
+			<div class="mod mod-team ">
+				<div class="mod-bd clearfix">
+					<div class="c-mor-hold">
+						<ul class="c-lab-mor c-f15">
+							<li class="curr">
+								<a href="javascript:;" id="daiqianyue">待签约</a>
+							</li>
+							<li>
+								<a href="javascript:;">未签约</a>
+							</li>
+						</ul>
+					</div>
+					<ul class="my-team" >
+						<li class='l-1'>
+							<div class="patient-list" >
+								<ul class="n-list l-list d-list" >
+								</ul>
+							</div>
+							<div class="view-more" style="display: none;"><a id="load_doc_more" data-page="1">点击加载更多</a></div>
+							<div class="nodata c-failstate c-t-center c-hide" id="noDaiqianyue">
+								<i class="icon-noset"></i>
+								<p class="c-5b5b5b">没有待签约人员</p>
+							</div>
+							<div class="patient-list l-search-list c-hide" >
+							</div>
+						</li>
+						<li class="c-hide l-1">
+							<div class="patient-list">
+								<ul class="n-list l-list d-list" >
+								</ul>
+							</div>
+							<div class="view-more" style="display: none;"><a id="load_pro_more"  data-page="1">点击加载更多</a></div>
+							<div class="nodata c-failstate c-t-center c-hide" id="noWeiqianyue">
+								<i class="icon-noset"></i>
+								<p class="c-5b5b5b">没有未签约人员</p>
+							</div>
+						</li>
+						<li class=' c-hide'>
+							<div class="patient-list l-2" ></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!--
+        	作者：lcl0338@126.com
+        	时间：2016-08-31
+        	描述：列表模版
+        -->
+		<script type="text/html" id="pati_list_tmpl">
+			{{each data as value i}}	
+			<li class="n-list-link list-arrow-r n-list-cover tab-{{tab}}" data-name="{{value.name}}"  data-info="{{value | setJson}}">
+				<div class="patient-face patient-face-new">
+					{{if value.photo}}
+					<img src="{{value.photo}}"> {{else}}
+					<img src="{{value.sex | setPhoto}}"> {{/if}}
+				</div>
+
+				{{if value.disease==1}}
+				<div class="face-title">
+					<img src="../../../images/gaoyou@2x.png">
+				</div>
+				<div class="face-title face-title-name">
+					<a>高</a>
+				</div>
+				{{else if value.disease==2}}
+				<div class="face-title">
+					<img src="../../../images/tangyou@2x.png">
+				</div>
+				<div class="face-title face-title-name">
+					<a>糖</a>
+				</div>
+				{{else}} {{/if}}
+
+				<div class="n-list-info">
+					<h4 class="c-nowrap c-f16">{{value.name}}<em class="ml5 c-f15 c-909090">{{value.sex | setSex}} {{value.age}}岁</em></h4>
+					<p class="c-f15 c-909090 pt5">{{value.disease | setDisease}}</p>
+					<em class="red-point"></em> </div>
+				<div class="n-list-info c-t-right c-909090">
+					{{if value.signType==3}}
+					<div class="ring-blue mr5">
+						三师
+					</div>
+					<div class="ring-blue mr5">
+						家庭
+					</div>
+					{{else}}
+					<div class="ring-blue mr5">
+						{{value.signType | setSignType}}
+					</div>
+					{{/if}}
+				</div>
+			</li>
+			{{/each}}
+				
+		</script>
+		
+		
+		<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script src="../../../js/common_http.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/template.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/daiqianyue.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

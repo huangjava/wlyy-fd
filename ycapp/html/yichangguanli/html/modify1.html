@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>头部</title>
+		<meta name="author" content="yihu.com" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+		<link rel="stylesheet" href="../../../common/cross/css/cross.css" type="text/css" />
+		<link rel="stylesheet" href="../../../common/cross/css/cross.ui.css" type="text/css" />
+		<link rel="stylesheet" href="../../../common/css/doc-style.css" type="text/css">
+		<link rel="stylesheet" href="../../../css/mui.min.css" type="text/css">
+		<link rel="stylesheet" href="../css/manager.css" type="text/css">
+		<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+		<script src="../../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body style="height: auto;">
+		<div class="main pb100">
+			<div class="h45">
+				<div class="demo-comtop">
+					<a class="mui-action-back"></a>
+					<h1 style="font-size: 20px; line-height: 36px;"></h1>
+					<div class="header-link">
+						<a onclick="submit()" class="link">完成</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			var self, isModify, subPageId;
+			mui.plusReady(function() {
+				self = plus.webview.currentWebview();
+				var subPage = self.subPage; //子页面
+				subPageId = self.subPageId || subPage; //子页面
+				var extras = self.extras;
+				$('h1').html(self.title); //标题
+				mui.init({
+					subpages: [{
+						url: subPage,
+						id: subPageId,
+						styles: {
+							top: "45px",
+							bottom: "0px"
+						},
+						extras: extras
+					}],
+					beforeback: function() {
+						submit(1);
+						return false;
+					}
+				});
+			});
+			
+			function submit(t){
+				mui.fire(plus.webview.getWebviewById(subPageId), "submit", {t: t});
+			}
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,55 @@
+/*cyc 20160803*// /*通用*/
+
+.pb120 {
+padding-bottom: 120px;
+}
+.m0 { margin: 0 !important; }/*间距0*/
+.mt10{ margin: 10px;}
+.m10 { margin: 10px; }
+.p10 { padding: 10px; }
+.btm { position: fixed; bottom: 0; left: 0; width: 100%; }
+.btm .text { display: block; border-radius: 5px; width: 90%; margin: 0 5%; padding: 0 5%; box-sizing: border-box; line-height: normal; font-size: 14px; height: 36px; background: #fff; border: 1px #ddd solid; text-align: center; }
+.border0 { border: none }/*不要边框*/
+/*cyc通用*/
+/*.tityx{width: 28px;height:  28px;border-radius: 50%;text-align: center;line-height: 1.1rem;color: #fff;display: inline-block;} */
+.icon-cyc { display: inline-block; vertical-align: middle; width: 16px; height: 16px; background:center  no-repeat; background-size: auto 100%; }
+.icon-cyc.admin-a1 { background-image: url(../../images/admin_1.png); }
+.icon-cyc.admin-a2 { background-image: url(../../images/admin_2.png); }
+.icon-cyc.admin-a3 { background-image: url(../../images/admin_3_1.png); }
+.icon-cyc.admin-a4 { background-image: url(../../images/admin_4_1.png); }
+.icon-cyc.admin-a5 { background-image: url(../../html/home/images/icon_1_1.png); width: 100%; height: 100%; }
+.icon-cyc.admin-a6 { background-image: url(../../html/home/images/icon_2_1.png); width: 100%; height: 100%; }
+.icon-cyc.admin-a7 { background-image: url(../../html/home/images/icon_3_1.png); width: 100%; height: 100%; }
+.icon-cyc.admin-a8 { background-image: url(../../html/home/images/icon_4_1.png); width: 100%; height: 100%; }
+.icon-cyc.admin-a9 { background-image: url(../../html/home/images/icon_5_1.png); width: 100%; height: 100%; }
+.icon-cyc.admin-a10 { background-image: url(../../html/home/images/icon_6_1.png); width: 100%; height: 100%; }
+.icon-cyc.ranking { background-image: url(../../images/tit1.png); }
+.icon-cyc.book { background-image: url(../../images/tit2.png); background-size: 100% auto; }
+.icon-cyc.ground { background-image: url(../../images/tit3.png); background-size: 100% auto; }
+.icon-cyc.sex { background-image: url(../../images/tit4.png); background-size: 100% auto; }
+.icon-cyc.people{ background-image: url(../../images/tit5.png);background-size: 100% auto; }
+/*background: -webkit-linear-gradient(red, blue); /* Safari 5.1 - 6.0 */*/
+/*扇型*/
+.radiv cite { position: relative; float: left; }
+.rotate1 { top: 0; left: 0; position: absolute; width: 100px; height: 100px;clip: rect(0px,50px,100px,0px); border-radius: 100px; background-color: yellow;z-index: 3; }
+.rotate2 { top: 0; left: 0; position: absolute; width: 100px; height: 100px; transform: rotate(-00deg); -webkit-transform: rotate(0deg); clip: rect(0px,50px,100px,0px); border-radius: 100px; background-color: #dddddd; z-index: 5;}
+.rotate3 { top: 0; left: 0; position: absolute; width: 100px; height: 100px; transform: rotate(180deg); -webkit-transform: rotate(180deg); clip: rect(0px,50px,100px,0px); border-radius: 100px; background-color: yellow;  z-index: 3; }
+.rotate4 { top: 0; left: 0; position: absolute; width: 100px; height: 100px; /*transform: rotate(-00deg);*/
+clip: rect(0px,50px,100px,0px); border-radius: 100px; background-color: yellow;z-index: 4; }
+.fzabout { height: auto;  padding: 0;}
+.fzabout cite { width: 100px; height: 100px; display: block; position: relative; margin: 0 auto; }
+.fzabout cite .bg{ position: absolute;left:0;top:0;  width: 100px; height: 100px; background: #dddddd; z-index: 2; border-radius: 100%;}
+.fzabout cite.a1 .fontdiv font{ color: #4cb7b2;}
+.fzabout cite.a2 .fontdiv font{ color: #da5550;}
+.fzabout cite.a3 .fontdiv font{ color: #bf954d;}
+.fzabout cite.a1 .rotate1,.fzabout cite.a1 .rotate3,.fzabout cite.a1 .rotate4{background-color: #4cb7b2;}
+.fzabout cite.a2 .rotate1,.fzabout cite.a2 .rotate3,.fzabout cite.a2 .rotate4{background-color: #da5550;}
+.fzabout cite.a3 .rotate1,.fzabout cite.a3 .rotate3,.fzabout cite.a3 .rotate4{background-color: #bf954d;}
+
+
+.fzabout .fontdiv { position: absolute; width: 90px; height: 90px; overflow: hidden; left: 5px; top: 5px; z-index: 10; font-style: normal; font-size: 12px; background: #fff; border-radius: 50%; }
+.fzabout .fontdiv font { display: block; font-style: normal; font-size: 21px; margin: 16px 0 5px 0; }
+.fzabout .fontdiv span { display: block; font-style: normal; font-size: 16px; }
+.fzabout dl { overflow: hidden; }
+.fzabout dl dd { margin: 10px 0; }
+.fzabout dl dt strong{ font-weight: normal; font-size: 16px;}

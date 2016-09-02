@@ -1,10 +1,11 @@
 package com.yihu.wlyy.web.patient.family;
 
 import com.yihu.wlyy.web.BaseController;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -21,7 +22,10 @@ public class FamilyWithOutfliterController extends BaseController {
      */
     @RequestMapping(value = "homepage")
     @ResponseBody
-    public String homepage(String doctor) {
+    @ApiOperation(value = "医生主页信息查询接口", produces = "application/json", notes = "医生主页信息查询接口")
+    public String homepage(
+            @ApiParam(name = "doctor", value = "医生标识", required = true)
+            @RequestParam(value = "doctor") String doctor) {
         try {
 
             return write(200, "医生主页查询成功！", "data", "");

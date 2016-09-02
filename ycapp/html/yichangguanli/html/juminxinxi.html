@@ -22,12 +22,13 @@
 		<script type="text/html" id="detail_info_tmpl">
 			
 			<ul class="c-list c-border-b">
-				<li class="c-list-text c-list-link">
+				<li id='pati_info' class="c-list-text c-list-link">
 					<div class="l-face"><img src='{{setPhoto}}'></div>
 					<div class="l-list-info pl10">
 						<div class="f-bold ptb5">{{name}}({{setSex(sex)}}&nbsp;{{age}}岁)</div>
 						<div>有效期：{{activeTime}}</div>
 					</div>
+					<span class="list-icon arrow-right"></span>
 				</li>
 				
 				<li class="c-list-text c-list-link" data-title="选择分组标签">
@@ -35,12 +36,10 @@
 						<h4 class="c-nowrap">标签</h4>
 					</div>
 					<div class="c-list-value c-f16">{{tag}}</div>
-					
-					<span class="list-icon arrow-right"></span>
 				</li>
 			</ul>
 			
-			<ul class="c-list c-border-b mt25">
+			<!--<ul class="c-list c-border-b mt25">
 				<li class="c-list-text c-list-link">
 					<div class="c-list-info">
 						<h4 class="c-nowrap">身份证号</h4>
@@ -88,7 +87,7 @@
 						{{linkerTel}}
 					</div>
 				</li>
-			</ul>
+			</ul>-->
 			
 		</script>
 		

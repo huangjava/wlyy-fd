@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我</title>
+		<meta name="author" content="yihu.com" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="stylesheet" type="text/css" href="../../../common/iconfont/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="../../../common/cross/css/cross.css">
+		<link rel="stylesheet" href="../../../common/cross/css/cross.ui.css" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../../../common/css/jy-style.css">
+		<link rel="stylesheet" type="text/css" href="../../../common/css/doc-style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/xinxi.css">
+		<style>
+			.p-clcardna {
+				width: 90px;
+				height: 30px;
+				background-position: center top;
+				left: -6px;
+				bottom: -3px;
+				line-height: 38px;
+				background-size: auto 100%;
+			}
+			.l-biaoqian-list{padding: 20px 0%;}
+			.l-biaoqian-list li{margin: 5px 0%;}
+		</style>
+	</head>
+
+	<body>
+		<div class="main" style="overflow: auto;">
+			<div class="bgc-fff">
+				<div class="c-100 c-position-r" id="pati_info">
+
+				</div>
+			</div>
+
+			<div id="tagList" class="mt20" style="background: #fff; padding-left: 15px">
+				<div style="padding-top: 6px;">分组标签</div>
+				<ul class="l-biaoqian-list " style="padding-top: 6px">
+					<li class="l-over" data-val="高血压">高血压</li>
+					<li class="l-over" data-val="糖尿病">糖尿病</li>
+				</ul>
+			</div>
+		
+			<ul class="n-list edit-list-file c-border-tb mt10">
+				<li class="ptb12 n-list-cover c-border-b">
+					<div class="n-list-key">
+						附件（纸质协议）<span class="c-f14 c-909090"></span>
+					</div>
+				</li>
+
+				<li class="pt10 mb10">
+					<div class="upload-img">
+						<ul class="add-img pt10">
+							<li class="add">
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			
+		</div>
+		
+		<div style="padding: 10px;">
+			<div style="border-radius: 10px;background: #17b3ec;height: 36px;color: #fff;line-height: 36px;text-align: center;">提交签约</div>
+		</div>
+	</body>
+
+	<script type="text/html" id="info_tmpl">
+		<ul class="c-list c-border-b">
+			<li class="c-list-text c-list-link">
+				<div class="l-face"><img style="width: 60px;height: 60px; border-radius: 30px; margin-top: 10px;" src='{{setDocPhoto(photo, sex)}}'></div>
+				<div class="l-list-info pl10">
+					<div class="f-bold ptb5">{{name}}({{setSex(sex)}}&nbsp;{{age}}岁)</div>
+					<div class=" ptb5">手机号码：{{mobile}}</div>
+					<div>家庭住址：{{address}}</div>
+				</div>
+				<span class="list-icon arrow-right"></span>
+			</li>
+		</ul>
+	</script>
+
+	<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/jquery/2.1.3/jquery.js"></script>
+	<script type="text/javascript" src="../../../js/mui.min.js"></script>
+	<script src="../../../widget/mobiscroll/2.17.1/js/mobiscroll.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.17.1/css/mobiscroll.css" />
+	<script src="../../../js/common_http.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../../widget/scale/scale.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/upload_preview.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/template.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/templateHelp.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/iscroll/iscroll.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript">
+		mui.plusReady(function() {
+			$('.main').css("max-height", ($(window).height() - 56) + "px");
+			getPatientInfo();
+			initEvent();
+			
+//			var myScroll = new IScroll('.main', { mouseWheel: true, tap: true });
+		});
+
+		var imgArea = document.querySelector(".add-img");
+		//添加附件
+		document.querySelector(".add").addEventListener("tap", function() {
+			showActionSheet(imgArea, this);
+		});
+		
+		/**
+		 * 初始化事件
+		 */
+		function initEvent(){
+
+		}
+		
+		function getPatientInfo() {
+			/*sendPost("doctor/baseinfo", null,
+				function queryFailed(res) {
+					if (res && res.msg) {
+						plus.nativeUI.toast(res.msg);
+					} else {
+						plus.nativeUI.toast("数据加载失败");
+					}
+					plus.nativeUI.closeWaiting();
+				},
+				function success(res) {
+					if (res.status == 200) {
+						
+					}
+				});*/
+			var data = {
+				name: "张三",
+				sex: "1",
+				photo: "",
+				age: 25,
+				mobile: '15659135555',
+				address: '宜昌市伍家岗'
+			}
+			var cont = template("info_tmpl", data);
+			document.getElementById("pati_info").innerHTML = cont;
+		}
+	
+		$('#pati_info').on("tap", function(){
+			openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
+		})
+	</script>
+
+</html>

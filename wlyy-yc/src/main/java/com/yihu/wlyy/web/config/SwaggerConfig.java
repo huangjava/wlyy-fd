@@ -8,7 +8,9 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -38,16 +40,15 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
     }
 
     private ApiInfo commonApiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Electronic Health Record(EHR) Browser Common API",
-                "FamilyDoctor's REST API, all the applications could access the Object model data via JSON.",
-                "0.1",
-                "NO terms of service",
-                "huangzhiyong@jkzl.com",
-                "The Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.html"
-        );
-
-        return apiInfo;
+        return new ApiInfoBuilder()
+                .title("Common RESTful APIs")
+                .description("家庭医生-公共Rest API， all the applications could access the Object model data via JSON")
+                .termsOfServiceUrl("NO terms of service")
+                .version("1.0")
+                .contact(new Contact("huangzhiyong@jkzl.com", "", ""))
+                .license("The Apache License, Version 2.0")
+                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+                .build();
     }
 
     @Bean
@@ -66,16 +67,15 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
     }
 
     private ApiInfo doctorApiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Electronic Health Record(EHR) Browser Medic API",
-                "FamilyDoctor's REST API, all the applications could access the Object model data via JSON.",
-                "0.1",
-                "NO terms of service",
-                "huangzhiyong@jkzl.com",
-                "The Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.html"
-        );
-
-        return apiInfo;
+        return new ApiInfoBuilder()
+                .title("医生端 RESTful APIs")
+                .description("家庭医生-医生端Rest API， all the applications could access the Object model data via JSON")
+                .termsOfServiceUrl("NO terms of service")
+                .version("1.0")
+                .contact(new Contact("huangzhiyong@jkzl.com", "", ""))
+                .license("The Apache License, Version 2.0")
+                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+                .build();
     }
 
     @Bean
@@ -94,16 +94,15 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
     }
 
     private ApiInfo patientApiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Electronic Health Record(EHR) Browser ordinary API",
-                "FamilyDoctor's REST API, all the applications could access the Object model data via JSON.",
-                "0.1",
-                "NO terms of service",
-                "huangzhiyong@jkzl.com",
-                "The Apache License, Version 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.html"
-        );
-
-        return apiInfo;
+        return new ApiInfoBuilder()
+                .title("患者端 RESTful APIs")
+                .description("家庭医生-患者端 Rest API， all the applications could access the Object model data via JSON")
+                .termsOfServiceUrl("NO terms of service")
+                .version("1.0")
+                .contact(new Contact("huangzhiyong@jkzl.com", "", ""))
+                .license("The Apache License, Version 2.0")
+                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+                .build();
     }
 
     @Override

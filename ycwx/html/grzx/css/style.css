@@ -1,0 +1,67 @@
+/* 全局样式 */
+	/* 健康管理页面 依次四个颜色 */
+.bgc-5897cc{background:#5897cc;}
+.bgc-e67b85{background:#e67b85;}
+.bgc-a37cab{background:#a37cab;}
+.bgc-ea7a28{background:#ea7a28;}
+	/* 我的订单页面 依次四个颜色 */
+.bgc-e7674e{background:#e7674e;}
+.bgc-ee9d34{background:#ee9d34;}
+.bgc-7fc541{background:#7fc541;}
+.bgc-cf678c{background:#cf678c;}
+	/* 个人中心 依次9个颜色 */
+.bgc-a8db5c{background:#a8db5c;}
+.bgc-ffa626{background:#ffa626;}
+/* .bgc-e7674e{background:#e7674e;} */
+/* .bgc-ee9d34{background:#ee9d34;} */
+/* .bgc-7fc541{background:#7fc541;} */
+/* .bgc-cf678c{background:#cf678c;} */
+.bgc-ba76d9{background:#ba76d9;}
+.bgc-f05b1a{background:#f05b1a;}
+.bgc-4eb5ce{background:#4eb5ce;}
+/* 我的药单 */
+.my-drug-list .c-list-info h4{font-size:12px;color:#666 !important;}
+.my-drug-list .c-list-info > p{font-size:12px;}
+/* 医嘱管理 */
+.phy-order-man .c-list-info h4{font-size:12px;color:#333 !important;}
+.phy-order-man .c-list-info > p{font-size:12px;}
+/* 健康管理 */
+.list-item-1 .ico-wrap{display:inline-block;width:20px;height:20px;border-radius:8px;color:#fff;vertical-align:middle;text-align:center;}
+.list-item-1 .ico-wrap i{display:inline-block;vertical-align:top;font-size:12px;}
+.list-item-1 .c-list-text h4 > .name{vertical-align:middle;font-size:14px;color:#333;}
+/* 我的医生-就诊医生 */
+.tab-item-1.c-lab-mor li a{border-left:none;color:#909090;}
+.tab-item-1.c-lab-mor li.hit a{color:#37a6eb;}
+/* 我的医生-专家列表 */
+.list-item-1 .c-list-info > h4{font-size:16px;color:#333;}
+.list-item-1 .c-list-info .title{margin-left:10px;font-size:12px;color:#878787;}
+.list-item-1 .c-list-info > p {font-size:12px;color:#666;}
+.list-item-1.c-list > .c-list-cover{padding-left:0 !important;margin-left:15px !important;}
+/* 我的预约 */
+.list-item-2 .c-list-text .c-list-value{padding-right:0;}
+.list-item-2 li:first-child h4{font-size:12px;}
+.list-item-2 li:first-child .c-list-value.state-1{color:#ff8100;}
+.list-item-2 li:first-child .c-list-value.state-2{color:#4dcd70;}
+.list-item-2 li:first-child .c-list-value.state-3{color:#333;}
+.list-item-2 li:nth-child(2) h4{font-size:15px; }
+.list-item-2 li:nth-child(2) .c-list-info > p{font-size:12px;}
+.list-item-2 li:last-child h4{font-size:10px;color:#ccc !important;}
+.list-item-2 .c-list-function .c-list-info{border-top:none;}
+.list-item-2 .c-list-function{border-top: 1px solid #f1f1f1;}
+/* 个人中心 */
+.personal-center header{position:relative;height:170px;background:url(../images/bc.jpg) center center;}
+.personal-center header .center-block{position:absolute;width:71px;height:111px;margin: auto;top:0;bottom:0;left:0;right:0;}
+.personal-center header .img-block{border-radius:50%;border:3px solid rgba(0,0,0,0.3);overflow:hidden;}
+.personal-center header .img-block img{width:65px;height:65px;}
+
+/* footer */
+.footer {background-color: #f8f8f9; left: 0; bottom: 0; height: 50px; padding-top: 5px;}
+.footer li {position: relative;}
+.footer li em {position: absolute; left: 50%; top: -2px; width: 18px; height: 18px; color: #fff; border-radius: 50%;  background-color: #f00; margin-left: 3px;}
+.footer a {color: #333;}
+.footer a.curr {color: #17b3ec;}
+.footer i.iconfont {font-size: 20px;}
+.footer span {display: block; font-size: 10px;}
+
+
+

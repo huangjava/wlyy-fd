@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta name="author" content="yihu.com" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>图片放大缩小</title>
+    <link rel="stylesheet" href="../../css/cross.css" type="text/css" />
+    <link rel="stylesheet" href="../../css/demo.css" type="text/css" />
+    <link rel="stylesheet" href="../artDialog/4.1.7/css/artDialog.css" type="text/css" />
+	<style>
+    #pageContent {width: 980px;	height: 500px;overflow: hidden;position:relative;margin:50px auto;}
+    #imgContainer {width: 980px;height: 500px;}
+    #positionButtonDiv {background: rgb(58, 56, 63);background: rgba(58, 56, 63, 0.8);border: solid 1px #100000;color: #fff;padding: 8px;text-align: left;position: absolute;right:35px;top:35px;}
+	.zoomButton {border: 0;	cursor: pointer;}
+    </style>
+</head>
+<body>
+<div class="demo-wrap c-main">
+	<h2 class="demo-title c-f16">图片放大缩小 DEMO</h2>
+	<div id="esmartzoom">
+    	<ul class="c-blocks-6">
+        	<li data-img="images/demo/200881211331729_2.jpg"><img src="images/demo/200881211331729_2.jpg" style="width:100px; height:100px;" /></li>
+            <li data-img="images/demo/zoomFullScreen.jpg"><img src="images/demo/zoomFullScreen.jpg" style="width:100px; height:100px;" /></li>
+            <li data-img="images/demo/2722-12033109302882.jpg"><img src="images/demo/2722-12033109302882.jpg" style="width:100px; height:100px;" /></li>
+            <li data-img="images/demo/200711912453162_2.jpg"><img src="images/demo/200711912453162_2.jpg" style="width:100px; height:100px;" /></li>
+            <li data-img="images/demo/2007119124413448_2.jpg"><img src="images/demo/2007119124413448_2.jpg" style="width:100px; height:100px;" /></li>
+            <li data-img="images/demo/200881211331729_2.jpg"><img src="images/demo/200881211331729_2.jpg" style="width:100px; height:100px;" /></li>
+        </ul>
+    </div>
+</div>
+<!--代码部分begin-->
+<div id="pageContent" class="c-position-r">
+	<div id="imgContainer">
+    	<img id="imageFullScreen" src="images/demo/200881211331729_2.jpg"/>
+    </div>
+	<div id="positionButtonDiv" class="c-position-a">
+		<p>
+        	<span>
+                <img id="zoomInButton" class="zoomButton" src="images/zoomIn.png" title="放大" alt="放大" />
+                <img id="zoomOutButton" class="zoomButton" src="images/zoomOut.png" title="缩小" alt="缩小" />
+                <img id="zoomPrevButton" class="zoomButton" src="images/left.png" title="上一张" alt="上一张" />  
+                <img id="zoomNextButton" class="zoomButton" src="images/right.png" title="下一张" alt="下一张" />
+                <img id="zoomCloseButton" class="zoomButton" src="images/close.png" title="关闭" alt="关闭" />            
+        	</span>
+        </p>
+	</div>
+</div>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="../../../../widget/artDialog/4.1.7/js/artDialog.js"></script>
+<script src="js/esmartzoom.js"></script>
+<script>
+    $(document).ready(function() {
+		
+		var index=0,length=$('#esmartzoom ul li').length;
+        $('#imageFullScreen').smartZoom({'containerClass':'zoomableContainer'});
+        $('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
+		$('#zoomPrevButton,#zoomNextButton').bind("click", zoomButtonClickPic);
+        function zoomButtonClickPic(e){
+			if(e.target.id == 'zoomPrevButton'){
+				if(index==0){return false;}
+				index--;
+			}else{
+				if(index>=length){return false;}
+				index++;	
+			}
+			
+			$('#imageFullScreen').attr('src',$('#esmartzoom ul li').eq(index).data('img'));
+			//$('#imageFullScreen').smartZoom({'containerClass':'zoomableContainer'});
+		}
+        function zoomButtonClickHandler(e){
+            var scaleToAdd = 0.8;
+            if(e.target.id == 'zoomOutButton')
+                scaleToAdd = -scaleToAdd;
+            $('#imageFullScreen').smartZoom('zoom', scaleToAdd);
+        }
+    });
+</script>
+<!--代码部分end-->
+
+</body>
+</html>

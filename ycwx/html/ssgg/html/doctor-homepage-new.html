@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="utf-8">
+		<title>医生主页</title>
+		<link rel="stylesheet" type="text/css" href="../css/cross.css" />
+		<link rel="stylesheet" type="text/css" href="../iconfont/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../css/sq-style.css" />	
+		<link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/doctor-homepage-new.css" />	
+		<style>
+	    	.ui-dialog-content{font-size: 16px;}
+	    	.ax-popup .ui-dialog-footer button{color:#323232 !important;}
+	    	.ax-popup .ui-dialog-footer button.ui-dialog-autofocus{color:#75BF00 !important;}
+	    </style>
+	</head>
+
+	<body>
+		<div class="c-main">
+			<!--<div class="h45">
+				<div class="demo-comtop">
+					<a class="mui-action-back"></a>
+					<h1>医生主页</h1>
+				</div>
+			</div>-->
+			<div class="sdoc-top smil short clearfix">
+				<span class="sdimg fl">
+					<img id="photo" src="" class="c-images-cycle">
+				</span>
+				<p class="c-t-left c-f18">
+					<span id="name" class="c-f20 mr10 ml10"></span><label id="jobName"></label></p>
+				<p class="c-t-left c-f14 c-toe mt10">
+					<span id="hospitalName" class="mr10"></span></p>
+			     <p class="c-t-left c-f16 c-toe f-dn">
+			    	<span id="deptName" class="mr10 ml10"></span></p>			
+			</div>
+			
+			
+			<div class="slider-detail plr15 bgc-fff mtb10 c-border-tb">
+				<ul>
+					<li class="c-border-b">
+						<h2 class="c-f18">擅长</h2>
+						<p class="c-f16 show" id="expertise"></p>
+					</li>
+					<li>
+						<h2 class="c-f18">简介</h2>
+						<p class="c-f16 show" id="introduce"></p>
+					</li>
+				</ul>
+			</div>		
+			<div id="divAgree" class="bgc-fff mt10 c-border-tb list-item-1">
+		        <div class="ui-grid ptb15 plr10 c-border-b">
+		        	<img src="../images/xieyi@2x.png" style="width: 20px; height: 20px;"/>
+		            <div class="ui-col-1" style="padding-left: 5px;">
+		                <p class="tit-name c-nowrap c-f18 c-333">签约协议</p>
+		            </div>
+		        </div>
+		        <ul class="c-list sever-list">
+		            <li class="c-list-cover c-list-text" onclick="changeAgreement()" style="height: 80px;">
+		                <div style="padding-top: 15px; padding-bottom: 5px;">
+		                    <img src="../images/jiatingqianyue@2x.png" style="width: 45px; height: 45px;"/>
+		                </div>
+		                <div class="c-list-info" style="padding-left: 10px;">
+		                    <h4 class="c-nowrap c-f16">家庭医生签约协议</h4>
+		                </div>
+		                <span class="list-icon arrow-right"></span>
+		            </li>
+		        </ul>
+		    </div>		    
+			<!-- 服务介绍 开始 -->
+		    <div class="bgc-fff c-border-tb list-item-1 mt10 mb30">
+		        <!-- 头部部分 开始 -->
+		        <div class="ui-grid ptb15 plr10 c-border-b">
+		            <i class="logo-icon iconfont icon-yanghu bgc-fb8d7c"></i>
+		            <div class="ui-col-1">
+		                <p class="tit-name c-nowrap c-f18 c-333">服务介绍</p>
+		            </div>
+		        </div>
+		        <!-- 头部部分 结束 -->		
+		        <!-- 列表项 开始 -->
+		        <ul id="ul-common" class="c-list sever-list" style="display: none;">
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-3fcba9" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yisheng"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">家庭医生服务</h4>
+		                    <p class="c-nowrap-multi">贴心家庭医生为居民提供健康指导，保健，随访等服务</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-52a5f1" style="border-radius: 15px;">
+		                    <i class="iconfont icon-zixun"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">健康咨询服务</h4>
+		                    <p class="c-nowrap-multi">身体疾病，用药疑问让居民足不出户，在家就能及时咨询到医生</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-f98d44" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yanghu1"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">慢病养护</h4>
+		                    <p class="c-nowrap-multi">对患有慢性疾病居民进行健康管理与干预，定期进行随访以及保健指导</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-67bfed" style="border-radius: 15px;">
+		                    <i class="iconfont icon-zixun1"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">健康头条资讯</h4>
+		                    <p class="c-nowrap-multi">热点健康知识推送，提升家庭健康意识</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-91c66a" style="border-radius: 15px;">
+		                    <i class="iconfont icon-fenzhen"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">分诊预约</h4>
+		                    <p class="c-nowrap-multi">社区可以帮助有需要的居民进行分诊预约三甲医院</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-f792b1" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yunfu"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">妇幼保健</h4>
+		                    <p class="c-nowrap-multi">对儿童疫苗接种进行提醒，对孕产、妇幼人群提供养生保健知识</p>
+		                </div>
+		            </li>
+		        </ul>
+		        <ul id="ul-health" class="c-list sever-list" style="display: none;">
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-3fcba9" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yisheng"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">医保优惠</h4>
+		                    <p>社区门诊免除500元起付线，住院医疗费不设二次及以上起付标准（二次及以上住院可以免付100-500起付线）</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-52a5f1" style="border-radius: 15px;">
+		                    <i class="iconfont icon-zixun"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">免费服务</h4>
+		                    <p>11类43项基本公共卫生服务，专家门诊预约，团队健康管理，便捷双向转诊，大型设备检查预约，康复训练指导，健康指导。</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-f98d44" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yanghu1"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">个性化服务(按物价规定标准收费)</h4>
+		                    <p>基本医疗服务，针对性康复训练和康复治疗服务，健康检查项目：血、尿常规检查、肝功、肾功、血脂、血糖、心电图、胸片，糖化血红蛋白、眼底检查、尿微量白蛋白检测、糖尿病足筛查、踝肱指数、动态血压监测等，提供建立家庭病床、导尿、换药、上门测血糖、上门抽血检验等有偿上门服务。</p>
+		                </div>
+		            </li>	            
+		        </ul>
+		        <ul id="ul-sixfive" class="c-list sever-list" style="display: none;">
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-3fcba9" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yisheng"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">医保优惠</h4>
+		                    <p>慢性病长处方，一次可开取4-8周用药，社区门诊免除500元起付线，住院医疗费不设二次及以上起付标准（二次及以上住院可以免付50-250起付线）</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-52a5f1" style="border-radius: 15px;">
+		                    <i class="iconfont icon-zixun"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">免费服务</h4>
+		                    <p>11类43项基本公共卫生服务，专家门诊预约，团队健康管理，便捷双向转诊，大型设备检查预约，康复训练指导，每年一次健康检查（血、尿常规检查、肝功、肾功、血脂、血糖、心电图检查），对失能、半失能、80岁以上老年人每年一次免费上门出诊，健康指导。</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-f98d44" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yanghu1"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">个性化服务(按物价规定标准收费)</h4>
+		                    <p>基本医疗服务，针对性康复训练和康复治疗服务，健康检查项目：血、尿常规检查、肝功、肾功、血脂、血糖、心电图、胸片，糖化血红蛋白、眼底检查、尿微量白蛋白检测、糖尿病足筛查、踝肱指数、动态血压监测等，提供建立家庭病床、导尿、换药、上门测血糖、上门抽血检验等有偿上门服务。</p>
+		                </div>
+		            </li>	            
+		        </ul>
+		        <ul id="ul-disease" class="c-list sever-list" style="display: none;">
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-3fcba9" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yisheng"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">医保优惠</h4>
+		                    <p>慢性病长处方，一次可开取4-8周用药，社区门诊免除500元起付线，住院医疗费不设二次及以上起付标准（二次及以上住院可以免付50-500起付线）</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-52a5f1" style="border-radius: 15px;">
+		                    <i class="iconfont icon-zixun"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">免费服务</h4>
+		                    <p>11类43项基本公共卫生服务，专家门诊预约，“三师共管”慢病精细化管理，便捷双向转诊，大型设备检查预约，康复训练指导，每年一次健康检查，糖尿病患者4次空腹血糖检测，对失能、半失能、80岁以上老年人每年一次免费上门出诊，健康指导。</p>
+		                </div>
+		            </li>
+		            <li class="c-list-cover c-list-text">
+		                <div class="c-avatar-m bgc-f98d44" style="border-radius: 15px;">
+		                    <i class="iconfont icon-yanghu1"></i>
+		                </div>
+		                <div class="c-list-info">
+		                    <h4 class="c-nowrap">个性化服务(按物价规定标准收费)</h4>
+		                    <p>基本医疗服务，针对性康复训练和康复治疗服务，健康检查项目：血、尿常规检查、肝功、肾功、血脂、血糖、心电图、胸片，糖化血红蛋白、眼底检查、尿微量白蛋白检测、糖尿病足筛查、踝肱指数、动态血压监测等，提供建立家庭病床、导尿、换药、上门测血糖、上门抽血检验等有偿上门服务。</p>
+		                </div>
+		            </li>	            
+		        </ul>
+		        <!-- 列表项 结束 -->
+		    </div>
+		    <div id="doctor_qrcode">
+		    	<img src="" style="width:257px;height: 259px;background-size: 257px 259px;"/>
+		    	<div class="c-t-center">微信上长按二维码与<span id="doctor_name"></span>医生签约</div>
+		    </div>
+		    <div id="sign_invitation">
+		    	
+		    </div>
+		    
+			<div class="input-group width-100 mt10" id="xf-artd" style="display:none">
+			    <textarea id="textReason" class="form-textarea" maxlength="200" placeholder="请输入解约原因" rows="5"></textarea>
+			    <input id="txtInfo" style="display: none; color: red;font-size: 18px;" value="请填写解约原因"/>
+			</div>
+		</div>
+		<div id="footer">
+				<div class="f-vam f-mr10 add-icon f-ib div-add-btn btn-main"></div>
+		</div>
+		<div class="h61">
+			<div class="plr15 pb15 bottom-btn-box c-border-t" id="btnSign"> 
+				
+			</div>
+			<div id="btnMenu">
+				<div class="div-dialog-content ">
+					<div class="f-vam f-mr10 zixun f-ib btn-item" data-type="consultation"></div>
+					<div class="f-vam f-mr10 tuijian f-ib btn-item" data-type="introduce"></div>
+					<div class="f-vam f-mr10 jieyue f-ib btn-item" data-type="break"></div>
+					<div class="f-vam f-mr10 quxiao f-ib btn-item"></div>
+				</div>
+				<!--<div class="btn-1 btn-item" >
+					<img src="../images/zixun01_btn.png" data-type="consultation">
+				</div>
+				<div class="btn-2 btn-item" >
+					<img src="../images/tuijian_btn.png" data-type="introduce">
+				</div>
+				<div class="btn-3 btn-item" >
+					<img src="../images/jieyue_btn.png" data-type="break">
+				</div>
+				<div class="btn-0 btn-main" >
+					<img src="../images/geduoxuanfu_icon.png" class="close">
+				</div>-->
+			</div>
+	 </div>
+		<img id="introduce_guide" src="../images/tishitu.png"/>
+		<div id="introduce_text">
+			<div>
+				点击右上角
+			</div>
+			<div>
+				将好东西推荐给您的厦门亲友~
+			</div>
+		</div>
+		<div id="overlay_pop" ></div>
+		<script src="../../../js/jquery/2.1.3/jquery.js"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js"></script>
+		<script src="../../../widget/marques/marquee.js"></script>
+		<script type="text/javascript" src="../../../js/common_http.js" ></script>
+		<script type="text/javascript" src="../../../js/weixin_common.js" ></script>
+		<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.15.1/css/mobiscroll.css">
+		<script src="../../../widget/mobiscroll/2.15.1/js/mobiscroll.js"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script src="../js/doctor-homepage-new.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,157 @@
+﻿/* update 2015-4-14 */
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.c-pagination {
+	display:inline-block;
+    height: 38px;
+}
+
+.c-pagination-page,
+.c-pagination-info,
+.c-pagination-stat,
+.c-pagination-size,
+.c-pagination-jump {
+	float: left;
+    margin-top: 2px;
+    padding-right: 10px;
+}
+
+    /* font */
+    .c-pagination-page > li > a,
+    .c-pagination-size > select,
+    .c-pagination-group > input,
+    .c-pagination-group > button,
+    .c-pagination-info , .c-pagination-stat span{
+        font-size: 16px;
+        font-family: 'Microsoft YaHei';
+        color: #888;
+    }
+
+    /* border */
+    .c-pagination-page > li > a,
+    .c-pagination-size > select,
+    .c-pagination-group > input,
+    .c-pagination-group > button {
+        outline: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-select: none;
+        border: 1px solid #ddd;
+    }
+
+    /* button */
+    .c-pagination-page > li > a,
+    .c-pagination-group > button {
+        cursor: pointer;
+        background-color: #fff;
+        /*background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+                background-image: -o-linear-gradient(top,#fff 0,#e0e0e0 100%);
+                background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#e0e0e0));
+                background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+                filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+                background-repeat: repeat-x;*/
+    }
+
+        .c-pagination-page > li:hover > a,
+        .c-pagination-group > button:hover {
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+
+
+    /*************  pagination-page  *************/
+
+    .c-pagination-page > li , .c-pagination-stat > li {
+        list-style: none;
+        float: left;
+    }
+
+        .c-pagination-page > li > a , .c-pagination-stat > li > span {
+            height: 34px;
+            line-height: 34px;
+            margin-left: -1px;
+            display: inline-block;
+            padding: 0 12px;
+            text-decoration: none;
+            box-sizing: content-box;
+        }
+		
+		.c-pagination-stat > li > span {
+			padding-right:0;	
+		}
+
+        .c-pagination-page > li.active > a {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }
+
+        .c-pagination-page > li:first-child > a {
+            margin-left: 0;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .c-pagination-page > li:last-child > a {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+
+
+    /*************  pagination-perpage  *************/
+
+    .c-pagination-size > select {
+        cursor: pointer;
+        height: 36px;
+        padding: 0px 8px;
+        border-radius: 4px;
+		float:left;
+    }
+
+
+/*************  pagination-go   *************/
+
+    .c-pagination-group > input,
+    .c-pagination-group > button {
+          float: left;
+    }
+
+    .c-pagination-group > input {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        width: 50px;
+        height: 34px;
+        padding: 0px;
+        text-align: center;
+        box-sizing: content-box;
+    }
+
+    .c-pagination-group > button {
+        border-left: none;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        height: 36px;
+        padding: 0px 12px;
+    }
+
+
+/************  pagination-info   *************/
+
+.c-pagination-info , .c-pagination-stat span {
+            height: 34px;
+            line-height: 34px;
+            margin-left: -1px;
+            display: inline-block;
+            padding: 0 12px;
+            text-decoration: none;
+            box-sizing: content-box;
+        }

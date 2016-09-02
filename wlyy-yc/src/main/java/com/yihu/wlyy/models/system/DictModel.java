@@ -1,23 +1,23 @@
 package com.yihu.wlyy.models.system;
 
+import com.yihu.wlyy.models.common.IdEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @created Airhead 2016/9/2.
  */
-public class DictModel {
-    private Integer id;
+@Entity
+@Table(name="fd_dict")
+public class DictModel extends IdEntity {
     private String name;
     private String code;
     private String phoneticCode;
     private Integer status;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -26,6 +26,7 @@ public class DictModel {
         this.name = name;
     }
 
+    @Column(name="code")
     public String getCode() {
         return code;
     }
@@ -34,6 +35,7 @@ public class DictModel {
         this.code = code;
     }
 
+    @Column(name="phonetic_code")
     public String getPhoneticCode() {
         return phoneticCode;
     }
@@ -42,6 +44,7 @@ public class DictModel {
         this.phoneticCode = phoneticCode;
     }
 
+    @Column(name="status")
     public Integer getStatus() {
         return status;
     }

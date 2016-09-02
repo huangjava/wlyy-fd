@@ -1,12 +1,18 @@
 package com.yihu.wlyy.models.patient;
 
+import com.yihu.wlyy.models.common.IdEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @created Airhead 2016/9/2.
  */
-public class PatientModel {
-    private Integer id;
+@Entity
+@Table(name="fd_person")
+public class PatientModel extends IdEntity {
     private String code;
     private String idCard;
     private Date birthday;
@@ -20,29 +26,24 @@ public class PatientModel {
     private String town;
     private String street;
     private String address;
-    private String proviceCode;
+    private String provinceCode;
     private String cityCode;
     private String townCode;
     private String streetCode;
     private Integer status;
     private Date createTime;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    @Column(name="code")
     public String getCode() {
         return code;
     }
+
 
     public void setCode(String code) {
         this.code = code;
     }
 
+    @Column(name="idcard")
     public String getIdCard() {
         return idCard;
     }
@@ -51,6 +52,7 @@ public class PatientModel {
         this.idCard = idCard;
     }
 
+    @Column(name="birthday")
     public Date getBirthday() {
         return birthday;
     }
@@ -59,6 +61,7 @@ public class PatientModel {
         this.birthday = birthday;
     }
 
+    @Column(name="gender")
     public Integer getGender() {
         return gender;
     }
@@ -67,6 +70,7 @@ public class PatientModel {
         this.gender = gender;
     }
 
+    @Column(name="mobile")
     public String getMobile() {
         return mobile;
     }
@@ -75,6 +79,7 @@ public class PatientModel {
         this.mobile = mobile;
     }
 
+    @Column(name="phone")
     public String getPhone() {
         return phone;
     }
@@ -83,6 +88,7 @@ public class PatientModel {
         this.phone = phone;
     }
 
+    @Column(name="social_security_card")
     public String getSocialSecurityCard() {
         return socialSecurityCard;
     }
@@ -91,6 +97,7 @@ public class PatientModel {
         this.socialSecurityCard = socialSecurityCard;
     }
 
+    @Column(name="photo")
     public String getPhoto() {
         return photo;
     }
@@ -99,6 +106,7 @@ public class PatientModel {
         this.photo = photo;
     }
 
+    @Column(name="province")
     public String getProvince() {
         return province;
     }
@@ -107,6 +115,7 @@ public class PatientModel {
         this.province = province;
     }
 
+    @Column(name="city")
     public String getCity() {
         return city;
     }
@@ -115,6 +124,7 @@ public class PatientModel {
         this.city = city;
     }
 
+    @Column(name="town")
     public String getTown() {
         return town;
     }
@@ -123,6 +133,7 @@ public class PatientModel {
         this.town = town;
     }
 
+    @Column(name="street")
     public String getStreet() {
         return street;
     }
@@ -131,6 +142,7 @@ public class PatientModel {
         this.street = street;
     }
 
+    @Column(name="address")
     public String getAddress() {
         return address;
     }
@@ -139,14 +151,16 @@ public class PatientModel {
         this.address = address;
     }
 
-    public String getProviceCode() {
-        return proviceCode;
+    @Column(name="province_code")
+    public String getProvinceCode() {
+        return provinceCode;
     }
 
-    public void setProviceCode(String proviceCode) {
-        this.proviceCode = proviceCode;
+    public void setProvinceCode(String proviceCode) {
+        this.provinceCode = proviceCode;
     }
 
+    @Column(name="city_code")
     public String getCityCode() {
         return cityCode;
     }
@@ -155,6 +169,7 @@ public class PatientModel {
         this.cityCode = cityCode;
     }
 
+    @Column(name="town_code")
     public String getTownCode() {
         return townCode;
     }
@@ -163,6 +178,7 @@ public class PatientModel {
         this.townCode = townCode;
     }
 
+    @Column(name="street_code")
     public String getStreetCode() {
         return streetCode;
     }
@@ -171,6 +187,7 @@ public class PatientModel {
         this.streetCode = streetCode;
     }
 
+    @Column(name="status")
     public Integer getStatus() {
         return status;
     }
@@ -179,6 +196,7 @@ public class PatientModel {
         this.status = status;
     }
 
+    @Column(name="create_time")
     public Date getCreateTime() {
         return createTime;
     }

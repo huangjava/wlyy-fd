@@ -1,12 +1,17 @@
 package com.yihu.wlyy.models.user;
 
+import com.yihu.wlyy.models.common.IdEntity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @created Airhead 2016/9/2.
  */
-public class UserModel {
-    private Integer id;
+@Entity
+@Table(name="fd_user")
+public class UserModel  extends IdEntity {
     private String code;
     private String name;
     private String mobile;
@@ -21,14 +26,6 @@ public class UserModel {
     private Integer points;
     private String wechatOpenId;
     private Integer status;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;

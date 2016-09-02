@@ -1,10 +1,17 @@
 package com.yihu.wlyy.models.system;
 
+import com.yihu.wlyy.models.common.IdEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @created Airhead 2016/9/2.
  */
-public class DictEntriesModel {
-    private Integer id;
+@Entity
+@Table(name="fd_dict_entries")
+public class DictEntriesModel extends IdEntity {
     private String dictCode;
     private String code;
     private String value;
@@ -13,14 +20,7 @@ public class DictEntriesModel {
     private String phoneticCode;
     private Integer sort;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    @Column(name="dict_code")
     public String getDictCode() {
         return dictCode;
     }
@@ -29,6 +29,7 @@ public class DictEntriesModel {
         this.dictCode = dictCode;
     }
 
+    @Column(name="code")
     public String getCode() {
         return code;
     }
@@ -37,6 +38,7 @@ public class DictEntriesModel {
         this.code = code;
     }
 
+    @Column(name="value")
     public String getValue() {
         return value;
     }
@@ -45,6 +47,7 @@ public class DictEntriesModel {
         this.value = value;
     }
 
+    @Column(name="extend_attribute")
     public String getExtendAttribute() {
         return extendAttribute;
     }
@@ -53,6 +56,7 @@ public class DictEntriesModel {
         this.extendAttribute = extendAttribute;
     }
 
+    @Column(name="description")
     public String getDescription() {
         return description;
     }
@@ -61,6 +65,7 @@ public class DictEntriesModel {
         this.description = description;
     }
 
+    @Column(name="phonetic_code")
     public String getPhoneticCode() {
         return phoneticCode;
     }
@@ -69,6 +74,7 @@ public class DictEntriesModel {
         this.phoneticCode = phoneticCode;
     }
 
+    @Column(name="sort")
     public Integer getSort() {
         return sort;
     }

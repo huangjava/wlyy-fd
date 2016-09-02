@@ -1,14 +1,13 @@
 package com.yihu.wlyy.web.patient.account;
 
 import com.yihu.wlyy.web.BaseController;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * 患者帳戶信息的Controller.
@@ -22,9 +21,12 @@ public class PatientController extends BaseController {
      * 查询患者是否有签约信息
      * @return
      */
-    @RequestMapping(value = "is_sign")
+    @RequestMapping(value = "is_sign", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
-    public String isSign(String patient) {
+    @ApiOperation(value = "查询患者是否有签约信息", produces = "application/json", notes = "查询患者是否有签约信息")
+    public String isSign(
+            @ApiParam(name = "patient", value = "患者Code", required = true)
+            @RequestParam(value = "patient") String patient) {
         try {
 
             return write(200, "获取签约状态成功！", "data",-1);
@@ -34,13 +36,13 @@ public class PatientController extends BaseController {
         }
     }
 
-    /**
-     * 登录患者获取三师信息
-     * @return
-     */
+
     @RequestMapping(value = "teachers")
     @ResponseBody
-    public String teachers(String patient) {
+    @ApiOperation(value = "登录患者获取三师信息", produces = "application/json", notes = "登录患者获取三师信息")
+    public String teachers(
+            @ApiParam(name = "patient", value = "患者Code", required = true)
+            @RequestParam(value = "patient") String patient ) {
         try {
 
             return write(200, "查询成功！", "data", "");
@@ -56,7 +58,10 @@ public class PatientController extends BaseController {
      */
     @RequestMapping(value = "baseinfo")
     @ResponseBody
-    public String baseinfo(String patient) {
+    @ApiOperation(value = "获取患者基本信息", produces = "application/json", notes = "获取患者基本信息")
+    public String baseinfo(
+            @ApiParam(name = "patient", value = "患者Code", required = true)
+            @RequestParam(value = "patient") String patient ) {
         try {
                 return write(200, "患者信息查询成功！", "data", "");
         } catch (Exception e) {

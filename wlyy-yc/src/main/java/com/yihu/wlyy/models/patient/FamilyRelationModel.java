@@ -1,12 +1,18 @@
 package com.yihu.wlyy.models.patient;
 
+import com.yihu.wlyy.models.common.IdEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @created Airhead 2016/9/2.
  */
-public class FamilyRelationModel {
-    private Integer id;
+@Entity
+@Table(name = "fd_family_relation")
+public class FamilyRelationModel extends IdEntity {
     private String familyCode;  //可以为空
     private String personCode;
     private String relationPersonCode;
@@ -14,14 +20,7 @@ public class FamilyRelationModel {
     private Date updateTime;
     private Integer status;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    @Column(name="family_code")
     public String getFamilyCode() {
         return familyCode;
     }
@@ -30,6 +29,7 @@ public class FamilyRelationModel {
         this.familyCode = familyCode;
     }
 
+    @Column(name="person_code")
     public String getPersonCode() {
         return personCode;
     }

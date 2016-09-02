@@ -1,10 +1,18 @@
 package com.yihu.wlyy.models.doctor;
 
+import com.yihu.wlyy.models.common.IdEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @created Airhead 2016/9/2.
  */
-public class DoctorModel {
-    private Integer id;
+@Entity
+@Table(name = "fd_doctor")
+public class DoctorModel extends IdEntity {
+//    private Integer id;
     private String personCode;
     private String orgName;
     private String orgCode;
@@ -16,14 +24,7 @@ public class DoctorModel {
     private String expertise;
     private String biography;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    @Column(name = "person_code")
     public String getPersonCode() {
         return personCode;
     }
@@ -32,6 +33,7 @@ public class DoctorModel {
         this.personCode = personCode;
     }
 
+    @Column(name = "org_name")
     public String getOrgName() {
         return orgName;
     }
@@ -40,6 +42,7 @@ public class DoctorModel {
         this.orgName = orgName;
     }
 
+    @Column(name = "org_code")
     public String getOrgCode() {
         return orgCode;
     }
@@ -48,6 +51,7 @@ public class DoctorModel {
         this.orgCode = orgCode;
     }
 
+    @Column(name = "tech_title")
     public String getTechTitle() {
         return techTitle;
     }
@@ -56,6 +60,7 @@ public class DoctorModel {
         this.techTitle = techTitle;
     }
 
+    @Column(name="dept_name")
     public String getDeptName() {
         return deptName;
     }
@@ -64,6 +69,7 @@ public class DoctorModel {
         this.deptName = deptName;
     }
 
+    @Column(name="dept_code")
     public String getDeptCode() {
         return deptCode;
     }
@@ -72,6 +78,7 @@ public class DoctorModel {
         this.deptCode = deptCode;
     }
 
+    @Column(name="work_history")
     public String getWorkHistory() {
         return workHistory;
     }
@@ -80,6 +87,7 @@ public class DoctorModel {
         this.workHistory = workHistory;
     }
 
+    @Column(name="eductional_backgroud")
     public String getEducationalBackgroud() {
         return educationalBackgroud;
     }
@@ -88,6 +96,7 @@ public class DoctorModel {
         this.educationalBackgroud = educationalBackgroud;
     }
 
+    @Column(name="expertise")
     public String getExpertise() {
         return expertise;
     }
@@ -96,6 +105,7 @@ public class DoctorModel {
         this.expertise = expertise;
     }
 
+    @Column(name="biography")
     public String getBiography() {
         return biography;
     }

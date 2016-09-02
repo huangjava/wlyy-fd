@@ -46,8 +46,47 @@ mui.plusReady(function() {
 	$(".lab-startDate").mobiscroll(opt1);
 	$(".lab-endDate").mobiscroll(opt1);
 	pageInit();
-
-//queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
+	
+	function queryData() {
+		var res = {
+			list: [
+				{	
+					date: "2016-01-01",
+					value1: 55,
+					value2: 55,
+					value3: 55,
+					value4: 55,
+					value5: 55,
+					value6: 55,
+					value7: 55
+				},
+				{	
+					date: "2016-01-01",
+					value1: 55,
+					value2: 55,
+					value3: 55,
+					value4: 55,
+					value5: 55,
+					value6: 55,
+					value7: 55
+				},
+				{
+					date: "2016-01-01",
+					value1: 55,
+					value2: 55,
+					value3: 55,
+					value4: 55,
+					value5: 55,
+					value6: 55,
+					value7: 55
+				}
+			]
+		}
+		
+		showListXue(res.list);
+	}
+	queryData();
+//	queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
 
 })
 

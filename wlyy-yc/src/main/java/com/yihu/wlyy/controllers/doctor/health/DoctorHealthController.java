@@ -30,18 +30,18 @@ public class DoctorHealthController extends BaseController {
 	@RequestMapping(value = "list",method = RequestMethod.GET)
 	@ResponseBody
 	public String getHealthIndexByPatient(
-			@ApiParam(name = "patient", value = "患者唯一标识")
-			@RequestParam(value = "patient", required = false, defaultValue = " ") String patient,
-			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）")
-			@RequestParam(value = "type", required = false, defaultValue = "1") int type,
-			@ApiParam(name = "sortDate", value = "排序字段")
-			@RequestParam(value = "sortDate", required = false, defaultValue = "") String sortDate,
-			@ApiParam(name = "begin", value = " ")
-			@RequestParam(value = "begin", required = false, defaultValue = "") String begin,
-			@ApiParam(name = "end", value = " ")
-			@RequestParam(value = "end", required = false, defaultValue = "") String end,
-			@ApiParam(name = "pagesize", value = " ")
-			@RequestParam(value = "pagesize", required = false, defaultValue = "") int pagesize) {
+			@ApiParam(name = "patient", value = "患者唯一标识", defaultValue = " ")
+			@RequestParam(value = "patient", required = false) String patient,
+			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）", defaultValue = "1")
+			@RequestParam(value = "type", required = false) int type,
+			@ApiParam(name = "sortDate", value = "排序字段", defaultValue = "")
+			@RequestParam(value = "sortDate", required = false) String sortDate,
+			@ApiParam(name = "begin", value = " ", defaultValue = "")
+			@RequestParam(value = "begin", required = false) String begin,
+			@ApiParam(name = "end", value = " ", defaultValue = "")
+			@RequestParam(value = "end", required = false) String end,
+			@ApiParam(name = "pagesize", value = " ", defaultValue = "")
+			@RequestParam(value = "pagesize", required = false) int pagesize) {
 		String resultStr = "";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("patient", patient);
@@ -58,9 +58,9 @@ public class DoctorHealthController extends BaseController {
 
 			return write(200, "查询成功", resultStr, "");
 
-		} catch (Exception ex) {
-			error(ex);
-			return invalidUserException(ex, -1, "查询失败！");
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "操作失败！");
 		}
 	}
 
@@ -68,10 +68,10 @@ public class DoctorHealthController extends BaseController {
 	@ApiOperation("随访记录获取")
 	@RequestMapping(value = "getFollowUpVisit", method = RequestMethod.GET)
 	public String getFollowUpVisit(
-			@ApiParam(name = "doctorId", value = "医生唯一标识")
-			@RequestParam(value = "doctorId", required = false, defaultValue = " ") String doctorId,
-			@ApiParam(name = "patientId", value = "居民唯一标识")
-			@RequestParam(value = "patientId", required = false, defaultValue = " ") String patientId) throws Exception {
+			@ApiParam(name = "doctorId", value = "医生唯一标识",defaultValue = " ")
+			@RequestParam(value = "doctorId", required = false) String doctorId,
+			@ApiParam(name = "patientId", value = "居民唯一标识", defaultValue = " ")
+			@RequestParam(value = "patientId", required = false) String patientId) throws Exception {
 		String resultStr = "";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("doctorId", doctorId);
@@ -82,9 +82,9 @@ public class DoctorHealthController extends BaseController {
 			resultStr = HttpClientUtil.doGet(comUrl + url, params, username, password);
 			return write(200, "查询成功", resultStr, "");
 
-		}catch (Exception ex){
-			error(ex);
-			return invalidUserException(ex, -1, "查询失败！");
+		}catch (Exception e){
+			error(e);
+			return error(-1, "操作失败！");
 		}
 	}
 

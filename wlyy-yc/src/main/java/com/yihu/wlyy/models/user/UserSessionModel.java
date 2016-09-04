@@ -2,6 +2,7 @@ package com.yihu.wlyy.models.user;
 
 import com.yihu.wlyy.models.common.IdEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
@@ -17,6 +18,7 @@ public class UserSessionModel extends IdEntity {
     private String tokenRef;
     private Date expireTime;
 
+    @Column(name="user_code")
     public String getUserCode() {
         return userCode;
     }
@@ -25,6 +27,7 @@ public class UserSessionModel extends IdEntity {
         this.userCode = userCode;
     }
 
+    @Column(name="token")
     public String getToken() {
         return token;
     }
@@ -33,6 +36,7 @@ public class UserSessionModel extends IdEntity {
         this.token = token;
     }
 
+    @Column(name="token_ref")
     public String getTokenRef() {
         return tokenRef;
     }
@@ -41,6 +45,7 @@ public class UserSessionModel extends IdEntity {
         this.tokenRef = tokenRef;
     }
 
+    @Column(name="expire_time")
     public Date getExpireTime() {
         return expireTime;
     }

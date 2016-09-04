@@ -2,10 +2,11 @@ package com.yihu.wlyy.controllers.user;
 
 import com.yihu.wlyy.services.user.UserSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @created Airhead 2016/9/4.
@@ -27,7 +28,7 @@ public class UserSessionController {
     }
 
     @RequestMapping(value = "/loginCallback", method = RequestMethod.GET)
-    public String loginCallback(HttpRequest request) {
+    public String loginCallback(HttpServletRequest request) {
         return userSessionService.loginCallback();
     }
 }

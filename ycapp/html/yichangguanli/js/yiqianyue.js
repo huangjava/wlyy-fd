@@ -116,15 +116,7 @@ var groupClick = function() {
 	 * 跳转到剧名详细信息
 	 */
 	function toDetail() {
-		var view = plus.webview.getWebviewById("diseaseList");
-		var createNew = false;
-		if(view){
-			view.close();
-			createNew = true;
-		} 
-		var patiInfo1 = this.getAttribute("data-info");
-		var groundCode = $(this).attr("data-ground"); //获取讨论群组的CODE
-		openWindowWithSub("juminxinxi", "juminxinxi.html", "居民详情");
+		openWindowWithSub("health-record", "health-record.html", "居民详情");
 		
 //		mui.openWindow({
 //			url: '../../huanzhe/html/huanzhexinxi.html', 

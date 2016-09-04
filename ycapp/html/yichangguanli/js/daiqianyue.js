@@ -242,14 +242,18 @@ var groupClick = function() {
 	})
 	
 	/* 
-	 * 跳转到剧名详细信息
+	 * 跳转到居民详细信息
 	 */
-	function toDetail() {
-		openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
-	}
-	$(".my-team").on("tap", "li.tab-1", toDetail);
+//	$(".my-team").on("tap", "li[class*='tab-']", function() {
+//		openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
+//	});
 	
-//	mui("#search_pati_list").on("tap", "li", toDetail);
+	/* 
+	 * 签约审核
+	 */
+	$(".my-team").on("tap", "li[class*='tab-']", function() {
+		openWindowWithSub("qianyueshenhe", "qianyueshenhe.html", "签约审核", {});
+	});
 };
 
 /*

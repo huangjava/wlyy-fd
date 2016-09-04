@@ -15,6 +15,14 @@ import com.yihu.wlyy.web.BaseController;
 @RequestMapping(value = "/doctor")
 public class DoctorController extends BaseController {
 
+    //TODO  医生登陆
+
+    //TODO 医生认证
+
+    //TODO 获取医生的团队信息
+
+    //TODO 获取医生的详情
+
 
     /**
      * 社区医院下医生列表查询接口 有分页
@@ -26,9 +34,9 @@ public class DoctorController extends BaseController {
     @ResponseBody
     public String getDoctorsByhospital(
             @RequestParam(required = false) String hospital,
-            @RequestParam(required = false) Integer type,
-            long id,
-            int pagesize) {
+        @RequestParam(required = false) Integer type,
+        long id,
+        int pagesize) {
         try {
             return write(200, "获取医院医生列表成功！", "list", "");
         } catch (Exception e) {
@@ -38,15 +46,21 @@ public class DoctorController extends BaseController {
     }
 
 
-    /**
-     * 医生基本信息查询接口
-     *
-     * @return
-     */
-    @RequestMapping(value = "baseinfo")
-    @ResponseBody
-    public String baseinfo(String doctor) {
+          /**
+         * 医生基本信息查询接口
+         *
+         * @return
+         */
+        @RequestMapping(value = "baseinfo")
+        @ResponseBody
+        public String baseinfo(String doctor) {
+
+
+            String url = "";
+
         try {
+
+
             return "";
         } catch (Exception e) {
             error(e);

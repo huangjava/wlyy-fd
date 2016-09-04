@@ -1,6 +1,6 @@
 package com.yihu.wlyy.models.system;
 
-import com.yihu.wlyy.models.common.IdEntity;
+import com.yihu.wlyy.models.common.IdModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="fd_dict")
-public class DictModel extends IdEntity {
+public class DictModel extends IdModel {
     private String name;
     private String code;
     private String phoneticCode;

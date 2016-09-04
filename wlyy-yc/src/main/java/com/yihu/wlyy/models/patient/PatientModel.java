@@ -1,6 +1,6 @@
 package com.yihu.wlyy.models.patient;
 
-import com.yihu.wlyy.models.common.IdEntity;
+import com.yihu.wlyy.models.common.IdModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="fd_person")
-public class PatientModel extends IdEntity {
+public class PatientModel extends IdModel {
     private String code;
     private String idCard;
     private Date birthday;

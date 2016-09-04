@@ -1,5 +1,6 @@
-package com.yihu.wlyy.controllers;
+package com.yihu.wlyy.controllers.wechat;
 
+import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.util.SystemConf;
 import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpUtil;

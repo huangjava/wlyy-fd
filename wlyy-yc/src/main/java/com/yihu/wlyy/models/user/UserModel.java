@@ -6,16 +6,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @created Airhead 2016/9/2.
  */
 @Entity
-@Table(name="fd_user")
-public class UserModel  extends IdModel {
+@Table(name = "fd_user")
+public class UserModel extends IdModel {
     private String code;
     private String name;
     private String mobile;
+    private String password;
     private String salt;
     private Date createTime;
     private String photo;
@@ -25,10 +27,25 @@ public class UserModel  extends IdModel {
     private String personCode;
     private String externalIdentity;
     private Integer points;
-    private String wechatOpenId;
+    private String openId;
     private Integer status;
 
-    @Column(name="code")
+    public UserModel() {
+
+    }
+
+    public UserModel(String openId) {
+        this.code = UUID.randomUUID().toString();
+        this.name = "yichang_" + code.substring(0, 4);
+        this.salt = openId.substring(0, 4);
+//        this.password
+        this.createTime = new Date();
+        this.externalIdentity = openId;
+        this.openId = openId;
+        this.status = 1;
+    }
+
+    @Column(name = "code")
     public String getCode() {
         return code;
     }
@@ -37,7 +54,7 @@ public class UserModel  extends IdModel {
         this.code = code;
     }
 
-    @Column(name="name")
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -46,7 +63,7 @@ public class UserModel  extends IdModel {
         this.name = name;
     }
 
-    @Column(name="mobile")
+    @Column(name = "mobile")
     public String getMobile() {
         return mobile;
     }
@@ -55,7 +72,7 @@ public class UserModel  extends IdModel {
         this.mobile = mobile;
     }
 
-    @Column(name="salt")
+    @Column(name = "salt")
     public String getSalt() {
         return salt;
     }
@@ -64,7 +81,7 @@ public class UserModel  extends IdModel {
         this.salt = salt;
     }
 
-    @Column(name="create_time")
+    @Column(name = "create_time")
     public Date getCreateTime() {
         return createTime;
     }
@@ -82,7 +99,7 @@ public class UserModel  extends IdModel {
         this.photo = photo;
     }
 
-    @Column(name="remark")
+    @Column(name = "remark")
     public String getRemark() {
         return remark;
     }
@@ -137,12 +154,12 @@ public class UserModel  extends IdModel {
     }
 
     @Column(name = "wechat_open_id")
-    public String getWechatOpenId() {
-        return wechatOpenId;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setWechatOpenId(String wechatOpenId) {
-        this.wechatOpenId = wechatOpenId;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     @Column(name = "status")
@@ -152,5 +169,14 @@ public class UserModel  extends IdModel {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Column(name = "password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

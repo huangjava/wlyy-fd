@@ -42,8 +42,9 @@ public class DoctorPatientGroupController extends BaseController {
 
     //-----------------------------------------获取已签约居民列表 开始-------------
     //获取已签约居民汇总列表（0-6岁儿童(10人），孕产妇（5人）、65岁以上老人（41人）。。。。。）
-    @RequestMapping(value = "signedPatientTypes")
+    @RequestMapping(value = "signedPatientTypes",method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "获取已签约居民汇总列表")
     public String getSignedPatientTypes(
             @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
             @RequestParam(value = "doctorId") String doctorId,
@@ -69,8 +70,9 @@ public class DoctorPatientGroupController extends BaseController {
 
 
     //获取已签约对应居民分类（0-6岁儿童，孕产妇、65岁以上老人。。。。。）的签约居民列表
-    @RequestMapping(value = "signedPatients")
+    @RequestMapping(value = "signedPatients",method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "获取已签约居民列表")
     public String getSignedPatients(
             @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
             @RequestParam(value = "doctorId") String doctorId,
@@ -95,8 +97,9 @@ public class DoctorPatientGroupController extends BaseController {
     //--------------------------------获取已签约居民列表 结束--------------------------
 
     //--------------------------------获取待签约居民列表 开始--------------------------
-    @RequestMapping(value = "signingPatients")
+    @RequestMapping(value = "signingPatients",method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "获取待签约居民列表")
     public String getSigningPatients(
             @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
             @RequestParam(value = "doctorId") String doctorId,
@@ -120,8 +123,9 @@ public class DoctorPatientGroupController extends BaseController {
 
     //--------------------------------获取待签约居民列表 开始--------------------------
     //与获取待签约接口类似，签约状态不同
-    @RequestMapping(value = "noSigningPatients")
+    @RequestMapping(value = "noSigningPatients",method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "获取未签约居民列表")
     public String getNoSigningPatients(
             @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
             @RequestParam(value = "doctorId") String doctorId,
@@ -144,7 +148,7 @@ public class DoctorPatientGroupController extends BaseController {
     //--------------------------------获取待签约居民列表 结束---------------------------
 
     //--------------------------------获取某个签约居民详情信息、标签、是否签约 开始--------------------------
-    @RequestMapping(value = "patientInfo",method = RequestMethod.POST)
+    @RequestMapping(value = "patientInfo",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "获取某个签约居民信息")
     public String getPatientInfo(
@@ -166,7 +170,7 @@ public class DoctorPatientGroupController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "patientLabel",method = RequestMethod.POST)
+    @RequestMapping(value = "patientLabel",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "获取某个签约居民标签")
     public String getPatientLabel(
@@ -188,7 +192,7 @@ public class DoctorPatientGroupController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "patientStatus",method = RequestMethod.POST)
+    @RequestMapping(value = "patientStatus",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "获取某个居民签约状态")
     public String getPatientStatus(
@@ -210,7 +214,7 @@ public class DoctorPatientGroupController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "labels",method = RequestMethod.POST)
+    @RequestMapping(value = "labels",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "获取所有标签（患者标签）集合")
     public String getLabels(

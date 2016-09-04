@@ -1,6 +1,6 @@
 package com.yihu.wlyy.models.doctor;
 
-import com.yihu.wlyy.models.common.IdEntity;
+import com.yihu.wlyy.models.common.IdModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "fd_doctor")
-public class DoctorModel extends IdEntity {
+public class DoctorModel extends IdModel {
 //    private Integer id;
     private String personCode;
     private String orgName;

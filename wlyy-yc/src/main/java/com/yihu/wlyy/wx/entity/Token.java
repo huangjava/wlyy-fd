@@ -1,7 +1,7 @@
 package com.yihu.wlyy.wx.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.yihu.wlyy.entity.IdEntity;
+import com.yihu.wlyy.models.common.IdModel;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "wlyy_token")
-public class Token extends IdEntity {
+public class Token extends IdModel {
 
 	/**
 	 * 

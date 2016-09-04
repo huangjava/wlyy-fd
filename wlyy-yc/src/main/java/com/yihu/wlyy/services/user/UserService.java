@@ -1,6 +1,6 @@
 package com.yihu.wlyy.services.user;
 
-import com.yihu.wlyy.models.user.UserDao;
+import com.yihu.wlyy.daos.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

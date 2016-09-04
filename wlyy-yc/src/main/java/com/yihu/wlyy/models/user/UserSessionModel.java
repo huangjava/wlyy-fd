@@ -1,6 +1,6 @@
 package com.yihu.wlyy.models.user;
 
-import com.yihu.wlyy.models.common.IdEntity;
+import com.yihu.wlyy.models.common.IdModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="fd_user_session")
-public class UserSessionModel extends IdEntity {
+public class UserSessionModel extends IdModel {
     private String userCode;
     private String token;
     private String tokenRef;

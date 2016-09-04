@@ -1,6 +1,6 @@
 package com.yihu.wlyy.models.user;
 
-import com.yihu.wlyy.models.common.IdEntity;
+import com.yihu.wlyy.models.common.IdModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="fd_user")
-public class UserModel  extends IdEntity {
+public class UserModel  extends IdModel {
     private String code;
     private String name;
     private String mobile;

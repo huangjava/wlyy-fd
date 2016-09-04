@@ -1,6 +1,6 @@
 package com.yihu.wlyy.models.patient;
 
-import com.yihu.wlyy.models.common.IdEntity;
+import com.yihu.wlyy.models.common.IdModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "fd_family_relation")
-public class FamilyRelationModel extends IdEntity {
+public class FamilyRelationModel extends IdModel {
     private String familyCode;  //可以为空
     private String personCode;
     private String relationPersonCode;

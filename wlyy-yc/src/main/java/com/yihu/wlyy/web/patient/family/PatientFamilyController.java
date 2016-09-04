@@ -1,14 +1,16 @@
 package com.yihu.wlyy.web.patient.family;
 
 import com.yihu.wlyy.web.BaseController;
-import org.json.JSONObject;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 /**
+ * 患者家庭签约
  * Created by Administrator on 2016.08.20.
  */
 @Controller
@@ -20,11 +22,14 @@ public class PatientFamilyController extends BaseController {
      invitePatientCode //邀请患者
      * @return
      */
-    @RequestMapping(value = "getPatientSign")
+    @RequestMapping(value = "getPatientSign", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "得到患者的签约信息", produces = "application/json", notes = "得到患者的签约信息")
     public String getPatientSign(
-            String homePageDoctorCode,//主页医生code
-            String invitePatientCode //邀请患者
+            @ApiParam(name = "invitePatientCode", value = "邀请患者Code", required = true)
+            @RequestParam(value = "invitePatientCode") String invitePatientCode,
+            @ApiParam(name = "homePageDoctorCode", value = "主页医生code", required = true)
+            @RequestParam(value = "homePageDoctorCode") String homePageDoctorCode
     ) {
         try {
 
@@ -41,8 +46,11 @@ public class PatientFamilyController extends BaseController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/findPatientInviteLog")
-    public String findPatientInviteLog(String invitePatientCode) {
+    @RequestMapping(value = "findPatientInviteLog", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @ApiOperation(value = "查找患者的邀请记录", produces = "application/json", notes = "查找患者的邀请记录")
+    public String findPatientInviteLog(
+            @ApiParam(name = "invitePatientCode", value = "邀请患者Code", required = true)
+            @RequestParam(value = "invitePatientCode") String invitePatientCode ) {
         try {
 
             return write(200, "查询成功!", "data", "");

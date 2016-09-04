@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/patient")
 public class PatientController extends BaseController {
-    /**
-     * 查询患者是否有签约信息
-     * @return
-     */
+
     @RequestMapping(value = "is_sign", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查询患者是否有签约信息", produces = "application/json", notes = "查询患者是否有签约信息")
@@ -37,7 +34,7 @@ public class PatientController extends BaseController {
     }
 
 
-    @RequestMapping(value = "teachers")
+    @RequestMapping(value = "teachers", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "登录患者获取三师信息", produces = "application/json", notes = "登录患者获取三师信息")
     public String teachers(
@@ -52,11 +49,8 @@ public class PatientController extends BaseController {
         }
     }
 
-    /**
-     * 患者基本信息查询接口
-     * @return
-     */
-    @RequestMapping(value = "baseinfo")
+
+    @RequestMapping(value = "baseinfo", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "获取患者基本信息", produces = "application/json", notes = "获取患者基本信息")
     public String baseinfo(
@@ -70,32 +64,32 @@ public class PatientController extends BaseController {
         }
     }
 
-    /**
-     * 患者基本信息保存
-     * @param photo 頭像
-     * @param name 姓名
-     * @param sex 性別
-     * @param birthday 生日
-     * @param ssc 社保卡號
-     * @param province 省標識
-     * @param city 市標識
-     * @param town 區縣標識
-     * @param address 詳細地址
-     * @param street 街道
-     * @return
-     */
-    @RequestMapping(value = "save")
+
+    @RequestMapping(value = "save", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public String save(@RequestParam(required = false) String photo,
-                       @RequestParam(required = false) String name,
-                       @RequestParam(required = false) Integer sex,
-                       @RequestParam(required = false) String birthday,
-                       @RequestParam(required = false) String ssc,
-                       @RequestParam(required = false) String province,
-                       @RequestParam(required = false) String city,
-                       @RequestParam(required = false) String town,
-                       @RequestParam(required = false) String address,
-                       @RequestParam(required = false) String street) {
+    @ApiOperation(value = "患者基本信息保存", produces = "application/json", notes = "患者基本信息保存")
+    public String save(
+            @ApiParam(name = "photo", value = "頭像", required = true)
+            @RequestParam(required = false) String photo,
+            @ApiParam(name = "name", value = "姓名", required = true)
+            @RequestParam(required = false) String name,
+            @ApiParam(name = "sex", value = "性別", required = true)
+            @RequestParam(required = false) Integer sex,
+            @ApiParam(name = "birthday", value = "生日", required = true)
+            @RequestParam(required = false) String birthday,
+            @ApiParam(name = "ssc", value = "社保卡號", required = true)
+            @RequestParam(required = false) String ssc,
+            @ApiParam(name = "province", value = "省標識", required = true)
+            @RequestParam(required = false) String province,
+            @ApiParam(name = "city", value = "市標識", required = true)
+            @RequestParam(required = false) String city,
+            @ApiParam(name = "town", value = "區縣標識", required = true)
+            @RequestParam(required = false) String town,
+            @ApiParam(name = "address", value = "詳細地址", required = true)
+            @RequestParam(required = false) String address,
+            @ApiParam(name = "street", value = "街道", required = true)
+            @RequestParam(required = false) String street
+    ) {
         try {
             return error(-1, "保存失败！");
         } catch (Exception e) {

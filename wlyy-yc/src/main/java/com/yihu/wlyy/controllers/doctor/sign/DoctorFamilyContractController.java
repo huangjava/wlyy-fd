@@ -30,7 +30,7 @@ public class DoctorFamilyContractController extends BaseController {
     @Value("${service-gateway.url}")
     private String comUrl;
 
-    @ApiOperation("更新签约处理信息")
+    @ApiOperation("更新签约处理信息（复用接口）")
     @RequestMapping(value = "/sign" , method = RequestMethod.POST)
     @ResponseBody
     public String sign(
@@ -83,7 +83,7 @@ public class DoctorFamilyContractController extends BaseController {
         }
     }
 
-    @ApiOperation("医生签约患者列表查询接口")
+    @ApiOperation("医生签约患者列表查询接口（复用接口）")
     @RequestMapping(value = "/sign_info", method = RequestMethod.GET)
     public String getSignInfoByDoctor(
             @ApiParam(name = "status", value = "签约状态 0 :全部 1:待签约 2, 待解约 3 已签约,4已经解约", defaultValue = "3")
@@ -116,7 +116,7 @@ public class DoctorFamilyContractController extends BaseController {
     }
 
     //TODO 图片上传接口
-    @ApiOperation("图片上传接口")
+    @ApiOperation("图片上传接口（新增接口）")
     @RequestMapping(value = "/pic/upload", method = RequestMethod.POST)
     public String uploadImg(
             @ApiParam(name = "patient", value = "患者唯一标识", defaultValue = " ")

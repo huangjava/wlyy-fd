@@ -1,18 +1,13 @@
 package com.yihu.wlyy.web.patient.health;
 
 import com.yihu.wlyy.web.BaseController;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/patient/health_index")
@@ -22,9 +17,12 @@ public class PatientHealthController extends BaseController {
 	 * 患者最近填写的健康指标
 	 * @return
 	 */
-	@RequestMapping(value = "recent")
+	@RequestMapping(value = "recent", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
-	public String recent() {
+	@ApiOperation(value = "患者最近填写的健康指标", produces = "application/json", notes = "患者最近填写的健康指标")
+	public String recent(
+			@ApiParam(name = "patient", value = "患者Code", required = true)
+			@RequestParam(value = "patient") String patient	) {
 		try {
 				return write(200, "查询成功", "list", "");
 		} catch (Exception e) {
@@ -47,9 +45,30 @@ public class PatientHealthController extends BaseController {
 	 * @param type 健康指标类型（1血糖，2血压，3体重，4腰围）
 	 * @return 操作结果
 	 */
-	@RequestMapping(value = "add")
+	@RequestMapping(value = "add", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String add(@RequestParam(required = false) String intervene, String time, String value1, String value2, String value3, String value4, String value5, String value6, String value7, int type) {
+	@ApiOperation(value = "保存患者健康指标 (旧)（手输）", produces = "application/json", notes = "保存患者健康指标 (旧)（手输）")
+	public String add(
+			@ApiParam(name = "intervene", value = "干预标志", required = false)
+			@RequestParam(required = false) String intervene,
+			@ApiParam(name = "time", value = "记录时间", required = true)
+			String time,
+			@ApiParam(name = "value1", value = " 血糖/收缩压/体重/腰围/早餐前空腹", required = true)
+			String value1,
+			@ApiParam(name = "value2", value = "舒张压/早餐后空腹", required = true)
+			String value2,
+			@ApiParam(name = "value3", value = "午餐空腹", required = true)
+			String value3,
+			@ApiParam(name = "value4", value = "午餐后", required = true)
+			String value4,
+			@ApiParam(name = "value5", value = "晚餐空腹", required = true)
+			String value5,
+			@ApiParam(name = "value6", value = "晚餐后", required = true)
+			String value6,
+			@ApiParam(name = "value7", value = "睡前", required = true)
+			String value7,
+			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）", required = true)
+			int type) {
 		try {
 			return success("保存成功！");
 		} catch (Exception ex) {
@@ -60,9 +79,12 @@ public class PatientHealthController extends BaseController {
 
 	@RequestMapping(value = "addPatientHealthIndex",method = RequestMethod.POST)
 	@ResponseBody
+	@ApiOperation(value = "保存指标（设备）", produces = "application/json", notes = "保存指标（设备）")
 	public String addPatientHealthIndex(
-										@RequestParam(value="data",required = true) String data,
-										@RequestParam(value="type",required = true) String type)
+			@ApiParam(name = "data", value = "指标数据", required = true)
+			@RequestParam(value="data",required = true) String data,
+			@ApiParam(name = "type", value = "设备类型", required = true)
+			@RequestParam(value="type",required = true) String type)
 	{
 		try {
 			return success("新增患者指标成功！");
@@ -78,9 +100,16 @@ public class PatientHealthController extends BaseController {
 	 * @param type 健康指标类型（1血糖，2血压，3体重，4腰围）
 	 * @return 操作结果
 	 */
-	@RequestMapping(value = "chart")
+	@RequestMapping(value = "chart", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
-	public String getHealthIndexChartByPatient(int type, String begin, String end) {
+	@ApiOperation(value = "根据患者标志获取健康指标列表（折线图数据）", produces = "application/json", notes = "根据患者标志获取健康指标列表")
+	public String getHealthIndexChartByPatient(
+			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）", required = true)
+			int type,
+			@ApiParam(name = "begin", value = "开始时间", required = true)
+			String begin,
+			@ApiParam(name = "end", value = "结束时间", required = true)
+			String end) {
 		try {
 			return write(200, "查询成功", "list", "");
 		} catch (Exception ex) {

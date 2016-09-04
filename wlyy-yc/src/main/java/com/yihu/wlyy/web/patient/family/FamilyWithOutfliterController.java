@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,7 +21,7 @@ public class FamilyWithOutfliterController extends BaseController {
      * @param doctor 医生标识
      * @return
      */
-    @RequestMapping(value = "homepage")
+    @RequestMapping(value = "homepage", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "医生主页信息查询接口", produces = "application/json", notes = "医生主页信息查询接口")
     public String homepage(

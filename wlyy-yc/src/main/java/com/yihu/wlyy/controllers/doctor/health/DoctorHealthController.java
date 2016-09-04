@@ -1,124 +1,91 @@
 package com.yihu.wlyy.controllers.doctor.health;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.util.HttpClientUtil;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/doctor/health_index")
 public class DoctorHealthController extends BaseController {
 
-	//TODO 随访记录获取 - 过滤条件：医生 + 患者
+	@Value("${service-gateway.username}")
+	private String username;
+	@Value("${service-gateway.password}")
+	private String password;
+	@Value("${service-gateway.url}")
+	private String comUrl;
 
-	/**
-	 * 根据患者标志获取健康指标
-	 * @param patient 患者指标
-	 * @param type 健康指标类型（1血糖，2血压，3体重，4腰围）
-	 * @return 操作结果
-	 */
-	@RequestMapping(value = "list")
+	//TODO 根据患者标志获取健康指标（原有接口）
+	@ApiOperation("根据患者标志获取健康指标")
+	@RequestMapping(value = "list",method = RequestMethod.GET)
 	@ResponseBody
-	public String getHealthIndexByPatient(String patient, int type, @RequestParam(required = false) String sortDate, String begin, String end, int pagesize) {
-		try {
+	public String getHealthIndexByPatient(
+			@ApiParam(name = "patient", value = "患者唯一标识", defaultValue = " ")
+			@RequestParam(value = "patient", required = false) String patient,
+			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）", defaultValue = "1")
+			@RequestParam(value = "type", required = false) int type,
+			@ApiParam(name = "sortDate", value = "排序字段", defaultValue = "")
+			@RequestParam(value = "sortDate", required = false) String sortDate,
+			@ApiParam(name = "begin", value = " ", defaultValue = "")
+			@RequestParam(value = "begin", required = false) String begin,
+			@ApiParam(name = "end", value = " ", defaultValue = "")
+			@RequestParam(value = "end", required = false) String end,
+			@ApiParam(name = "pagesize", value = " ", defaultValue = "")
+			@RequestParam(value = "pagesize", required = false) int pagesize) {
+		String resultStr = "";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("patient", patient);
+		params.put("type", type);
+		params.put("sortDate", sortDate);
+		params.put("begin", begin);
+		params.put("end", end);
+		params.put("pagesize", pagesize);
 
-			return write(200, "查询成功", "list", "");
-		} catch (Exception ex) {
-			error(ex);
-			return invalidUserException(ex, -1, "查询失败！");
+		try {
+			String url =" ";
+			resultStr = HttpClientUtil.doGet(comUrl + url, params, username, password);
+
+
+			return write(200, "查询成功", resultStr, "");
+
+		} catch (Exception e) {
+			error(e);
+			return error(-1, "操作失败！");
 		}
 	}
 
+	//TODO 随访记录获取 - 过滤条件：医生 + 患者
+	@ApiOperation("随访记录获取")
+	@RequestMapping(value = "getFollowUpVisit", method = RequestMethod.GET)
+	public String getFollowUpVisit(
+			@ApiParam(name = "doctorId", value = "医生唯一标识",defaultValue = " ")
+			@RequestParam(value = "doctorId", required = false) String doctorId,
+			@ApiParam(name = "patientId", value = "居民唯一标识", defaultValue = " ")
+			@RequestParam(value = "patientId", required = false) String patientId) throws Exception {
+		String resultStr = "";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("doctorId", doctorId);
+		params.put("patientId", patientId);
 
-
-
-
-
-
-
-
-	/**
-	 * 患者健康指标预警值查询
-	 * @param patient 患者标识
-	 * @return
-	 */
-	/*@RequestMapping(value = "standard")
-	@ResponseBody
-	public String standard(String patient) {
 		try {
-			return write(200, "查询成功", "data", "");
-		} catch (Exception e) {
+			String url =" ";
+			resultStr = HttpClientUtil.doGet(comUrl + url, params, username, password);
+			return write(200, "查询成功", resultStr, "");
+
+		}catch (Exception e){
 			error(e);
-			return invalidUserException(e, -1, "查询失败！");
+			return error(-1, "操作失败！");
 		}
-	}*/
-
-	/**
-	 * 保存患者健康指标预警值
-	 * @param patient 患者标识
-	 * @param json 预警值
-	 * @return
-	 */
-	/*@RequestMapping(value = "standard_save")
-	@ResponseBody
-	public String standardSave(String patient, String json) {
-		try {
-			return write(200, "保存成功");
-		} catch (Exception e) {
-			error(e);
-			return invalidUserException(e, -1, "保存失败！");
-		}
-	}*/
-
-
-	/**
-	 * 根据患者标志获取最近的一次的健康指标
-	 * @param patient 患者指标
-	 * @return 操作结果
-	 */
-	/*@RequestMapping(value = "last")
-	@ResponseBody
-	public String getHealthIndexByPatient(String patient) {
-		try {
-			return write(200, "查询成功", "data", "");
-		} catch (Exception ex) {
-			error(ex);
-			return invalidUserException(ex, -1, "查询失败！");
-		}
-	}*/
-
-	/**
-	 * 患者最近填写的健康指标
-	 * @param patient 患者标识
-	 * @return
-	 */
-	/*@RequestMapping(value = "recent")
-	@ResponseBody
-	public String recent(String patient) {
-		try {
-				return error(-1, "查询失败");
-		} catch (Exception e) {
-			error(e);
-			return error(-1, "查询失败");
-		}
-	}*/
-
-	/**
-	 * 根据患者标志获取健康指标 - 体征数据
-	 * @param patient 患者标识
-	 * @param type 健康指标类型（1血糖，2血压，3体重，4腰围）
-	 * @return 操作结果
-	 */
-	/*@RequestMapping(value = "chart")
-	@ResponseBody
-	public String getHealthIndexChartByPatient(String patient, int type, String begin, String end) {
-		try {
-			return write(200, "查询成功", "list", "");
-		} catch (Exception ex) {
-			error(ex);
-			return invalidUserException(ex, -1, "查询失败！");
-		}
-	}*/
+	}
 
 }

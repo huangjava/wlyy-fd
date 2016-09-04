@@ -124,14 +124,20 @@ public class PatientHealthController extends BaseController {
 	 * @param pagesize 页数
 	 * @return 操作结果
 	 */
-	@RequestMapping(value = "list",method = RequestMethod.POST)
+	@RequestMapping(value = "list", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
+	@ApiOperation(value = "根据患者标志获取健康指标", produces = "application/json", notes = "根据患者标志获取健康指标")
 	public String getHealthIndexByPatient(
-										   @RequestParam(value="type",required = true) int type,
-										  @RequestParam(value="start",required = true) String start,
-										   @RequestParam(value="end",required = true) String end,
-										   @RequestParam(value="page",required = true) int page,
-										  @RequestParam(value="pagesize",required = true) int pagesize) {
+			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）", required = true)
+			@RequestParam(value="type",required = true) int type,
+			@ApiParam(name = "start", value = "开始时间", required = true)
+			@RequestParam(value="start",required = true) String start,
+			@ApiParam(name = "end", value = "结束时间", required = true)
+			@RequestParam(value="end",required = true) String end,
+			@ApiParam(name = "page", value = "当前页", required = true)
+			@RequestParam(value="page",required = true) int page,
+			@ApiParam(name = "pagesize", value = "页数", required = true)
+			@RequestParam(value="pagesize",required = true) int pagesize) {
 		try {
 			return write(200, "查询成功", "list", "");
 		} catch (Exception ex) {
@@ -144,9 +150,12 @@ public class PatientHealthController extends BaseController {
 	 * 患者健康指标预警值查询
 	 * @return
 	 */
-	@RequestMapping(value = "standard")
+	@RequestMapping(value = "standard", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
-	public String standard() {
+	@ApiOperation(value = "患者健康指标预警值查询", produces = "application/json", notes = "患者健康指标预警值查询")
+	public String standard(
+			@ApiParam(name = "patient", value = "患者Code", required = true)
+			@RequestParam(value = "patient") String patient	) {
 		try {
 			return write(200, "查询成功", "data", "");
 		} catch (Exception e) {
@@ -161,9 +170,14 @@ public class PatientHealthController extends BaseController {
 	 * @param json 预警值
 	 * @return
 	 */
-	@RequestMapping(value = "standard_save")
+	@RequestMapping(value = "standard_save", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String standardSave(String patient, String json) {
+	@ApiOperation(value = "保存患者健康指标预警值", produces = "application/json", notes = "保存患者健康指标预警值")
+	public String standardSave(
+			@ApiParam(name = "patient", value = "患者Code", required = true)
+			String patient,
+			@ApiParam(name = "json", value = "预警值", required = true)
+			String json) {
 		try {
 			return write(200, "保存成功");
 		} catch (Exception e) {

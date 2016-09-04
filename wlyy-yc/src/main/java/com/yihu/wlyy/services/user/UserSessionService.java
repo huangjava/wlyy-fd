@@ -6,10 +6,12 @@ import com.yihu.wlyy.models.user.UserDao;
 import com.yihu.wlyy.models.user.UserSessionDao;
 import com.yihu.wlyy.models.user.UserSessionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @created Airhead 2016/9/4.
  */
+@Component
 public class UserSessionService {
     @Autowired
     private UserSessionDao userSessionDao;

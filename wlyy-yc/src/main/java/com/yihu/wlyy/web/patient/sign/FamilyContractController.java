@@ -1,17 +1,10 @@
 package com.yihu.wlyy.web.patient.sign;
 
 import com.yihu.wlyy.web.BaseController;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.net.URLDecoder;
-import java.util.List;
 
 /**
  * 患者端：家庭签约控制类
@@ -82,35 +75,41 @@ public class FamilyContractController extends BaseController {
 
     /**
      * 发送签约申请
-     * @param province 省代码
-     * @param provinceName 省名称
-     * @param city 城市代码
-     * @param cityName 城市名称
-     * @param town 区县代码
-     * @param townName 区县名称
+//     * @param province 省代码
+//     * @param provinceName 省名称
+//     * @param city 城市代码
+//     * @param cityName 城市名称
+//     * @param town 区县代码
+//     * @param townName 区县名称
      * @param address 详细地址
-     * @param name 患者姓名
-     * @param doctor 医生标识
+//     * @param name 患者姓名
+//     * @param doctor 医生标识
      * @param idcard 患者身份证号
      * @param ssc 患者社保卡号
      * @param mobile 患者手机号
      * @param emerMobile 患者紧急联系人
+     * @param teamCode 团队唯一码
+     * @param teamName 团队名称
      */
     @RequestMapping(value = "sign")
     @ResponseBody
     public String sign(
-            @RequestParam(required = false) String province,
-            @RequestParam(required = false) String provinceName,
-            @RequestParam(required = false) String city,
-            @RequestParam(required = false) String cityName,
-            @RequestParam(required = false) String town,
-            @RequestParam(required = false) String townName,
+//            @RequestParam(required = false) String province,
+//            @RequestParam(required = false) String provinceName,
+//            @RequestParam(required = false) String city,
+//            @RequestParam(required = false) String cityName,
+//            @RequestParam(required = false) String town,
+//            @RequestParam(required = false) String townName,
+//            String name,
+//            String doctor,
+//            String doctorName,
+            @RequestParam(required = true) String orgCode,
+            @RequestParam(required = true) String teamCode,
             @RequestParam(required = false) String address,
-            String name,
-            String doctor,
-            String doctorName,
             @RequestParam(required = false) String patientCode,
             @RequestParam(required = false)String idcard,
+            @RequestParam(required = false)String orgName,
+            @RequestParam(required = false)String teamName,
             String ssc,
             @RequestParam(required = false) String mobile,
             @RequestParam(required = false) String emerMobile) {

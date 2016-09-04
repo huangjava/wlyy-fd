@@ -34,6 +34,21 @@ public class PatientController extends BaseController {
     }
 
 
+    @RequestMapping(value = "is_assign", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
+    public String isAssign(
+            @ApiParam(name = "patient", value = "患者Code", required = true)
+            @RequestParam(value = "patient") String patient) {
+        try {
+
+            return write(200, "获取分拣状态成功！", "data",-1);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "分拣状态查询失败！");
+        }
+    }
+
     @RequestMapping(value = "teachers", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "登录患者获取三师信息", produces = "application/json", notes = "登录患者获取三师信息")

@@ -2,6 +2,7 @@ package com.yihu.wlyy.models.user;
 
 import com.yihu.wlyy.models.common.IdEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class UserModel  extends IdEntity {
     private String wechatOpenId;
     private Integer status;
 
+    @Column(name="code")
     public String getCode() {
         return code;
     }
@@ -35,6 +37,7 @@ public class UserModel  extends IdEntity {
         this.code = code;
     }
 
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -43,6 +46,7 @@ public class UserModel  extends IdEntity {
         this.name = name;
     }
 
+    @Column(name="mobile")
     public String getMobile() {
         return mobile;
     }
@@ -51,6 +55,7 @@ public class UserModel  extends IdEntity {
         this.mobile = mobile;
     }
 
+    @Column(name="salt")
     public String getSalt() {
         return salt;
     }
@@ -59,6 +64,7 @@ public class UserModel  extends IdEntity {
         this.salt = salt;
     }
 
+    @Column(name="create_time")
     public Date getCreateTime() {
         return createTime;
     }
@@ -67,6 +73,7 @@ public class UserModel  extends IdEntity {
         this.createTime = createTime;
     }
 
+    @Column(name = "photo")
     public String getPhoto() {
         return photo;
     }
@@ -75,6 +82,7 @@ public class UserModel  extends IdEntity {
         this.photo = photo;
     }
 
+    @Column(name="remark")
     public String getRemark() {
         return remark;
     }
@@ -83,6 +91,7 @@ public class UserModel  extends IdEntity {
         this.remark = remark;
     }
 
+    @Column(name = "gender")
     public Integer getGender() {
         return gender;
     }
@@ -91,6 +100,7 @@ public class UserModel  extends IdEntity {
         this.gender = gender;
     }
 
+    @Column(name = "biography")
     public String getBiography() {
         return biography;
     }
@@ -99,6 +109,7 @@ public class UserModel  extends IdEntity {
         this.biography = biography;
     }
 
+    @Column(name = "person_code")
     public String getPersonCode() {
         return personCode;
     }
@@ -107,6 +118,7 @@ public class UserModel  extends IdEntity {
         this.personCode = personCode;
     }
 
+    @Column(name = "external_identity")
     public String getExternalIdentity() {
         return externalIdentity;
     }
@@ -115,6 +127,7 @@ public class UserModel  extends IdEntity {
         this.externalIdentity = externalIdentity;
     }
 
+    @Column(name = "points")
     public Integer getPoints() {
         return points;
     }
@@ -123,6 +136,7 @@ public class UserModel  extends IdEntity {
         this.points = points;
     }
 
+    @Column(name = "wechat_open_id")
     public String getWechatOpenId() {
         return wechatOpenId;
     }
@@ -131,6 +145,7 @@ public class UserModel  extends IdEntity {
         this.wechatOpenId = wechatOpenId;
     }
 
+    @Column(name = "status")
     public Integer getStatus() {
         return status;
     }

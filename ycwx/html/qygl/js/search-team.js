@@ -58,7 +58,7 @@ updatePullUpText= function(scroller,list) {
 //} 
 
 $teamView.find('.community-name').text(name);
-getReqPromises([{url:"patient/hosptail/getTeamsByOrg",data:{orgCode:hospital}}]).then(function(datas) {
+getReqPromises([{url:"patient/hospital/getTeamsByOrg",data:{orgCode:hospital}}]).then(function(datas) {
 	//openid = datas[0] && datas[0].openid;
 	// TODO 示例数据
 	// var data = {"msg":"获取医院医生列表成功！","list":[{"code":"D2016080002","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科1","dept_name":"","photo":"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg","id":1262,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080005","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科2","dept_name":"","photo":"","id":1271,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科)","dept_name":"","photo":"","id":1274,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2010080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科1)","dept_name":"","photo":"","id":1276,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"}],"status":200};
@@ -75,7 +75,7 @@ getReqPromises([{url:"patient/hosptail/getTeamsByOrg",data:{orgCode:hospital}}])
 	}
 	
 	var teamListScroller = $teamView.initScroll({pullDown: false,pullUpAction: function() {
-		reqPromise("patient/hosptail/getTeamsByOrg", {orgCode:hospital}).then(function(data) {
+		reqPromise("patient/hospital/getTeamsByOrg", {orgCode:hospital}).then(function(data) {
 			// TODO 示例数据
 			// data = {"msg":"获取医院医生列表成功！","list":[{"code":"D2016080002","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科1","dept_name":"","photo":"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg","id":1262,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080005","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科2","dept_name":"","photo":"","id":1271,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科)","dept_name":"","photo":"","id":1274,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2010080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科1)","dept_name":"","photo":"","id":1276,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"}],"status":200};
 			lastId = getLastItemId(data.list);

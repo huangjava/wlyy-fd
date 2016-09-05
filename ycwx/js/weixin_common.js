@@ -20,7 +20,7 @@
 //var pageName = "pageurl_test";
 
 // 测试环境（健康之路宜昌）
-var server = "http://weixin.xmtyw.cn/wlyy/";
+var server = "http://localhost:9111/";
 var appId = "wxd03f859efdf0873d";
 var urlName = "wlyy";
 var weixinUrl = "weixin.xmtyw.cn";

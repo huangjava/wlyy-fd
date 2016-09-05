@@ -32,23 +32,8 @@ var lastId = 0;
 // 搜索框
 $('.searchbar').searchBar();
 
-var reqPromise = function(url,data) {
-	 
-	 return new Promise(function(resolve, reject) {
-		sendPost(url, data, "json", "post",
-		  	function queryFailed (req) {
-				dialog({contentType:'tipsbox', skin:'bk-popup' , content:'加载失败'}).show();
-				// TODO 开启示例数据
-				resolve({});
-			}
-	  		, function success(req) {
-				resolve(req);
-	  	});
-	});
-},
-
 // 获取列表的最后一个数据对象的id字段值（用于医生列表的分页请求参数）
-getLastItemId = function(list) {
+var getLastItemId = function(list) {
 	var lastObj;
 	if(list&&list.length) {
 		lastObj = list[list.length-1];
@@ -66,13 +51,6 @@ updatePullUpText= function(scroller,list) {
 			$pullupLabel.text('上拉加载更多');
 		}
 	});
-},
-getReqPromises = function() {
-	
-	return Promise.all(_.map([{url:"hosptail/doctor_list",data:{hospital:hospital,id:lastId,pageSize:15}}],
-	function(param){
-		return reqPromise(param.url,param.data);
-	}));
 };
 
 //if(userAgent) {
@@ -80,13 +58,13 @@ getReqPromises = function() {
 //} 
 
 $teamView.find('.community-name').text(name);
-getReqPromises().then(function(datas) {
+getReqPromises([{url:"patient/hosptail/getTeamsByOrg",data:{orgCode:hospital}}]).then(function(datas) {
 	//openid = datas[0] && datas[0].openid;
-	var data = datas[0];
 	// TODO 示例数据
-	data = {"msg":"获取医院医生列表成功！","list":[{"code":"D2016080002","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科1","dept_name":"","photo":"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg","id":1262,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080005","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科2","dept_name":"","photo":"","id":1271,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科)","dept_name":"","photo":"","id":1274,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2010080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科1)","dept_name":"","photo":"","id":1276,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"}],"status":200};
+	// var data = {"msg":"获取医院医生列表成功！","list":[{"code":"D2016080002","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科1","dept_name":"","photo":"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg","id":1262,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080005","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科2","dept_name":"","photo":"","id":1271,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科)","dept_name":"","photo":"","id":1274,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2010080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科1)","dept_name":"","photo":"","id":1276,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"}],"status":200};
+	var data = datas[0];
 	lastId = getLastItemId(data.list);
-	if(data && data.list.length) {
+	if(data && data.list && data.list.length) {
 		$noResultWrap.hide();
 		var html = template("team_li_tmpl", data);
 		$teamList.html(html);
@@ -97,7 +75,7 @@ getReqPromises().then(function(datas) {
 	}
 	
 	var teamListScroller = $teamView.initScroll({pullDown: false,pullUpAction: function() {
-		reqPromise("hosptail/doctor_list", {hospital:hospital,id:lastId,pageSize:15}).then(function(data) {
+		reqPromise("patient/hosptail/getTeamsByOrg", {orgCode:hospital}).then(function(data) {
 			// TODO 示例数据
 			// data = {"msg":"获取医院医生列表成功！","list":[{"code":"D2016080002","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科1","dept_name":"","photo":"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg","id":1262,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080005","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科2","dept_name":"","photo":"","id":1271,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2016080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科)","dept_name":"","photo":"","id":1274,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"},{"code":"D2010080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科1)","dept_name":"","photo":"","id":1276,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心"}],"status":200};
 			lastId = getLastItemId(data.list);
@@ -110,11 +88,11 @@ getReqPromises().then(function(datas) {
 	d.close();
 })
 .then(function() {
-	
+	//到团队详情
 	$teamList.on('click','li',function() {
 		//checkUserAgent();
-		var doctor = $(this).attr('data-code');
-		window.location.href = "../../ssgg/html/doctor-homepage-new.html?state="+doctor+'&code='+code;
+		var team = $(this).attr('data-code');
+		window.location.href = "doctor-homepage.html?code="+team;
 	});
 	
 }).catch(function(e) {

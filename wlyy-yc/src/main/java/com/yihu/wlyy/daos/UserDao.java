@@ -13,6 +13,6 @@ public interface UserDao extends CrudRepository<UserModel, Long> {
     @Query("select a from UserModel a where a.name = ?1")
     UserModel findOne(String userName);
 
-    @Query("select a from UserModel a where a.wechatOpenId = ?1 and a.status = 1")
+    @Query("select a from UserModel a where a.openId = ?1 and a.status = 1")
     UserModel findOneByOpenId(String openId);
 }

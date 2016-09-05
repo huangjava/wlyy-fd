@@ -88,6 +88,6 @@ function getReqPromises(reqs) {
 		});
 	}
 	return Promise.all(_.map(reqs,function(param){
-		return reqPromise(param.url,param.data);
+		return getReqPromise(param.url,param.data);
 	}));
 };

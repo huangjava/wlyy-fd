@@ -1,4 +1,5 @@
-var patiUrl = "doctor/patient_group/patients";
+//var patiUrl = "doctor/patient_group/patients"; //原有   20160905 yww 测试改
+var patiUrl = "doctor/login";
 var patients; 		//缓存所有居民信息，为查询准备
 var openedGroup = {}; //打开的分组，为了切换tab能保持分组状态
 mui.plusReady(function() {

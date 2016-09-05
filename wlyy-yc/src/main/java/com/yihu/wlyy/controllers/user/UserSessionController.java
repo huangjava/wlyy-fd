@@ -1,6 +1,7 @@
 package com.yihu.wlyy.controllers.user;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.models.user.UserSessionModel;
 import com.yihu.wlyy.services.user.UserSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,13 +38,14 @@ public class UserSessionController extends BaseController {
         String openid = request.getParameter("openid");
         String sig = request.getParameter("sig");
 
-        boolean callback = userSessionService.callback(code, message, openid, sig);
+        UserSessionModel userSessionModel = userSessionService.callback(code, message, openid, sig);
         try {
-            if (!callback) {
-                response.sendError(401);
+            if (userSessionModel == null) {
+                response.sendRedirect("http://localhost:8080/ycwx/health_service/404.html");
+                return;
             }
 
-            response.sendRedirect("http://localhost:8080/index.html");
+            response.sendRedirect("http://localhost:8080/ycwx/html/ssgg/html/start-sign3.html?token=" + userSessionModel.getToken());
         } catch (IOException e) {
             e.printStackTrace();
         }

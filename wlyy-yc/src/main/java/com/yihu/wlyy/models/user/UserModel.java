@@ -35,8 +35,8 @@ public class UserModel extends IdModel {
     }
 
     public UserModel(String openId) {
-        this.code = UUID.randomUUID().toString();
-        this.name = "yichang_" + code.substring(0, 4);
+        this.code = UUID.randomUUID().toString().replace("-", "");
+        this.name = "yichang_" + code.substring(0, 6);
         this.salt = openId.substring(0, 4);
 //        this.password
         this.createTime = new Date();

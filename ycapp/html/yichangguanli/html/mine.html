@@ -146,7 +146,8 @@
 		}
 		
 		function getDocInfo(){
-			sendPost("doctor/baseinfo", null, 		
+//			sendPost("lgin/baseinfo", null, 原请求url  20160905 yww 测试改
+            sendPost("doctor/login", null,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);

@@ -27,4 +27,9 @@ public class WechatController extends WeixinBaseController {
             return null;
         }
     }
+
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public String hello() {
+        return "hello";
+    }
 }

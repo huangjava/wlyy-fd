@@ -7,7 +7,7 @@ import com.yihu.wlyy.models.user.UserSessionModel;
 import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.ResponseKit;
 import com.yihu.wlyy.util.SystemConf;
-import org.apache.commons.codec.digest.Md5Crypt;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,11 +58,11 @@ public class UserSessionService {
         return null;
     }
 
-    public boolean callback(String code, String message, String openId, String sig) {
+    public UserSessionModel callback(String code, String message, String openId, String sig) {
         String signature = openId + "yyweixin@jkzl";
-        String md5Crypt = Md5Crypt.md5Crypt(signature.getBytes());
+        String md5Crypt = DigestUtils.md5Hex(signature);
         if (!md5Crypt.equalsIgnoreCase(sig)) {
-            return false;
+            return null;
         }
 
         UserModel user = userDao.findOneByOpenId(openId);
@@ -78,8 +78,12 @@ public class UserSessionService {
             userSession.setToken(UUID.randomUUID().toString());
         }
 
-        userSessionDao.save(userSession);
+        String nextDay = DateUtil.getNextDay(new Date(), 1);
+        Date expireTime = DateUtil.strToDateLong(nextDay);
+        userSession.setExpireTime(expireTime);
 
-        return true;
+        userSession = userSessionDao.save(userSession);
+
+        return userSession;
     }
 }

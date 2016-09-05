@@ -1,6 +1,10 @@
 
 mui.plusReady(function() {
 	getPatientInfo();
+	
+	$('#pati_info').on('tap', function(){
+		openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
+	})
 });
 
 /**
@@ -41,9 +45,11 @@ function getPatientInfo(){
 		linkerTel: "0592-7651545"
 		
 	}
-	$("body").append(template("detail_info_tmpl", data));
+	$("#docInfo").append(template("detail_info_tmpl", data));
 	
-	$('.arrow-right').parent().on('tap', function(){
-		openModifyWindow($(this).attr('data-title') , {type: 1, val: $(this).find(".c-list-value").html()});
-	})
+//	$('.arrow-right').parent().on('tap', function(){
+//		openModifyWindow($(this).attr('data-title') , {type: 1, val: $(this).find(".c-list-value").html()});
+//	})
 }
+
+

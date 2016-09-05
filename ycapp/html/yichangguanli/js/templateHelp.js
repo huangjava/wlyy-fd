@@ -14,11 +14,12 @@ template.helper("setPhoto", function(p, sex) {
 	}
 });
 
-template.helper("setDocPhoto", function(p, sex) {
-	
+template.helper("setDocPhoto", setDocPhoto);
+
+function setDocPhoto(p, sex){
 	if (!p || p.length == 0) {
 		return sex==2? "../../../images/d-female.png" : "../../../images/d-male.png";
 	} else {
 		return p;
 	}
-});
+}

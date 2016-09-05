@@ -1,5 +1,6 @@
 package com.yihu.wlyy.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.util.ResponseKit;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +20,9 @@ public class BaseController {
 
     @Autowired
     protected HttpServletRequest request;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     /**
      * 獲取髮送請求用戶的uid

@@ -4,6 +4,7 @@ import com.yihu.wlyy.util.HttpClientUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,102 +25,105 @@ import java.util.Map;
 @Api
 public class DoctorController extends BaseController {
 
+    @Value("${service-gateway.username}")
+    private String username;
+    @Value("${service-gateway.password}")
+    private String password;
+    @Value("${service-gateway.url}")
+    private String comUrl;
 
-    private static String username = "temp";
-    private static String password = "temp";
-    private static String comUrl = "temp";
+    //  医生登陆
+//    @RequestMapping(value = "login", method = RequestMethod.POST)
+//    @ResponseBody
+//    @ApiOperation("医生登入")
+//    public String doctorLogin(
+//            @ApiParam(name = "doctorId",value = "医生账号",defaultValue = "dddd")
+//            @RequestParam(value = "doctorId") String doctorId,
+//            @ApiParam(name = "password",value = "密码")
+//            @RequestParam(value = "password") String password,
+//            @ApiParam(name = "ticket",value = "")
+//            @RequestParam(value = "ticket") String ticket){
+//        try {
+//            String url = "";
+//            Map<String,Object> params = new HashMap<String, Object>();
+//            params.put("doctor_id",doctorId);
+//            params.put("password",password);
+//            params.put("ticket",ticket);
+//            String resultStr = HttpClientUtil.doPost(comUrl + url, params,username,password);
+//            return null;
+//        } catch (Exception e) {
+//            error(e);
+//            return null;
+//        }
+//    }
 
-    //TODO  医生登陆
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation("医生登入")
-    public String doctorLogin(
-            @ApiParam(name = "doctorId",value = "医生账号")
-            @RequestParam(value = "doctorId") String doctorId,
-            @ApiParam(name = "password",value = "密码")
-            @RequestParam(value = "password") String password,
-            @ApiParam(name = "ticket",value = "")
-            @RequestParam(value = "ticket") String ticket){
-        try {
-            String url = "";
-            Map<String,Object> params = new HashMap<String, Object>();
-            params.put("doctor_id",doctorId);
-            params.put("password",password);
-            params.put("ticket",ticket);
-            String resultStr = HttpClientUtil.doPost(comUrl + url, params,username,password);
-            return null;
-        } catch (Exception e) {
-            error(e);
-            return null;
-        }
-    }
-
-    //TODO 医生认证
+    // 医生认证
     @RequestMapping(value = "authentication",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("医生认证")
     public String authentication(
-            @ApiParam(name = "name",value = "登录者姓名")
+            @ApiParam(name = "name",value = "登录者姓名",defaultValue = "张三")
             @RequestParam(value = "name") String name,
-            @ApiParam(name = "idCard",value = "身份证号")
+            @ApiParam(name = "idCard",value = "身份证号",defaultValue = "350822201600000000")
             @RequestParam(value = "idCard") String idCard,
-            @ApiParam(name = "ticket",value = "")
+            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
             @RequestParam(value = "ticket") String ticket){
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("name",name);
+        params.put("id_Card",idCard);
+        params.put("ticket",ticket);
         try {
             String url = "";
-            Map<String,Object> params = new HashMap<String, Object>();
-            params.put("name",name);
-            params.put("id_Card",idCard);
-            params.put("ticket",ticket);
             String resultStr = HttpClientUtil.doPost(comUrl+url,params,username,password);
-            return null;
+            return write(200, "身份认证成功！", "obj", "");
         } catch (Exception e) {
             error(e);
-            return null;
+            return error(-1, "身份认证失败！");
         }
     }
 
-    //TODO 获取医生的团队信息
+    //获取医生的团队信息
     @RequestMapping(value = "team",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "获取医生团队信息")
     public String getDoctorTeam(
-            @ApiParam(name = "doctorId",value = "医生唯一标识")
+            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
             @RequestParam(value = "doctorId") String doctorId,
-            @ApiParam(name = "ticket",value = "")
+            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
             @RequestParam(value = "ticket") String ticket){
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("doctor_id",doctorId);
+        params.put("ticket",ticket);
         try{
             String url = "";
-            Map<String,Object> params = new HashMap<String, Object>();
-            params.put("doctor_id",doctorId);
-            params.put("ticket",ticket);
             String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-            return null;
-        }catch (Exception e){
-            error(e);
-            return error(-1, "");
-        }
 
+            return write(200, "获取团队信息成功！", "obj", "");
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "获取团队信息失败！");
+        }
     }
-    //TODO 获取医生的详情 information
+    // 获取医生信息
     @RequestMapping(value = "baseinfo",method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "获取医生信息-原有")
+    @ApiOperation(value = "获取医生信息，原有")
     public String getDoctorInfo(
-            @ApiParam(name = "doctorId",value = "医生唯一标识")
+            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
             @RequestParam(value = "doctorId") String doctorId,
-            @ApiParam(name = "ticket",value = "")
+            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
             @RequestParam(value = "ticket") String ticket){
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("doctor_id",doctorId);
+        params.put("ticket",ticket);
         try{
             String url = "";
-            Map<String,Object> params = new HashMap<String, Object>();
-            params.put("doctor_id",doctorId);
-            params.put("ticket",ticket);
             String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-            return null;
-        }catch (Exception e){
+
+            return write(200, "获取医生信息成功！", "obj", "");
+        } catch (Exception e) {
             error(e);
-            return invalidUserException(e, -1, "医生信息查询失败！");
+            return error(-1, "获取医生信息失败！");
         }
     }
 
@@ -143,8 +147,6 @@ public class DoctorController extends BaseController {
 //            return error(-1, "获取医院医生列表失败！");
 //        }
 //    }
-
-
     /**
      * 医生基本信息查询接口
      *
@@ -161,6 +163,4 @@ public class DoctorController extends BaseController {
 //            return invalidUserException(e, -1, "医生信息查询失败！");
 //        }
 //    }
-
-
 }

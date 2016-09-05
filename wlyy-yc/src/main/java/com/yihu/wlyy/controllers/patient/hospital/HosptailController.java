@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.controllers.BaseController;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +19,7 @@ import java.util.List;
  * Created by Administrator on 2016.08.19.
  */
 @Controller
-@RequestMapping(value = "/patient/hosptail")
+@RequestMapping(value = "/patient/hospital")
 public class HosptailController extends BaseController {
     /**
      * 根据市得到区
@@ -62,7 +64,7 @@ public class HosptailController extends BaseController {
      * @param pageSize 页数
      * @return
      */
-    @RequestMapping(value = "/hospital_list", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/getHospitalList", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "根据类别获取医院列表", produces = "application/json", notes = "根据类别获取医院列表")
     public String getHospitalList(
@@ -113,29 +115,70 @@ public class HosptailController extends BaseController {
         }
     }
 
-    /**
-     * 根据医院标识获取医生信息
-     * @param hospital 医院标识
-     * @param query 查询条件 ：医生名称
-     * @param id
-     * @param pageSize 页数
-     * @return
-     */
-    @RequestMapping(value = "/doctor_list", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/getDoctorList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "根据医院标识获取医生信息", produces = "application/json", notes = "根据医院标识获取医生信息")
-    public String getDoctorByHospital(
-            @ApiParam(name = "hospital", value = "医院标识", required = false)
-            @RequestParam(required = false) String hospital,
-            @ApiParam(name = "query", value = "查询条件 ：医生名称", required = false)
-            @RequestParam(required = false) String query,
-            @ApiParam(name = "id", value = "主键", required = true)
-            @RequestParam(required = true) long id,
-            @ApiParam(name = "pageSize", value = "页数", required = true)
-            @RequestParam(required = true) Integer pageSize) {
+    public String getDoctorList(
+            @ApiParam(name = "teamCode", value = "团队编码", required = true)
+            @RequestParam(required = true) String teamCode,
+            @ApiParam(name = "begin", value = "开始个数", required = true)
+            @RequestParam(required = true) Integer begin,
+            @ApiParam(name = "end", value = "结束个数", required = true)
+            @RequestParam(required = true) Integer end) {
 
         try {
-            return write(200, "查询成功！", "list", "");
+            String json = "[\n" +
+                    "        {\n" +
+                    "            \"code\": \"D2016080002\",\n" +
+                    "            \"job_name\": \" 全科医师\",\n" +
+                    "            \"introduce\": \"我是全科医生\",\n" +
+                    "            \"name\": \"大米全科1\",\n" +
+                    "            \"dept_name\": \"\",\n" +
+                    "            \"photo\": \"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg\",\n" +
+                    "            \"id\": 1262,\n" +
+                    "            \"expertise\": \"我是全科医生\",\n" +
+                    "            \"hospital_name\": \"嘉莲社区医疗服务中心\",\n" +
+                    "            \"relationship\": \"本人\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"code\": \"D2016080005\",\n" +
+                    "            \"job_name\": \" 全科医师\",\n" +
+                    "            \"introduce\": \"我是全科医生\",\n" +
+                    "            \"name\": \"大米全科2\",\n" +
+                    "            \"dept_name\": \"\",\n" +
+                    "            \"photo\": \"\",\n" +
+                    "            \"id\": 1271,\n" +
+                    "            \"expertise\": \"我是全科医生\",\n" +
+                    "            \"hospital_name\": \"嘉莲社区医疗服务中心\",\n" +
+                    "            \"relationship\": \"女儿\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"code\": \"D2016080225\",\n" +
+                    "            \"job_name\": \" 全科医师\",\n" +
+                    "            \"introduce\": \"我是全科医生\",\n" +
+                    "            \"name\": \"谭仁祝(全科)\",\n" +
+                    "            \"dept_name\": \"\",\n" +
+                    "            \"photo\": \"\",\n" +
+                    "            \"id\": 1274,\n" +
+                    "            \"expertise\": \"我是全科医生\",\n" +
+                    "            \"hospital_name\": \"嘉莲社区医疗服务中心\",\n" +
+                    "            \"relationship\": \"女儿\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"code\": \"D2010080225\",\n" +
+                    "            \"job_name\": \" 全科医师\",\n" +
+                    "            \"introduce\": \"我是全科医生\",\n" +
+                    "            \"name\": \"谭仁祝(全科1)\",\n" +
+                    "            \"dept_name\": \"\",\n" +
+                    "            \"photo\": \"\",\n" +
+                    "            \"id\": 1276,\n" +
+                    "            \"expertise\": \"我是全科医生\",\n" +
+                    "            \"hospital_name\": \"嘉莲社区医疗服务中心\",\n" +
+                    "            \"relationship\": \"女儿\"\n" +
+                    "        }\n" +
+                    "    ]";
+            JSONArray jsonArray = new JSONArray(json);
+            return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);
             return error(-1, "查询失败！");

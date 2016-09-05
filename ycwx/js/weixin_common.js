@@ -1,13 +1,13 @@
 //正式环境（厦门i健康）
-var server = "http://www.xmtyw.cn/wlyy/";
-var appId = "wxad04e9c4c5255acf";
-var urlName = "wlyy";
-var weixinUrl = "www.xmtyw.cn";
-var agentName = "wlyyAgent";
-var agentName1 = "wlyyAgent1";
-var OpenidAgent = "OpenidAgent";
-var judgeAgent = "judgeAgent";
-var pageName = "pageurl";
+//var server = "http://www.xmtyw.cn/wlyy/";
+//var appId = "wxad04e9c4c5255acf";
+//var urlName = "wlyy";
+//var weixinUrl = "www.xmtyw.cn";
+//var agentName = "wlyyAgent";
+//var agentName1 = "wlyyAgent1";
+//var OpenidAgent = "OpenidAgent";
+//var judgeAgent = "judgeAgent";
+//var pageName = "pageurl";
 //测试环境（健康之路当阳）
 //var server = "http://weixin.xmtyw.cn/wlyy/";
 //var appId = "wxd03f859efdf0873d";
@@ -18,6 +18,17 @@ var pageName = "pageurl";
 //var OpenidAgent = "OpenidAgent_test";
 //var judgeAgent = "judgeAgent_test";
 //var pageName = "pageurl_test";
+
+// 测试环境（健康之路宜昌）
+var server = "http://weixin.xmtyw.cn/wlyy/";
+var appId = "wxd03f859efdf0873d";
+var urlName = "wlyy";
+var weixinUrl = "weixin.xmtyw.cn";
+var agentName = "wlyyAgent_test";
+var agentName1 = "wlyyAgent_test1";
+var OpenidAgent = "OpenidAgent_test";
+var judgeAgent = "judgeAgent_test";
+var pageName = "pageurl_test";
 
 //保存userAgent
 function wxSaveUserAgent(id, uid, openid, token) {

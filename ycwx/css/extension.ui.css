@@ -119,3 +119,35 @@
 .c-h-480 { height: 480px; }
 .c-h-490 { height: 490px; }
 .c-h-500 { height: 500px; }
+
+/* line-height */
+.c-lh-10 { line-height: 10px; }
+.c-lh-20 { line-height: 20px; }
+.c-lh-30 { line-height: 30px; }
+.c-lh-40 { line-height: 40px; }
+.c-lh-50 { line-height: 50px; }
+.c-lh-60 { line-height: 60px; }
+.c-lh-70 { line-height: 70px; }
+.c-lh-80 { line-height: 80px; }
+.c-lh-90 { line-height: 90px; }
+.c-lh-100 { line-height: 100px; }
+
+/* border-radius */
+.c-br-3 { border-radius: 3px; }
+.c-br-4 { border-radius: 4px; }
+.c-br-5 { border-radius: 5px; }
+.c-br-8 { border-radius: 8px; }
+.c-br-10 { border-radius: 10px; }
+.c-br-15 { border-radius: 15px; }
+.c-br-20 { border-radius: 20px; }
+.c-br-25 { border-radius: 25px; }
+.c-br-30 { border-radius: 30px; }
+.c-br-35 { border-radius: 35px; }
+.c-br-40 { border-radius: 40px; }
+.c-br-45 { border-radius: 45px; }
+.c-br-50 { border-radius: 50px; }
+
+/* css style cover */
+.ui-dialog-content{font-size: 16px;}
+.ax-popup .ui-dialog-footer button{color:#323232 !important;}
+.ax-popup .ui-dialog-footer button.ui-dialog-autofocus{color:#75BF00 !important;}

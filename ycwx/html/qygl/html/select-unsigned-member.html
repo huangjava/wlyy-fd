@@ -39,13 +39,12 @@
 		<script type="text/html" id="member_li_tmpl">
 			{{each list as it}}
 			<li data-code="{{it.code}}">
-				<a href="javascript:void(0);" class="ui-grid c-323232">
+				<a href="javascript:void(0);" class="ui-grid c-323232 c-bb1-ccc">
 			        <div class="ui-col-0 c-w-60 pt5 pb5" >
 			        	<img src="{{it.photo||(it.sex==1?'../../../images/d-male.png':'../../../images/d-female.png')}}" class="c-br50 c-w-50 c-h-50"></img>
 			        </div>
-			        <div class="ui-col-1 c-bb1-ccc">
-			        	<div ><span class="c-f16 c-bold">{{it.name}}（{{it.relationship}}）</span></div>
-			        	<div class="c-f14 c-666666">签约状态：未签约</div>
+			        <div class="ui-col-1">
+			        	<div class="c-h-60 c-lh-60 pr20"><span class="c-f16 c-bold">{{it.name}}（{{it.relationship}}）</span><div class="c-f14 c-666666" style="float: right">未签约</div></div>	
 			        </div>
 			        <div class="c-666666 fa fa-angle-right"></div>
 			    </a>

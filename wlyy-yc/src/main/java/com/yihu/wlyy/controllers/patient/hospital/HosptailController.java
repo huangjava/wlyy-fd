@@ -83,12 +83,27 @@ public class HosptailController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/team_list", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/getTeamsByOrg", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "根据机构编码获取团队列表", produces = "application/json", notes = "根据机构编码获取团队列表")
-    public String getTeamList(
+    public String getTeamsByOrg(
             @ApiParam(name = "orgCode", value = "机构编码", required = false)
             @RequestParam(required = false) String orgCode) {
+        try {
+
+            return write(200, "查询成功！", "list", "");
+        } catch (Exception ex) {
+            error(ex);
+            return error(-1, "查询失败！");
+        }
+    }
+
+    @RequestMapping(value = "/getTeamInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "获取医生团队详细信息", produces = "application/json", notes = "获取医生团队详细信息")
+    public String getTeamInfo(
+            @ApiParam(name = "teamCode", value = "团队编码", required = true)
+            @RequestParam(required = true) String teamCode) {
         try {
 
             return write(200, "查询成功！", "list", "");

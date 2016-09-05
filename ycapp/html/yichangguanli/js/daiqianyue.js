@@ -11,7 +11,8 @@ mui.plusReady(function() {
  * 获取所有居民
  */
 function searchPatients(){
-	var patiUrl = "doctor/patient_group/patients";
+//	var patiUrl = "doctor/patient_group/patients"; // 原url 20160905 yww测试改
+	var patiUrl = "doctor/login";
 	//待签约
 	sendPost(patiUrl, null, null, function(res){
 		handleSuccess(res, 0);

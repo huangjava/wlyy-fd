@@ -25,15 +25,19 @@ mui.plusReady(function() {
 	
 //	loginIm(userId,token,client_id,platform); //登录Im
 	
-	var subPages = [];
-	switch(docType) {
-		case "3":
-			subPages = ["yiqianyue.html", "daiqianyue.html", "mine.html"];
-			break;
-		case "2":
-		default:
-			break;
-	}
+	var subPages = [ "yiqianyue.html","daiqianyue.html","mine.html"];
+
+    //******************** 原有  20160905 yww测试改
+//	var subPages = [];
+//	switch(docType) {
+//		case "3":
+//			subPages = ["yiqianyue.html", "daiqianyue.html", "mine.html"];
+//			break;
+//		case "2":
+//		default:
+//			break;
+//	}
+    //*************************
 	
 	/**
 	 * 初始化已签约、待签约、我的 页面
@@ -90,7 +94,7 @@ mui.plusReady(function() {
 	/**
 	 * 请求医生基本信息
 	 */
-	sendPost("doctor/baseinfo", {}, null, function(res) { 
+	sendPost("lgin/baseinfo", {}, null, function(res) { 
 		if(res.status == 200) {
 			var infoStr = JSON.stringify(res.data);
 			plus.storage.setItem("docInfo", infoStr);

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>我的设备</title>
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <link rel="stylesheet" href="../../../css/cross.css" type="text/css"/>
+        <link rel="stylesheet" href="../../../css/cross.ui.css" type="text/css"/>
+        <link rel="stylesheet" href="../../../css/extension.ui.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="../../../fonts/iconfont/iconfont.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/ss-style.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/iscroll.css" /> 
+        <link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.15.1/css/mobiscroll.css">
+        <link rel="stylesheet" href="../css/my-equipments.css" type="text/css"/>
+    </head>
+    <body>
+    <div class="main">
+    	<div id="no_result_wrap" class="c-dn">
+			<img class="no-result-img" src="../../../images/shujuweikong_img.png" />
+			<div class="f-fs14 c-323232 c-t-center">抱歉，暂未找到符合条件的结果。</div>
+		</div>
+  		<div id="device_list_view">
+  			<div id="wrapper" class="scroll-wrapper">
+				<div class="iScroller">
+					<div class="bgc-fff mb20">
+						<ul id="device_list" class="c-list">
+							<!--<li class="inp">
+								  <div class="m10">
+								  	<img src="../images/xueyaji_icon.png">
+								  </div>
+								  <div class="div-content">血压计-优瑞恩</div>
+								  <div class="c-arrow-r"></div>
+								   <a href="javascript:void(0);" class="edit">编辑</a>
+								   <a href="javascript:void(0);" class="del">解绑</a>
+							</li>
+							<li class="inp">
+								  <div class="m10">
+								  	<img src="../images/xuetangyi_icon.png">
+								  </div>
+								  <div class="div-content">血糖仪-爱奥乐</div>
+								  <div class="c-arrow-r"></div>
+								  <a href="javascript:void(0);" class="edit">编辑</a>
+								   <a href="javascript:void(0);" class="del">解绑</a>
+							</li>-->
+						</ul>
+					</div>	
+				</div>
+		 	</div>
+  		</div>
+     </div>
+       
+       
+       <!--我的无数据，信息显示-->
+  		 <div class="div-no-info f-dn">
+			<div class="div-img"></div>
+			<div class="div-tishi-info">绑定您的智能设备，<br/>将会获得医生的实时关注与指导。</div>
+			<div class="bottom-box clearfix">
+			</div>
+		</div>
+		
+		<!--底部内容开始-->
+		<div id="footer">
+			<div class="f-vam f-mr10 add-icon f-ib div-add-btn"></div>
+		</div>
+		<div class="modal-overlay"></div>
+		<div class="div-dialog-content f-dn">
+			<div class="f-vam f-mr10 xuetangyi-icon f-ib"></div>
+			<div class="f-vam f-mr10 xueyaji-icon f-ib"></div>
+			<div class="f-vam f-mr10 quxiao f-ib"></div>
+		</div>
+		<!--底部内容结束-->
+		
+		<!--
+        	描述： 设备列表项模板
+        -->
+		<script type="text/html" id="device_li_tmpl">
+			{{each list as it}}
+			<li class="inp" device-id="{{it.deviceId}}" data-type="{{it.categoryCode}}" data-id="{{it.id}}">
+						<div class="m10">
+							<img src="../images/{{(it.categoryCode==2)?'xueyaji_icon.png':'xuetangyi_icon.png'}}">
+						</div>
+						<div class="div-content">{{it.deviceName}}</div>
+						<div class="div-sn">绑定时间：{{it.czrq}}</div>
+						<div class="c-arrow-r"></div>
+						<!--<a href="javascript:void(0);" data-type="{{it.categoryCode}}" data-id="{{it.id}}" device-id="{{it.deviceId}}"  class="edit">编辑</a>-->
+						<a href="javascript:void(0);" data-type="{{it.categoryCode}}" data-id="{{it.id}}" device-id="{{it.deviceId}}"  class="del">解绑</a>
+					</li>
+			 {{/each}}
+		</script>
+		<script src="../../../js/jquery/2.1.3/jquery.js"></script> 
+		<script src="../../../js/underscore.js"></script>
+		<script src="../../../js/es6-promise.js"></script>
+		<script src="../../../js/template.js"></script>
+    	<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js"></script>    
+        <script type="text/javascript" src="../../../js/weixin_common.js" ></script>
+        <script type="text/javascript" src="../../../js/common_http.js" ></script>
+        <script src="../../../widget/mobiscroll/2.15.1/js/mobiscroll.js"></script>
+		<script src="../../../js/iscroll-probe.js"></script>
+		<script src="../../../js/iscroll-pull-up-down.js"></script>
+		<script src="../../../js/pull-up-down.js"></script>
+		<script src="../../../js/tounthcyc.js"></script>
+        <script src="../js/my-equipments.js"></script>
+    </body>
+</html>

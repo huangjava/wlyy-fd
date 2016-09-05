@@ -1,5 +1,6 @@
 package com.yihu.wlyy.controllers.doctor.account;
 
+import com.yihu.wlyy.models.doctor.DoctorModelT;
 import com.yihu.wlyy.util.HttpClientUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,29 +34,34 @@ public class DoctorController extends BaseController {
     private String comUrl;
 
     //  医生登陆
-//    @RequestMapping(value = "login", method = RequestMethod.POST)
-//    @ResponseBody
-//    @ApiOperation("医生登入")
-//    public String doctorLogin(
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation("医生登入")
+    public String doctorLogin(
 //            @ApiParam(name = "doctorId",value = "医生账号",defaultValue = "dddd")
 //            @RequestParam(value = "doctorId") String doctorId,
 //            @ApiParam(name = "password",value = "密码")
 //            @RequestParam(value = "password") String password,
 //            @ApiParam(name = "ticket",value = "")
-//            @RequestParam(value = "ticket") String ticket){
-//        try {
-//            String url = "";
-//            Map<String,Object> params = new HashMap<String, Object>();
-//            params.put("doctor_id",doctorId);
-//            params.put("password",password);
-//            params.put("ticket",ticket);
-//            String resultStr = HttpClientUtil.doPost(comUrl + url, params,username,password);
-//            return null;
-//        } catch (Exception e) {
-//            error(e);
-//            return null;
-//        }
-//    }
+//            @RequestParam(value = "ticket") String ticket
+    ){
+        try {
+            String url = "";
+            DoctorModelT m = new DoctorModelT();
+            m.setId("1");
+            m.setUid("1");
+            m.setToken("1");
+            m.setHospital("1");
+            m.setName("1");
+            m.setPhoto("1");
+            m.setUserRole("1");
+            m.setDocType("1");
+            return write(200, "成功！", "data", m);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "失败！");
+        }
+    }
 
     // 医生认证
     @RequestMapping(value = "authentication",method = RequestMethod.POST)

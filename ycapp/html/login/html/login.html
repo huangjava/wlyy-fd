@@ -152,7 +152,8 @@
 		var docType = "";
 
 		function verifyLogin(mobile, verity) {
-			sendPost("login/doctor", {
+//			sendPost("login/doctor", { //***********原请求路径 20160905 yww 改
+			sendPost("doctor/login", {
 				mobile: mobile,
 				captcha: verity
 			}, null, function(res) {
@@ -162,6 +163,7 @@
 					var info = res.data;
 					docType = res.data.doctorType;
 					plus.storage.setItem("docType", docType+""); 
+					debugger
 					var iMei = plus.device.uuid;
 					var docId = info.id;
 					var uId = info.uid;

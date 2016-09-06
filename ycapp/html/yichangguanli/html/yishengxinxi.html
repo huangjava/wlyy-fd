@@ -82,37 +82,45 @@
 			})
 
 			function getDocInfo() {
-				//			sendPost("doctor/baseinfo", null, 		
-				//				function queryFailed(res) {
-				//					if (res && res.msg) {
-				//						plus.nativeUI.toast(res.msg);
-				//					} else {
-				//						plus.nativeUI.toast("数据加载失败");
-				//					}
-				//					plus.nativeUI.closeWaiting();
-				//				}, 
-				//				function success(res) {
-				//					if (res.status == 200) {
-				//						
-				//					}
-				//				});
-				var data = {
-					name: "张三",
-					dept: "骨科",
-					jobName: "主任医师",
-					hospitalName: "xxxx机构名称",
-					sex: "1",
-					photo: "",
-					expertise: "隧道发生的纠纷绿卡时间的乱罚款撒旦解放了开始大举发力点死啊警方立刻受到飓风",
-					introduce: "隧道发生的纠纷绿卡时间的乱罚款撒旦解放了开始大举发力点死啊警方立刻受到飓风"
-				}
-				$('#name').html(data.name);
-				$('#deptName').html(data.dept);
-				$('#hospitalName').html(data.hospitalName);
-				$('#jobName').html(data.jobName);
-				$('#expertise').html(data.expertise);
-				$('#introduce').html(data.introduce);
-				$('#photo').attr("src", setDocPhoto(data.photo, data.sex));
+				sendPost("doctor/merberinfo", null, 		
+					function queryFailed(res) {
+						if (res && res.msg) {
+							plus.nativeUI.toast(res.msg);
+						} else {
+							plus.nativeUI.toast("数据加载失败");
+						}
+							plus.nativeUI.closeWaiting();
+						}, 
+					function success(res) {
+						if (res.status == 200) {
+							var data = res.data;
+							$('#name').html(data.name);
+							$('#deptName').html(data.dept);
+							$('#hospitalName').html(data.hospitalName);
+							$('#jobName').html(data.jobName);
+							$('#expertise').html(data.expertise);
+							$('#introduce').html(data.introduce);
+							$('#photo').attr("src", setDocPhoto(data.photo, data.sex));
+										
+						}
+					});
+//				var data = {
+//					name: "张三",
+//					dept: "骨科",
+//					jobName: "主任医师",
+//					hospitalName: "xxxx机构名称",
+//					sex: "1",
+//					photo: "",
+//					expertise: "隧道发生的纠纷绿卡时间的乱罚款撒旦解放了开始大举发力点死啊警方立刻受到飓风",
+//					introduce: "隧道发生的纠纷绿卡时间的乱罚款撒旦解放了开始大举发力点死啊警方立刻受到飓风"
+//				}
+//				$('#name').html(data.name);
+//				$('#deptName').html(data.dept);
+//				$('#hospitalName').html(data.hospitalName);
+//				$('#jobName').html(data.jobName);
+//				$('#expertise').html(data.expertise);
+//				$('#introduce').html(data.introduce);
+//				$('#photo').attr("src", setDocPhoto(data.photo, data.sex));
 			}
 		</script>
 	</body>

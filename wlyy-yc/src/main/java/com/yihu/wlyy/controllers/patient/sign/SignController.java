@@ -10,13 +10,42 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 患者端：家庭签约控制类
- *
- * @author George
+ * Created by Administrator on 2016.08.26.
  */
 @Controller
-@RequestMapping(value = "/patient/family_contract")
-public class FamilyContractController extends BaseController {
+@RequestMapping(value = "/patient/sign")
+public class SignController extends BaseController {
+
+    @RequestMapping(value = "getSignStatus", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "查询患者是否有签约信息", produces = "application/json", notes = "查询患者是否有签约信息")
+    public String isSign(
+            @ApiParam(name = "patientCode", value = "患者Code", required = true)
+            @RequestParam(value = "patientCode") String patientCode) {
+        try {
+
+            return write(200, "获取签约状态成功！", "data",-1);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "签约状态查询失败！");
+        }
+    }
+
+
+    @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
+    public String isAssign(
+            @ApiParam(name = "patient", value = "患者Code", required = true)
+            @RequestParam(value = "patient") String patient) {
+        try {
+
+            return write(200, "获取分拣状态成功！", "data",-1);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "分拣状态查询失败！");
+        }
+    }
 
     /**
      * 取消签约申请
@@ -33,7 +62,7 @@ public class FamilyContractController extends BaseController {
             @RequestParam(required = false) String patientCode
     ) {
         try {
-          return error(-1, "签约状态已变化，无法申请取消签约！");
+            return error(-1, "签约状态已变化，无法申请取消签约！");
 
         } catch (Exception e) {
             error(e);
@@ -108,7 +137,7 @@ public class FamilyContractController extends BaseController {
      * @param teamCode 团队唯一码
      * @param teamName 团队名称
      */
-    @RequestMapping(value = "sign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @RequestMapping(value = "sendApplication", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "发送签约申请", produces = "application/json", notes = "发送签约申请")
     public String sign(
@@ -150,4 +179,27 @@ public class FamilyContractController extends BaseController {
         }
     }
 
+    /**
+     * 得到患者的签约信息
+     *   homePageDoctor,//主页医生code
+     invitePatientCode //邀请患者
+     * @return
+     */
+    @RequestMapping(value = "getPatientSign", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "得到患者的签约信息", produces = "application/json", notes = "得到患者的签约信息")
+    public String getPatientSign(
+            @ApiParam(name = "invitePatientCode", value = "邀请患者Code", required = true)
+            @RequestParam(value = "invitePatientCode") String invitePatientCode,
+            @ApiParam(name = "homePageDoctorCode", value = "主页医生code", required = true)
+            @RequestParam(value = "homePageDoctorCode") String homePageDoctorCode
+    ) {
+        try {
+
+            return write(200, "数据加载成功！", "data", "");
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "数据加载失败！");
+        }
+    }
 }

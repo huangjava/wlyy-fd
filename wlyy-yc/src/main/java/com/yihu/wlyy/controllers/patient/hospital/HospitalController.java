@@ -7,10 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -124,16 +121,18 @@ public class HospitalController extends BaseController {
                     "\"photo\":\"\",\n" +
                     "\"teamName\":\"洪兴\",\n" +
                     "\"orgName\":\"黑社会\",\n" +
+                    "\"introduce\":\"香港最具势力，最黑暗，有暴力的社团\",\n" +
                     "}";
             JSONObject jsonObject = new JSONObject(json);
-            Map resultMap = new HashMap<>();
-            resultMap.put("data", jsonObject);
-            ResultModel resultModel = ResultModel.success("查询成功！");
-            resultModel.setResultMap(resultMap);
-            return resultModel.toJson();
+//            Map resultMap = new HashMap<>();
+//            resultMap.put("data", jsonObject);
+//            ResultModel resultModel = ResultModel.success("查询成功！");
+//            resultModel.setResultMap(resultMap);
+//            return resultModel.toJson();
+            return write(200, "查询成功！", "data", jsonObject);
         } catch (Exception ex) {
             error(ex);
-            return ResultModel.error("查询失败！").toJson();
+            return error(-1, "查询失败！");
         }
     }
 
@@ -199,15 +198,36 @@ public class HospitalController extends BaseController {
                     "        }\n" +
                     "    ]";
             JSONArray jsonArray = new JSONArray(json);
-            Map resultMap = new HashMap<>();
-            resultMap.put("list", jsonArray);
-            ResultModel resultModel = ResultModel.success("查询成功！");
-            resultModel.setResultMap(resultMap);
-            return resultModel.toJson();
+//            Map resultMap = new HashMap<>();
+//            resultMap.put("list", jsonArray);
+//            ResultModel resultModel = ResultModel.success("查询成功！");
+//            resultModel.setResultMap(resultMap);
+//            return resultModel.toJson();
+            return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);
-            return ResultModel.error("查询失败！").toJson();
+//            return ResultModel.error("查询失败！").toJson();
+            return error(-1, "查询失败！");
         }
+    }
 
+    /**
+     * 医生主页信息查询接口
+     * @param doctor 医生标识
+     * @return
+     */
+    @RequestMapping(value = "getDoctorHomePage", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "医生主页信息查询接口", produces = "application/json", notes = "医生主页信息查询接口")
+    public String homepage(
+            @ApiParam(name = "doctor", value = "医生标识", required = true)
+            @RequestParam(value = "doctor") String doctor) {
+        try {
+
+            return write(200, "医生主页查询成功！", "data", "");
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "医生主页查询失败！");
+        }
     }
 }

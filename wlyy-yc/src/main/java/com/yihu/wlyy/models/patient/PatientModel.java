@@ -14,6 +14,7 @@ import java.util.Date;
 @Table(name="fd_person")
 public class PatientModel extends IdModel {
     private String code;
+    private String name;
     private String idCard;
     private Date birthday;
     private Integer gender;
@@ -41,6 +42,15 @@ public class PatientModel extends IdModel {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Column(name="name")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Column(name="idcard")
@@ -204,4 +214,5 @@ public class PatientModel extends IdModel {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
 }

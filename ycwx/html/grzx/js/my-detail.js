@@ -1,7 +1,8 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
 var pagetype = 11;
 $(function() {	
-	checkUserAgent();
+	//checkUserAgent();
+	queryInit();
 });	
 
 function queryInit(){
@@ -67,7 +68,7 @@ function changeJtqy(signedStatus){
 //查询列表
 function query() {
 	var data={};
-	sendPost('patient/baseinfo', data, 'json', 'post', queryFailed, querySuccess);
+	sendPost('patient/family/baseinfo', data, 'json', 'post', queryFailed, querySuccess);
 }	
 
 function queryFailed(res) {

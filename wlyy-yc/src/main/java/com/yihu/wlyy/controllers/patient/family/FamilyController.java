@@ -1,6 +1,7 @@
 package com.yihu.wlyy.controllers.patient.family;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.models.patient.PatientModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
@@ -31,14 +32,17 @@ public class FamilyController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "baseinfo", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "baseinfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取患者基本信息", produces = "application/json", notes = "获取患者基本信息")
     public String baseinfo(
-            @ApiParam(name = "patient", value = "患者Code", required = true)
-            @RequestParam(value = "patient") String patient ) {
+            @ApiParam(name = "patient", value = "患者Code", required = false)
+            @RequestParam(required = false) String patient ) {
         try {
-            return write(200, "患者信息查询成功！", "data", "");
+            String demo = "{\"id\":1,\"code\":\"CS20160830001\",\"idCard\":\"350204194*******40\",\"birthday\":\"1950-10-17\",\"gender\":1,\"mobile\":\"15210000077\",\"phone\":\"\",\"socialSecurityCard\":\"\",\"photo\":\"\",\"province\":\"350000\",\"city\":\"350200\",\"town\":\"350206\",\"street\":\"\",\"address\":\"高崎南五路\",\"provinceCode\":\"福建省\",\"cityCode\":\"厦门市\",\"townCode\":\"湖里区\",\"streetCode\":\"\",\"status\":1,\"createTime\":\"2016-08-17\"}";
+            PatientModel patientModel = objectMapper.readValue(demo,PatientModel.class);
+
+            return write(200, "患者信息查询成功！", "data", patientModel);
         } catch (Exception e) {
             error(e);
             return invalidUserException(e, -1, "患者信息查询失败！");

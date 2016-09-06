@@ -61,9 +61,9 @@ public class DeviceController extends BaseController {
 		try {
 			//TODO demo示例
 			String demo ="";
-			if ("1".equals(id)){
+			if ("1".equals(id) || "4".equals(id)){
 				demo ="{\"id\":1,\"categoryCode\":\"2\",\"photo\":\"http://f1.yihuimg.com/TFS/upfile/doctor_honor/2016-06-06/441671_1465177502594.png\",\"brands\":\"康为\",\"model\":\"A206G\",\"isMultiUser\":\"1\",\"multiUser\":\"{\\\"1\\\":\\\"1\\\",\\\"2\\\":\\\"2\\\"}\",\"name\":\"康为A206G\",\"czrq\":\"2016-08-26\",\"del\":\"1\"}";
-			}else if ("3".equals(id)){
+			}else if ("3".equals(id) || "2".equals(id)){
 				demo ="{\"id\":2,\"categoryCode\":\"1\",\"photo\":\"http://f1.yihuimg.com/TFS/upfile/doctor_honor/2016-07-12/497280_1468291541996.png\",\"brands\":\"康为\",\"model\":\"G-426-3\",\"isMultiUser\":\"0\",\"multiUser\":\"{\\\"默认\\\":\\\"-1\\\"}\",\"name\":\"康为G-426-3\",\"czrq\":\"2016-08-26\",\"del\":\"1\"}";
 			}
 

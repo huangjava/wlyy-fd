@@ -120,20 +120,23 @@
 		}
 		
 		function getPatientInfo() {
-			/*sendPost("doctor/baseinfo", null,
-				function queryFailed(res) {
-					if (res && res.msg) {
-						plus.nativeUI.toast(res.msg);
-					} else {
-						plus.nativeUI.toast("数据加载失败");
-					}
-					plus.nativeUI.closeWaiting();
-				},
-				function success(res) {
-					if (res.status == 200) {
-						
-					}
-				});*/
+//			console.log("******patientInfo****");
+//			sendPost("doctor/patient_group/patientInfo",{},null,
+//				function queryFailed(res) {
+//					if (res && res.msg) {
+//						plus.nativeUI.toast(res.msg);
+//					} else {
+//						plus.nativeUI.toast("数据加载失败");
+//					}
+//					plus.nativeUI.closeWaiting();
+//				},
+//				function success(res) {
+//					console.log("******patientInfo"+JSON.stringify(res));
+//					if (res.status == 200) {
+//						var cont = template("info_tmpl", res.data);
+//						document.getElementById("pati_info").innerHTML = cont;
+//					}
+//				});
 			var data = {
 				name: "张三",
 				sex: "1",

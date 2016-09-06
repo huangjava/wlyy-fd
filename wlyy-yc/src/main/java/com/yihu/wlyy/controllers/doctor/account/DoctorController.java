@@ -1,10 +1,11 @@
 package com.yihu.wlyy.controllers.doctor.account;
 
-import com.yihu.wlyy.models.doctor.DoctorModelT;
 import com.yihu.wlyy.util.HttpClientUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,16 +48,16 @@ public class DoctorController extends BaseController {
     ){
         try {
             String url = "";
-            DoctorModelT m = new DoctorModelT();
-            m.setId("1");
-            m.setUid("1");
-            m.setToken("1");
-            m.setHospital("1");
-            m.setName("1");
-            m.setPhoto("1");
-            m.setUserRole("1");
-            m.setDocType("1");
-            return write(200, "成功！", "data", m);
+            JSONObject json = new JSONObject();
+            json.put("id","1");
+            json.put("uid","1");
+            json.put("token","1");
+            json.put("hospital","1");
+            json.put("name","1");
+            json.put("photo","1");
+            json.put("userRole","1");
+            json.put("doctorType","1");
+            return write(200, "成功！", "data", json);
         } catch (Exception e) {
             error(e);
             return error(-1, "失败！");
@@ -89,44 +90,103 @@ public class DoctorController extends BaseController {
     }
 
     //获取医生的团队信息
-    @RequestMapping(value = "team",method = RequestMethod.GET)
+    @RequestMapping(value = "team",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取医生团队信息")
     public String getDoctorTeam(
             @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId") String doctorId,
+            @RequestParam(value = "doctorId",required = false) String doctorId,
             @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket") String ticket){
+            @RequestParam(value = "ticket",required = false) String ticket
+    ){
         Map<String,Object> params = new HashMap<String, Object>();
         params.put("doctor_id",doctorId);
         params.put("ticket",ticket);
         try{
             String url = "";
-            String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-
-            return write(200, "获取团队信息成功！", "obj", "");
+            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
+            JSONArray array = new JSONArray();
+                for (int i=0; i<5;i++) {
+                    JSONObject json = new JSONObject();
+                    json.put("id","201600"+i);
+                    json.put("name","ww"+i);
+                    json.put("dept","www");
+                    json.put("jobName","ww");
+                    json.put("org","wwwwwww");
+                    json.put("sex","1");
+                    json.put("photo","");
+                    json.put("expertise","wwwwww，wwwwww");
+                    json.put("introduce","wwww，wwwwww，wwww，wwwww。。。。");
+                    array.put(json);
+                }
+            return write(200, "获取团队信息成功！", "data", array);
         } catch (Exception e) {
             error(e);
             return error(-1, "获取团队信息失败！");
         }
     }
     // 获取医生信息
-    @RequestMapping(value = "baseinfo",method = RequestMethod.GET)
+    @RequestMapping(value = "baseinfo",method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "获取医生信息，原有")
+    @ApiOperation(value = "获取医生本人信息，原有")
     public String getDoctorInfo(
             @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId") String doctorId,
+            @RequestParam(value = "doctorId",required = false) String doctorId,
             @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket") String ticket){
+            @RequestParam(value = "ticket",required = false) String ticket){
         Map<String,Object> params = new HashMap<String, Object>();
         params.put("doctor_id",doctorId);
         params.put("ticket",ticket);
         try{
             String url = "";
-            String resultStr = HttpClientUtil.doGet(comUrl+url,params);
+            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
+            JSONObject json = new JSONObject();
+            json.put("photo","");
+            json.put("name","yww");
+            json.put("sex","1");
+            json.put("mobile","15805926666");
+            json.put("hospitalName","first-hospital");
+            json.put("deptName","kou qiang ke");
+            json.put("jobName","test");
+            json.put("expertise","no  non");
+            json.put("introduce","my is my ");
+            json.put("provinceName","fu jian ");
+            json.put("cityName","xia men ");
+            return write(200, "success！", "data", json);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "获取医生信息失败！");
+        }
+    }
 
-            return write(200, "获取医生信息成功！", "obj", "");
+    // 获取医生信息
+    @RequestMapping(value = "merberinfo",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "获取团队某个医生信息")
+    public String getMemberDoctorInfo(
+            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
+            @RequestParam(value = "doctorId",required = false) String doctorId,
+            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
+            @RequestParam(value = "ticket",required = false) String ticket){
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("doctor_id",doctorId);
+        params.put("ticket",ticket);
+        try{
+            String url = "";
+            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
+            JSONObject json = new JSONObject();
+            json.put("photo","");
+            json.put("name","yww");
+            json.put("sex","1");
+            json.put("mobile","15805926666");
+            json.put("hospitalName","first-hospital");
+            json.put("dept","kouqiangke");
+            json.put("jobName","test");
+            json.put("expertise","no  non");
+            json.put("introduce","my is my ");
+            json.put("provinceName","fu jian ");
+            json.put("cityName","xia men ");
+            return write(200, "success！", "data", json);
         } catch (Exception e) {
             error(e);
             return error(-1, "获取医生信息失败！");

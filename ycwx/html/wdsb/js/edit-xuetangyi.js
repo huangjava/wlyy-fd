@@ -23,10 +23,9 @@ $(function() {
 
 });
 
+
 function initData(dataId){
-	var params = {};
-	params.id=dataId;
-	sendPost("patient/device/PatientDeviceInfo",params,"JSON","GET",
+	sendPost("patient/device/PatientDeviceInfo?id="+dataId,{},"JSON","GET",
 		function(res){
 			if(res.msg){
 				dialog({contentType:'tipsbox', skin:'bk-popup' , content:res.msg}).show();
@@ -43,6 +42,7 @@ function initData(dataId){
 				dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备信息初始化失败！'}).show();
 			}
 		}
+
 	)
 }
 

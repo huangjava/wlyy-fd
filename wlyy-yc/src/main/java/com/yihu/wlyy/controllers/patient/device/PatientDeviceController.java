@@ -2,10 +2,13 @@ package com.yihu.wlyy.controllers.patient.device;
 
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.models.device.PatientDevice;
+import com.yihu.wlyy.services.device.PatientDeviceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.codec.binary.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,10 +28,10 @@ import java.util.Map;
 @Api(value = "患者设备管理", description = "患者设备管理")
 public class PatientDeviceController extends BaseController {
 
+	@Autowired
+	private PatientDeviceService patientDeviceService;
 
-	/**
-	 * 设备保存接口
-	 */
+
 	@ApiOperation("设备保存接口")
 	@RequestMapping(value = "SavePatientDevice", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
@@ -39,7 +42,7 @@ public class PatientDeviceController extends BaseController {
 			// 设置患者标识
 			device.setUser(getUID());
 
-//			patientDeviceService.saveDevice(device);
+			patientDeviceService.saveDevice(device);
 
 			return success("设备保存成功！");
 		}
@@ -62,9 +65,9 @@ public class PatientDeviceController extends BaseController {
 		try {
 			//TODO demo数据
 			String demo ="[{\"id\":456,\"deviceId\":1,\"deviceSn\":\"cc3321xxxccc1211\",\"deviceName\":\"血压计-康为A206G\",\"user\":\"CS20160830001\",\"categoryCode\":\"2\",\"userType\":\"2\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:50:58\"},{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}]";
+//			List list = objectMapper.readValue(demo,List.class);
 
-			List list = objectMapper.readValue(demo,List.class);
-
+			Page<PatientDevice> list = patientDeviceService.findByPatient(getUID(), id, pagesize);
 			return write(200, "查询成功", "list", list);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());
@@ -78,9 +81,11 @@ public class PatientDeviceController extends BaseController {
 	public String getPatientDeviceInfo(@ApiParam(name="id",value="患者设备ID",defaultValue = "146")
 									 @RequestParam(value="id",required = true) String id) {
 		try {
-
+			//TODO 示例数据
 			String demo = "{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}";
-			PatientDevice device = objectMapper.readValue(demo,PatientDevice.class);
+//			PatientDevice device = objectMapper.readValue(demo,PatientDevice.class);
+
+			PatientDevice device = patientDeviceService.findById(id);
 			return write(200, "查询成功", "data", device);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());
@@ -98,7 +103,7 @@ public class PatientDeviceController extends BaseController {
 										 @ApiParam(name="device_sn",value="设备SN码",defaultValue = "15L000002")
 										 @RequestParam(value="device_sn",required = true) String deviceSn) {
 		try {
-			List<Map<String,String>> list = null;
+			List<Map<String,String>> list = patientDeviceService.getDeviceUser(getUID(),deviceSn,type);
 			return write(200, "获取设备绑定信息成功！", "data",list);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());
@@ -114,14 +119,14 @@ public class PatientDeviceController extends BaseController {
 	public String delete(@ApiParam(name="id",value="删除设备关联ID")
 						  @RequestParam(value="id",required = true) String id) {
 		try {
-			PatientDevice pd = null;
+			PatientDevice pd = patientDeviceService.findById(id);
 			if(pd!=null)
 			{
 				if (!StringUtils.equals(pd.getUser(), getUID())) {
 					return error(-1, "只允许删除自己的设备！");
 				}
 				// 删除设备
-//				patientDeviceService.deleteDevice(id);
+				patientDeviceService.deleteDevice(id);
 				return success("设备已删除！");
 			}
 			else{

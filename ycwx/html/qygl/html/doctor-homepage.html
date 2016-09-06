@@ -30,15 +30,13 @@
 					<img id="photo" src="" class="c-images-cycle">
 				</span>
 				<p class="c-t-left c-f18">
-					<span id="name" class="c-f20 mr10 ml10"></span><label id="jobName"></label></p>
-				<p class="c-t-left c-f14 c-toe mt10">
-					<span id="hospitalName" class="mr10"></span></p>
+					<span id="name" class="c-f20 mr10 ml10"></span><label id="teamName"></label></p>
 			     <p class="c-t-left c-f16 c-toe f-dn">
-			    	<span id="deptName" class="mr10 ml10"></span></p>			
+			    	<span id="orgName" class="mr10 ml10"></span></p>			
 			</div>
 			
 			
-			<div class="slider-detail plr15 bgc-fff mtb10 c-border-tb">
+			<!--<div class="slider-detail plr15 bgc-fff mtb10 c-border-tb">
 				<ul>
 					<li class="c-border-b">
 						<h2 class="c-f18">擅长</h2>
@@ -49,7 +47,7 @@
 						<p class="c-f16 show" id="introduce"></p>
 					</li>
 				</ul>
-			</div>		
+			</div>		-->
 			<div id="team_member_warp" class="bgc-fff mt10 c-border-tb list-item-1">
 		        <div class="ui-grid ptb15 plr10 c-border-b">
 		        	<img src="../../../images/tuanduchengyuan_icon.png" class="c-w-20 c-h-20 c-vam"/>
@@ -60,7 +58,7 @@
 		        <ul id="team_member_list" class="c-list">
 		            
 		        </ul>
-		        <div id="show_all_member_btn">点击显示全部</div>
+		        <div id="show_all_member_btn" style="text-align: center;">点击显示全部</div>
 		    </div>
 		    <div id="divAgree" class="bgc-fff mt10 c-border-tb list-item-1">
 		        <div class="ui-grid ptb15 plr10 c-border-b">
@@ -239,7 +237,7 @@
 		    </div>
 		    <div id="doctor_qrcode">
 		    	<img src="" style="width:257px;height: 259px;background-size: 257px 259px;"/>
-		    	<div class="c-t-center">微信上长按二维码与<span id="doctor_name"></span>医生签约</div>
+		    	<div class="c-t-center">微信上长按二维码与<span id="doctorName"></span>医生签约</div>
 		    </div>
 		    <div id="sign_invitation">
 		    	
@@ -295,9 +293,9 @@
 			 {{/each}}
 		</script>
 		<script src="../../../js/jquery/2.1.3/jquery.js"></script>
+		<script src="../../../js/underscore.js"></script>
+		<script src="../../../js/es6-promise.js"></script>
 		<script src="../../../js/template.js"></script>		
-		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="../../../js/mui.min.js"></script>
 		<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js"></script>
 		<script src="../../../widget/marques/marquee.js"></script>
 		<script type="text/javascript" src="../../../js/common_http.js" ></script>

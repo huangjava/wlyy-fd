@@ -2,14 +2,15 @@ package com.yihu.wlyy.controllers.patient.hospital;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.models.common.ResultModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONArray;
-import org.springframework.stereotype.Controller;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -19,14 +20,13 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016.08.19.
  */
-@Controller
+@RestController
 @RequestMapping(value = "/patient/hospital")
 public class HospitalController extends BaseController {
 
 
 
     @RequestMapping(value = "/getTownByCityCode", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-    @ResponseBody
     @ApiOperation(value = "根据市得到区", produces = "application/json", notes = "根据市得到区")
     public String getTownByCityCode(
             @ApiParam(name = "city", value = "城市Code", required = true)
@@ -41,7 +41,6 @@ public class HospitalController extends BaseController {
 
 
     @RequestMapping(value = "/getHospitalByTownCode", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-    @ResponseBody
     @ApiOperation(value = "根据区得到机构", produces = "application/json", notes = "根据区得到机构")
     public String getOrgByTownCode(
             @ApiParam(name = "town", value = "区", required = false)
@@ -66,7 +65,6 @@ public class HospitalController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/hospitalList", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
-    @ResponseBody
     @ApiOperation(value = "根据类别获取医院列表", produces = "application/json", notes = "根据类别获取医院列表")
     public String getHospitalList(
             @ApiParam(name = "type", value = "医院类型", required = false)
@@ -87,7 +85,6 @@ public class HospitalController extends BaseController {
     }
 
     @RequestMapping(value = "/getTeamsByOrg", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-    @ResponseBody
     @ApiOperation(value = "根据机构编码获取团队列表", produces = "application/json", notes = "根据机构编码获取团队列表")
     public String getTeamsByOrg(
             @ApiParam(name = "orgCode", value = "机构编码", required = false)
@@ -117,23 +114,30 @@ public class HospitalController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/getTeamInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value = "/getTeamInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "获取医生团队详细信息", produces = "application/json", notes = "获取医生团队详细信息")
     public String getTeamInfo(
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
             @RequestParam(required = true) String teamCode) {
         try {
-
-            return write(200, "查询成功！", "list", "");
+            String json = "{\n" +
+                    "\"photo\":\"\",\n" +
+                    "\"teamName\":\"洪兴\",\n" +
+                    "\"orgName\":\"黑社会\",\n" +
+                    "}";
+            JSONObject jsonObject = new JSONObject(json);
+            Map resultMap = new HashMap<>();
+            resultMap.put("data", jsonObject);
+            ResultModel resultModel = ResultModel.success("查询成功！");
+            resultModel.setResultMap(resultMap);
+            return resultModel.toJson();
         } catch (Exception ex) {
             error(ex);
-            return error(-1, "查询失败！");
+            return ResultModel.error("查询失败！").toJson();
         }
     }
 
     @RequestMapping(value = "/getDoctorList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-    @ResponseBody
     @ApiOperation(value = "根据医院标识获取医生信息", produces = "application/json", notes = "根据医院标识获取医生信息")
     public String getDoctorList(
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
@@ -195,10 +199,14 @@ public class HospitalController extends BaseController {
                     "        }\n" +
                     "    ]";
             JSONArray jsonArray = new JSONArray(json);
-            return write(200, "查询成功！", "list", jsonArray);
+            Map resultMap = new HashMap<>();
+            resultMap.put("list", jsonArray);
+            ResultModel resultModel = ResultModel.success("查询成功！");
+            resultModel.setResultMap(resultMap);
+            return resultModel.toJson();
         } catch (Exception ex) {
             error(ex);
-            return error(-1, "查询失败！");
+            return ResultModel.error("查询失败！").toJson();
         }
 
     }

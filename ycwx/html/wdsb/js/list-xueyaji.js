@@ -4,11 +4,12 @@ $(function() {
 	Request = GetRequest();
 	var openid = Request["openid"];
 	category_code = Request["category_code"];
-	var userAgent = window.localStorage.getItem(agentName);
-	if(!userAgent){
-		window.localStorage.setItem(pageName,"{\"pageurl\":\""+window.location.href+"\"}");
-		window.location.href = "../../home/html/login.html?type=0&openid=" + openid;
-	}
+	//TODO 身份登录验证
+	//var userAgent = window.localStorage.getItem(agentName);
+	//if(!userAgent){
+	//	window.localStorage.setItem(pageName,"{\"pageurl\":\""+window.location.href+"\"}");
+	//	window.location.href = "../../home/html/login.html?type=0&openid=" + openid;
+	//}
 	getDevices();
 });
 function getDevices(){
@@ -21,9 +22,9 @@ function getDevices(){
 function queryListSuccess(res){
 	d.close();	
 	if(res.status==200){
-		if(res.data&&res.data.length>0){
-			for(var i in res.data){
-				showList(res.data[i]);
+		if(res.list&&res.list.length>0){
+			for(var i in res.list){
+				showList(res.list[i]);
 			}
 		}else{
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'无更多设备！'}).show();		

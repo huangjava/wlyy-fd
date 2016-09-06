@@ -22,13 +22,13 @@ public class XMLUtil {
 	public static Logger logger  = Logger.getLogger(XMLUtil.class);
 
 	/**
-	 * ��xml�ַ���ת���� Document����
+	 * 把xml字符串转换成 Document对象。
 	 *
 	 * @param xml
-	 *            ��Ҫת����xml�ַ���
-	 * @return ����Document����
+	 *            需要转换的xml字符串
+	 * @return 返回Document对象
 	 * @throws Exception
-	 *             ���ת����Document�����쳣�Ļ��׳��쳣��
+	 *             如果转换成Document对象异常的话抛出异常。
 	 */
 	public static Document parseXml(String xml) throws Exception {
 		try {
@@ -36,39 +36,39 @@ public class XMLUtil {
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new Exception("����� xml ���Ǳ�׼��xml�ַ����������ַ����Ƿ�Ϸ���");
+			throw new Exception("传入的 xml 不是标准的xml字符串，请检查字符串是否合法。");
 		}
 	}
 	/**
-	 * ת����xml�ַ���
+	 * 转换成xml字符串
 	 *
 	 * @param xmlDoc
-	 *            ��Ҫ������xml����
+	 *            需要解析的xml对象
 	 * @throws Exception
 	 */
 	public static String toXML_UTF_8(org.dom4j.Document xmlDoc) throws Exception {
 		return toXML(xmlDoc, "UTF-8", true);
 	}
 	/**
-	 * ת����xml�ַ���
+	 * 转换成xml字符串
 	 *
 	 * @param xmlDoc
-	 *            ��Ҫ������xml����
+	 *            需要解析的xml对象
 	 * @throws Exception
 	 */
 	public static String toXML_GBK(org.dom4j.Document xmlDoc) throws Exception {
 		return toXML(xmlDoc, "GBK", true);
 	}
 	/**
-	 * ת����xml�ַ���
+	 * 转换成xml字符串
 	 *
 	 * @param xmlDoc
-	 *            ��Ҫ������xml����
+	 *            需要解析的xml对象
 	 * @param encoding
-	 *            �����ʽ��UTF-8��GBK
+	 *            编码格式：UTF-8、GBK
 	 * @param iscom
-	 *            �Ƿ�Ϊ�����͸�ʽ
-	 * @return ������ɺ��xml�ַ���
+	 *            是否为紧凑型格式
+	 * @return 修正完成后的xml字符串
 	 * @throws Exception
 	 */
 	public static String toXML(org.dom4j.Document xmlDoc, String encoding,
@@ -76,12 +76,12 @@ public class XMLUtil {
 		ByteArrayOutputStream byteRep = new ByteArrayOutputStream();
 		OutputFormat format = null;
 		if (iscom) {
-			format = OutputFormat.createCompactFormat();// �����͸�ʽ
+			format = OutputFormat.createCompactFormat();// 紧凑型格式
 		} else {
-			format = OutputFormat.createPrettyPrint();// �����͸�ʽ
+			format = OutputFormat.createPrettyPrint();// 缩减型格式
 		}
-		format.setEncoding(encoding);// ���ñ���
-		format.setTrimText(false);// ����text���Ƿ�Ҫɾ�����ж���Ŀո�
+		format.setEncoding(encoding);// 设置编码
+		format.setTrimText(false);// 设置text中是否要删除其中多余的空格
 		XMLWriter xw;
 		try {
 			xw = new XMLWriter(byteRep, format);
@@ -89,19 +89,19 @@ public class XMLUtil {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new Exception("����ı����ʽ�����봫����ȷ�ı��롣");
+			throw new Exception("传入的编码格式错误，请传入正确的编码。");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new Exception("�ĵ�ת����xml�ַ���ʱ������"+xmlDoc.asXML());
+			throw new Exception("文档转换成xml字符串时出错。"+xmlDoc.asXML());
 		}
 		return byteRep.toString();
 	}
 	/**
-	 * �Խڵ�Element ���ӽڵ㡣
-	 * @param e ��Ҫ���ӵĽڵ�
-	 * @param name ���ӵĽڵ������
-	 * @param value ���ӵ�����
+	 * 对节点Element 添加节点。
+	 * @param e 需要添加的节点
+	 * @param name 添加的节点的名称
+	 * @param value 添加的内容
 	 * <br/>
 	 * Demo:
 	 * 	  < Root > aaa < /Root >
@@ -118,7 +118,7 @@ public class XMLUtil {
 		}
 	}
 	/**
-	 * �ж϶����Ƿ�Ϊ�գ�(null,"", "null")
+	 * 判断对象是否为空！(null,"", "null")
 	 * @param value
 	 * @return
 	 */
@@ -132,7 +132,7 @@ public class XMLUtil {
 		}
 	}
 	/**
-	 * �ж϶����Ƿ�ǿգ�(null,"", "null")
+	 * 判断对象是否非空！(null,"", "null")
 	 * @param obj
 	 * @return
 	 */
@@ -140,7 +140,7 @@ public class XMLUtil {
 		return !isBlank(obj);
 	}
 	/**
-	 * �ж϶����Ƿ�Ϊ�գ�(null,"", "null")
+	 * 判断对象是否为空！(null,"", "null")
 	 * @param obj
 	 * @return
 	 */
@@ -162,7 +162,7 @@ public class XMLUtil {
 	}
 
 	/**
-	 * ����CDATA ���ͽڵ�
+	 * 添加CDATA 类型节点
 	 * @param e
 	 * @param name
 	 * @param value
@@ -174,7 +174,7 @@ public class XMLUtil {
 		}
 	}
 	/**
-	 * ����CDATA ���ͽڵ�
+	 * 添加CDATA 类型节点
 	 * @param e
 	 * @param name
 	 * @param value
@@ -186,7 +186,7 @@ public class XMLUtil {
 		}
 	}
 
-	/**��ȡ�ڵ��е�����
+	/**获取节点中的整数
 	 * @throws Exception */
 	public static  int  getInt(Element e,String name,boolean isMust) throws Exception
 	{
@@ -196,7 +196,7 @@ public class XMLUtil {
 		if(current==null||current.getText()==null || "".equals(current.getText().trim()) || current.getText().length()<=0)
 		{
 			if(isMust){
-				throw new Exception("�� $"+ e.asXML() +"$�л�ȡ�ڵ㣺"+name +" ��ֵΪ�ա�");
+				throw new Exception("在 $"+ e.asXML() +"$中获取节点："+name +" 的值为空。");
 			}
 			return 0;
 		}
@@ -206,22 +206,22 @@ public class XMLUtil {
 		}catch (NumberFormatException e1) {
 			i = 0;
 			if(isMust){
-				throw new Exception("�� $"+ e.asXML() +"$�л�ȡ�ڵ㣺"+name +" ��ֵ�������Ρ�");
+				throw new Exception("在 $"+ e.asXML() +"$中获取节点："+name +" 的值不是整形。");
 			}
 		}
 		return i;
 	}
-	/**��ȡ�ڵ��е��ַ���
+	/**获取节点中的字符串
 	 * @throws Exception */
 	public static  String  getString(Element e,String name,boolean isMust) throws Exception{
 		return getString(e, name, isMust,null);
 	}
 	/**
-	 * ��ȡ�ڵ��е��ַ���
+	 * 获取节点中的字符串
 	 * @param e
 	 * @param name
-	 * @param isMust	�Ƿ���� true ����  false�Ǳ���
-	 * @param defVal	Ĭ��ֵ
+	 * @param isMust	是否必填 true 必填  false非必填
+	 * @param defVal	默认值
 	 * @return
 	 * @throws Exception
 	 */
@@ -230,7 +230,7 @@ public class XMLUtil {
 		if(current==null||current.getText()==null || StringUtils.isEmpty(current.getText().trim()))
 		{
 			if(isMust){
-				throw new Exception("�� $"+ e.asXML() +"$�л�ȡ�ڵ㣺"+name +" ��ֵΪ�ա�");
+				throw new Exception("在 $"+ e.asXML() +"$中获取节点："+name +" 的值为空。");
 			}
 			return defVal;
 		}
@@ -331,14 +331,14 @@ public class XMLUtil {
 	public static void main(String[] args) throws Exception {
 
 //		Document doc = parseXml("<Root></Root>");
-//		Element root = doc.getRootElement();
-//		addElement(root, "A", "�����·�");
+//	``	Element root = doc.getRootElement();
+//		addElement(root, "A", "阿萨德飞");
 //		addElement(root, "A", 2);
-//		System.out.println("�����ӽڵ㣺\r\n"+toXML(doc, "GBK", true));
-//		addCDATAElement(root, "B", "��������");
-//		System.out.println("���� CDATA �ӽڵ㣺\r\n"+toXML(doc, "UTF-8", true));
+//		System.out.println("添加子节点：\r\n"+toXML(doc, "GBK", true));
+//		addCDATAElement(root, "B", "所发生的");
+//		System.out.println("添加 CDATA 子节点：\r\n"+toXML(doc, "UTF-8", true));
 
-		String xml = "<Resp><TransactionCode></TransactionCode><RespCode>10000</RespCode><RespMessage>ҽ����ѯ��Ϣ�ɹ�</RespMessage><Data><DeptCode>286</DeptCode><DoctorName>�¾���</DoctorName><Spec>�ڹǿƷ����нϸߵ����裬�������ҿƿ�չ�˹��š�ϥ�ؽ��û��������ó��˹��š�ϥ�ؽ��û����ؽ���ƣ�����ҽ������ƹ��ۡ��������������Ի��Ρ���������֯���ˣ�����֫�ǹ��۱պϸ�λ����һ�ġ�</Spec><DoctorTitle>����ҽʦ</DoctorTitle><DoctorCode>164</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>����</DoctorName><Spec>����ؽڼ��������˹ǿơ�������ơ�</Spec><DoctorTitle>����ҽʦ</DoctorTitle><DoctorCode>266</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>����</DoctorName><Spec>�Ƴ�����AO����������ҽ������Ƹ��ֹ��ۣ����ֹؽڼ����������ǲ������ƣ�С���ǿƺ͹ؽھ�΢���������ڴ��˽��Ρ��ؽ���ơ���������н������ʶ��������һЩ�ɼ���</Spec><DoctorTitle>����ҽʦ</DoctorTitle><DoctorCode>169</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>�ſ�ΰ</DoctorName><Spec>�ó��˹��ؽ��û����ؽھ��������ǿ�΢��������</Spec><DoctorTitle>����ҽʦ</DoctorTitle><DoctorCode>174</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>ףǬ��</DoctorName><Spec>�ó��ַ����۸�λ���ǿ�΢��������</Spec><DoctorTitle>����ҽʦ</DoctorTitle><DoctorCode>168</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>������</DoctorName><Spec>����ؽڼ��������˹ǿơ�������ơ�</Spec><DoctorTitle>������ҽʦ</DoctorTitle><DoctorCode>176</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>���</DoctorName><Spec>���˿�������������ʹ�����Թؽ��׼���������֢������ҽ���ơ�</Spec><DoctorTitle>������ҽʦ</DoctorTitle><DoctorCode>172</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>������</DoctorName><Spec>�ڹɹ�ͷ�����������ס��ǽ�ˡ������Ը�Ⱦ�Ȳ�������ҽ��������ľ���ɫ��</Spec><DoctorTitle>������ҽʦ</DoctorTitle><DoctorCode>171</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>��</DoctorName><Spec>�ó������Ƹ��ִ��ˡ���׵�����ɹ�ͷȱѪ��������������֢���ǹؽ��׵ȹǿƼ����Լ�С���ǿ�����ļ�����</Spec><DoctorTitle>������ҽʦ</DoctorTitle><DoctorCode>173</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>�ܽ���</DoctorName><Spec>�ó������ؽڼ�������׵ǰ��·��������׵����ͻ��֢����׵����խ�Լ������������������ơ�</Spec><DoctorTitle>������ҽʦ</DoctorTitle><DoctorCode>4545</DoctorCode><DeptName>����ʡ����ҽԺ</DeptName></Data></Resp>";
+		String xml = "<Resp><TransactionCode></TransactionCode><RespCode>10000</RespCode><RespMessage>医生查询信息成功</RespMessage><Data><DeptCode>286</DeptCode><DoctorName>陈久毅</DoctorName><Spec>在骨科方面有较高的造诣，率先于我科开展人工髋、膝关节置换手术，擅长人工髋、膝关节置换，关节外科，中西医结合治疗骨折、骨肿瘤、先天性畸形、各种软组织损伤，对四肢骨骨折闭合复位独树一帜。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>164</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>田民</DoctorName><Spec>骨与关节疾病、创伤骨科、脊柱外科。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>266</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>王松</DoctorName><Spec>善长运用AO技术、中西医结合治疗各种骨折；各种关节疾患、脊柱骨病的治疗；小儿骨科和关节镜微创技术，在创伤矫形、关节外科、脊柱外科有较深的认识并作出了一些成绩。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>169</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>张开伟</DoctorName><Spec>擅长人工关节置换、关节镜及其它骨科微创手术。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>174</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>祝乾清</DoctorName><Spec>擅长手法骨折复位、骨科微创手术。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>168</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>方明智</DoctorName><Spec>骨与关节疾病、创伤骨科、脊柱外科。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>176</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>李贵华</DoctorName><Spec>创伤康复、颈肩腰腿痛、骨性关节炎及骨质疏松症的中西医治疗。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>172</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>李玉雄</DoctorName><Spec>在股骨头坏死、骨髓炎、骨结核、外伤性感染等病的中西医结合治疗颇具特色。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>171</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>沈俊</DoctorName><Spec>擅长于治疗各种创伤、颈椎病、股骨头缺血坏死、骨质疏松症、骨关节炎等骨科疾病以及小儿骨科领域的疾患。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>173</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>周建鸿</DoctorName><Spec>擅长脊柱关节疾病、颈椎前后路手术、腰椎间盘突出症、腰椎管狭窄以及脊柱肿瘤的手术治疗。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>4545</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data></Resp>";
 		System.out.println(formatXML(parseXml(xml)));
 	}
 	public static String formatXML(Document doc) throws Exception {

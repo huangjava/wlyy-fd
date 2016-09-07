@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/patient/family")
 public class FamilyController extends BaseController {
 
-    @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
     public String isAssign(

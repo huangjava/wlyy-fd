@@ -122,10 +122,10 @@ public class HospitalController extends BaseController {
             String json = "{\n" +
                     "\"photo\":\"\",\n" +
                     "\"teamCode\":\""+teamCode+"\",\n" +
-                    "\"teamName\":\"洪兴\",\n" +
+                    "\"teamName\":\"第一社团\",\n" +
                     "\"orgCode\":\""+orgCode+"\",\n" +
-                    "\"orgName\":\"黑社会\",\n" +
-                    "\"introduce\":\"香港最具势力，最黑暗，有暴力的社团\",\n" +
+                    "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
+                    "\"introduce\":\"思明高级社区服务\",\n" +
                     "}";
             JSONObject jsonObject = new JSONObject(json);
 //            Map resultMap = new HashMap<>();
@@ -215,15 +215,25 @@ public class HospitalController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "getDoctorInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "getDoctorInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "医生详细信息接口", produces = "application/json", notes = "医生详细信息接口")
     public String doctorInfo(
             @ApiParam(name = "doctorCode", value = "医生标识", required = true)
             @RequestParam(value = "doctorCode") String doctorCode) {
         try {
-
-            return write(200, "医生详细信息成功！", "data", "");
+            String json = "{\n" +
+                    "\"photo\":\"\",\n" +
+                    "\"doctorCode\":\""+doctorCode+"\",\n" +
+                    "\"doctorName\":\"涂慧娟\",\n" +
+                    "\"jobName\":\"主任医师\",\n" +
+                    "\"orgCode\":\"1\",\n" +
+                    "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
+                    "\"expertise\":\"擅长各种急救，医疗知识\",\n" +
+                    "\"introduce\":\"主治医师，2004年毕业于福建医科大学\",\n" +
+                    "}";
+            JSONObject jsonObject = new JSONObject(json);
+            return write(200, "查询成功！", "data", jsonObject);
         } catch (Exception e) {
             error(e);
             return error(-1, "医生详细信息失败！");

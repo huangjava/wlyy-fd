@@ -32,3 +32,6 @@ html,body{height: 100%;}
 .quxiao.active{width: 55px;height: 55px;background: url(../images/quxiao_pre.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 201;left: 50%;      top: 50%;      margin-left: -27px;      margin-top: 60px;}
 #footer {position: fixed;z-index: 3; bottom: 30px;width: 50px;height: 48px;padding: 0;right: 30px;display: block;}
 .add-icon{ width: 50px; height: 50px;background: url(../images/gengduo_btn.png) no-repeat center top; background-size: 50px;}
+.arrow-right{position: absolute;right: 15px;top:28px;}
+
+

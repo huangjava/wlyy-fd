@@ -3,9 +3,12 @@ package com.yihu.wlyy.util;
 
 import org.springframework.util.StringUtils;
 
+import java.sql.*;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class DateUtil {
 
@@ -19,7 +22,6 @@ public class DateUtil {
 	public static final String YYYY_MM_DD_HH = "yyyy-MM-dd HH";
 	public static final String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
 	public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
-
 	/**
 	  * 获取现在时间
 	  * 
@@ -145,7 +147,7 @@ public class DateUtil {
 	 * 将短时间格式时间转换为字符串 yyyy-MM-dd
 	 *
 	 * @param dateDate
-	 * @param k
+	 * @param format
 	 * @return
 	 */
 	public static String dateToStr(Date dateDate, String format) {
@@ -664,4 +666,121 @@ public class DateUtil {
 		}
 	}
 
+	public static Timestamp getSysDateTime() {
+		return new Timestamp(Calendar.getInstance().getTime().getTime());
+	}
+
+	public static Timestamp toTimestamp(String str, String format) {
+
+		if (str == null) {
+			return null;
+		}
+
+		try {
+			return new Timestamp(parseDate(str, format).getTime());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public static Timestamp toTimestamp(String str) {
+
+		if (str == null) {
+			return null;
+		}
+
+		try {
+			return Timestamp.valueOf(str.trim());
+		} catch (IllegalArgumentException iae) {
+			return null;
+		}
+
+	}
+
+	public static java.util.Date parseDate(String value, String pattern) {
+		try {
+			TimeZone tz = TimeZone.getDefault();
+			String dateFormat = pattern;
+			SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+			sdf.setTimeZone(tz);
+
+			// Parse date
+			java.util.Date parsed = null;
+
+			parsed = sdf.parse(value);
+			return parsed;
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+
+	public static java.sql.Date addMonth(int add, java.util.Date d) {
+		return addMonth(add, new java.sql.Date(d.getTime()));
+	}
+
+	public static java.sql.Date addMonth(int add, java.sql.Date d) {
+
+		if (d == null) {
+			return null;
+		}
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime((java.util.Date) d);
+		cal.setTimeZone(TimeZone.getDefault());
+		cal.add(Calendar.MONTH, add);
+
+		return new java.sql.Date(cal.getTime().getTime());
+	}
+
+	public static long compareDate(java.util.Date s1, java.util.Date s2) {
+		try {
+			return compareDate(YYYY_MM_DD, toString(s1), toString(s2));
+		} catch (Exception e) {
+			return -1;
+		}
+	}
+
+	public static long compareDate(String pattern, String s1, String s2) {
+
+		SimpleDateFormat f = new SimpleDateFormat(pattern);
+
+		try {
+			return f.parse(s1).getTime() - f.parse(s2).getTime();
+		} catch (Exception e) {
+			return -1;
+		}
+
+	}
+
+	public static String toString(java.util.Date date) {
+		return toString(date, YYYY_MM_DD);
+	}
+
+	public static String toString(java.util.Date date, String format) {
+
+		if (date == null) {
+			return null;
+		}
+
+		if (format == null) {
+			throw new IllegalArgumentException("The value of an argument is inaccurate.");
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+
+		return sdf.format(date);
+	}
+
+	public static String getDateFromDateTime(String dateTime) {
+
+		if (dateTime == null || dateTime.length() < YYYY_MM_DD.length()) {
+			return null;
+		}
+
+		return dateTime.substring(0, 10);
+	}
+
+	public static long compareDateTime(java.util.Date s1, java.util.Date s2) {
+		return s1.getTime() - s2.getTime();
+	}
 }

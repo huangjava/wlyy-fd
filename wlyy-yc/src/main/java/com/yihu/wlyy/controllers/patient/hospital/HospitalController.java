@@ -45,8 +45,7 @@ public class HospitalController extends BaseController {
         try {
             //TODO 示例
             ObjectMapper objectMapper = new ObjectMapper();
-            List list = objectMapper.readValue("[{\"code\":\"3502050100\",\"name\":\"海沧区嵩屿街道社区卫生服务中心\"},{\"code\":\"3502050101\",\"name\":\"海沧社区卫生服务站\"},{\"code\":\"3502050200\",\"name\":\"石塘社区卫生服务中心\"},{\"code\":\"3502050300\",\"name\":\"东孚卫生院\"},{\"code\":\"3502050301\",\"name\":\"天竺社区卫生服务站\"},{\"code\":\"3502050302\",\"name\":\"国营厦门第一农场社区卫生服务站\"},{\"code\":\"3502050400\",\"name\":\"新阳社区卫生服务中心\"},{\"code\":\"0a11148d-5b04-11e6-8344-fa163e8aee56\",\"name\":\"厦门市海沧医院\",\"photo\":\"\"}]",List.class);
-            return write(200, "查询成功", "list",list);
+            return write(200, "查询成功", "list","");
         } catch (Exception e) {
             error(e);
             return error(-1, "查询失败");
@@ -227,6 +226,8 @@ public class HospitalController extends BaseController {
                     "\"doctorCode\":\""+doctorCode+"\",\n" +
                     "\"doctorName\":\"涂慧娟\",\n" +
                     "\"jobName\":\"主任医师\",\n" +
+                    "\"teamCode\":\"1\",\n" +
+                    "\"teamName\":\"第一社团\",\n" +
                     "\"orgCode\":\"1\",\n" +
                     "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
                     "\"expertise\":\"擅长各种急救，医疗知识\",\n" +

@@ -35,7 +35,7 @@ public class PatientDeviceController extends BaseController {
 	@ApiOperation("设备保存接口")
 	@RequestMapping(value = "SavePatientDevice", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
-	public String saveDevice(@ApiParam(name="json",value="设备数据json",defaultValue = "{\"deviceId\": \"2\",\"deviceName\": \"血压计-优瑞恩\",\"deviceSn\": \"123456\",\"categoryCode\": \"2\",\"userType\": \"1\"}")
+	public String saveDevice(@ApiParam(name="json",value="设备数据json")
 							  @RequestParam(value="json",required = true) String json) {
 		try {
 			PatientDevice device = objectMapper.readValue(json,PatientDevice.class);

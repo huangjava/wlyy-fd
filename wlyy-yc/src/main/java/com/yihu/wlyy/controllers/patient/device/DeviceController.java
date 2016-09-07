@@ -1,6 +1,7 @@
 package com.yihu.wlyy.controllers.patient.device;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.models.common.ResultModel;
 import com.yihu.wlyy.models.device.Device;
 import com.yihu.wlyy.models.device.DeviceCategory;
 import com.yihu.wlyy.services.device.DeviceService;
@@ -38,7 +39,7 @@ public class DeviceController extends BaseController {
 	@RequestMapping(value = "DeviceList", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
 	@ResponseBody
 	public String getDeviceList(@ApiParam(name="category_code",value="设备类型代码",defaultValue = "1")
-								 @RequestParam(value="category_code",required = true) String categoryCode) {
+								@RequestParam(value="category_code",required = true) String categoryCode) {
 		try {
 			//TODO demo数据
 			String demo ="";
@@ -61,7 +62,7 @@ public class DeviceController extends BaseController {
 	@RequestMapping(value = "DeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
 	@ResponseBody
 	public String getDeviceInfo(@ApiParam(name="id",value="设备ID",defaultValue = "19")
-									   @RequestParam(value="id",required = true) String id) {
+								@RequestParam(value="id",required = true) String id) {
 		try {
 			//TODO demo示例
 			String demo ="";
@@ -77,6 +78,33 @@ public class DeviceController extends BaseController {
 			return write(200, "查询成功", "data", device);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());
+		}
+	}
+
+	@ApiOperation("新增设备信息")
+	@RequestMapping(value = "/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel pushData(
+			@ApiParam(name="deviceData",value="设备数据")
+			@RequestParam(value = "deviceData") String deviceData,
+			@ApiParam(name="deviceType",value="设备类型")
+			@RequestParam(value = "deviceType") String deviceType) {
+		try {
+			return deviceService.pushData(deviceData, deviceType);
+		} catch (Exception e) {
+			return ResultModel.error("Device data incoming failure");
+		}
+	}
+	@ApiOperation("获取设备信息")
+	@RequestMapping(value = "/data", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultModel getData(
+			@ApiParam(name="deviceData",value="设备编码")
+			@RequestParam(value = "deviceCode", required = false) String deviceCode) {
+		try {
+			return deviceService.getData(deviceCode);
+		} catch (Exception e) {
+			return  ResultModel.error("Device data acquisition failure");
 		}
 	}
 }

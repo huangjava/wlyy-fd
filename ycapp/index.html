@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="js/mui.min.js"></script>
+		<script src="html/yichangguanli/js/common.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
@@ -147,37 +148,36 @@
 			    });
 			}
 
+			//判断是否已登陆过
 			function judgePage() {
-				var userAgent = plus.storage.getItem("userAgent");
-				if(userAgent) {
-					plus.navigator.setUserAgent(userAgent);
-				} else {
-					//					var IMEI=plus.device.imei;
-					var UUID = plus.device.uuid;
-					var userAgentObj = {
-						"id": "",
-						"uid": "",
-						"imei": UUID,
-						"token": "",
-						"platform": 2 //2代表医生端
-					};
-					userAgent = JSON.stringify(userAgentObj);
-					plus.navigator.setUserAgent(userAgent);
-					plus.storage.setItem("userAgent", userAgent);
-				}
-				/*
-				 * 判断是否第一次登陆
-				 */
-				var flag = plus.storage.getItem("flag");
-				if(flag) {
-					mui.openWindow('html/yichangguanli/html/main.html', 'main', {});
-				} else {
-					var loginWv = plus.webview.create("html/login/html/login.html", "login", {
-						softinputMode: "adjustResize"
-					});
-					plus.webview.show(loginWv);
+				var Request = GetRequest();
+				var userId = Request["userId"]; // userId
+				var uId = Request["userId"];     //userCode
+				var ticket = Request["ticket"];
+				var iMei = plus.device.uuid;
+				var platform = 2;
+				var oUserAgent = {
+					"id": userId,
+					"uid": uId,
+					"imei": iMei,
+					"token": ticket,
+					"platform": platform,
+				};
+				userAgent = JSON.stringify(oUserAgent);
+				//plus.navigator.setUserAgent(userAgent);
+				plus.storage.setItem("userAgent", userAgent);
 
-				}
+				var orgId = Request["orgId"];
+				var	vaildTime = Request["vaildTime"];
+				var	appUID = Request["appUID"];
+				var	appType = Request["appType"];
+
+				plus.storage.setItem("orgId", orgId);
+				plus.storage.setItem("appUID", appUID);
+				plus.storage.setItem("ticket", ticket);
+				plus.storage.setItem("userId", userId);
+
+				mui.openWindow('html/yichangguanli/html/main.html', 'main', {});
 			}
 		</script>
 	</body>

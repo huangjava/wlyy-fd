@@ -149,7 +149,7 @@ getReqPromises([{url:"patient/device/PatientDeviceList",data:{id:0,pagesize:15}}
 	// TODO 设备列表数据示例
 		var data = datas[0];
 	//data = {"msg":"查询成功","isFirst":true,"total":1,"list":[{"id":491,"deviceId":3,"deviceSn":"九龙江","deviceName":"血糖仪-爱奥乐G-777G","user":"250ff5e5278d415880e49643a4b9c071","categoryCode":"1","userType":"-1","userIdcard":"350628199011010029","czrq":"2016-09-05 11:27:13"}],"isLast":true,"totalPages":1,"status":200};
-	lastId = getLastItemId(data.list);
+		lastId = getLastItemId(data.list);
 	if(data && data.list.length) {
 		$noResultWrap.hide();
 		var html = template("device_li_tmpl", data);

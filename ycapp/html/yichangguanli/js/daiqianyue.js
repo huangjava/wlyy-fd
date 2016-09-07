@@ -17,12 +17,10 @@ function searchPatients(){
 	var noSigningPatiUrl = "doctor/patient_group/noSigningPatients"//未签约
 	//待签约
 	sendPost(signingPatiUrl,{}, null, function(res){
-		console.log("******"+JSON.stringify(res));
 		handleSuccess(res, 0);
 	});
 	//未签约
 	sendPost(noSigningPatiUrl,{}, null, function(res){
-		console.log("******"+JSON.stringify(res));
 		handleSuccess(res, 1);
 	});
 }

@@ -21,6 +21,11 @@ $(function() {
 		}else{
 			document.getElementById("photo").src = data.data.url;
 		}
+		document.getElementById("doctorCode").innerHTML = data.data.doctorCode;
+		document.getElementById("doctorName").innerHTML = data.data.doctorName;
+		document.getElementById("orgCode").innerHTML = data.data.orgCode;
+		document.getElementById("orgName").innerHTML = data.data.orgName;
+		document.getElementById("jobName").innerHTML = data.data.jobName;
 		document.getElementById("expertise").innerHTML = data.data.expertise;
 		document.getElementById("introduce").innerHTML = data.data.introduce;
 		

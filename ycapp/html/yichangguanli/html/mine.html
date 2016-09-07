@@ -63,8 +63,8 @@
 				<div class="l-face"><img style="width: 60px;height: 60px; border-radius: 30px; margin-top: 10px;" src='{{setDocPhoto(photo, sex)}}'></div>
 				<div class="l-list-info pl10">
 					<div class="f-bold ptb5">{{name}}</div>
-					<div class=" ptb5">{{dept}}&nbsp;&nbsp;{{jobName}}</div>
-					<div>{{org}}</div>
+					<div class=" ptb5">{{deptName}}&nbsp;&nbsp;{{jobName}}</div>
+					<div>{{hospitalName}}</div>
 				</div>
 				<span class="list-icon arrow-right"></span>
 			</li>
@@ -112,7 +112,11 @@
 		});
 		
 		function getDocGroup(){
-			sendPost("doctor/team", null,
+			var orgId = plus.storage.getItem("orgId");
+			var userId = plus.storage.getItem("userId");
+			var ticket = plus.storage.getItem("ticket");
+			var params = {orgId:orgId,ticket:ticket}
+			sendPost("doctor/teamMember", params,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);
@@ -124,7 +128,6 @@
 				
 				function success(res) {
 					if (res.status == 200) {
-						console.log("******"+JSON.stringify(res));
 						var cont = template("doc_list_tmpl", {data:res.data});
 						document.getElementById("group").innerHTML = cont;
 					}
@@ -132,7 +135,10 @@
 		}
 		
 		function getDocInfo(){
-            sendPost("doctor/baseinfo", null,
+			var userId = plus.storage.getItem("userId");
+			var ticket = plus.storage.getItem("ticket");
+			var params = {userId:userId,ticket:ticket}
+            sendPost("doctor/baseinfo", params,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);
@@ -143,10 +149,8 @@
 				}, 
 				function success(res) {
 					if (res.status == 200) {
-						console.log("******"+JSON.stringify(res));
 <!--						var data = {name: "张三",dept: "骨科",jobName: "主任医师",org:  "xxxx机构名称",sex: "1",photo: ""};-->
 						<!--var data = res.data;-->
-						
 						var cont = template("doc_info_tmpl", res.data);
 						document.getElementById("doc_info").innerHTML = cont;
 					}

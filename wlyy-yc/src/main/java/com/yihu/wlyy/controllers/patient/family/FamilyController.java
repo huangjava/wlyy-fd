@@ -39,7 +39,7 @@ public class FamilyController extends BaseController {
             @ApiParam(name = "patient", value = "患者Code", required = false)
             @RequestParam(required = false) String patient ) {
         try {
-            String demo = "{\"id\":1,\"code\":\"CS20160830001\",\"idCard\":\"350204194*******40\",\"birthday\":\"1950-10-17\",\"gender\":1,\"mobile\":\"15210000077\",\"phone\":\"\",\"socialSecurityCard\":\"\",\"photo\":\"\",\"province\":\"350000\",\"city\":\"350200\",\"town\":\"350206\",\"street\":\"\",\"address\":\"高崎南五路\",\"provinceCode\":\"福建省\",\"cityCode\":\"厦门市\",\"townCode\":\"湖里区\",\"streetCode\":\"\",\"status\":1,\"createTime\":\"2016-08-17\"}";
+            String demo = "{\"id\":1,\"code\":\"CS20160830001\",\"name\":\"吴龙龙\",\"idCard\":\"350204194*******40\",\"birthday\":\"1950-10-17\",\"gender\":1,\"mobile\":\"15210000077\",\"phone\":\"\",\"socialSecurityCard\":\"\",\"photo\":\"\",\"province\":\"350000\",\"city\":\"350200\",\"town\":\"350206\",\"street\":\"\",\"address\":\"高崎南五路\",\"provinceCode\":\"福建省\",\"cityCode\":\"厦门市\",\"townCode\":\"湖里区\",\"streetCode\":\"\",\"status\":1,\"createTime\":\"2016-08-17\"}";
             PatientModel patientModel = objectMapper.readValue(demo,PatientModel.class);
 
             return write(200, "患者信息查询成功！", "data", patientModel);

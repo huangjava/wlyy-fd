@@ -1,8 +1,8 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
 var pagetype = 11;
 $(function() {	
-	//checkUserAgent();
-	queryInit();
+	checkUserAgent();
+	//queryInit();
 });	
 
 function queryInit(){

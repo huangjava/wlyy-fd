@@ -30,24 +30,27 @@
 					<img id="photo" src="" class="c-images-cycle">
 				</span>
 				<p class="c-t-left c-f18">
-					<span id="name" class="c-f20 mr10 ml10"></span><label id="teamName"></label></p>
+					<span id="teamCode" style="display: none;"></span>
+					<span id="teamName" class="c-f20 mr10 ml10"></span><label id="teamName"></label></p>
 			     <p class="c-t-left c-f16 c-toe f-dn">
+			     	<span id="orgCode" style="display: none;"></span>
 			    	<span id="orgName" class="mr10 ml10"></span></p>			
 			</div>
 			
 			
-			<!--<div class="slider-detail plr15 bgc-fff mtb10 c-border-tb">
+			<div id="team_member_warp" class="bgc-fff mt10 c-border-tb list-item-1">
+		        <div class="ui-grid ptb15 plr10 c-border-b">
+		        	<img src="../../../images/tuanduchengyuan_icon.png" class="c-w-20 c-h-20 c-vam"/>
+		            <div class="ui-col-1 c-vam pl5">
+		                <p class="tit-name c-nowrap c-f18 c-333">团队介绍</p>
+		            </div>
+		        </div>
 				<ul>
-					<li class="c-border-b">
-						<h2 class="c-f18">擅长</h2>
-						<p class="c-f16 show" id="expertise"></p>
-					</li>
 					<li>
-						<h2 class="c-f18">简介</h2>
 						<p class="c-f16 show" id="introduce"></p>
 					</li>
 				</ul>
-			</div>		-->
+			</div>		
 			<div id="team_member_warp" class="bgc-fff mt10 c-border-tb list-item-1">
 		        <div class="ui-grid ptb15 plr10 c-border-b">
 		        	<img src="../../../images/tuanduchengyuan_icon.png" class="c-w-20 c-h-20 c-vam"/>
@@ -55,6 +58,7 @@
 		                <p class="tit-name c-nowrap c-f18 c-333">团队成员</p>
 		            </div>
 		        </div>
+		        
 		        <ul id="team_member_list" class="c-list">
 		            
 		        </ul>
@@ -252,7 +256,7 @@
 			<div class="f-vam f-mr10 add-icon f-ib div-add-btn btn-main"></div>
 		</div>
 		<div class="h61">
-			<div class="plr15 pb15 bottom-btn-box c-border-t" id="btnSign"> 
+			<div class="plr15 pb15 bottom-btn-box c-border-t" id="btnSign">
 			</div>
 			<div id="btnMenu">
 				<div class="div-dialog-content ">
@@ -279,14 +283,15 @@
         -->
 		<script type="text/html" id="member_li_tmpl">
 			{{each list as it}}
-			<li data-code="{{it.code}}">
-				<a href="javascript:void(0);" class="ui-grid c-000">
+			<li data-code="{{it.code}}" class="c-list sever-list">
+				<a href="../html/doctor-info.html?doctorCode={{it.code}}" class="ui-grid c-000">
+					 <span class="list-icon arrow-right"></span>
 			        <div class="ui-col-0 c-w-60 pt5 pb5" >
 			        	<img src="{{it.photo||(it.sex==1?'../../../images/d-male.png':'../../../images/d-female.png')}}" class="c-br50 c-w-50 c-h-50"></img>
 			        </div>
 			        <div class="ui-col-1 bb1-ccc">
 			        	<div ><span class="c-f16 c-bold">{{it.name}}</span></div>
-			        	<div class="c-f14 c-666666">{{it.hospitalName}}</div>
+			        	<div class="c-f14 c-666666">{{it.orgName}}</div>
 			        </div>
 			    </a>
 			</li>

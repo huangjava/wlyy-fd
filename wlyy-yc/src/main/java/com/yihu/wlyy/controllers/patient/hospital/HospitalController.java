@@ -7,10 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -117,23 +114,29 @@ public class HospitalController extends BaseController {
     @RequestMapping(value = "/getTeamInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "获取医生团队详细信息", produces = "application/json", notes = "获取医生团队详细信息")
     public String getTeamInfo(
+            @ApiParam(name = "orgCode", value = "机构编码", required = true)
+            @RequestParam(required = true) String orgCode,
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
             @RequestParam(required = true) String teamCode) {
         try {
             String json = "{\n" +
                     "\"photo\":\"\",\n" +
-                    "\"teamName\":\"洪兴\",\n" +
-                    "\"orgName\":\"黑社会\",\n" +
+                    "\"teamCode\":\""+teamCode+"\",\n" +
+                    "\"teamName\":\"第一社团\",\n" +
+                    "\"orgCode\":\""+orgCode+"\",\n" +
+                    "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
+                    "\"introduce\":\"思明高级社区服务\",\n" +
                     "}";
             JSONObject jsonObject = new JSONObject(json);
-            Map resultMap = new HashMap<>();
-            resultMap.put("data", jsonObject);
-            ResultModel resultModel = ResultModel.success("查询成功！");
-            resultModel.setResultMap(resultMap);
-            return resultModel.toJson();
+//            Map resultMap = new HashMap<>();
+//            resultMap.put("data", jsonObject);
+//            ResultModel resultModel = ResultModel.success("查询成功！");
+//            resultModel.setResultMap(resultMap);
+//            return resultModel.toJson();
+            return write(200, "查询成功！", "data", jsonObject);
         } catch (Exception ex) {
             error(ex);
-            return ResultModel.error("查询失败！").toJson();
+            return error(-1, "查询失败！");
         }
     }
 
@@ -155,7 +158,7 @@ public class HospitalController extends BaseController {
                     "            \"introduce\": \"我是全科医生\",\n" +
                     "            \"name\": \"大米全科1\",\n" +
                     "            \"dept_name\": \"\",\n" +
-                    "            \"photo\": \"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg\",\n" +
+                    "            \"photo\": \"\",\n" +
                     "            \"id\": 1262,\n" +
                     "            \"expertise\": \"我是全科医生\",\n" +
                     "            \"hospital_name\": \"嘉莲社区医疗服务中心\",\n" +
@@ -199,15 +202,41 @@ public class HospitalController extends BaseController {
                     "        }\n" +
                     "    ]";
             JSONArray jsonArray = new JSONArray(json);
-            Map resultMap = new HashMap<>();
-            resultMap.put("list", jsonArray);
-            ResultModel resultModel = ResultModel.success("查询成功！");
-            resultModel.setResultMap(resultMap);
-            return resultModel.toJson();
+//            Map resultMap = new HashMap<>();
+//            resultMap.put("list", jsonArray);
+//            ResultModel resultModel = ResultModel.success("查询成功！");
+//            resultModel.setResultMap(resultMap);
+//            return resultModel.toJson();
+            return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);
-            return ResultModel.error("查询失败！").toJson();
+//            return ResultModel.error("查询失败！").toJson();
+            return error(-1, "查询失败！");
         }
+    }
 
+    @RequestMapping(value = "getDoctorInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "医生详细信息接口", produces = "application/json", notes = "医生详细信息接口")
+    public String doctorInfo(
+            @ApiParam(name = "doctorCode", value = "医生标识", required = true)
+            @RequestParam(value = "doctorCode") String doctorCode) {
+        try {
+            String json = "{\n" +
+                    "\"photo\":\"\",\n" +
+                    "\"doctorCode\":\""+doctorCode+"\",\n" +
+                    "\"doctorName\":\"涂慧娟\",\n" +
+                    "\"jobName\":\"主任医师\",\n" +
+                    "\"orgCode\":\"1\",\n" +
+                    "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
+                    "\"expertise\":\"擅长各种急救，医疗知识\",\n" +
+                    "\"introduce\":\"主治医师，2004年毕业于福建医科大学\",\n" +
+                    "}";
+            JSONObject jsonObject = new JSONObject(json);
+            return write(200, "查询成功！", "data", jsonObject);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "医生详细信息失败！");
+        }
     }
 }

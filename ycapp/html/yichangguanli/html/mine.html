@@ -112,42 +112,27 @@
 		});
 		
 		function getDocGroup(){
-			
-			var res = {
-				data: [
-					{
-						name: "张三",
-						dept: "骨科",
-						jobName: "主任医师",
-						org:  "xxxx机构名称",
-						sex: "1",
-						photo: ""
-					},
-					{
-						name: "张三",
-						dept: "骨科",
-						jobName: "主任医师",
-						org:  "xxxx机构名称",
-						sex: "1",
-						photo: ""
-					},
-					{
-						name: "张三",
-						dept: "骨科",
-						jobName: "主任医师",
-						org:  "xxxx机构名称",
-						sex: "1",
-						photo: ""
+			sendPost("doctor/team", null,
+				function queryFailed(res) {
+					if (res && res.msg) {
+						plus.nativeUI.toast(res.msg);
+					} else {
+						plus.nativeUI.toast("数据加载失败");
 					}
-				]
-			}
-			var cont = template("doc_list_tmpl", res);
-			document.getElementById("group").innerHTML = cont;
+					plus.nativeUI.closeWaiting();
+				}, 
+				
+				function success(res) {
+					if (res.status == 200) {
+						console.log("******"+JSON.stringify(res));
+						var cont = template("doc_list_tmpl", {data:res.data});
+						document.getElementById("group").innerHTML = cont;
+					}
+				});
 		}
 		
 		function getDocInfo(){
-//			sendPost("lgin/baseinfo", null, 原请求url  20160905 yww 测试改
-            sendPost("doctor/login", null,
+            sendPost("doctor/baseinfo", null,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);
@@ -158,15 +143,11 @@
 				}, 
 				function success(res) {
 					if (res.status == 200) {
-						var data = {
-							name: "张三",
-							dept: "骨科",
-							jobName: "主任医师",
-							org:  "xxxx机构名称",
-							sex: "1",
-							photo: ""
-						}
-						var cont = template("doc_info_tmpl", data);
+						console.log("******"+JSON.stringify(res));
+<!--						var data = {name: "张三",dept: "骨科",jobName: "主任医师",org:  "xxxx机构名称",sex: "1",photo: ""};-->
+						<!--var data = res.data;-->
+						
+						var cont = template("doc_info_tmpl", res.data);
 						document.getElementById("doc_info").innerHTML = cont;
 					}
 				});

@@ -129,7 +129,7 @@ function bindEvents() {
 			$(".table-xuetang").show();
 			charType = 1;
 			pageInit();
-			$("#qushi").click();
+			//$("#qushi").click();
 			queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
 
 		} else if (activeItem.hasClass("xueya")) { //点击血压
@@ -137,7 +137,7 @@ function bindEvents() {
 			$(".table-xueya").show();
 			charType = 2;
 			pageInit()
-			$("#qushi").click();
+			//$("#qushi").click();
 			queryListByType(charType, page, pagesize, queryListSuccesss1, begindate, enddate);
 		} else if (activeItem.hasClass("tizhong")) { //点击体重
 			$(".curve-box.div-tizhong").show();
@@ -313,7 +313,6 @@ function bindEvents() {
 	});
 
 	$("#view_more2").on("click", function() {
-		console.log("血压点击事件")
 		queryList2(page, pagesize);
 	});
 

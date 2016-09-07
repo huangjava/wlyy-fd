@@ -18,6 +18,7 @@ html,body{height: 100%;}
 #sign_invitation a { display: block; }
 #textReason { width: 100%; font-size: 16px; }
 .reqest-unsign-pop .ui-dialog-content { display: block;}
+#team_member_list .fa-angle-right { position: absolute; top: 50%; right: 10px; margin-top: -10px; font-size: 20px;}
 
 #divAgree .c-list > .c-list-text { padding-top: 0; padding-bottom: 0; }
 .div-dialog-content{width: 250px;height: 250px;background: url(../images/tuoyuan.png) no-repeat center top;background-size: 250px;position: fixed;z-index: 201;left: 50%;top: 50%;margin-left: -125px;margin-top: -125px;}  

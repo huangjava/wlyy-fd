@@ -114,12 +114,16 @@ public class HospitalController extends BaseController {
     @RequestMapping(value = "/getTeamInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "获取医生团队详细信息", produces = "application/json", notes = "获取医生团队详细信息")
     public String getTeamInfo(
+            @ApiParam(name = "orgCode", value = "机构编码", required = true)
+            @RequestParam(required = true) String orgCode,
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
             @RequestParam(required = true) String teamCode) {
         try {
             String json = "{\n" +
                     "\"photo\":\"\",\n" +
+                    "\"teamCode\":\""+teamCode+"\",\n" +
                     "\"teamName\":\"洪兴\",\n" +
+                    "\"orgCode\":\""+orgCode+"\",\n" +
                     "\"orgName\":\"黑社会\",\n" +
                     "\"introduce\":\"香港最具势力，最黑暗，有暴力的社团\",\n" +
                     "}";
@@ -154,7 +158,7 @@ public class HospitalController extends BaseController {
                     "            \"introduce\": \"我是全科医生\",\n" +
                     "            \"name\": \"大米全科1\",\n" +
                     "            \"dept_name\": \"\",\n" +
-                    "            \"photo\": \"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg\",\n" +
+                    "            \"photo\": \"\",\n" +
                     "            \"id\": 1262,\n" +
                     "            \"expertise\": \"我是全科医生\",\n" +
                     "            \"hospital_name\": \"嘉莲社区医疗服务中心\",\n" +
@@ -211,23 +215,18 @@ public class HospitalController extends BaseController {
         }
     }
 
-    /**
-     * 医生主页信息查询接口
-     * @param doctor 医生标识
-     * @return
-     */
-    @RequestMapping(value = "getDoctorHomePage", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "getDoctorInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "医生主页信息查询接口", produces = "application/json", notes = "医生主页信息查询接口")
-    public String homepage(
-            @ApiParam(name = "doctor", value = "医生标识", required = true)
-            @RequestParam(value = "doctor") String doctor) {
+    @ApiOperation(value = "医生详细信息接口", produces = "application/json", notes = "医生详细信息接口")
+    public String doctorInfo(
+            @ApiParam(name = "doctorCode", value = "医生标识", required = true)
+            @RequestParam(value = "doctorCode") String doctorCode) {
         try {
 
-            return write(200, "医生主页查询成功！", "data", "");
+            return write(200, "医生详细信息成功！", "data", "");
         } catch (Exception e) {
             error(e);
-            return error(-1, "医生主页查询失败！");
+            return error(-1, "医生详细信息失败！");
         }
     }
 }

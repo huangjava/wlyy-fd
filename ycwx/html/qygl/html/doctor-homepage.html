@@ -30,8 +30,10 @@
 					<img id="photo" src="" class="c-images-cycle">
 				</span>
 				<p class="c-t-left c-f18">
-					<span id="name" class="c-f20 mr10 ml10"></span><label id="teamName"></label></p>
+					<span id="teamCode" style="display: none;"></span>
+					<span id="teamName" class="c-f20 mr10 ml10"></span><label id="teamName"></label></p>
 			     <p class="c-t-left c-f16 c-toe f-dn">
+			     	<span id="orgCode" style="display: none;"></span>
 			    	<span id="orgName" class="mr10 ml10"></span></p>			
 			</div>
 			
@@ -281,14 +283,15 @@
         -->
 		<script type="text/html" id="member_li_tmpl">
 			{{each list as it}}
-			<li data-code="{{it.code}}">
-				<a href="javascript:void(0);" class="ui-grid c-000">
+			<li data-code="{{it.code}}" class="c-list sever-list">
+				<a href="../html/doctor-info.html?doctorCode={{it.code}}" class="ui-grid c-000">
+					 <span class="list-icon arrow-right"></span>
 			        <div class="ui-col-0 c-w-60 pt5 pb5" >
 			        	<img src="{{it.photo||(it.sex==1?'../../../images/d-male.png':'../../../images/d-female.png')}}" class="c-br50 c-w-50 c-h-50"></img>
 			        </div>
 			        <div class="ui-col-1 bb1-ccc">
 			        	<div ><span class="c-f16 c-bold">{{it.name}}</span></div>
-			        	<div class="c-f14 c-666666">{{it.hospitalName}}</div>
+			        	<div class="c-f14 c-666666">{{it.orgName}}</div>
 			        </div>
 			    </a>
 			</li>

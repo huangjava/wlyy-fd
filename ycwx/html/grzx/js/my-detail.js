@@ -1,8 +1,8 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
 var pagetype = 11;
 $(function() {	
-	checkUserAgent();
-	//queryInit();
+	//checkUserAgent();
+	queryInit();
 });	
 
 function queryInit(){
@@ -13,31 +13,31 @@ function queryInit(){
 	var Request = new Object();
 	Request = GetRequest(); 
 	var code = Request["code"];
-	var params1 = {};			
+	var params1 = {};
 	params1.pageUrl = server + "wx/html/grzx/html/my-detail.html?code=" + code + "&state=STATE";
-	$.ajax(server + "weixin/getSign", {
-		data: params1,
-		dataType: "json",
-		type: "post",
-		success: function(res){
-			if (res.status == 200) {
-				var t = res.data.timestamp;
-				var noncestr = res.data.noncestr;
-				var signature = res.data.signature;
-				wx.config({		
-					//debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-				    appId: appId, // 必填，公众号的唯一标识
-				    timestamp: t, // 必填，生成签名的时间戳
-				    nonceStr: noncestr, // 必填，生成签名的随机串
-				    signature: signature,// 必填，签名，见附录1
-				    jsApiList: [
-				    	'chooseImage',
-				        'uploadImage'
-				    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-				});
-			} 
-		}
-	});	
+	//$.ajax(server + "weixin/getSign", {
+	//	data: params1,
+	//	dataType: "json",
+	//	type: "post",
+	//	success: function(res){
+	//		if (res.status == 200) {
+	//			var t = res.data.timestamp;
+	//			var noncestr = res.data.noncestr;
+	//			var signature = res.data.signature;
+	//			wx.config({
+	//				//debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	//			    appId: appId, // 必填，公众号的唯一标识
+	//			    timestamp: t, // 必填，生成签名的时间戳
+	//			    nonceStr: noncestr, // 必填，生成签名的随机串
+	//			    signature: signature,// 必填，签名，见附录1
+	//			    jsApiList: [
+	//			    	'chooseImage',
+	//			        'uploadImage'
+	//			    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	//			});
+	//		}
+	//	}
+	//});
 	$("#backLogin").click(function (){
 		dialog({
 	        content:'您确定继续退出登录吗？',
@@ -51,16 +51,13 @@ function queryInit(){
 		}).showModal();
 	})
 }
-//跳转到三师信息
-function changeSanshi(){
-	window.location.href = "../../qygl/html/signing-doctors.html";
-}
+
 //跳转到家庭签约信息
 function changeJtqy(signedStatus){
 	if(signedStatus) {
-		window.location.href = "../../ssgg/html/doctor-homepage-new.html"
+		window.location.href = "../../ssgg/html/doctor-homepage.html"
 	} else {
-		window.location.href = "../../qygl/html/signing-doctors.html"
+		window.location.href = "../../qygl/html/search-community.html"
 	}
 	//window.location.href = "../../ssgg/html/choose-region.html";
 }
@@ -103,31 +100,27 @@ function querySuccess(res) {
 function setValue(data){
 	var photo = data.photo;
 	var name = data.name;
-	var sex = data.sex;
-	var birthday = data.birthday;
+	//var birthday = data.birthday;
 	var mobile = data.mobile;
-	var idcard = data.idcard;
-	var ssc = data.ssc;
+	var idcard = data.idCard;
+	var ssc = data.socialSecurityCard;
 	var province = data.province;
 	var city = data.city;
-	var area = data.area;
+	var area = data.town;
 	var street = data.street;
-	var provinceName = data.provinceName;
-	var cityName = data.cityName;
-	var areaName = data.areaName;	
-	var streetName = data.streetName;
+	var provinceName = data.provinceCode;
+	var cityName = data.cityCode;
+	var areaName = data.townCode;
+	var streetName = data.streetCode;
 	var address = data.address;
-	var sign = Number(data.sign);
+	var sign = Number(data.sign);//签约状态
 	
-	var sexName = "女";
-	if(sex == 1) {
-		sexName = "男";
-	}
+
 	if(!photo){
 		photo = "../../../images/p-default.png";
 	}	
 	if(!name) name = "";
-	if(!birthday) birthday = "";
+	//if(!birthday) birthday = "";
 	if(!mobile) mobile = "";
 	if(!idcard) idcard = "";
 	if(!ssc) ssc = "";
@@ -143,38 +136,29 @@ function setValue(data){
 	
 	document.getElementById("photo").src = photo;
 	document.getElementById("name").value = name;			
-	document.getElementById("sex").innerHTML = sexName;
-	document.getElementById("birthday").innerHTML = birthday;
+	//document.getElementById("birthday").innerHTML = birthday;
 	document.getElementById("mobile").innerHTML = mobile;
 	document.getElementById("idcard").innerHTML = idcard;
-	document.getElementById("ssc").value = ssc;
-	document.getElementById("province").value = provinceName;
-	document.getElementById("provinceCode").value = province;
-	document.getElementById("city").value = cityName;
-	document.getElementById("cityCode").value = city;
-	document.getElementById("town").value = areaName;
-	document.getElementById("townCode").value = area;
-	document.getElementById("street").value = streetName;
-	document.getElementById("streetCode").value = street;
+	//document.getElementById("ssc").value = ssc;
+	//document.getElementById("province").value = provinceName;
+	//document.getElementById("provinceCode").value = province;
+	//document.getElementById("city").value = cityName;
+	//document.getElementById("cityCode").value = city;
+	//document.getElementById("town").value = areaName;
+	//document.getElementById("townCode").value = area;
+	//document.getElementById("street").value = streetName;
+	//document.getElementById("streetCode").value = street;
 	document.getElementById("address").value = address;
 	
 	
 	
 	var html = "";
 	if(sign == 0){
-		// html = '<img class="img-sign" src="../images/sanshiweiqianyue@2x.png"/>&nbsp;&nbsp;&nbsp;&nbsp;'+
-		 html =  '<img class="img-sign" src="../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(false)"/>';		
+		html = 	 '<img class="img-sign" src="../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(true)"/>';
 	}else if(sign == 1){
-		html = '<img class="img-sign" src="../images/sanshiqianyue@2x.png" onclick="changeSanshi()"/>&nbsp;&nbsp;&nbsp;&nbsp;'+
-		       '<img class="img-sign" src="../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(false)"/>';
-	}
-	else if(sign == 2){
-		// html = '<img class="img-sign" src="../images/sanshiweiqianyue@2x.png"/>&nbsp;&nbsp;&nbsp;&nbsp;'+
-		html = '<img class="img-sign" src="../images/jiatingqianyue@2x.png" onclick="changeJtqy()"/>';
-	}
-	else{
-		html = '<img class="img-sign" src="../images/sanshiqianyue@2x.png" onclick="changeSanshi()"/>&nbsp;&nbsp;&nbsp;&nbsp;'+
-		       '<img class="img-sign" src="../images/jiatingqianyue@2x.png" onclick="changeJtqy()"/>';
+		html =   '<img class="img-sign" src="../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(false)"/>';
+	}else{
+		html =	 '<img class="img-sign" src="../images/jiatingqianyue@2x.png" onclick="changeJtqy(false)"/>';
 	}
 	document.getElementById("divSign").innerHTML = html;
 	

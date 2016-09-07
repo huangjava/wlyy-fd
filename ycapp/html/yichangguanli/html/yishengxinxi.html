@@ -82,7 +82,8 @@
 			})
 
 			function getDocInfo() {
-				sendPost("doctor/merberinfo", null, 		
+				
+				sendPost("doctor/memberInfo", null, 		
 					function queryFailed(res) {
 						if (res && res.msg) {
 							plus.nativeUI.toast(res.msg);

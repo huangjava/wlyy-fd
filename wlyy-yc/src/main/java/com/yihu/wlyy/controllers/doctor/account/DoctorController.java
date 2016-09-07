@@ -34,74 +34,44 @@ public class DoctorController extends BaseController {
     @Value("${service-gateway.url}")
     private String comUrl;
 
-    //  医生登陆
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation("医生登入")
-    public String doctorLogin(
-//            @ApiParam(name = "doctorId",value = "医生账号",defaultValue = "dddd")
-//            @RequestParam(value = "doctorId") String doctorId,
-//            @ApiParam(name = "password",value = "密码")
-//            @RequestParam(value = "password") String password,
-//            @ApiParam(name = "ticket",value = "")
-//            @RequestParam(value = "ticket") String ticket
-    ){
-        try {
-            String url = "";
-            JSONObject json = new JSONObject();
-            json.put("id","1");
-            json.put("uid","1");
-            json.put("token","1");
-            json.put("hospital","1");
-            json.put("name","1");
-            json.put("photo","1");
-            json.put("userRole","1");
-            json.put("doctorType","1");
-            return write(200, "成功！", "data", json);
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "失败！");
-        }
-    }
 
-    // 医生认证
-    @RequestMapping(value = "authentication",method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation("医生认证")
-    public String authentication(
-            @ApiParam(name = "name",value = "登录者姓名",defaultValue = "张三")
-            @RequestParam(value = "name") String name,
-            @ApiParam(name = "idCard",value = "身份证号",defaultValue = "350822201600000000")
-            @RequestParam(value = "idCard") String idCard,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket") String ticket){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("name",name);
-        params.put("id_Card",idCard);
-        params.put("ticket",ticket);
-        try {
-            String url = "";
-            String resultStr = HttpClientUtil.doPost(comUrl+url,params,username,password);
-            return write(200, "身份认证成功！", "obj", "");
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "身份认证失败！");
-        }
-    }
-
-    //获取医生的团队信息
-    @RequestMapping(value = "team",method = RequestMethod.POST)
+    //获取医生的 团队信息
+    @RequestMapping(value = "teamInfo",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取医生团队信息")
-    public String getDoctorTeam(
-            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId",required = false) String doctorId,
+    public String getDoctorTeamInfo(
+            @ApiParam(name = "orgId",value = "医生所在机构id",defaultValue = "orgId")
+            @RequestParam(value = "orgId",required = false) String orgId,
+            @ApiParam(name = "userId",value = "医生唯一标识",defaultValue = "userId")
+            @RequestParam(value = "userId",required = false) String userId,
             @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
             @RequestParam(value = "ticket",required = false) String ticket
     ){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("doctor_id",doctorId);
-        params.put("ticket",ticket);
+
+        //TODO 东软接口
+            // ------4.1 获取当前医生参与的团队列表
+//        1	ORGCODE	VARCHAR2(36)	Y	医生所属机构编码
+//        2	USERID	VARCHAR2(36)	Y	医生主索引
+//        1	TEAMID	VARCHAR2(30)		团队编号
+//        2	TEAMNAME	VARCHAR2(80)		团队名称
+        // ------1.2 获取家庭医生团队信息
+
+//        1	TEAMID	VARCHAR2(30)		团队编号
+//        1	TEAMID	VARCHAR2(30)		团队编号
+//        2	TEAMNAME	VARCHAR2(80)		团队名称
+//        3	ORGCODE	VARCHAR2(36)	Y	所属机构编码
+//        4	CREATEDUNITNAME	VARCHAR2(50)		创建单位名称
+//        5	CREATEDUNITCODE	VARCHAR2(12)		创建单位编码
+//        6	CREATEDTIME	DATE		创建时间
+//        7	TEAMDESC	VARCHAR2(200)		团队简介
+//        8	USERID	VARCHAR2(36)		医生主键
+//        9	USER_FULLNAME	VARCHAR2(32)		医生姓名
+//        10	DEPT_NAME	VARCHAR2(255)		所属科室
+
+
+//        Map<String,Object> params = new HashMap<String, Object>();
+//        params.put("doctor_id",doctorId);
+//        params.put("ticket",ticket);
         try{
             String url = "";
             //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
@@ -125,33 +95,98 @@ public class DoctorController extends BaseController {
             return error(-1, "获取团队信息失败！");
         }
     }
+
+    //获取医生的 团队成员列
+    @RequestMapping(value = "teamMember",method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "获取医生的团队成员列表")
+    public String getDoctorTeam(
+            @ApiParam(name = "orgId",value = "医生所在机构id",defaultValue = "orgId")
+            @RequestParam(value = "orgId",required = false) String orgId,
+            @ApiParam(name = "userId",value = "医生唯一标识",defaultValue = "userId")
+            @RequestParam(value = "userId",required = false) String userId,
+            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
+            @RequestParam(value = "ticket",required = false) String ticket
+    ){
+
+        //TODO 东软接口 (没有对应接口）
+
+        // 至少需要的信息
+        // userId  （成员对应userId）--后续获取成员明细信息需要
+        // name    姓名
+        // dept    所在科室
+        // jobName 职务
+
+
+//        Map<String,Object> params = new HashMap<String, Object>();
+//        params.put("doctor_id",doctorId);
+//        params.put("ticket",ticket);
+        try{
+            String url = "";
+            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
+            JSONArray array = new JSONArray();
+            for (int i=0; i<5;i++) {
+                JSONObject json = new JSONObject();
+                json.put("id","201600"+i); //userId
+                json.put("name","ww"+i);   //姓名
+                json.put("dept","www");    //所在科室
+                json.put("jobName","ww");  // 职务
+                json.put("org","wwwwwww"); // 所在机构
+                json.put("sex","1");        //性别
+                json.put("photo","");       // 头像
+                json.put("expertise","wwwwww，wwwwww"); //擅长
+                json.put("introduce","wwww，wwwwww，wwww，wwwww。。。。");//简介
+                array.put(json);
+            }
+            return write(200, "获取团队信息成功！", "data", array);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "获取团队信息失败！");
+        }
+    }
+
     // 获取医生信息
     @RequestMapping(value = "baseinfo",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取医生本人信息，原有")
     public String getDoctorInfo(
-            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId",required = false) String doctorId,
+            @ApiParam(name = "userId",value = "医生唯一标识",defaultValue = "doctor001")
+            @RequestParam(value = "userId",required = false) String userId,
             @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
             @RequestParam(value = "ticket",required = false) String ticket){
+        //TODO
+        //东软接口  1.3 获取家庭医生信息
+//         请求参数  USERID   用户id（登入医生id）
+//         返回结果
+//        USER_FULLNAME	VARCHAR2(32)	Y	医生姓名
+//        GENDER	VARCHAR2(12)		    性别
+//        PROFESSION	NVARCHAR2(200)		职业经历
+//        EDUCATION	NVARCHAR2(200)		    教育背景
+//        SPECIALTY	NVARCHAR2(200)		    专业特长
+//        UNIT_NAME	VARCHAR2(255)		    所属机构
+//        DEPT_NAME	VARCHAR2(255)		    所属科室
+//        PHOTO	BLOB（二进制码）		        照片
+
         Map<String,Object> params = new HashMap<String, Object>();
-        params.put("doctor_id",doctorId);
+        params.put("user_id",userId);//
         params.put("ticket",ticket);
         try{
             String url = "";
             //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
             JSONObject json = new JSONObject();
-            json.put("photo","");
-            json.put("name","yww");
-            json.put("sex","1");
-            json.put("mobile","15805926666");
-            json.put("hospitalName","first-hospital");
-            json.put("deptName","kou qiang ke");
-            json.put("jobName","test");
-            json.put("expertise","no  non");
-            json.put("introduce","my is my ");
-            json.put("provinceName","fu jian ");
-            json.put("cityName","xia men ");
+            json.put("photo","");                   // 照片 8    原有使用的是src
+            json.put("name","yww杨");                 // 医生姓名1
+            json.put("sex","1");                    // 医生性别2
+                                                    // 职业经历3 ****
+                                                    // 教育背景4 ****
+            json.put("mobile","15805926666no");     // 医生联系方式（未提供）
+            json.put("expertise","little");        // 专业特长5
+            json.put("hospitalName","first-hospital");//所属机构6
+            json.put("deptName","guke");             // 所属科室7
+            json.put("jobName","zhuzhiyishino");       // （无）
+            json.put("introduce","my is my no");      // 简介（无）
+            json.put("provinceName","fu jian no");    // 省份（无）--湖北
+            json.put("cityName","xia men no");        // 城市（无）--宜昌
             return write(200, "success！", "data", json);
         } catch (Exception e) {
             error(e);
@@ -160,7 +195,7 @@ public class DoctorController extends BaseController {
     }
 
     // 获取医生信息
-    @RequestMapping(value = "merberinfo",method = RequestMethod.POST)
+    @RequestMapping(value = "memberInfo",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取团队某个医生信息")
     public String getMemberDoctorInfo(

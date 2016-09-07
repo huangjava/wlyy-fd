@@ -154,11 +154,11 @@ function setValue(data){
 	
 	var html = "";
 	if(sign == 0){
-		html = 	 '<img class="img-sign" src="../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(true)"/>';
+		html = 	 '<img class="img-sign" src="../../../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(true)"/>';
 	}else if(sign == 1){
-		html =   '<img class="img-sign" src="../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(false)"/>';
+		html =   '<img class="img-sign" src="../../../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(false)"/>';
 	}else{
-		html =	 '<img class="img-sign" src="../images/jiatingqianyue@2x.png" onclick="changeJtqy(false)"/>';
+		html =	 '<img class="img-sign" src="../../../images/jiatingqianyue@2x.png" onclick="changeJtqy(false)"/>';
 	}
 	document.getElementById("divSign").innerHTML = html;
 	

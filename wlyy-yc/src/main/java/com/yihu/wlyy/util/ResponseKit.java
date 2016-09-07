@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +143,8 @@ public class ResponseKit {
         }
     }
 
+
+
     /**
      * 返回接口处理结果
      *
@@ -157,6 +160,28 @@ public class ResponseKit {
             map.put("status", code);
             map.put("msg", msg);
             map.put(key, value);
+            return mapper.writeValueAsString(map);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "服务器异常，请稍候再试！");
+        }
+    }
+
+    public String write(int code, String msg, String key, Page<?> list) {
+        try {
+            Map<Object, Object> map = new HashMap<Object, Object>();
+            ObjectMapper mapper = new ObjectMapper();
+            map.put("status", code);
+            map.put("msg", msg);
+            // 是否为第一页
+            map.put("isFirst", list.isFirst());
+            // 是否为最后一页
+            map.put("isLast", list.isLast());
+            // 总条数
+            map.put("total", list.getTotalElements());
+            // 总页数
+            map.put("totalPages", list.getTotalPages());
+            map.put(key, list.getContent());
             return mapper.writeValueAsString(map);
         } catch (Exception e) {
             error(e);

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -191,6 +192,18 @@ public class BaseController {
      * @return
      */
     public String write(int code, String msg, String key, Object value) {
+        return responseKit.write(code, msg, key, value);
+    }
+
+    /**
+     * 返回分页接口处理结果
+     *
+     * @param code  结果码，成功为200
+     * @param msg   结果提示信息
+     * @param value 结果数据
+     * @return
+     */
+    public String write(int code, String msg, String key, Page<?>  value) {
         return responseKit.write(code, msg, key, value);
     }
 

@@ -35,12 +35,14 @@ public class PatientDeviceController extends BaseController {
 	@ApiOperation("设备保存接口")
 	@RequestMapping(value = "SavePatientDevice", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
-	public String saveDevice(@ApiParam(name="json",value="设备数据json",defaultValue = "{\"deviceId\": \"2\",\"deviceName\": \"血压计-优瑞恩\",\"deviceSn\": \"123456\",\"categoryCode\": \"2\",\"userType\": \"1\"}")
+	public String saveDevice(@ApiParam(name="json",value="设备数据json")
 							  @RequestParam(value="json",required = true) String json) {
 		try {
 			PatientDevice device = objectMapper.readValue(json,PatientDevice.class);
 			// 设置患者标识
-			device.setUser(getUID());
+//			String user = getUID();
+			String user = "CS20160830001";
+			device.setUser(user);
 
 			patientDeviceService.saveDevice(device);
 
@@ -67,7 +69,9 @@ public class PatientDeviceController extends BaseController {
 			String demo ="[{\"id\":456,\"deviceId\":1,\"deviceSn\":\"cc3321xxxccc1211\",\"deviceName\":\"血压计-康为A206G\",\"user\":\"CS20160830001\",\"categoryCode\":\"2\",\"userType\":\"2\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:50:58\"},{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}]";
 //			List list = objectMapper.readValue(demo,List.class);
 
-			Page<PatientDevice> list = patientDeviceService.findByPatient(getUID(), id, pagesize);
+//			String user = getUID();
+			String user = "CS20160830001";
+			Page<PatientDevice> list = patientDeviceService.findByPatient(user, id, pagesize);
 			return write(200, "查询成功", "list", list);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());
@@ -76,7 +80,7 @@ public class PatientDeviceController extends BaseController {
 
 
 	@ApiOperation("获取患者设备信息")
-	@RequestMapping(value = "PatientDeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
+	@RequestMapping(value = "PatientDeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getPatientDeviceInfo(@ApiParam(name="id",value="患者设备ID",defaultValue = "146")
 									 @RequestParam(value="id",required = true) String id) {
@@ -84,6 +88,7 @@ public class PatientDeviceController extends BaseController {
 			//TODO 示例数据
 			String demo = "{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}";
 //			PatientDevice device = objectMapper.readValue(demo,PatientDevice.class);
+
 
 			PatientDevice device = patientDeviceService.findById(id);
 			return write(200, "查询成功", "data", device);
@@ -96,14 +101,16 @@ public class PatientDeviceController extends BaseController {
 	 *  通过sn码获取设备绑定情况
 	 */
 	@ApiOperation("通过sn码获取设备绑定情况")
-	@RequestMapping(value = "PatientDeviceIdcard", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
+	@RequestMapping(value = "PatientDeviceIdcard", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceUser(@ApiParam(name="type",value="设备类型",defaultValue = "1")
 									     @RequestParam(value="type",required = true) String type,
 										 @ApiParam(name="device_sn",value="设备SN码",defaultValue = "15L000002")
 										 @RequestParam(value="device_sn",required = true) String deviceSn) {
 		try {
-			List<Map<String,String>> list = patientDeviceService.getDeviceUser(getUID(),deviceSn,type);
+//			String user = getUID();
+			String user = "CS20160830001";
+			List<Map<String,String>> list = patientDeviceService.getDeviceUser(user,deviceSn,type);
 			return write(200, "获取设备绑定信息成功！", "data",list);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());
@@ -122,7 +129,9 @@ public class PatientDeviceController extends BaseController {
 			PatientDevice pd = patientDeviceService.findById(id);
 			if(pd!=null)
 			{
-				if (!StringUtils.equals(pd.getUser(), getUID())) {
+//				String user = getUID();
+				String user = "CS20160830001";
+				if (!StringUtils.equals(pd.getUser(), user)) {
 					return error(-1, "只允许删除自己的设备！");
 				}
 				// 删除设备

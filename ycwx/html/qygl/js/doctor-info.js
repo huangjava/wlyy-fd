@@ -25,6 +25,8 @@ $(function() {
 		document.getElementById("doctorName").innerHTML = data.data.doctorName;
 		document.getElementById("orgCode").innerHTML = data.data.orgCode;
 		document.getElementById("orgName").innerHTML = data.data.orgName;
+		document.getElementById("teamCode").innerHTML = data.data.teamCode;
+		document.getElementById("teamName").innerHTML = data.data.teamName;
 		document.getElementById("jobName").innerHTML = data.data.jobName;
 		document.getElementById("expertise").innerHTML = data.data.expertise;
 		document.getElementById("introduce").innerHTML = data.data.introduce;
@@ -36,4 +38,10 @@ $(function() {
 		console && console.error(e);
 	});
 })
+
+var startSign = function() {
+	var teamName = encodeURI(document.getElementById("teamName").innerHTML);
+	var orgName = encodeURI(document.getElementById("orgName").innerHTML);
+	window.location.href = "../../qygl/html/argument.html?teamCode=" + teamName + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&patientCode='+"1";
+}
 	

@@ -9,19 +9,25 @@ mui.plusReady(function() {
 	window.localStorage.removeItem("isLoginOut");
 	var self = plus.webview.currentWebview();
 	
-	var docType = plus.storage.getItem("docType");
+	/*var docType = plus.storage.getItem("docType");
 	if(!docType) {
 		alert("获取医生类型失败");
-	}
+	}*/
 	var userAgent = JSON.parse(plus.storage.getItem("userAgent"));
 	var userId = userAgent.uid;
-	var info = plus.push.getClientInfo();
-	var token = info.token;
+
+	var orgId = plus.storage.getItem("orgId");
+	var client_id = plus.storage.getItem("appUID");
+	var ticket = plus.storage.getItem("ticket");
+	var userId = plus.storage.getItem("userId");
+	
+	alert(ticket + userId);
+	/*var token = info.token;
 	var client_id = info.clientid;
 	var platform = 0;
 	if(plus.os.name == "Android") { //ios暂无im功能 只在安卓下才执行该方法
 		platform = 1;
-	}
+	}*/
 	
 //	loginIm(userId,token,client_id,platform); //登录Im
 	
@@ -76,7 +82,7 @@ mui.plusReady(function() {
 	/*
 	 * 退出事件
 	 */
-	var first = null;
+	/*var first = null;
 	mui.back = function() {
 		if(!first) {
 			first = new Date().getTime();
@@ -89,15 +95,22 @@ mui.plusReady(function() {
 				plus.runtime.quit();
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * 请求医生基本信息
 	 */
-	sendPost("doctor/login", {}, null, function(res) { 
+	sendPost("doctor/baseinfo",
+		{
+			"doctorId":userId,
+			"ticket":ticket
+		},
+		null, function(res) {
 		if(res.status == 200) {
 			var infoStr = JSON.stringify(res.data);
 			plus.storage.setItem("docInfo", infoStr);
+			//TODO 测试用
+			console.log(infoStr);
 		} else {
 			mui.toast("获取医生信息失败");
 		}
@@ -120,12 +133,12 @@ mui.plusReady(function() {
 	/**
 	 * 返回首页
 	 */
-	window.addEventListener("mainActive", function() {
+	/*window.addEventListener("mainActive", function() {
 		var item = $(".mui-tab-item").get(1);
 		mui.trigger(item, 'tap');
 	});
-		
-	plus.push.addEventListener("click", function(msg) {
+		*/
+	/*plus.push.addEventListener("click", function(msg) {
 		console.log("click");
 		var qunzuduihuaView = plus.webview.getWebviewById("dlz");
 		if(qunzuduihuaView) {
@@ -139,10 +152,10 @@ mui.plusReady(function() {
 		if(p2pHtml) {
 			mui.fire(p2pHtml, "update");
 		}
-	}, false);
+	}, false);*/
 	
 	// 监听在线消息事件
-	plus.push.addEventListener("receive", function(msg) {
+	/*plus.push.addEventListener("receive", function(msg) {
 		
 		var qunzuduihuaView = plus.webview.getWebviewById("dlz");
 		if(qunzuduihuaView) {
@@ -157,9 +170,10 @@ mui.plusReady(function() {
 		if(p2pHtml) {
 			mui.fire(p2pHtml, "update");
 		}
-	}, false);
+	}, false);*/
 	
 });
+/*
 
 function loginIm(userId,token,client_id,platform){
 	if(token!=null){
@@ -172,4 +186,4 @@ function loginIm(userId,token,client_id,platform){
 			loginIm(userId,tokenNew,client_idNew,platform);
 		},1000);
 	}
-}
+}*/

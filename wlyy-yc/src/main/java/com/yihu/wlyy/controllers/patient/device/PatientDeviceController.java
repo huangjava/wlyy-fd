@@ -80,7 +80,7 @@ public class PatientDeviceController extends BaseController {
 
 
 	@ApiOperation("获取患者设备信息")
-	@RequestMapping(value = "PatientDeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
+	@RequestMapping(value = "PatientDeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getPatientDeviceInfo(@ApiParam(name="id",value="患者设备ID",defaultValue = "146")
 									 @RequestParam(value="id",required = true) String id) {
@@ -101,7 +101,7 @@ public class PatientDeviceController extends BaseController {
 	 *  通过sn码获取设备绑定情况
 	 */
 	@ApiOperation("通过sn码获取设备绑定情况")
-	@RequestMapping(value = "PatientDeviceIdcard", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
+	@RequestMapping(value = "PatientDeviceIdcard", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceUser(@ApiParam(name="type",value="设备类型",defaultValue = "1")
 									     @RequestParam(value="type",required = true) String type,

@@ -23,7 +23,7 @@ public class DeviceController extends BaseController {
 	private DeviceService deviceService;
 
 	@ApiOperation("获取设备分类")
-	@RequestMapping(value = "DeviceCategory", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
+	@RequestMapping(value = "DeviceCategory", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceCategory() {
 		try {
@@ -36,7 +36,7 @@ public class DeviceController extends BaseController {
 	}
 
 	@ApiOperation("获取设备列表")
-	@RequestMapping(value = "DeviceList", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
+	@RequestMapping(value = "DeviceList", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceList(@ApiParam(name="category_code",value="设备类型代码",defaultValue = "1")
 								@RequestParam(value="category_code",required = true) String categoryCode) {
@@ -59,7 +59,7 @@ public class DeviceController extends BaseController {
 	}
 
 	@ApiOperation("获取设备信息")
-	@RequestMapping(value = "DeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.GET)
+	@RequestMapping(value = "DeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceInfo(@ApiParam(name="id",value="设备ID",defaultValue = "19")
 								@RequestParam(value="id",required = true) String id) {

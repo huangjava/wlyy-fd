@@ -286,8 +286,4 @@ public class SystemConf {
 		return getSystemProperties().getProperty(name);
 	}
 
-	public static void main(String[] args) {
-		System.out.println(getInstance().getServerUrl());
-	}
-
 }

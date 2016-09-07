@@ -282,8 +282,8 @@ public class SystemConf {
 		return "http://" + getServerIp() + port + domain + "/";
 	}
 
-	public static void main(String[] args) {
-		System.out.println(getInstance().getServerUrl());
+	public String getValue(String name){
+		return getSystemProperties().getProperty(name);
 	}
 
 }

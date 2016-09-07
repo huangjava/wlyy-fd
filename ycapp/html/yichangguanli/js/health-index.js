@@ -201,7 +201,8 @@ function queryListByType(type, page, pagesize, successFunction,begindate,enddate
 	params.end = enddate+" 23:59:59";
 //	d.show();
 	//发送ajax请求
-	sendPost("patient/health_index/list", params, "json", "post", queryListFailed, successFunction);
+//	sendPost("patient/health_index/list", params, "json", "post", queryListFailed, successFunction);
+	sendPost("doctor/health_index/list", params,queryListFailed, successFunction);
 
 	
 }

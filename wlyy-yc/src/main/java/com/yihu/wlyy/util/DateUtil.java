@@ -664,11 +664,4 @@ public class DateUtil {
 		}
 	}
 
-	public static void main(String[] args) {
-//		String hour = "12:22:12";
-//		System.out.println(Time.valueOf(hour));
-//		System.out.println(getNowDate());
-//		
-		System.out.println(getNextYear(new Date(), -65));
-	}
 }

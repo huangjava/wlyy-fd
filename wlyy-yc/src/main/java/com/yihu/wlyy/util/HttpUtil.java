@@ -234,9 +234,4 @@ public class HttpUtil {
 		return buffer.toString();
 	}
 
-	public static void main(String[] args) {
-		boolean result = HttpUtil.pushMessage("U20160322000001", "1", "您有一条医嘱提醒", "少吃辣，多运动，多吃水果！", null);
-		System.out.println(result);
-	}
-
 }

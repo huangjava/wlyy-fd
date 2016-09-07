@@ -48,42 +48,50 @@ mui.plusReady(function() {
 	pageInit();
 	
 	function queryData() {
-		var res = {
-			list: [
-				{	
-					date: "2016-01-01",
-					value1: 55,
-					value2: 55,
-					value3: 55,
-					value4: 55,
-					value5: 55,
-					value6: 55,
-					value7: 55
-				},
-				{	
-					date: "2016-01-01",
-					value1: 55,
-					value2: 55,
-					value3: 55,
-					value4: 55,
-					value5: 55,
-					value6: 55,
-					value7: 55
-				},
-				{
-					date: "2016-01-01",
-					value1: 55,
-					value2: 55,
-					value3: 55,
-					value4: 55,
-					value5: 55,
-					value6: 55,
-					value7: 55
+		sendPost("doctor/health_index/list",{type:1,pagesize:15},null,
+			function(res){
+				if(res.status == 200){
+					showListXue(res.list);
 				}
-			]
-		}
+			});
 		
-		showListXue(res.list);
+		
+//		var res = {
+//			list: [
+//				{	
+//					date: "2016-01-01",
+//					value1: 55,
+//					value2: 55,
+//					value3: 55,
+//					value4: 55,
+//					value5: 55,
+//					value6: 55,
+//					value7: 55
+//				},
+//				{	
+//					date: "2016-01-01",
+//					value1: 55,
+//					value2: 55,
+//					value3: 55,
+//					value4: 55,
+//					value5: 55,
+//					value6: 55,
+//					value7: 55
+//				},
+//				{
+//					date: "2016-01-01",
+//					value1: 55,
+//					value2: 55,
+//					value3: 55,
+//					value4: 55,
+//					value5: 55,
+//					value6: 55,
+//					value7: 55
+//				}
+//			]
+//		}
+		
+//		showListXue(res.list);
 	}
 	queryData();
 //	queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
@@ -121,7 +129,7 @@ function bindEvents() {
 			$(".table-xuetang").show();
 			charType = 1;
 			pageInit();
-			$("#qushi").click();
+			//$("#qushi").click();
 			queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
 
 		} else if (activeItem.hasClass("xueya")) { //点击血压
@@ -129,7 +137,7 @@ function bindEvents() {
 			$(".table-xueya").show();
 			charType = 2;
 			pageInit()
-			$("#qushi").click();
+			//$("#qushi").click();
 			queryListByType(charType, page, pagesize, queryListSuccesss1, begindate, enddate);
 		} else if (activeItem.hasClass("tizhong")) { //点击体重
 			$(".curve-box.div-tizhong").show();

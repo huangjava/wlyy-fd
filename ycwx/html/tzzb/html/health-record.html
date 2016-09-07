@@ -1,0 +1,522 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>健康记录</title>
+    <meta name="author" content="yihu.com"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/cross.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/cross.ui.css">
+    <link rel="stylesheet" type="text/css" href="../../wdsb/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/ss-style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/iscroll.css" />	
+    <link rel="stylesheet" type="text/css" href="../../../widget/switchery/switchery.css">
+    <link rel="stylesheet" type="text/css" href="../../../widget/swiper/3.1/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.15.1/css/mobiscroll.css">
+	<link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/health-record.css" />
+</head>
+
+<body> 
+<!--<div class="h45">
+    <div class="demo-comtop">
+        <a class="mui-action-back"></a>
+        <h1>健康记录</h1>
+    </div>
+</div>-->
+	<div id="wrapper">
+	    <div class="iScroller">
+	        <ul class="c-lab-mor pt-tab c-f16">
+	            <li id="tizhengLi" class="hit"><a href="#">体征记录</a></li>
+	            <li id="healthLi"><a href="#">保健记录</a></li>
+	        </ul> 
+			  <div id="tizhengList" class="pt-tab-list hit"> 
+			   <div class="m-menu-link mt10"> 
+			    <div class="row"> 
+			     <div class="col-25 f-tac col-content"> 
+			      <div class="item-icon xuetang active"></div> 
+			      <div>血糖</div> 
+			     </div> 
+			     <div class="col-25 f-tac col-content"> 
+			      <div class="item-icon xueya"></div> 
+			      <div>血压</div> 
+			     </div> 
+			     <div class="col-25 f-tac col-content"> 
+			      <div class="item-icon tizhong"></div> 
+			      <div>体重</div> 
+			     </div> 
+			     <div class="col-25 f-tac col-content"> 
+			      <div class="item-icon yaowei"></div> 
+			      <div>腰围</div> 
+			     </div> 
+			    </div> 
+			   </div> 
+			   <div class="card-title s-bc-ffffff"> 
+			    <div class="div-date">
+				    	<span class="l-arrow-left fl"></span>
+						 <span class="fl lbl-date" data-id="1"></span>
+						 <span class="l-arrow-right fl"></span>
+				    </div> 
+			    <div class="div-btn-group" > 
+			     <a class="c-btn c-btn-full active" href="javascript:;" id="qushi">趋势图</a>
+			     <a class="c-btn c-btn-full" href="javascript:;" id="liebiao">列表</a>
+			    </div> 
+			   </div> 
+			   
+			   <div class="div-charts">	   	
+				   <!-- 血糖曲线-->
+				   <div class="curve-box c-border-tb bgc-fff div-xuetang">
+						<div class="swiper-container xuetang-container">
+							<ul class="swiper-wrapper ">
+								<li class="swiper-slide">
+									<ul class="chart-title">
+										<li>
+											<i class="bgc-5dd1d2"></i> 早餐前血糖
+										</li>
+									</ul>
+									<div id="chart1" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+								<li class="swiper-slide">
+									<ul class="chart-title">
+										<li>
+											<i class="bgc-b6a2de"></i> 早餐后血糖
+										</li>
+									</ul>
+									<div id="chart2" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+								<li class="swiper-slide">
+									<ul class="chart-title">
+										<li>
+											<i class="bgc-5dd1d2"></i> 午餐前血糖
+										</li>
+									</ul>
+									<div id="chart3" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+								<li class="swiper-slide">
+									<ul class="chart-title">
+										<li>
+											<i class="bgc-b6a2de"></i> 午餐后血糖
+										</li>
+									</ul>
+									<div id="chart4" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+								<li class="swiper-slide">
+									<ul class="chart-title">
+										<li>
+											<i class="bgc-5dd1d2"></i> 晚餐前血糖
+										</li>
+									</ul>
+									<div id="chart5" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+								<li class="swiper-slide">
+									<ul class="chart-title">
+										<li>
+											<i class="bgc-b6a2de"></i> 晚餐后血糖
+										</li>
+									</ul>
+									<div id="chart6" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+								<li class="swiper-slide">
+									<ul class="chart-title">
+										<li>
+											<i class="bgc-5dd1d2"></i> 睡前血糖
+										</li>
+									</ul>
+									<div id="chart7" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<div class="swiper-pagination xuetangcharts"></div>
+						</div>
+					</div>
+				  
+				  <!--血压曲线-->
+				  <div class="curve-box c-border-tb bgc-fff div-xueya f-dn">
+						<div class="swiper-container">
+							<ul class="swiper-wrapper">
+								<li class="swiper-slide">
+		
+									<ul class="chart-title">
+		
+										<li>
+											<i class="bgc-5dd1d2"></i> 收缩压
+											<i class="bgc-b6a2de"></i> 舒张压
+										</li>
+									</ul>
+									<div id="chart8" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				  
+				  <!--体重曲线-->
+				  <div class="curve-box c-border-tb bgc-fff div-tizhong f-dn">
+						<div class="swiper-container">
+							<ul class="swiper-wrapper">
+								<li class="swiper-slide">
+		
+									<ul class="chart-title">
+		
+										<li>
+											<i class="bgc-5dd1d2"></i> 体重
+										</li>
+									</ul>
+									<div id="chart9" class="curve-charts">
+									</div>
+									<ul class="chart-zt">
+										<li>
+											<i class="bgc-0ad800"></i> 正常
+										</li>
+										<li>
+											<i class="bgc-f00"></i> 异常
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				  
+				  <!--腰围曲线-->
+				  <div class="curve-box c-border-tb bgc-fff div-yaowei f-dn">
+					<div class="swiper-container">
+						<ul class="swiper-wrapper">
+							<li class="swiper-slide">
+								<ul class="chart-title">
+									<li>
+										<i class="bgc-5dd1d2"></i> 腰围
+									</li>
+								</ul>
+								<div id="chart10" class="curve-charts">
+								</div>
+								<ul class="chart-zt">
+									<li>
+										<i class="bgc-0ad800"></i> 正常
+									</li>
+									<li>
+										<i class="bgc-f00"></i> 异常
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<div class="swiper-pagination"></div>
+					</div>
+			</div>
+				
+			  </div>
+			  
+			  <div class="div-list f-dn">
+			  	<div class="plr15 ptb10 c-909090 c-f17">
+						<div class="c-f10 div-remark">注：偏高为<span class="c-f00">红色</span>字体，偏低为<span class="c-007cd9">蓝色</span>字体</div>
+					</div>
+					<!--血糖-->
+					<table class="c-table pos c-border-tb GLU-tab table-xuetang">
+						<thead class="c-btn-75bf00 c-f13 c-fff">
+							<tr>
+								<th rowspan="2" class="f-vam">日期</th>
+								<th colspan="2">早餐</th>
+								<th colspan="2">午餐</th>
+								<th colspan="2">晚餐</th>
+								<th rowspan="2" class="f-vam">睡前</th>
+							</tr>
+							<tr>
+								<th>前</th>
+								<th>后</th>
+								<th>前</th>
+								<th>后</th>
+								<th>前</th>
+								<th>后</th>
+							</tr>
+						</thead>
+						<tbody class="bg-fff c-f16" id="item">
+							
+						</tbody>
+						
+					</table>
+					<div class="labhold-con xuetang-more">
+		   					 <div class="doc-recoder" id="divRecoder1"></div>
+		    				 <a href="javascript:;" class="view-more c-37a6ed c-f18" id="view_more1">点击查看更多</a>
+					</div>
+			 		 <!--血压-->
+			  		<table class="c-table health-table-blue c-f16 c-boxs table-xueya f-dn">
+				   		<thead class="c-btn-75bf00 c-f13 c-fff">
+				   			<tr>
+								<td class="width-33">日期</td>
+								<td class="width-33">收缩压</td>
+								<td class="width-33">舒张压</td>
+							</tr>
+				   		</thead>
+						<tbody id="item1">
+							
+						</tbody>
+					</table>
+					<div class="labhold-con xueya-more">
+		   				<div class="doc-recoder" id="divRecoder2"></div>
+		    			<a href="javascript:;" class="view-more c-37a6ed c-f18" id="view_more2">点击查看更多</a>
+					</div>
+					 <!--体重-->
+			  		<table class="c-table health-table-blue c-f16 c-boxs table-tizhong f-dn">
+				   		<thead class="c-btn-75bf00 c-f13 c-fff">
+				   			<tr>
+								<td class="width-50">日期</td>
+								<td class="width-50">体重(kg)</td>
+							</tr>
+				   		</thead>
+						<tbody id="item2">
+							
+						</tbody>
+					</table>
+					<div class="labhold-con tizhong-more">
+		   				<div class="doc-recoder" id="divRecoder3"></div>
+		    			<a href="javascript:;" class="view-more c-37a6ed c-f18" id="view_more3">点击查看更多</a>
+					</div>
+					 <!--腰围-->
+			  		<table class="c-table health-table-blue c-f16 c-boxs table-yaowei f-dn">
+				   		<thead class="c-btn-75bf00 c-f13 c-fff">
+				   			<tr>
+								<td class="width-50">日期</td>
+								<td class="width-50">腰围(cm)</td>
+							</tr>
+				   		</thead>
+						<tbody id="item3">
+							
+							
+						</tbody>
+					</table>
+					<div class="labhold-con yaowei-more">
+		   				<div class="doc-recoder" id="divRecoder4"></div>
+		    			<a href="javascript:;" class="view-more c-37a6ed c-f18" id="view_more4">点击查看更多</a>
+					</div>
+			  </div>
+		  </div>
+			  
+			  
+	        <div id="patinetsList" class="pt-tab-list" >
+	             <div class="m-menu-link mt10"> 
+				    <div class="row"> 
+					     <div class="col-33 f-tac col-content"> 
+					      <div class="item-icon yundong active"></div> 
+					      <div>运动</div> 
+					     </div> 
+					     <div class="col-33 f-tac col-content"> 
+					      <div class="item-icon yongyao"></div> 
+					      <div>用药</div> 
+					     </div> 
+					     <div class="col-33 f-tac col-content"> 
+					      <div class="item-icon yinshi"></div> 
+					      <div>饮食</div> 
+					     </div> 
+				    </div> 
+			   </div> 
+			    <div class="card-title s-bc-ffffff border-bom mb10"> 
+				    <div class="div-date">
+				    	<span class="l-arrow-left fl"></span>
+						 <span class="fl lbl-date" data-id="1"></span>
+						 <span class="l-arrow-right fl"></span>
+				    </div> 
+			   </div> 
+			   <!--运动-->
+			   <table class="c-table health-table-blue c-f16 c-boxs table-yundong">
+				   		<thead class="c-btn-75bf00 c-f13 c-fff">
+				   			<tr>
+								<td class="width-25">日期</td>
+								<td class="width-20">时长</td>
+								<td class="width-25">运动强度</td>
+								<td class="width-30">具体运动</td>
+							</tr>
+				   		</thead>
+						<tbody id='sport_list'>
+							
+						</tbody>
+					</table>
+					<div class="labhold-con sport-more">
+			   			 <div class="doc-recoder" id="divRecoderSport"></div>
+			  			  <a href="javascript:;" class="view-more c-37a6ed c-f18" id="view_more_sport">点击查看更多</a>
+					</div>
+	           <!--用药-->
+	           <table class="c-table health-table-blue c-f16 c-boxs table-yongyao f-dn">
+				   		<thead class="c-btn-75bf00 c-f13 c-fff">
+				   			<tr>
+								<td class="width-30">日期</td>
+								<td class="width-70">用药</td>
+							</tr>
+				   		</thead>
+						<tbody id='drug_list'>
+							
+						</tbody>
+					</table>
+				<div class="labhold-con yongyao-more">
+			   			 <div class="doc-recoder" id="divRecoderYongyao"></div>
+			  			  <a href="javascript:;" class="view-more c-37a6ed c-f18" id="view_more_yongyao">点击查看更多</a>
+				</div>
+	           <!--饮食-->
+	           <table class="c-table health-table-blue c-f16 c-boxs table-yinshi f-dn">
+				   		<thead class="c-btn-75bf00 c-f13 c-fff">
+				   			<tr>
+								<td class="width-30">日期</td>
+								<td class="width-70">饮食</td>
+							</tr>
+				   		</thead>
+						<tbody id='diet_list'>
+							
+						</tbody>
+					</table>
+	           <div class="labhold-con yinshi-more">
+			   			 <div class="doc-recoder" id="divRecoderYongyao"></div>
+			  			  <a href="javascript:;" class="view-more c-37a6ed c-f18" id="view_more_yinshi">点击查看更多</a>
+				</div>
+	        </div>
+	    </div>
+	    
+	</div>
+
+	<!-- 时间过滤框 -->
+	<dl class="jhadd bgc-fff dt-date-condition f-dn">
+		<dt class="tit p10 border-bom dt-part-time7" data-id="1">
+			<a href="javascript:void(0);" class="more">
+    			<i class="icon del"></i>
+    		</a>最近一周
+		</dt>
+		<dt class="tit p10 border-bom dt-part-time30" data-id="2">
+			<a href="javascript:void(0);" class="more">
+    			<i class="icon"></i>
+  			</a>最近一月
+		</dt>
+		<dt class="tit p10 border-bom f-pr dt-custom" data-id="3">
+			<div class="div-switch">
+				<input type="checkbox" class="js-switch f-dn" id="jobStatusSwitch" />
+			</div>
+			自定义
+		</dt>
+		<dt class="mt10 dt-custom-content f-dn">
+			<dl class="tit" style="padding: 0 10px;color: #909090;font-size: 12px;">
+				<a href="javascript:void(0);" class="date" style="float:right;text-align:right">结束于</a>
+   				开始于
+			</dl>
+			<dl class="border-bom"><a href="javascript:void(0);" class="date">
+	    		<input class="c-color-75BF00 lab-endDate" style="text-align: left;margin-left: -10px;width:100%;"/>
+	    		</a><input class="c-color-75BF00 lab-startDate f-fs13 plr10"/>
+			</dl>
+		</dt>
+		<dt class="dt-btn-group">
+			<a href="javascript:;" id="cancle-btn" class="fl c-f15 a-btn" >取消</a>
+			<a href="javascript:;" id="confirm-btn" class="fl c-f15 a-btn active">确定</a>
+		</dt>
+	</dl>
+    
+    <div id="footer">
+			<div class="f-vam f-mr10 add-icon f-ib div-add-btn"></div>
+	</div>
+    <div class="div-dialog-content div-tizhengtezheng f-dn">
+		<div class="f-vam f-mr10 addxuetang f-ib"></div>
+		<div class="f-vam f-mr10 addxueya f-ib"></div>
+		<div class="f-vam f-mr10 addtizhong f-ib"></div>
+		<div class="f-vam f-mr10 addyaowei f-ib"></div>
+		<div class="f-vam f-mr10 addshebei f-ib"></div>
+		<div class="f-vam f-mr10 quxiao f-ib"></div>
+	</div>
+	
+	<div class="div-dialog-content div-baojianjilu f-dn">
+		<div class="f-vam f-mr10 addyundong f-ib"></div>
+		<div class="f-vam f-mr10 addyongyao f-ib"></div>
+		<div class="f-vam f-mr10 addyinshi f-ib"></div>
+		<div class="f-vam f-mr10 quxiao f-ib"></div>
+	</div>
+	<div class="modal-overlay"></div>
+	
+	
+	<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+	<script src="../../../js/underscore.js"></script>
+	<script src="../../../js/es6-promise.js"></script>
+	<script src="../../../js/template.js"></script>
+	<script src="../../../js/iscroll-probe.js"></script>
+	<script src="../../../js/iscroll-pull-up-down.js"></script>
+	<script src="../../../js/pull-up-down.js"></script>
+	<script type="text/javascript" src="../../../widget/switchery/switchery.js"></script>
+	<script type="text/javascript" src="../../../widget/swiper/3.1/swiper.jquery.min.js"></script>	
+	<script src="../../../widget/mobiscroll/2.15.1/js/mobiscroll.js"></script>
+	<script src="../../../widget/echarts/echarts.js"></script>
+	<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js"></script>
+	<script type="text/javascript" src="../../../js/weixin_common.js" ></script>
+	<script type="text/javascript" src="../../../js/common_http.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+	<script type="text/javascript" src="../js/health-index.js"></script>
+	<script type="text/javascript" src="../js/health-record.js"></script>	
+</body>
+</html>

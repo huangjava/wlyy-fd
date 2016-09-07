@@ -32,7 +32,7 @@
         </div>
     </div>-->
 	<div class="">
-		<!-- 头像、签约信息开始 -->
+		<!-- 头像开始 -->
 		<ul class="c-list c-border-b">
 			<li class="c-list-link" id="add-btn">
 				<div class="c-list-info" onclick="chooseImage()">
@@ -44,16 +44,21 @@
 					</div>
 				</div>
 			</li>
+	    </ul>
+		<!-- 头像 结束 -->
+
+		<!-- 签约情况 开始-->
+		<ul class="c-list c-border-tb mt10">
 			<li class="c-list-text">
 				<div class="c-list-info">
-					<h4 class="c-nowrap">我的签约</h4>
+					<h4 class="c-nowrap">家庭医生</h4>
 				</div>
 				<div class="c-list-value" id="divSign"></div>
 			</li>
-	    </ul>
-		<!-- 头像、签约信息 结束 -->
+		</ul>
+		<!--签约情况 结束-->
 
-		<!-- 姓名等基本信息 开始 -->
+		<!-- 姓名 身份证号码 各种号码等基本信息 开始 -->
 		<ul class="c-list c-border-tb mt10">
 			<li class="c-list-text c-list-link">
 				<div class="c-list-info" style="width: 150px;">
@@ -65,21 +70,10 @@
 			</li>
 			<li class="c-list-text c-list-link">
 				<div class="c-list-info">
-					<h4 class="c-nowrap">性别</h4>
+					<h4 class="c-nowrap">身份证号</h4>
 				</div>
-				<div class="c-list-value" id="sex"></div>
+				<div class="c-list-value" id="idcard"></div>
 			</li>
-			<li class="c-list-text c-list-link">
-				<div class="c-list-info">
-					<h4 class="c-nowrap">出生年月</h4>
-				</div>
-				<div class="c-list-value" id="birthday"></div>
-			</li>
-		</ul>
-		<!-- 姓名等基本信息 结束 -->
-
-		<!-- 身份证号码 各种号码 开始 -->
-		<ul class="c-list c-border-tb mt10">
 			<li class="c-list-text c-list-link">
 				<div class="c-list-info">
 					<h4 class="c-nowrap">手机号码</h4>
@@ -88,83 +82,103 @@
 			</li>
 			<li class="c-list-text c-list-link">
 				<div class="c-list-info">
-					<h4 class="c-nowrap">身份证号</h4>
+					<h4 class="c-nowrap">座机号码</h4>
 				</div>
-				<div class="c-list-value" id="idcard"></div>
+				<div class="c-list-value" id="landline"></div>
 			</li>
 			<li class="c-list-text c-list-link">
 				<div class="c-list-info" style="width: 150px;">
-					<h4>医保卡号</h4>
+					<h4>家庭地址</h4>
 				</div>
 				<div class="c-list-info c-t-right" >
-				    <input type="text" id="ssc" class="width-100 c-t-right" placeholder="请输入医保卡号">
+					<input type="text" id="address" class="width-100 c-t-right" placeholder="请输入地址">
 				</div>
 			</li>
+			<!--<li class="c-list-text c-list-link">-->
+				<!--<div class="c-list-info">-->
+					<!--<h4 class="c-nowrap">性别</h4>-->
+				<!--</div>-->
+				<!--<div class="c-list-value" id="sex"></div>-->
+			<!--</li>-->
+			<!--<li class="c-list-text c-list-link">-->
+				<!--<div class="c-list-info">-->
+					<!--<h4 class="c-nowrap">出生年月</h4>-->
+				<!--</div>-->
+				<!--<div class="c-list-value" id="birthday"></div>-->
+			<!--</li>-->
 		</ul>
-		<!-- 身份证号码 各种号码 结束 -->
+		<!-- 姓名 身份证号码 各种号码等基本信息 结束 -->
+
+		<!-- 医保卡号 开始 -->
+		<!--<ul class="c-list c-border-tb mt10">-->
+			<!--<li class="c-list-text c-list-link">-->
+				<!--<div class="c-list-info" style="width: 150px;">-->
+					<!--<h4>医保卡号</h4>-->
+				<!--</div>-->
+				<!--<div class="c-list-info c-t-right" >-->
+				    <!--<input type="text" id="ssc" class="width-100 c-t-right" placeholder="请输入医保卡号">-->
+				<!--</div>-->
+			<!--</li>-->
+		<!--</ul>-->
+		<!-- 医保卡号 结束 -->
 
 		<!-- 地址信息 开始 -->
 		<ul class="c-list c-border-tb mt10">
-			<li class="c-list-text c-list-link" onclick="getProvince()">
-				<div class="c-list-info" style="width: 150px;">
-					<h4>省份</h4>
-				</div>
-				<div class="c-list-info c-t-right">
-					<input type="text" id="province" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">
-					<input id="provinceCode" value="" style="display: none;" />
-				</div>
-			</li>
-			<li class="c-list-text c-list-link" onclick="getCity()">
-				<div class="c-list-info" style="width: 150px;">
-					<h4>城市</h4>
-				</div>
-				<div class="c-list-info c-t-right">
-					<input type="text" id="city" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">
-					<input id="cityCode" value="" style="display: none;" />
-				</div>
-			</li>
-			<li class="c-list-text c-list-link" onclick="getTown()">
-				<div class="c-list-info" style="width: 150px;">
-					<h4>区县</h4>
-				</div>
-				<div class="c-list-info c-t-right">
-					<input type="text" id="town" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">
-					<input id="townCode" value="" style="display: none;" />
-				</div>
-			</li>
-			<li class="c-list-text c-list-link" onclick="getStreet()">
-				<div class="c-list-info" style="width: 150px;">
-					<h4>街道</h4>
-				</div>
-				<div class="c-list-info c-t-right" >
-				    <input type="text" id="street" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">
-				    <input id="streetCode" value="" style="display: none;" />
-				</div>
-			</li>
+			<!--<li class="c-list-text c-list-link" onclick="getProvince()">-->
+				<!--<div class="c-list-info" style="width: 150px;">-->
+					<!--<h4>省份</h4>-->
+				<!--</div>-->
+				<!--<div class="c-list-info c-t-right">-->
+					<!--<input type="text" id="province" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">-->
+					<!--<input id="provinceCode" value="" style="display: none;" />-->
+				<!--</div>-->
+			<!--</li>-->
+			<!--<li class="c-list-text c-list-link" onclick="getCity()">-->
+				<!--<div class="c-list-info" style="width: 150px;">-->
+					<!--<h4>城市</h4>-->
+				<!--</div>-->
+				<!--<div class="c-list-info c-t-right">-->
+					<!--<input type="text" id="city" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">-->
+					<!--<input id="cityCode" value="" style="display: none;" />-->
+				<!--</div>-->
+			<!--</li>-->
+			<!--<li class="c-list-text c-list-link" onclick="getTown()">-->
+				<!--<div class="c-list-info" style="width: 150px;">-->
+					<!--<h4>区县</h4>-->
+				<!--</div>-->
+				<!--<div class="c-list-info c-t-right">-->
+					<!--<input type="text" id="town" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">-->
+					<!--<input id="townCode" value="" style="display: none;" />-->
+				<!--</div>-->
+			<!--</li>-->
+			<!--<li class="c-list-text c-list-link" onclick="getStreet()">-->
+				<!--<div class="c-list-info" style="width: 150px;">-->
+					<!--<h4>街道</h4>-->
+				<!--</div>-->
+				<!--<div class="c-list-info c-t-right" >-->
+				    <!--<input type="text" id="street" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">-->
+				    <!--<input id="streetCode" value="" style="display: none;" />-->
+				<!--</div>-->
+			<!--</li>-->
+
 			<li class="c-list-text c-list-link">
 				<div class="c-list-info" style="width: 150px;">
-					<h4>地址</h4>
+					<h4>联系人电话</h4>
 				</div>
 				<div class="c-list-info c-t-right" >
-				    <input type="text" id="address" class="width-100 c-t-right" placeholder="请输入地址">
+					<input type="text" id="lineman" class="width-100 c-t-right" placeholder="联系人电话">
 				</div>
 			</li>
 		</ul>
-		<div class="mtb20 mlr15">
-	        <a id="saveCommit" href="javascript:;" class="c-btn c-btn-disable c-btn-full c-btn-radius c-f18">保存</a>
-	    </div>
-		<div class="mtb20 mlr15">
-	        <a id="backLogin" href="javascript:;" class="c-btn c-btn-f9f9f9 c-btn-full c-btn-radius c-f18">退出登录</a>
-	    </div>
-		&nbsp;
+
 		<!-- 地址信息 结束 -->
 		<div id="info" style="display:none;color: red;text-align: center"></div>
         <div id="info2" style="display:none;color: green;text-align: center"></div>
         &nbsp;
 	</div>
 	<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
-	<script type="text/javascript" src="../cross/js/cross.ui.js"></script>
-	<script type="text/javascript" src="../js/public.js"></script>
+	<!--<script type="text/javascript" src="../../../cross/js/cross.ui.js"></script>-->
+	<!--<script type="text/javascript" src="../../../js/public.js"></script>-->
     <script type="text/javascript" src="../../../js/app.js" ></script>
     <script type="text/javascript" src="../../../js/common_http.js" ></script>
     <script type="text/javascript" src="../../../js/mui.min.js" ></script>

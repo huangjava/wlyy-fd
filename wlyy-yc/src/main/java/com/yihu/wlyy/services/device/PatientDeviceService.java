@@ -136,13 +136,13 @@ public class PatientDeviceService  {
 	 * 通过sn码获取设备绑定情况
 	 **/
 	public List<Map<String,String>> getDeviceUser(String user,String deviceSn,String type) throws Exception {
-		List<Map<String,String>> re = new ArrayList<>();
+		List<Map<String,String>> re = new ArrayList<Map<String, String>>();
 		List<PatientDevice> list =patientDeviceDao.findByDeviceSnAndCategoryCode(deviceSn,type);
 		if(list!=null)
 		{
 			for(PatientDevice item:list)
 			{
-				Map<String,String> map = new HashMap<> ();
+				Map<String,String> map = new HashMap<String, String>();
 				map.put("type",item.getUserType());
 				String code = item.getUser();
 				if(code.equals(user))

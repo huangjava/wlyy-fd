@@ -1,9 +1,12 @@
 package com.yihu.wlyy.controllers.doctor.health;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpClientUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +31,7 @@ public class DoctorHealthController extends BaseController {
 
 	//TODO 根据患者标志获取健康指标（原有接口）
 	@ApiOperation("根据患者标志获取健康指标")
-	@RequestMapping(value = "list",method = RequestMethod.GET)
+	@RequestMapping(value = "list",method = RequestMethod.POST)
 	@ResponseBody
 	public String getHealthIndexByPatient(
 			@ApiParam(name = "patient", value = "患者唯一标识", defaultValue = " ")
@@ -52,16 +56,35 @@ public class DoctorHealthController extends BaseController {
 		params.put("pagesize", pagesize);
 
 		try {
-			String url =" ";
-			resultStr = HttpClientUtil.doGet(comUrl + url, params, username, password);
+//			String url =" ";
+//			resultStr = HttpClientUtil.doGet(comUrl + url, params, username, password);
 
-
-			return write(200, "查询成功", resultStr, "");
-
-		} catch (Exception e) {
-			error(e);
-			return error(-1, "操作失败！");
-		}
+//            Page<PatientHealthIndex> list = healthIndexService.findByPatien(getUID(), type, DateUtil.strToDateShort(sortDate), pagesize);
+            JSONArray jsonArray = new JSONArray();
+            for (int i=1;i>8;i++) {
+                JSONObject modelJson = new JSONObject();
+                modelJson.put("id", "");
+                modelJson.put("patient","");
+                modelJson.put("value1", "");
+                modelJson.put("value2", "");
+                modelJson.put("value3", "");
+                modelJson.put("value4", "");
+                modelJson.put("value5", "");
+                modelJson.put("value6","");
+                modelJson.put("value7", "");
+                modelJson.put("type", type);
+                modelJson.put("date", DateUtil.dateToStr(new Date(), DateUtil.YYYY_MM_DD));
+                modelJson.put("sortDate", DateUtil.dateToStrLong(new Date()));
+                modelJson.put("czrq", DateUtil.dateToStr(new Date(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+                jsonArray.put(modelJson);
+            }
+            JSONObject values = new JSONObject();
+            values.put("list", jsonArray);
+            return write(200, "查询成功", "list", jsonArray);
+        } catch (Exception ex) {
+            error(ex);
+            return invalidUserException(ex, -1, "查询失败！");
+        }
 	}
 
 	//TODO 随访记录获取 - 过滤条件：医生 + 患者

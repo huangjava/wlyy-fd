@@ -289,7 +289,7 @@ public class DoctorPatientGroupController extends BaseController {
             json.put("photo","");
             json.put("age","25");
             json.put("activeTime","2015-01-01~2017-01-01");
-            json.put("tag","高血压、糖尿病");
+            json.put("tag","gaoxueya、tangniaobing");
             json.put("idCard","350581199002052852");
             json.put("mobile","15805926666");
             json.put("tel","0592-7651545");

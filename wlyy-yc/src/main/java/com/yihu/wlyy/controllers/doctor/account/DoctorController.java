@@ -1,8 +1,12 @@
 package com.yihu.wlyy.controllers.doctor.account;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yihu.wlyy.util.XMLUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +38,10 @@ public class DoctorController extends BaseController {
     private String password;
     @Value("${service-gateway.url}")
     private String comUrl;
+    @Value("${service-gateway.doctorUrl}")
+    private String doctorUrl;
 
+    XMLUtil xmlUtil = new XMLUtil();
 
     //获取医生的 团队信息
     @RequestMapping(value = "teamInfo",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
@@ -42,13 +49,29 @@ public class DoctorController extends BaseController {
     @ApiOperation(value = "获取医生团队信息")
     public String getDoctorTeamInfo(
             @ApiParam(name = "orgId",value = "医生所在机构id",defaultValue = "orgId")
-            @RequestParam(value = "orgId",required = false) String orgId,
-            @ApiParam(name = "userId",value = "医生唯一标识",defaultValue = "userId")
-            @RequestParam(value = "userId",required = false) String userId,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket",required = false) String ticket
-    ){
+            @RequestParam(value = "orgId",required = false) String orgId)throws Exception{
 
+        /*JaxWsDynamicClientFactory factory = JaxWsDynamicClientFactory.newInstance();
+        Client client = factory.createClient(doctorUrl);
+        String resultJson = "";
+        try {
+            //1-1 获取医生所在团队信息
+            Map docGroupParam = new HashMap<>();
+            docGroupParam.put("ORGCODE",orgId);
+            String docGroupParamStr = xmlUtil.map2xml(docGroupParam);
+            //invoke("方法名","参数1","参数2"，"".....)
+            Object[] resultGp = client.invoke("getGPInfo", docGroupParamStr);
+            if (resultGp != null && resultGp.length > 0) {
+                System.out.println(resultGp[0]);
+                Map docGroupParamMap = xmlUtil.xml2map(resultGp[0].toString());
+                resultJson = objectMapper.writeValueAsString(docGroupParamMap);
+            }
+
+            return write(200, "获取团队信息成功！", "data", resultJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }*/
 
         //TODO 东软接口  （成员为列表）
             // ------4.1 获取当前医生参与的团队列表

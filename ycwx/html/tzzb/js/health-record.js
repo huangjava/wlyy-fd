@@ -13,7 +13,7 @@
   var charType = 1;
   var scroller1 = null;
 $(function(){
-	  checkUserAgent();
+	  //checkUserAgent();
 	//var userAgent = window.localStorage.getItem(agentName);
 //		if(!userAgent){
 //			window.localStorage.setItem(pageName,"{\"pageurl\":\""+window.location.href+"\"}");
@@ -77,10 +77,10 @@ $(function(){
     function changePage(pageType){
     	switch (pageType) {
 					case "1":
-						$(".xuetang").click();
+						$("#xuetang_btn").click();
 						break;
 					case "2":
-						$(".xueya").click();
+						$("#xueya_btn").click();
 						break;
 					case "3":
 						$(".tizhong").click();
@@ -105,12 +105,13 @@ $(function(){
     //绑定事件
     function bindEvents() {
     	//标签切换
+		$(".div-list").show();
       $(".pt-tab li").click(function(){
 			var id = $(this).attr("id");
 			$(".pt-tab li").removeClass("hit");
  			$(this).addClass("hit");
 			if(id=="tizhengLi"){
-				$(".xuetang").click();
+				$("#xuetang_btn").click();
 				$("#tizhengList").show();
 				$("#patinetsList").hide();
 			}else{
@@ -121,13 +122,13 @@ $(function(){
 		});	
 		
 		//点击标题事件
-		$(".m-menu-link").on("click",".row .col-content",function(){
+		$(".div-btn-group").on("click",".c-btn-full",function(){
 			var activeItem = $(this).find(".item-icon");
-			$(".m-menu-link").find(".item-icon").removeClass("active");
-			$(this).find(".item-icon").addClass("active");
+			$(this).removeClass("active");
+			$(this).addClass("active");
 			$(".curve-box").hide();
 			$(".c-table").hide();
-			if(activeItem.hasClass("xuetang")){//点击血糖
+			if($(this).hasClass("xuetang")){//点击血糖
 				$(".curve-box.div-xuetang").show();
 				$(".table-xuetang").show();
 				charType=1;
@@ -136,7 +137,7 @@ $(function(){
 			  queryChat(begindate,enddate,queryListSuccesss);
 //			  queryListByType(charType,page, pagesize, queryListSuccesss,begindate,enddate);
 				
-			}else if(activeItem.hasClass("xueya")){//点击血压
+			}else if($(this).hasClass("xueya")){//点击血压
 				$(".curve-box.div-xueya").show();
 				$(".table-xueya").show();
 				charType=2;
@@ -190,7 +191,7 @@ $(function(){
 				$(".div-list").show();
 				$(".div-charts").hide();
 				setTimeout(function () {
-					scroller1.myScroll.refresh();
+					scroller1.refresh();
 				}, 1000);	
 			}
 		
@@ -513,7 +514,7 @@ var charTypeJson = {
 			var data5 = new Array();
 			var data6 = new Array();
 			var data7 = new Array();
-		
+
 			for (var i = 0; i < list.length; i++) {
 					var data = list[i];
 					if (!data) {
@@ -550,7 +551,7 @@ var charTypeJson = {
 			data2.push(buildData(data.value2, 89, 60));
 			}
 			allDatas.push(data1);
-			allDatas.push(data2);		
+			allDatas.push(data2);
 		}
 		if(charType==3){
 			var data1 = new Array();
@@ -609,111 +610,111 @@ var charTypeJson = {
 			seriesArray.push(series);
 		}
 		// 路径配置
-		require.config({
-			paths: {
-				echarts: 'http://echarts.baidu.com/build/dist'
-			}
-		});
-		// 使用
-		require(
-			[
-				'echarts',
-				'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
-			],
-			function(ec, num) {
-				var temp =0;
-				if(charType==2){		
-					var myChart = require('echarts').init(document.getElementById('chart8'));
-					var option = {
-						tooltip: {
-							trigger: 'axis'
-						},
-						grid: {
-							x: 30,
-							y: 20,
-							x2: 25,
-							y2: 20
-						},
-						legend: {
-							show: false,
-							data: legendArray
-						},
-						toolbox: {
-							show: false
-						},
-						calculable: false,
-						xAxis: [{
-							type: 'category',
-							boundaryGap: false,
-							data: xAxisArray,
-							axisLabel: {
-								margin: 6
-							}
-						}],
-						yAxis: [{
-							name : titleArr[charType-1],
-							type: 'value'
-						}],
-			
-						series: seriesArray
-					};
-					// 为echarts对象加载数据
-					myChart.setOption(option);					
-				}
-				else{
-				for (var i = 0; i < seriesArray.length; i++) {
-					// 基于准备好的dom，初始化echarts图表
-					if(charType==1){
-						temp = i;
-					}
-					if(charType==3){
-						temp = 8;
-					}
-					if(charType==4){
-						temp = i+9;
-					}
-					var myChart = ec.init(document.getElementById('chart' + (temp + 1)));
-	//				console.log(myChart);
-					var option = {
-						tooltip: {
-							trigger: 'axis'
-						},
-						grid: {
-							x: 30,
-							y: 20,
-							x2: 25,
-							y2: 20
-						},
-						legend: {
-							show: false,
-							data: legendArray
-						},
-						toolbox: {
-							show: false
-						},
-						calculable: false,
-						xAxis: [{
-							type: 'category',
-							boundaryGap: false,
-							data: xAxisArray,
-							axisLabel: {
-								margin: 6
-							}
-						}],
-						yAxis: [{
-							name : titleArr[charType-1],
-							type: 'value'
-						}],
-	
-						series: [seriesArray[i]]
-					};
-	
-					// 为echarts对象加载数据
-					myChart.setOption(option);
-				}
-				}
-			}
-		);
+		//require.config({
+		//	paths: {
+		//		echarts: 'http://echarts.baidu.com/build/dist'
+		//	}
+		//});
+		//// 使用
+		//require(
+		//	[
+		//		'echarts',
+		//		'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+		//	],
+		//	function(ec, num) {
+		//		var temp =0;
+		//		if(charType==2){
+		//			var myChart = require('echarts').init(document.getElementById('chart8'));
+		//			var option = {
+		//				tooltip: {
+		//					trigger: 'axis'
+		//				},
+		//				grid: {
+		//					x: 30,
+		//					y: 20,
+		//					x2: 25,
+		//					y2: 20
+		//				},
+		//				legend: {
+		//					show: false,
+		//					data: legendArray
+		//				},
+		//				toolbox: {
+		//					show: false
+		//				},
+		//				calculable: false,
+		//				xAxis: [{
+		//					type: 'category',
+		//					boundaryGap: false,
+		//					data: xAxisArray,
+		//					axisLabel: {
+		//						margin: 6
+		//					}
+		//				}],
+		//				yAxis: [{
+		//					name : titleArr[charType-1],
+		//					type: 'value'
+		//				}],
+		//
+		//				series: seriesArray
+		//			};
+		//			// 为echarts对象加载数据
+		//			myChart.setOption(option);
+		//		}
+		//		else{
+	//			for (var i = 0; i < seriesArray.length; i++) {
+	//				// 基于准备好的dom，初始化echarts图表
+	//				if(charType==1){
+	//					temp = i;
+	//				}
+	//				if(charType==3){
+	//					temp = 8;
+	//				}
+	//				if(charType==4){
+	//					temp = i+9;
+	//				}
+	//				var myChart = ec.init(document.getElementById('chart' + (temp + 1)));
+	////				console.log(myChart);
+	//				var option = {
+	//					tooltip: {
+	//						trigger: 'axis'
+	//					},
+	//					grid: {
+	//						x: 30,
+	//						y: 20,
+	//						x2: 25,
+	//						y2: 20
+	//					},
+	//					legend: {
+	//						show: false,
+	//						data: legendArray
+	//					},
+	//					toolbox: {
+	//						show: false
+	//					},
+	//					calculable: false,
+	//					xAxis: [{
+	//						type: 'category',
+	//						boundaryGap: false,
+	//						data: xAxisArray,
+	//						axisLabel: {
+	//							margin: 6
+	//						}
+	//					}],
+	//					yAxis: [{
+	//						name : titleArr[charType-1],
+	//						type: 'value'
+	//					}],
+	//
+	//					series: [seriesArray[i]]
+	//				};
+	//
+	//				// 为echarts对象加载数据
+	//				myChart.setOption(option);
+	//			}
+	//			}
+	//		}
+	//	);
 	}
 	
 	

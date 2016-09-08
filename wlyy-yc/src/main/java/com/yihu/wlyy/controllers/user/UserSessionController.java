@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * @created Airhead 2016/9/4.
@@ -28,18 +29,19 @@ public class UserSessionController extends BaseController {
         String openId = request.getParameter("openId");
         String publicName = request.getParameter("publicName");
         if (openId == null || publicName == null) {
-            response.sendError(400);
+            String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
+            response.sendRedirect(familyDoctorUrl);
             return;
         }
 
         String eHomeUrl = SystemConf.getInstance().getValue("eHome");
-        String eHomrScrect = SystemConf.getInstance().getValue("eHomeSecret");
+        String eHomeScrect = SystemConf.getInstance().getValue("eHomeSecret");
         String eHomeCallback = SystemConf.getInstance().getValue("eHomeCallback");
-        String signature = DigestUtils.md5Hex(openId + publicName + eHomeCallback + eHomrScrect).toUpperCase();
+        String signature = DigestUtils.md5Hex(openId + publicName + eHomeCallback + eHomeScrect).toUpperCase();
         String url = eHomeUrl
                 + "?openid=" + openId
-                + "&weixin=" + publicName
-                + "&returnurl" + eHomeCallback
+                + "&weixin=" + URLEncoder.encode(publicName, "UTF-8")
+                + "&returnurl=" + eHomeCallback
                 + "&sig=" + signature;
 
         response.sendRedirect(url);

@@ -5,14 +5,18 @@ import com.yihu.wlyy.daos.UserSessionDao;
 import com.yihu.wlyy.models.user.UserModel;
 import com.yihu.wlyy.models.user.UserSessionModel;
 import com.yihu.wlyy.util.DateUtil;
+import com.yihu.wlyy.util.HttpClientUtil;
 import com.yihu.wlyy.util.ResponseKit;
 import com.yihu.wlyy.util.SystemConf;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -21,6 +25,7 @@ import java.util.UUID;
 @Service
 public class UserSessionService {
     private static final ResponseKit responseKit = new ResponseKit();
+    private static Logger logger = LoggerFactory.getLogger(UserSessionService.class);
     @Autowired
     private UserSessionDao userSessionDao;
     @Autowired
@@ -83,6 +88,19 @@ public class UserSessionService {
         userSession.setExpireTime(expireTime);
 
         userSession = userSessionDao.save(userSession);
+
+        String xiaoWeiComunity = SystemConf.getInstance().getValue("xiaoWeiComunity");
+        Map<String, Object> param = new HashMap<>();
+        param.put("action", "add");
+        param.put("openid", openId);
+        String response = null;
+        try {
+            response = HttpClientUtil.doPost(xiaoWeiComunity, param, null, null);
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            e.printStackTrace();
+        }
+        logger.debug(response);
 
         return userSession;
     }

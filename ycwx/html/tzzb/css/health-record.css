@@ -25,11 +25,11 @@
 .modal-overlay.modal-overlay-visible{ visibility: visible;opacity: 1;}
 .p10{padding: 10px;}
 .jhadd a.more {float: right;color: #333333;font-size: 15px;}
-.addxuetang{width: 55px;height: 55px;background: url(../images/xuetang_icon.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 50px;left: 23px;}
-.addxueya{width: 55px;height: 55px;background: url(../images/xueya_icon.png) no-repeat center top;background-size: 55px;position: absolute;z-index: 4;      bottom: 130px;left: 14px;}
+.addxuetang{width: 60px; height: 60px;background: url(../images/xuetang_icon.png) no-repeat center top; background-size: 60px;position: absolute;z-index: 4;     bottom: 115px;left: 180px;}
+.addxueya{width: 55px;height: 55px;background: url(../images/xueya_icon.png) no-repeat center top;background-size: 55px;position: absolute;z-index: 4;      bottom: 115px;left: 8px;}
 .addtizhong{width: 55px;height: 55px;background: url(../images/tizhong_icon.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 104px;left: 50%;top: 50%;margin-left: -27px;margin-top: -118px;}
 .addyaowei{width: 60px; height: 60px;background: url(../images/yaowei_icon.png) no-repeat center top; background-size: 60px;position: absolute;z-index: 4;     bottom: 130px;left: 176px;}
-.addshebei{width: 55px;height: 55px;background: url(../images/shebeii_icon-.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 50px;left: 176px;}
+.addshebei{width: 55px;height: 55px;background: url(../images/shebeii_icon-.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 104px;left: 50%;top: 50%;margin-left: -27px;margin-top: -118px;}
 .quxiao{width: 55px;height: 55px;background: url(../images/quxiao_btn.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;left: 50%;      top: 50%;      margin-left: -27px;      margin-top: 60px;}
 .quxiao.active{width: 55px;height: 55px;background: url(../images/quxiao_pre.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;left: 50%;      top: 50%;      margin-left: -27px;      margin-top: 60px;}
 .addxuetang.active{width: 55px; height: 55px;background: url(../images/xuetang_xuanzhong_icon.png) no-repeat center top; background-size: 60px;position: absolute;      z-index: 4;bottom: 50px;left: 23px;}

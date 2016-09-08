@@ -25,7 +25,7 @@ public class SignController extends BaseController {
             @RequestParam(value = "patientCode") String patientCode) {
         try {
             String json = "{\n" +
-                    "\"signStatus\":1,\n" +
+                    "\"signStatus\":0,\n" +
                     "}";
             JSONObject jsonObject = new JSONObject(json);
             return write(200, "获取签约状态成功！", "data", jsonObject);

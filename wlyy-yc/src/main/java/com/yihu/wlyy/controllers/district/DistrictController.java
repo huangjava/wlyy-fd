@@ -2,9 +2,13 @@ package com.yihu.wlyy.controllers.district;
 
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.services.district.DistrictService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -24,9 +28,13 @@ public class DistrictController extends BaseController{
      * @param code 省或市标识
      * @return
      */
-    @RequestMapping(value = "district")
+    @ApiOperation("获取地区信息")
+    @RequestMapping(value = "district", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
     @ResponseBody
-    public String district(int type, String code) {
+    public String district(@ApiParam(name="type",value="地区等级")
+                           @RequestParam(value="type",required = true) int type,
+                           @ApiParam(name="code",value="地区编码")
+                           @RequestParam(value="code",required = false) String code) {
         try {
             List<?> list = districtService.findByType(type, code);
             return write(200, "查询成功！", "list", list);

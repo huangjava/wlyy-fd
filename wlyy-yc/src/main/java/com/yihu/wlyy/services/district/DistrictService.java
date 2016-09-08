@@ -1,9 +1,11 @@
 package com.yihu.wlyy.services.district;
 
 import com.yihu.wlyy.daos.CityDao;
+import com.yihu.wlyy.daos.CommitteeDao;
 import com.yihu.wlyy.daos.StreetDao;
 import com.yihu.wlyy.daos.TownDao;
 import com.yihu.wlyy.models.address.City;
+import com.yihu.wlyy.models.address.Committee;
 import com.yihu.wlyy.models.address.Street;
 import com.yihu.wlyy.models.address.Town;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class DistrictService {
 	private TownDao townDao;
 	@Autowired
 	private StreetDao streetDao;
+	@Autowired
+	private CommitteeDao committeeDao;
 
 	/**
 	 * 查询省市区三级目录
@@ -46,6 +50,8 @@ public class DistrictService {
 			return findTown(code);
 		case 3:
 			return findStreet(code);
+		case 4:
+			return findCommittee(code);
 		}
 		return null;
 	}
@@ -93,6 +99,18 @@ public class DistrictService {
 		Iterable<Street> iterable = streetDao.findByTown(town);
 		if (iterable != null) {
 			Iterator<Street> it = iterable.iterator();
+			while (it != null && it.hasNext()) {
+				list.add(it.next());
+			}
+		}
+		return list;
+	}
+
+	public List<Committee> findCommittee(String street) {
+		List<Committee> list = new ArrayList<>();
+		Iterable<Committee> iterable = committeeDao.findByStreet(street);
+		if (iterable != null) {
+			Iterator<Committee> it = iterable.iterator();
 			while (it != null && it.hasNext()) {
 				list.add(it.next());
 			}

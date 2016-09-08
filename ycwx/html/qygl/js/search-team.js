@@ -93,7 +93,7 @@ getReqPromises([{url:"patient/hospital/getTeamsByOrg",data:{orgCode:hospital}}])
 	$teamList.on('click','li',function() {
 		//checkUserAgent();
 		var team = $(this).attr('data-code');
-		window.location.href = "doctor-homepage.html?code="+team;
+		window.location.href = "doctor-homepage.html?teamCode="+team;
 	});
 	
 }).catch(function(e) {

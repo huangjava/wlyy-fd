@@ -150,7 +150,7 @@
 .div-date{ color: #909090;padding-top: 6px; display: inline-block;}
 .lbl-date{color: #323232;padding: 0 2px;font-size: 13px;}
 .div-btn-group{float: right;margin-bottom: 10px;margin-top: 4px;}
-.div-btn-group .c-btn{border-radius:5px;height:32px;width:88px;text-align:center;font-size:13px;padding:0;margin:0 auto;padding-top:4px;border:0;color:#323232; background: #ffffff;}
+.div-btn-group .c-btn{border-radius:5px;height:32px;width:88px;text-align:center;font-size:16px;padding:0;margin:0 auto;padding-top:4px;border:0;color:#323232; background: #ffffff;}
 .div-btn-group .c-btn.active{color:#ffffff;background: #75BF00;}
 .timper-addfix{ z-index: 5;position: fixed;bottom: 0px;background: #FF9526;width: 48px;height: 48px;border-radius: 50%; text-align: center;line-height: 48px;left: 45%;}
 .timper-addfix.active{ width: 71px; height: 71px;background: url(../images/xuanfuguanbi_icon.png) no-repeat center top; background-size: 71px;}

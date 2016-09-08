@@ -9,6 +9,7 @@ import com.yihu.wlyy.models.health.DevicePatientHealthIndex;
 import com.yihu.wlyy.models.patient.PatientModel;
 import com.yihu.wlyy.util.CommonUtil;
 import com.yihu.wlyy.util.DateUtil;
+import com.yihu.wlyy.util.HttpClientUtil;
 import com.yihu.wlyy.util.SystemConf;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
@@ -109,7 +110,7 @@ public class PatientHealthIndexService  {
 	public DevicePatientHealthIndex addPatientHealthIndex(String data,String type,String patientCode,String deviceSn) throws Exception
 	{
 		Map<String,String> map = (Map<String,String>)objectMapper.readValue(data,Map.class);
-
+		Map<String,Object> params = new HashMap<>();
 		DevicePatientHealthIndex obj = new DevicePatientHealthIndex();
 		Date currentTime = new Date();
 		obj.setCzrq(currentTime);
@@ -161,6 +162,8 @@ public class PatientHealthIndexService  {
 					String value2 = map.get("gi_type");  //血糖值类型
 					obj.setValue1(value1);
 					obj.setValue2(value2);
+					params.put("bloodsugarType",value1);
+					params.put("bloodsugar",value2);
 					break;
 				}
 				case "2":{
@@ -171,17 +174,21 @@ public class PatientHealthIndexService  {
 					obj.setValue2(value2);
 					obj.setValue3(map.get("pul"));     //脉搏
 					obj.setValue4(map.get("ano"));     //有无心率不齐
+					params.put("lowPressure",value1);
+					params.put("highPressure",value2);
 					break;
 				}
 				case "3":
 				{
 					obj.setType(3);
 					obj.setValue1(map.get("weight")); //体重
+					params.put("weight",map.get("weight"));
 					break;
 				}
 				case "4":{
 					obj.setType(4);
 					obj.setValue1(map.get("waistline"));  //腰围
+					params.put("waistline",map.get("waistline"));
 					break;
 				}
 				default: {
@@ -189,6 +196,11 @@ public class PatientHealthIndexService  {
 				}
 			}
 
+			params.put("monitorType",obj.getType());
+			params.put("monitorTime",obj.getRecordDate());
+			params.put("uId",obj.getIdcard());
+			//将数据发送到东软
+			HttpClientUtil.doPost("http://127.0.0.1:8080/fd/patient/health_index/test",params,"","");
 			patientHealthIndexDao.save(obj);
 		}
 		else{

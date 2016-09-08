@@ -17,7 +17,7 @@ public class PatientHealthController extends BaseController {
 	 * 患者最近填写的健康指标
 	 * @return
 	 */
-	@RequestMapping(value = "recent", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "recent", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	@ApiOperation(value = "患者最近填写的健康指标", produces = "application/json", notes = "患者最近填写的健康指标")
 	public String recent(
@@ -100,7 +100,7 @@ public class PatientHealthController extends BaseController {
 	 * @param type 健康指标类型（1血糖，2血压，3体重，4腰围）
 	 * @return 操作结果
 	 */
-	@RequestMapping(value = "chart", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "chart", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	@ApiOperation(value = "根据患者标志获取健康指标列表（折线图数据）", produces = "application/json", notes = "根据患者标志获取健康指标列表")
 	public String getHealthIndexChartByPatient(
@@ -150,7 +150,7 @@ public class PatientHealthController extends BaseController {
 	 * 患者健康指标预警值查询
 	 * @return
 	 */
-	@RequestMapping(value = "standard", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "standard", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	@ApiOperation(value = "患者健康指标预警值查询", produces = "application/json", notes = "患者健康指标预警值查询")
 	public String standard(

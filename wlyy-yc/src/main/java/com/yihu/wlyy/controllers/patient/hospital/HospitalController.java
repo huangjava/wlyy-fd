@@ -21,8 +21,6 @@ import java.util.Map;
 @RequestMapping(value = "/patient/hospital")
 public class HospitalController extends BaseController {
 
-
-
     @RequestMapping(value = "/getTownByCityCode", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "根据市得到区", produces = "application/json", notes = "根据市得到区")
     public String getTownByCityCode(
@@ -44,7 +42,6 @@ public class HospitalController extends BaseController {
             @RequestParam(required = false) Integer town,HttpServletResponse response) {
         try {
             //TODO 示例
-            ObjectMapper objectMapper = new ObjectMapper();
             List list = objectMapper.readValue("[{\"code\":\"3502050100\",\"name\":\"海沧区嵩屿街道社区卫生服务中心\"},{\"code\":\"3502050101\",\"name\":\"海沧社区卫生服务站\"},{\"code\":\"3502050200\",\"name\":\"石塘社区卫生服务中心\"},{\"code\":\"3502050300\",\"name\":\"东孚卫生院\"},{\"code\":\"3502050301\",\"name\":\"天竺社区卫生服务站\"},{\"code\":\"3502050302\",\"name\":\"国营厦门第一农场社区卫生服务站\"},{\"code\":\"3502050400\",\"name\":\"新阳社区卫生服务中心\"},{\"code\":\"0a11148d-5b04-11e6-8344-fa163e8aee56\",\"name\":\"厦门市海沧医院\",\"photo\":\"\"}]",List.class);
             return write(200, "查询成功", "list",list);
         } catch (Exception e) {
@@ -61,7 +58,7 @@ public class HospitalController extends BaseController {
      * @param pageSize 页数
      * @return
      */
-    @RequestMapping(value = "/hospitalList", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
+    @RequestMapping(value = "/hospitalList", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "根据类别获取医院列表", produces = "application/json", notes = "根据类别获取医院列表")
     public String getHospitalList(
             @ApiParam(name = "type", value = "医院类型", required = false)
@@ -227,6 +224,8 @@ public class HospitalController extends BaseController {
                     "\"doctorCode\":\""+doctorCode+"\",\n" +
                     "\"doctorName\":\"涂慧娟\",\n" +
                     "\"jobName\":\"主任医师\",\n" +
+                    "\"teamCode\":\"1\",\n" +
+                    "\"teamName\":\"第一社团\",\n" +
                     "\"orgCode\":\"1\",\n" +
                     "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
                     "\"expertise\":\"擅长各种急救，医疗知识\",\n" +

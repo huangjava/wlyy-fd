@@ -1,4 +1,4 @@
-package com.yihu.wlyy.controllers.config;
+package com.yihu.wlyy.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

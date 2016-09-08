@@ -25,18 +25,18 @@
 .modal-overlay.modal-overlay-visible{ visibility: visible;opacity: 1;}
 .p10{padding: 10px;}
 .jhadd a.more {float: right;color: #333333;font-size: 15px;}
-.addxuetang{width: 55px;height: 55px;background: url(../images/xuetang_icon.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 50px;left: 23px;}
-.addxueya{width: 55px;height: 55px;background: url(../images/xueya_icon.png) no-repeat center top;background-size: 55px;position: absolute;z-index: 4;      bottom: 130px;left: 14px;}
+.addxuetang{width: 60px; height: 60px;background: url(../images/xuetang_icon.png) no-repeat center top; background-size: 60px;position: absolute;z-index: 4;     bottom: 115px;left: 180px;}
+.addxueya{width: 55px;height: 55px;background: url(../images/xueya_icon.png) no-repeat center top;background-size: 55px;position: absolute;z-index: 4;      bottom: 115px;left: 8px;}
 .addtizhong{width: 55px;height: 55px;background: url(../images/tizhong_icon.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 104px;left: 50%;top: 50%;margin-left: -27px;margin-top: -118px;}
 .addyaowei{width: 60px; height: 60px;background: url(../images/yaowei_icon.png) no-repeat center top; background-size: 60px;position: absolute;z-index: 4;     bottom: 130px;left: 176px;}
-.addshebei{width: 55px;height: 55px;background: url(../images/shebeii_icon-.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 50px;left: 176px;}
+.addshebei{width: 55px;height: 55px;background: url(../images/shebeii_icon-.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;bottom: 104px;left: 50%;top: 50%;margin-left: -27px;margin-top: -118px;}
 .quxiao{width: 55px;height: 55px;background: url(../images/quxiao_btn.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;left: 50%;      top: 50%;      margin-left: -27px;      margin-top: 60px;}
 .quxiao.active{width: 55px;height: 55px;background: url(../images/quxiao_pre.png) no-repeat center top;background-size: 55px;position: absolute;      z-index: 4;left: 50%;      top: 50%;      margin-left: -27px;      margin-top: 60px;}
-.addxuetang.active{width: 55px; height: 55px;background: url(../images/xuetang_xuanzhong_icon.png) no-repeat center top; background-size: 60px;position: absolute;      z-index: 4;bottom: 50px;left: 23px;}
-.addxueya.active{width: 55px; height: 55px;background: url(../images/xueya_pre.png) no-repeat center top; background-size: 60px;position: absolute;z-index: 4;     bottom: 130px;left: 14px;}
+.addxuetang.active{width: 55px; height: 55px;background: url(../images/xuetang_xuanzhong_icon.png) no-repeat center top; background-size: 60px;position: absolute;      z-index: 4;bottom: 115px;left: 180px;}
+.addxueya.active{width: 55px; height: 55px;background: url(../images/xueya_pre.png) no-repeat center top; background-size: 60px;position: absolute;z-index: 4;     bottom: 115px;left: 8px;}
 .addtizhong.active{width: 55px; height: 55px;background: url(../images/tizhong_xuanzhong_icon.png) no-repeat center top; background-size: 60px;position: absolute;      z-index: 4;bottom: 104px;left: 50%;top: 50%;margin-left: -27px;margin-top: -118px;}
 .addyaowei.active{width: 55px; height: 55px;background: url(../images/yaowei_xuanzhong_icon.png) no-repeat center top; background-size: 60px;position: absolute;z-index: 4;      bottom: 130px;left: 176px;}
-.addshebei.active{width: 55px; height: 55px;background: url(../images/shebeii_xuanzhong_icon.png) no-repeat center top; background-size: 60px;position: absolute;      z-index: 4;bottom: 50px;left: 176px;}
+.addshebei.active{width: 55px; height: 55px;background: url(../images/shebeii_xuanzhong_icon.png) no-repeat center top; background-size: 60px;position: absolute;      z-index: 4;bottom: 104px;left: 50%;top: 50%;margin-left: -27px;margin-top: -118px;}
 
 .div-dialog-content{width: 250px;height: 250px;background: url(../images/tuoyuan.png) no-repeat center top;background-size: 250px;position: absolute;z-index: 4;left: 50%;top: 50%;margin-left: -125px;margin-top: -125px;}  
 .addyundong{width: 55px; height: 55px;background: url(../images/yundong_icon.png) no-repeat center top; background-size: 55px;position: absolute;      z-index: 4;top: 50%;margin-top: -27px;left: 10px;}
@@ -150,7 +150,7 @@
 .div-date{ color: #909090;padding-top: 6px; display: inline-block;}
 .lbl-date{color: #323232;padding: 0 2px;font-size: 13px;}
 .div-btn-group{float: right;margin-bottom: 10px;margin-top: 4px;}
-.div-btn-group .c-btn{border-radius:12px;height:25px;width:63px;text-align:center;font-size:13px;padding:0;margin:0 auto;padding-top:4px;border:0;color:#323232; background: #ffffff;}
+.div-btn-group .c-btn{border-radius:5px;height:32px;width:88px;text-align:center;font-size:16px;padding:0;margin:0 auto;padding-top:4px;border:0;color:#323232; background: #ffffff;}
 .div-btn-group .c-btn.active{color:#ffffff;background: #75BF00;}
 .timper-addfix{ z-index: 5;position: fixed;bottom: 0px;background: #FF9526;width: 48px;height: 48px;border-radius: 50%; text-align: center;line-height: 48px;left: 45%;}
 .timper-addfix.active{ width: 71px; height: 71px;background: url(../images/xuanfuguanbi_icon.png) no-repeat center top; background-size: 71px;}

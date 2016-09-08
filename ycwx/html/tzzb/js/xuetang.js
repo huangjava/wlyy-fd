@@ -52,7 +52,7 @@
 		$('.da').css('width','43px');						
 		$('.sb').css('width','70px');
 		setTimeout(function () {
-			scroller1.myScroll.refresh();
+			scroller1.refresh();
 		}, 1000);	
 	}
 	

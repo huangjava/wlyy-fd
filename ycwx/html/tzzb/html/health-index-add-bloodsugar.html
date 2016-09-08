@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="utf-8">
+		<title>添加血糖</title>
+		<link rel="stylesheet" type="text/css" href="../../../css/cross.css" />
+		<link rel="stylesheet" type="text/css" href="../../../fonts/iconfont/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/ss-style.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/cross.ui.css">
+		<link rel="stylesheet" type="text/css" href="../css/zx-style.css">
+	</head>
+
+	<body>
+		<div class="c-main">
+			<!--<div class="h45">
+				<div class="demo-comtop">
+					<a class="mui-action-back"></a>
+					<h1>血糖</h1>
+				</div>
+			</div>-->
+			<div class="wis-fix c-border-b mt15">
+				<ul class="c-list patient-list c-border-t mt fosx-li" data-list="patientInfo">
+					<li>
+						<div class="c-list-value pr30" style="width: 80px;">
+							<h4><em class="star"></em>记录时间</h4>
+						</div>
+						<div class="c-list-info">
+							<div class="input-group width-100">
+								<input type="text" class="form-control width-100 no-border" placeholder="请输入记录时间" style="background: #FFFFFF;" data-time="date" value="" id="date">
+								<span class="form-select-arrow"></span>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="c-list-value pr30" style="width: 80px;">
+							<h4><em class="star"></em>时间段</h4>
+						</div>
+						<div class="c-list-info">
+							<div class="input-group width-100">
+								<input type="text" class="form-control width-100 no-border" placeholder="请选择" style="background: #FFFFFF;" data-val="xuetang" value="" id="type">
+								<span class="form-select-arrow"></span>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="c-list-value pr30" style="width: 80px;">
+							<h4><em class="star"></em>测量值</h4>
+						</div>
+						<div class="c-list-info">
+							<div class="input-group width-100">
+								<input type="text" class="form-control width-100 no-border" placeholder="请输入数值" style="background: #FFFFFF;" data-val="weight" value="" id="val">
+							</div>
+						</div>
+					</li>
+
+				</ul>
+			</div>
+			<p class="c-f16 c5b plr15 pt10">空腹血糖  正常范围(<span id="minValue1">3.9</span>-<span id="maxValue1">6.1</span>mmol/L)</p>
+			<p class="c-f16 c5b plr15 pt5">非空腹血糖 正常范围(<span id="minValue2">4.4</span>-<span id="maxValue2">7.8</span>mmol/L)</p>
+			<div class="bottom-box clearfix mt20 plr15">
+				<a id="save" class="c-btn-full c-btn-75BF00 c-btn-radius fl c-f18">保存</a>
+			</div>
+
+		</div>
+
+	</body>
+	<script src="../../../js/jquery/2.1.3/jquery.js"></script>
+	<script src="../../../widget/mobiscroll/2.15.1/js/mobiscroll.js"></script>
+	<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js"></script>
+	<!--<script type="text/javascript" src="../../../js/app.js"></script>-->
+	
+	<script src="../../../js/common_http.js"></script>
+	<script type="text/javascript" src="../../../js/weixin_common.js" ></script>
+	<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.15.1/css/mobiscroll.css">
+	<link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css">
+	<script type="text/javascript" src="../../../js/mui.min.js"></script>
+	<script src="../js/health-index.js"></script>
+	<script>
+		$(function() {
+			//queryWarning();
+			document.getElementById("save").addEventListener("tap", function() {			
+				var record_date = document.getElementById("date").value;
+				var type_str = document.getElementById("type").value;
+				var val = document.getElementById("val").value;
+				var value1 = val;
+				var value2 = 0;
+				var value3 = 0;
+				var value4 = 0;
+				var value5 = 0;
+				var value6 = 0;
+				var value7 = 0;
+				switch (type_str) {
+					case "早餐前血糖":
+						value2 = 1;
+						break;
+					case "早餐后血糖":
+						value2 = 2;
+						break;
+					case "午餐前血糖":
+						value2 = 3;
+						break;
+					case "午餐后血糖":
+						value2 = 4;
+						break;
+					case "晚餐前血糖":
+						value2 = 5;
+						break;
+					case "晚餐后血糖":
+						value2 = 6;
+						break;
+					case "睡前血糖":
+						value2 = 7;
+						break;
+				}
+				if(!record_date){
+					dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请选择记录时间'}).show();
+					return ;
+				}
+				if(!type_str){
+					dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请选择时间段'}).show();
+					return ;
+				}
+				var p = /^[0-9]+([.]{1}[0-9]{0,1})?$/;
+				if(!val || !p.test(val)){
+					dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请输入正确的测量值，允许一位小数'}).show();
+					return ;
+				}											
+				addHealthIndex("", record_date, value1, value2, value3, value4, value5, value6, value7, 1, addBloodSugarSuccess);
+				
+			});
+		
+			/* 选择日期  */
+			$('input')
+			var opt1 = {
+				preset: 'date',
+				theme: 'ios',
+				lang: 'zh',
+				minDate: new Date(1900, 01, 01)
+			};
+			$('input[data-time=date]').mobiscroll(opt1);
+			var opt3 = { //血糖时间段
+				theme: 'ios',
+				lang: 'zh',
+				formatValue: function(d) {
+					return d.join(',');
+				},
+				customWheels: true,
+				wheels: [
+					[{
+						keys: ['1', '2', '3', '4', '5', '6', '7'],
+						values: ['早餐前血糖', '早餐后血糖', '午餐前血糖', '午餐后血糖', '晚餐前血糖', '晚餐后血糖', '睡前血糖']
+					}]
+				],
+				onSelect: function(valueText, inst) {
+					var dd = eval("[" + valueText + "]");
+					$('input[data-val=xuetang]').val(dd[0].values);
+				},
+				onShow: function() {
+				}
+			};
+			var xt = $('input[data-val=xuetang]').mobiscroll(opt3);
+		})		
+		
+		//查询预警成功
+		function queryWarningSuccesss(res) {
+			if (res.status == 200) {
+				var standard = res.data.standard;
+				var custom = res.data.custom;
+				if(custom.length > 0){
+					for (var i = 0; i < custom.length; i++) {
+						var list = custom[i];
+						if(list.type == 1){
+							document.getElementById("minValue1").innerHTML = list.min_value_1;
+							document.getElementById("maxValue1").innerHTML = list.max_value_1;
+							document.getElementById("minValue2").innerHTML = list.min_value_2;
+							document.getElementById("maxValue2").innerHTML = list.max_value_2;
+						}
+					}
+				}
+				else{
+					for (var i = 0; i < standard.length; i++) {
+						var list = standard[i];
+						if(list.type == 1){
+							document.getElementById("minValue1").innerHTML = list.min_value_1;
+							document.getElementById("maxValue1").innerHTML = list.max_value_1;
+							document.getElementById("minValue2").innerHTML = list.min_value_2;
+							document.getElementById("maxValue2").innerHTML = list.max_value_2;
+						}
+					}
+				}
+				d.close();				
+			} else {
+				queryListFailed(res);
+			}
+		}
+	</script>
+
+</html>

@@ -39,7 +39,7 @@ public class FamilyController extends BaseController {
             @ApiParam(name = "patient", value = "患者Code", required = false)
             @RequestParam(required = false) String patient ) {
         try {
-            String demo = "{\"id\":1,\"code\":\"CS20160830001\",\"name\":\"吴龙龙\",\"idCard\":\"350204194*******40\",\"birthday\":\"1950-10-17\",\"gender\":1,\"mobile\":\"15210000077\",\"phone\":\"\",\"socialSecurityCard\":\"\",\"photo\":\"\",\"province\":\"350000\",\"city\":\"350200\",\"town\":\"350206\",\"street\":\"\",\"address\":\"高崎南五路\",\"provinceCode\":\"福建省\",\"cityCode\":\"厦门市\",\"townCode\":\"湖里区\",\"streetCode\":\"\",\"status\":1,\"createTime\":\"2016-08-17\",\"sign\":\"1\",\"teamCode\":\"1\",\"teamName\":\"张三医生(团队)\"}";
+            String demo = "{\"id\":1,\"code\":\"CS20160830001\",\"name\":\"吴龙龙\",\"idCard\":\"350204194*******40\",\"birthday\":\"1950-10-17\",\"gender\":1,\"mobile\":\"15210000077\",\"phone\":\"\",\"socialSecurityCard\":\"\",\"photo\":\"\",\"province\":\"350000\",\"city\":\"350200\",\"town\":\"350206\",\"street\":\"\",\"address\":\"高崎南五路\",\"provinceCode\":\"福建省\",\"cityCode\":\"厦门市\",\"townCode\":\"湖里区\",\"streetCode\":\"\",\"status\":1,\"createTime\":\"2016-08-17\",\"sign\":\"0\",\"teamCode\":\"1\",\"teamName\":\"张三医生(团队)\"}";
             //PatientModel patientModel = objectMapper.readValue(demo,PatientModel.class);
             JSONObject jsonObject = new JSONObject(demo);
             return write(200, "患者信息查询成功！", "data", jsonObject);
@@ -80,6 +80,29 @@ public class FamilyController extends BaseController {
         } catch (Exception e) {
             error(e);
             return invalidUserException(e, -1, "保存失败！");
+        }
+    }
+
+    @RequestMapping(value = "district", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "保存网格信息", produces = "application/json", notes = "保存网格信息")
+    public String district(
+            @ApiParam(name = "city", value = "城市", required = true)
+            @RequestParam(value = "city") String city,
+            @ApiParam(name = "town", value = "城镇", required = true)
+            @RequestParam(value = "town") String town,
+            @ApiParam(name = "street", value = "街道", required = true)
+            @RequestParam(value = "street") String street,
+            @ApiParam(name = "committee", value = "居委会", required = true)
+            @RequestParam(value = "committee") String committee,
+            @ApiParam(name = "address", value = "患者Code", required = true)
+            @RequestParam(value = "address") String address) {
+        try {
+
+            return write(200, "保存成功！", "data",  1);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "保存失败！");
         }
     }
 }

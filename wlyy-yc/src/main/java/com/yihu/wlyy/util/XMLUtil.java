@@ -186,8 +186,7 @@ public class XMLUtil {
 
 	/**获取节点中的整数
 	 * @throws Exception */
-	public static  int  getInt(Element e,String name,boolean isMust) throws Exception
-	{
+	public static  int  getInt(Element e,String name,boolean isMust) throws Exception {
 		Element  current=e.element(name);
 
 
@@ -234,7 +233,6 @@ public class XMLUtil {
 		}
 		return current.getTextTrim();
 	}
-
 	public static String ElementStringValue(String str) {
 		if (str != null) {
 			return str;
@@ -242,7 +240,6 @@ public class XMLUtil {
 			return "";
 		}
 	}
-
 	public static Integer ElementIntegerValue(Integer str) {
 		if (str != null) {
 			return str;
@@ -250,7 +247,6 @@ public class XMLUtil {
 			return 0;
 		}
 	}
-
 	public static String ElementValue(String str) {
 		if (str != null && !str.equalsIgnoreCase("null")) {
 			return str;
@@ -258,18 +254,14 @@ public class XMLUtil {
 			return "";
 		}
 	}
-
-	public static String xml2JSON(String xml)
-	{
+	public static String xml2JSON(String xml) {
 		if(StringUtils.isEmpty(xml)){
 			return "";
 		}else{
 			return new XMLSerializer().read(xml).toString();
 		}
 	}
-
-	public static String json2XML(String json)
-	{
+	public static String json2XML(String json) {
 		if(StringUtils.isEmpty(json)){
 			return "";
 		}else{
@@ -282,8 +274,7 @@ public class XMLUtil {
 			return xml;
 		}
 	}
-	public static String json2XML(String jsonStr,String rootName)
-	{
+	public static String json2XML(String jsonStr,String rootName) {
 		JSONObject json = JSONObject.fromObject(jsonStr);
 		StringBuffer reqXml =  new StringBuffer();
 		reqXml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><"+rootName+">");
@@ -300,7 +291,6 @@ public class XMLUtil {
 		String rt = reqXml.toString();
 		return rt;
 	}
-
 	private static String GetXml(JSONObject json){
 		StringBuffer sb = new StringBuffer();
 		if(json!=null && !json.isNullObject()){
@@ -327,7 +317,6 @@ public class XMLUtil {
 		}
 		return sb.toString();
 	}
-
 	public static void main(String[] args) throws Exception {
 
 //		Document doc = parseXml("<Root></Root>");
@@ -356,9 +345,10 @@ public class XMLUtil {
 		return out.toString();
 	}
 
+
+
 	// ---------- map转XML--------------
-	public static String map2xml(Map<Object, Object> dataMap)
-	{
+	public static String map2xml(Map<Object, Object> dataMap){
 		synchronized (XMLUtil.class)
 		{
 			StringBuilder strBuilder = new StringBuilder();
@@ -381,7 +371,6 @@ public class XMLUtil {
 			return strBuilder.toString();
 		}
 	}
-
 	public static String coverter(Object[] objects) {
 		StringBuilder strBuilder = new StringBuilder();
 		for(Object obj:objects) {
@@ -391,9 +380,7 @@ public class XMLUtil {
 		}
 		return strBuilder.toString();
 	}
-
-	public static String coverter(Collection<?> objects)
-	{
+	public static String coverter(Collection<?> objects) {
 		StringBuilder strBuilder = new StringBuilder();
 		for(Object obj:objects) {
 			strBuilder.append("<item className=").append(obj.getClass().getName()).append(">\n");
@@ -402,9 +389,7 @@ public class XMLUtil {
 		}
 		return strBuilder.toString();
 	}
-
-	public static String coverter(Object object)
-	{
+	public static String coverter(Object object) {
 		if (object instanceof Object[])
 		{
 			return coverter((Object[]) object);
@@ -468,9 +453,7 @@ public class XMLUtil {
 		}
 		return strBuilder.toString();
 	}
-
-	private static boolean isObject(Object obj)
-	{
+	private static boolean isObject(Object obj) {
 		if (obj == null)
 		{
 			return false;
@@ -513,7 +496,6 @@ public class XMLUtil {
 		}
 		return true;
 	}
-
 	// --------------------xml转map---------------
 	public static Map xml2map(String xmlString) throws DocumentException {
 		SAXReader reader = new SAXReader();
@@ -529,7 +511,6 @@ public class XMLUtil {
 		System.out.println(string);
 		return map;
 	}
-
 	private static void ele2map(Map map, Element ele) {
 		System.out.println(ele);
 		// 获得当前节点的子节点

@@ -1,9 +1,9 @@
 package com.yihu.wlyy.controllers.patient.family;
 
 import com.yihu.wlyy.controllers.BaseController;
-import com.yihu.wlyy.models.patient.PatientModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,10 +39,10 @@ public class FamilyController extends BaseController {
             @ApiParam(name = "patient", value = "患者Code", required = false)
             @RequestParam(required = false) String patient ) {
         try {
-            String demo = "{\"id\":1,\"code\":\"CS20160830001\",\"name\":\"吴龙龙\",\"idCard\":\"350204194*******40\",\"birthday\":\"1950-10-17\",\"gender\":1,\"mobile\":\"15210000077\",\"phone\":\"\",\"socialSecurityCard\":\"\",\"photo\":\"\",\"province\":\"350000\",\"city\":\"350200\",\"town\":\"350206\",\"street\":\"\",\"address\":\"高崎南五路\",\"provinceCode\":\"福建省\",\"cityCode\":\"厦门市\",\"townCode\":\"湖里区\",\"streetCode\":\"\",\"status\":1,\"createTime\":\"2016-08-17\"}";
-            PatientModel patientModel = objectMapper.readValue(demo,PatientModel.class);
-
-            return write(200, "患者信息查询成功！", "data", patientModel);
+            String demo = "{\"id\":1,\"code\":\"CS20160830001\",\"name\":\"吴龙龙\",\"idCard\":\"350204194*******40\",\"birthday\":\"1950-10-17\",\"gender\":1,\"mobile\":\"15210000077\",\"phone\":\"\",\"socialSecurityCard\":\"\",\"photo\":\"\",\"province\":\"350000\",\"city\":\"350200\",\"town\":\"350206\",\"street\":\"\",\"address\":\"高崎南五路\",\"provinceCode\":\"福建省\",\"cityCode\":\"厦门市\",\"townCode\":\"湖里区\",\"streetCode\":\"\",\"status\":1,\"createTime\":\"2016-08-17\",\"sign\":\"1\",\"teamCode\":\"1\",\"teamName\":\"张三医生(团队)\"}";
+            //PatientModel patientModel = objectMapper.readValue(demo,PatientModel.class);
+            JSONObject jsonObject = new JSONObject(demo);
+            return write(200, "患者信息查询成功！", "data", jsonObject);
         } catch (Exception e) {
             error(e);
             return invalidUserException(e, -1, "患者信息查询失败！");

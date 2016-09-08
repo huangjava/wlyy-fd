@@ -53,9 +53,9 @@ function queryInit(){
 }
 
 //跳转到家庭签约信息
-function changeJtqy(signedStatus){
+function changeJtqy(signedStatus,teamCode){
 	if(signedStatus) {
-		window.location.href = "../../ssgg/html/doctor-homepage.html"
+		window.location.href = "../../qygl/html/doctor-homepage.html?teamCode="+teamCode;
 	} else {
 		window.location.href = "../../qygl/html/search-community.html"
 	}
@@ -113,6 +113,8 @@ function setValue(data){
 	var areaName = data.townCode;
 	var streetName = data.streetCode;
 	var address = data.address;
+	var teamName = data.teamName;
+	var teamCode = data.teamCode;
 	var sign = Number(data.sign);//签约状态
 	
 
@@ -154,11 +156,11 @@ function setValue(data){
 	
 	var html = "";
 	if(sign == 0){
-		html = 	 '<img class="img-sign" src="../../../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(true)"/>';
+		html = 	 '<img class="img-sign" src="../../../images/jiatingqianyue@2x.png" onclick="changeJtqy(false,"")"/>';
 	}else if(sign == 1){
-		html =   '<img class="img-sign" src="../../../images/jiatingweiqianyue@2x.png" onclick="changeJtqy(false)"/>';
-	}else{
-		html =	 '<img class="img-sign" src="../../../images/jiatingqianyue@2x.png" onclick="changeJtqy(false)"/>';
+		html =   '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
+	}else if(sign == 2){
+		html =	 '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
 	}
 	document.getElementById("divSign").innerHTML = html;
 	

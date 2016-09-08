@@ -30,7 +30,8 @@
 						<div class="c-avatar-m c-images-cycle">
 							<img style="width: 50px;" src="{{setPhoto(photo, sex)}}"></div>
 					</div>
-					<span class="list-icon arrow-right"></span>
+					<!-- 20160908 原有  修改头像-->
+					<!--<span class="list-icon arrow-right"></span>-->
 				</li>
 				<li class="c-list-text c-list-link">
 					<div class="c-list-info">
@@ -91,7 +92,8 @@
                         <div id="doc_skill" style="padding: 10px; color: #909090;">{{expertise}}</div>
                     </label>
 					</div>
-					<span class="list-icon arrow-right"></span>
+					<!-- 20160908 原有  修改擅长-->
+					<!--<span class="list-icon arrow-right"></span>-->
 				</li>
 
 				<li class="c-list-text c-list-link modify" id="edit_introduce" data-title="修改简介" data-type='2' data-cont="{{introduce}}">
@@ -104,7 +106,8 @@
                     </label>
 
 					</div>
-					<span class="list-icon arrow-right"></span>
+					<!-- 20160908 原有  修改简介-->
+					<!--<span class="list-icon arrow-right"></span>-->
 				</li>
 
 				<li class="c-list-text c-list-link">
@@ -185,11 +188,12 @@
 				});
 				
 				// 其他修改点击事件
-				$('.modify').on('tap', function(){
-					openModifyWindow(
-						$(this).attr('data-title'), 
-						{type: $(this).attr('data-type'), val: $(this).attr('data-cont')});
-				})
+				//原有可修改擅长、简介 20160908  
+//				$('.modify').on('tap', function(){
+//					openModifyWindow(
+//						$(this).attr('data-title'), 
+//						{type: $(this).attr('data-type'), val: $(this).attr('data-cont')});
+//				})
 			}
 			
 		</script>

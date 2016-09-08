@@ -191,7 +191,7 @@ $(function(){
 				$(".div-list").show();
 				$(".div-charts").hide();
 				setTimeout(function () {
-					scroller1.myScroll.refresh();
+					scroller1.refresh();
 				}, 1000);	
 			}
 		

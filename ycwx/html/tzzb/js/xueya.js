@@ -43,7 +43,7 @@ function queryList2(page,pageSize) {
 			addRow1(data.date.substr(5, 11), toIntValue(data.value1), toIntValue(data.value2));
 		}
 		setTimeout(function () {
-			scroller1.myScroll.refresh();
+			scroller1.refresh();
 		}, 1000);	
 	}
 

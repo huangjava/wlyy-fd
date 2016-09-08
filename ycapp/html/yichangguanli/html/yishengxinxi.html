@@ -78,12 +78,16 @@
 
 		<script>
 			mui.plusReady(function() {
-				getDocInfo();
+				var self = plus.webview.currentWebview();
+				var id = self.id;
+				getDocInfo(id);
 			})
 
-			function getDocInfo() {
+			function getDocInfo(id) {
+				var ticket = plus.storage.getItem("ticket");
+				var params = {doctorId:id,ticket:ticket}
 				
-				sendPost("doctor/memberInfo", null, 		
+				sendPost("doctor/memberInfo", params, 		
 					function queryFailed(res) {
 						if (res && res.msg) {
 							plus.nativeUI.toast(res.msg);

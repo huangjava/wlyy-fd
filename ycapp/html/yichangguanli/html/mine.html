@@ -34,10 +34,12 @@
 			
 			<ul class="c-list c-border-tb c-loper mt10" id="list">
 				<li class="c-list-text c-list-cover" id="td" style="display: block">
-					<div class="c-list-value">
+					<!--<div class="c-list-value">
 						<h4><span class="color-iconfont mr15"><img src="../../../common/images/demo-por01.png"></span>我的团队</h4>
+					</div>-->
+					<div id="doc_team_info" class="c-list-value">
+						
 					</div>
-					
 					<div class="patient-list" >
 						<ul id='group' class="n-list l-list d-list" >
 						</ul>
@@ -56,6 +58,9 @@
 			</ul>
 		</div>
 	</body>
+	<script type="text/html" id="team_info_tmpl">
+		<h4><span class="color-iconfont mr15"><img src="../../../common/images/demo-por01.png"></span>我的团队&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp{{teamName}}</h4>
+	</script>
 
 	<script type="text/html" id="doc_info_tmpl">
 		<ul class="c-list c-border-b">
@@ -79,7 +84,7 @@
     -->
 	<script type="text/html" id="doc_list_tmpl">
 		{{each data as value i}}	
-		<li style="padding-left: 0px;" class="n-list-link list-arrow-r n-list-cover" data-name="{{value.name}}"">
+		<li style="padding-left: 0px;" class="n-list-link list-arrow-r n-list-cover" data-id="{{value.id}}" data-name="{{value.name}}">
 			<div class="patient-face patient-face-new">
 				<img src="{{setDocPhoto(photo, sex)}}">
 			</div>
@@ -116,7 +121,7 @@
 			var userId = plus.storage.getItem("userId");
 			var ticket = plus.storage.getItem("ticket");
 			var params = {orgId:orgId,ticket:ticket}
-			sendPost("doctor/teamMember", params,
+			sendPost("doctor/teamInfo", params,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);
@@ -128,10 +133,13 @@
 				
 				function success(res) {
 					if (res.status == 200) {
-						var cont = template("doc_list_tmpl", {data:res.data});
+						console.log(JSON.stringify(res.data));
+						var contTeam = template("team_info_tmpl",res.data)
+						document.getElementById("doc_team_info").innerHTML = contTeam;
+						var cont = template("doc_list_tmpl", {data:res.data.list});
 						document.getElementById("group").innerHTML = cont;
 					}
-				});
+			});
 		}
 		
 		function getDocInfo(){
@@ -168,7 +176,15 @@
 
 
 		mui("#group").on("tap", "li", function() {
-			openWebview("yishengxinxi.html");
+			var id = $(this).attr("data-id");	
+			mui.openWindow({
+				url: "yishengxinxi.html",
+				id: id,
+				extras: {
+					id: id
+				}
+			});
+//			openWebview("yishengxinxi.html?id="+id);
 		});
 		/*
 		 * 更新头像

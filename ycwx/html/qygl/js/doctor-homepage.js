@@ -1,4 +1,7 @@
-// 页面载入显示提示“加载中” 
+var Request = new Object();
+Request = GetRequest();
+var teamCode = Request["teamCode"];
+// 页面载入显示提示“加载中”
 var d = dialog({contentType:'load', skin:'bk-popup'}).show(),
 	// 团队成员列表
 	$teamMemberList = $('#team_member_list'),
@@ -51,9 +54,9 @@ var showTeamInfo = function(data) {
 };
 
 // TODO url,data示例参数为空
-getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:"1",orgCode:"1"}},
-{url: 'patient/hospital/getDoctorList',data:{teamCode:"1",begin:0, end:1}},
-{url: '/patient/sign/getSignStatus',data:{patientCode:"1"}}])
+getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,orgCode:"1"}},
+{url: 'patient/hospital/getDoctorList',data:{teamCode:teamCode,begin:0, end:1}},
+{url: '/patient/sign/getSignStatus',data:{patientCode:teamCode}}])
 .then(function(datas) {
 	showTeamInfo(datas[0]);
 	isSignForView(datas[2]);

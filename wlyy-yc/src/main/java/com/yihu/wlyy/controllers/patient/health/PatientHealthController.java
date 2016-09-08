@@ -1,17 +1,29 @@
 package com.yihu.wlyy.controllers.patient.health;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.models.health.DevicePatientHealthIndex;
+import com.yihu.wlyy.services.health.PatientHealthIndexService;
+import com.yihu.wlyy.util.DateUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/patient/health_index")
 public class PatientHealthController extends BaseController {
+
+	@Autowired
+	private PatientHealthIndexService healthIndexService;
 
 	/**
 	 * 患者最近填写的健康指标
@@ -24,7 +36,15 @@ public class PatientHealthController extends BaseController {
 			@ApiParam(name = "patient", value = "患者Code", required = true)
 			@RequestParam(value = "patient") String patient	) {
 		try {
-				return write(200, "查询成功", "list", "");
+//			String user = getUID();
+			String user = "CS20160830001";
+
+			JSONArray array = healthIndexService.findRecentByPatient(user);
+			if (array != null) {
+				return write(200, "查询成功", "list", array);
+			} else {
+				return error(-1, "查询失败");
+			}
 		} catch (Exception e) {
 			error(e);
 			return error(-1, "查询失败");
@@ -70,6 +90,86 @@ public class PatientHealthController extends BaseController {
 			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）", required = true)
 			int type) {
 		try {
+
+//			String user = getUID();
+			String user = "CS20160830001";
+			DevicePatientHealthIndex healthIndex = null;
+			if (type == 1) {
+				// 血糖等一天只能存在一条数据
+				Iterable<DevicePatientHealthIndex> list = healthIndexService.findByPatienDate(user, type, DateUtil.strToDate(time, DateUtil.YYYY_MM_DD));
+				if (list != null) {
+					for (DevicePatientHealthIndex model : list) {
+						healthIndex = model;
+					}
+				}
+			}
+			if (healthIndex == null) {
+				healthIndex = new DevicePatientHealthIndex();
+			}
+			// 设置患者标识
+			healthIndex.setUser(user);
+			// 设置干预标识，默认为NULL
+			healthIndex.setIntervene(intervene);
+
+			int index = 0;
+			double value = 0;
+
+			// 设置血糖/收缩压/体重/腰围/早餐前空腹
+			if (NumberUtils.toDouble(value1, 0) > 0) {
+				healthIndex.setValue1(value1);
+				index = 1;
+				value = NumberUtils.toDouble(value1, 0);
+			}
+			// 设置 舒张压/早餐后血糖
+			if (NumberUtils.toDouble(value2, 0) > 0) {
+				healthIndex.setValue2(value2);
+				index = 2;
+				value = NumberUtils.toDouble(value2, 0);
+			}
+			// 设置午餐前血糖
+			if (NumberUtils.toDouble(value3, 0) > 0) {
+				healthIndex.setValue3(value3);
+				index = 3;
+				value = NumberUtils.toDouble(value3, 0);
+			}
+			// 设置午餐后血糖
+			if (NumberUtils.toDouble(value4, 0) > 0) {
+				healthIndex.setValue4(value4);
+				index = 4;
+				value = NumberUtils.toDouble(value4, 0);
+			}
+			// 设置晚餐前血糖
+			if (NumberUtils.toDouble(value5, 0) > 0) {
+				healthIndex.setValue5(value5);
+				index = 5;
+				value = NumberUtils.toDouble(value5, 0);
+			}
+			// 设置晚餐后血糖
+			if (NumberUtils.toDouble(value6, 0) > 0) {
+				healthIndex.setValue6(value6);
+				index = 6;
+				value = NumberUtils.toDouble(value6, 0);
+			}
+			// 设置睡前血糖
+			if (NumberUtils.toDouble(value7, 0) > 0) {
+				healthIndex.setValue7(value7);
+				index = 7;
+				value = NumberUtils.toDouble(value7, 0);
+			}
+			// 设置健康指标类型（1血糖，2血压，3体重，4腰围）
+			healthIndex.setType(type);
+			// 设置记录时间
+			if(type == 2){
+				healthIndex.setRecordDate(DateUtil.strToDate(time, DateUtil.YYYY_MM_DD_HH_MM_SS));
+			}else {
+				healthIndex.setRecordDate(DateUtil.strToDate(time, DateUtil.YYYY_MM_DD));
+			}
+			healthIndex.setSortDate(DateUtil.strToDateAppendNowTime(time, DateUtil.YYYY_MM_DD_HH_MM_SS));
+			// 保存到数据库
+			healthIndex = healthIndexService.save(healthIndex, index, value,user);
+			if (healthIndex == null) {
+				return error(-1, "保存失败！");
+			}
 			return success("保存成功！");
 		} catch (Exception ex) {
 			error(ex);
@@ -87,10 +187,14 @@ public class PatientHealthController extends BaseController {
 			@RequestParam(value="type",required = true) String type)
 	{
 		try {
+//			String user = getUID();
+			String user = "CS20160830001";
+			DevicePatientHealthIndex obj = healthIndexService.addPatientHealthIndex(data, type,user, null);
 			return success("新增患者指标成功！");
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
 			return invalidUserException(ex, -1, ex.getMessage());
 		}
 	}
@@ -110,12 +214,55 @@ public class PatientHealthController extends BaseController {
 			String begin,
 			@ApiParam(name = "end", value = "结束时间", required = true)
 			String end) {
+//		try {
+//			//TODO  demo数据
+//			String demo = null;
+//			if (type==1){
+//				demo = "[{\"date\":\"2016-09-05\",\"value1\":\"3\",\"czrq\":\"2016-09-05 00:00:00\",\"type\":1},{\"date\":\"2016-09-06\",\"value2\":\"11\",\"value1\":\"55\",\"czrq\":\"2016-09-06 00:00:00\",\"type\":1},{\"date\":\"2016-09-07\",\"value2\":\"46\",\"value1\":\"34\",\"czrq\":\"2016-09-07 00:00:00\",\"type\":1}]";
+//			}else if (type==2){
+//				demo = "[{\"date\":\"2016-09-07 10:58:00\",\"value2\":\"97\",\"value1\":\"66\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:36\",\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"22\",\"value1\":\"22\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:29\",\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"63\",\"value1\":\"55\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:43\",\"type\":2},{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"78\",\"value1\":\"36\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:00\",\"type\":2},{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"95\",\"value1\":\"90\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:14\",\"type\":2}]";
+//			}
+//			List list =  objectMapper.readValue(demo,List.class);
+//			return write(200, "查询成功", "list", list);
+//		} catch (Exception ex) {
+//			error(ex);
+//			return invalidUserException(ex, -1, "查询失败！");
+//		}
+
+//		tring user = getUID();
+		String user = "CS20160830001";
+
 		try {
-			return write(200, "查询成功", "list", "");
+			Iterable<DevicePatientHealthIndex> list = healthIndexService.findChartByPatien(user, type, begin, end);
+			if (list == null) {
+				return success("查询成功!");
+			}
+			JSONArray jsonArray = new JSONArray();
+			for (DevicePatientHealthIndex model : list) {
+				JSONObject modelJson = new JSONObject();
+				modelJson.put("patient", model.getUser());
+				modelJson.put("value1", model.getValue1());
+				modelJson.put("value2", model.getValue2());
+				modelJson.put("value3", model.getValue3());
+				modelJson.put("value4", model.getValue4());
+				modelJson.put("value5", model.getValue5());
+				modelJson.put("value6", model.getValue6());
+				modelJson.put("value7", model.getValue7());
+				modelJson.put("type", model.getType());
+				if(type == 2){
+					modelJson.put("date", DateUtil.dateToStr(model.getRecordDate(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+				}else{
+					modelJson.put("date", DateUtil.dateToStr(model.getRecordDate(), DateUtil.YYYY_MM_DD));
+				}
+				modelJson.put("czrq", DateUtil.dateToStr(model.getCzrq(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+				jsonArray.put(modelJson);
+			}
+			return write(200, "查询成功", "list", jsonArray);
 		} catch (Exception ex) {
 			error(ex);
 			return invalidUserException(ex, -1, "查询失败！");
 		}
+
 	}
 
 	/**
@@ -138,12 +285,58 @@ public class PatientHealthController extends BaseController {
 			@RequestParam(value="page",required = true) int page,
 			@ApiParam(name = "pagesize", value = "页数", required = true)
 			@RequestParam(value="pagesize",required = true) int pagesize) {
+//		try {
+//			//TODO  demo数据
+//			String demo = null;
+//			if (type==1){
+//				demo = "[{\"date\":\"2016-09-07\",\"value2\":\"46\",\"value1\":\"34\",\"czrq\":\"2016-09-07 00:00:00\",\"sortDate\":\"2016-09-07 00:00:00\",\"type\":1},{\"date\":\"2016-09-06\",\"value2\":\"11\",\"value1\":\"55\",\"czrq\":\"2016-09-06 00:00:00\",\"sortDate\":\"2016-09-06 00:00:00\",\"type\":1},{\"date\":\"2016-09-05\",\"value1\":\"3\",\"czrq\":\"2016-09-05 00:00:00\",\"sortDate\":\"2016-09-05 00:00:00\",\"type\":1}]";
+//			}else if (type==2){
+//				demo = "[{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"95\",\"value1\":\"90\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:14\",\"sortDate\":\"2016-09-07 16:58:00\",\"id\":3367,\"type\":2},{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"78\",\"value1\":\"36\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:00\",\"sortDate\":\"2016-09-07 16:58:00\",\"id\":3366,\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"63\",\"value1\":\"55\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:43\",\"sortDate\":\"2016-09-07 16:57:00\",\"id\":3365,\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"22\",\"value1\":\"22\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:29\",\"sortDate\":\"2016-09-07 16:57:00\",\"id\":3364,\"type\":2},{\"date\":\"2016-09-07 10:58:00\",\"value2\":\"97\",\"value1\":\"66\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:36\",\"sortDate\":\"2016-09-07 10:58:00\",\"id\":3368,\"type\":2}]";
+//			}
+//			List list =  objectMapper.readValue(demo,List.class);
+//
+//			return write(200, "查询成功", "list", list);
+//		} catch (Exception ex) {
+//			error(ex);
+//			return invalidUserException(ex, -1, "查询失败！");
+//		}
+
+//		String user = getUID();
+		String user = "CS20160830001";
 		try {
-			return write(200, "查询成功", "list", "");
+			List<DevicePatientHealthIndex> list = healthIndexService.findIndexByPatient(user, type, start,end,page, pagesize);
+
+			JSONArray jsonArray = new JSONArray();
+			if (list != null) {
+				for (DevicePatientHealthIndex model : list) {
+					JSONObject modelJson = new JSONObject();
+					modelJson.put("id", model.getId());
+					modelJson.put("patient", model.getUser());
+					modelJson.put("value1", model.getValue1());
+					modelJson.put("value2", model.getValue2());
+					modelJson.put("value3", model.getValue3());
+					modelJson.put("value4", model.getValue4());
+					modelJson.put("value5", model.getValue5());
+					modelJson.put("value6", model.getValue6());
+					modelJson.put("value7", model.getValue7());
+					modelJson.put("type", model.getType());
+					if(type == 2) {
+						modelJson.put("date", DateUtil.dateToStr(model.getRecordDate(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+					}else{
+						modelJson.put("date", DateUtil.dateToStr(model.getRecordDate(), DateUtil.YYYY_MM_DD));
+					}
+					modelJson.put("sortDate", DateUtil.dateToStrLong(model.getSortDate()));
+					modelJson.put("czrq", DateUtil.dateToStr(model.getCzrq(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+					jsonArray.put(modelJson);
+				}
+			}
+
+			return write(200, "查询成功", "list", jsonArray);
 		} catch (Exception ex) {
 			error(ex);
 			return invalidUserException(ex, -1, "查询失败！");
 		}
+
 	}
 
 	/**

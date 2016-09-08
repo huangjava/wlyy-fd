@@ -138,7 +138,10 @@
 
 			function getDocInfo(){
 				plus.nativeUI.showWaiting();
-				sendPost("doctor/baseinfo", {},
+				var userId = plus.storage.getItem("userId");
+				var ticket = plus.storage.getItem("ticket");
+				var params = {userId:userId,ticket:ticket}
+				sendPost("doctor/baseinfo", params,
 					function(res) {
 						if(res && res.msg) {
 							plus.nativeUI.toast(res.msg);

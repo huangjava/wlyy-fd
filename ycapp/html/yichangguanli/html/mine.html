@@ -79,7 +79,7 @@
     -->
 	<script type="text/html" id="doc_list_tmpl">
 		{{each data as value i}}	
-		<li style="padding-left: 0px;" class="n-list-link list-arrow-r n-list-cover" data-name="{{value.name}}"">
+		<li style="padding-left: 0px;" class="n-list-link list-arrow-r n-list-cover" data-id="{{value.id}}" data-name="{{value.name}}">
 			<div class="patient-face patient-face-new">
 				<img src="{{setDocPhoto(photo, sex)}}">
 			</div>
@@ -116,7 +116,7 @@
 			var userId = plus.storage.getItem("userId");
 			var ticket = plus.storage.getItem("ticket");
 			var params = {orgId:orgId,ticket:ticket}
-			sendPost("doctor/teamMember", params,
+			sendPost("doctor/teamInfo", params,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);
@@ -128,10 +128,10 @@
 				
 				function success(res) {
 					if (res.status == 200) {
-						var cont = template("doc_list_tmpl", {data:res.data});
+						var cont = template("doc_list_tmpl", {data:res.data.list});
 						document.getElementById("group").innerHTML = cont;
 					}
-				});
+			});
 		}
 		
 		function getDocInfo(){
@@ -168,7 +168,15 @@
 
 
 		mui("#group").on("tap", "li", function() {
-			openWebview("yishengxinxi.html");
+			var id = $(this).attr("data-id");	
+			mui.openWindow({
+				url: "yishengxinxi.html",
+				id: id,
+				extras: {
+					id: id
+				}
+			});
+//			openWebview("yishengxinxi.html?id="+id);
 		});
 		/*
 		 * 更新头像

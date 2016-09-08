@@ -25,7 +25,7 @@ $(function() {
 
 
 function initData(dataId){
-	sendPost("patient/device/PatientDeviceInfo?id="+dataId,{},"JSON","GET",
+	sendPost("patient/device/PatientDeviceInfo?id="+dataId,{},"JSON","POST",
 		function(res){
 			if(res.msg){
 				dialog({contentType:'tipsbox', skin:'bk-popup' , content:res.msg}).show();
@@ -94,7 +94,7 @@ function checkSnBind(snCode,checkSuccess){
 	var params = {};
 	params.type=type;
 	params.device_sn = snCode;
-	sendPost("patient/device/PatientDeviceIdcard",params,"JSON","GET",
+	sendPost("patient/device/PatientDeviceIdcard",params,"JSON","POST",
 		function(res){
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备SN校验失败！'}).show();
 		},function(res){
@@ -129,7 +129,7 @@ function checkSnBind(snCode,checkSuccess){
 }
 
 function getDeviceInfo(deviceId){
-	sendPost("/common/device/DeviceInfo?id="+deviceId,{},"JSON","GET",
+	sendPost("/common/device/DeviceInfo?id="+deviceId,{},"JSON","POST",
 		function(res){
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备信息获取失败！'}).show();
 		},

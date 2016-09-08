@@ -119,8 +119,7 @@
 		function getDocGroup(){
 			var orgId = plus.storage.getItem("orgId");
 			var userId = plus.storage.getItem("userId");
-			var ticket = plus.storage.getItem("ticket");
-			var params = {orgId:orgId,ticket:ticket}
+			var params = {orgId:orgId,userId:userId}
 			sendPost("doctor/teamInfo", params,
 				function queryFailed(res) {
 					if (res && res.msg) {
@@ -144,8 +143,8 @@
 		
 		function getDocInfo(){
 			var userId = plus.storage.getItem("userId");
-			var ticket = plus.storage.getItem("ticket");
-			var params = {userId:userId,ticket:ticket}
+//			var ticket = plus.storage.getItem("ticket");
+			var params = {userId:userId}
             sendPost("doctor/baseinfo", params,
 				function queryFailed(res) {
 					if (res && res.msg) {

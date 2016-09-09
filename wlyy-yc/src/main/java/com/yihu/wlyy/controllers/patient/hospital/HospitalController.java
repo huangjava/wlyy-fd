@@ -2,7 +2,6 @@ package com.yihu.wlyy.controllers.patient.hospital;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.controllers.BaseController;
-import com.yihu.wlyy.models.common.ResultModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONArray;
@@ -99,7 +98,7 @@ public class HospitalController extends BaseController {
         try {
             //TODO 示例
             ObjectMapper objectMapper = new ObjectMapper();
-            List list = objectMapper.readValue("[{\"code\":\"D2016080002\",\"job_name\":\" 全科医师\",\"introduce\":\"我是全科医生\",\"name\":\"大米全科1\",\"dept_name\":\"\",\"photo\":\"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg\",\"id\":1262,\"expertise\":\"我是全科医生\",\"hospital_name\":\"嘉莲社区医疗服务中心\"},{\"code\":\"D2016080005\",\"job_name\":\" 全科医师\",\"introduce\":\"我是全科医生\",\"name\":\"大米全科2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"我是全科医生\",\"hospital_name\":\"嘉莲社区医疗服务中心\"},{\"code\":\"D2016080225\",\"job_name\":\" 全科医师\",\"introduce\":\"我是全科医生\",\"name\":\"谭仁祝(全科)\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1274,\"expertise\":\"我是全科医生\",\"hospital_name\":\"嘉莲社区医疗服务中心\"},{\"code\":\"D2010080225\",\"job_name\":\" 全科医师\",\"introduce\":\"我是全科医生\",\"name\":\"谭仁祝(全科1)\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1276,\"expertise\":\"我是全科医生\",\"hospital_name\":\"嘉莲社区医疗服务中心\"}]",List.class);
+            List list = objectMapper.readValue("[{\"code\":\"D2016080002\",\"job_name\":\" 第一社团\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1262,\"expertise\":\"思明高级社区服务\",\"hospital_name\":\"第一社团\"},{\"code\":\"D2016080005\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2016080006\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2010080225\",\"job_name\":\" 第一社团3\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\" 第一社团3)\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1276,\"expertise\":\"思明区中华街道社区卫生服务中心\",\"hospital_name\":\" 第一社团3\"}]",List.class);
 
             return write(200, "查询成功！", "list", list);
         } catch (Exception ex) {

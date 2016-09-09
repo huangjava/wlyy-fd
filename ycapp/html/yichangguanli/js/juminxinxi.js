@@ -1,11 +1,6 @@
 
 mui.plusReady(function() {
 	getPatientInfo();
-//	$('#pati_info').on('tap', function(){
-//		alert(1)
-//		console.log("居民详细信息")
-//		openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
-//	})
 });
 
 /**

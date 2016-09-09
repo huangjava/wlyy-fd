@@ -41,57 +41,40 @@ mui.plusReady(function() {
 		preset: 'date',
 		theme: 'ios',
 		lang: 'zh',
-		minDate: new Date(1900, 01, 01)
+		minDate: new Date(1900, 01, 01),
+		onSelect:function(val){
+			$(".lab-startDate").val(val.replace(/\//g,"-"));
+		}
+	};
+	var opt2 = {
+		preset: 'date',
+		theme: 'ios',
+		lang: 'zh',
+		minDate: new Date(1900, 01, 01),
+		onSelect:function(val){
+			$(".lab-endDate").val(val.replace(/\//g,"-"));
+		}
 	};
 	$(".lab-startDate").mobiscroll(opt1);
-	$(".lab-endDate").mobiscroll(opt1);
+	$(".lab-endDate").mobiscroll(opt2);
 	pageInit();
 	
 	function queryData() {
-		sendPost("doctor/health_index/list",{type:1,pagesize:15},null,
+		var self = plus.webview.currentWebview();
+		var patientId = self.patientId;
+		var params = {};
+		params.patientId=patientId;
+		params.type = charType; 
+		params.page = page;
+		params.pagesize = pagesize;
+		params.begin = begindate+" 00:00:00";
+		params.end = enddate+" 23:59:59";
+		sendPost("doctor/health_index/list",params,null,
 			function(res){
 				if(res.status == 200){
 					showListXue(res.list);
 				}
 			});
-		
-		
-//		var res = {
-//			list: [
-//				{	
-//					date: "2016-01-01",
-//					value1: 55,
-//					value2: 55,
-//					value3: 55,
-//					value4: 55,
-//					value5: 55,
-//					value6: 55,
-//					value7: 55
-//				},
-//				{	
-//					date: "2016-01-01",
-//					value1: 55,
-//					value2: 55,
-//					value3: 55,
-//					value4: 55,
-//					value5: 55,
-//					value6: 55,
-//					value7: 55
-//				},
-//				{
-//					date: "2016-01-01",
-//					value1: 55,
-//					value2: 55,
-//					value3: 55,
-//					value4: 55,
-//					value5: 55,
-//					value6: 55,
-//					value7: 55
-//				}
-//			]
-//		}
-		
-//		showListXue(res.list);
 	}
 	queryData();
 //	queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
@@ -192,6 +175,7 @@ function bindEvents() {
 		if ($(".dt-date-condition").css("display") == "none") {
 			$(".div-dialog-content").hide();
 			$(".div-add-btn").removeClass("active");
+			alert("data")
 		} else {
 			$(".dt-date-condition").hide();
 		}
@@ -277,7 +261,14 @@ function bindEvents() {
 			$("#patinetsList").find(".lbl-date").html(resultDate).attr("data-id", dataId);
 		}
 		pageInit();
-		if (charType <= 4) {} else if (charType == 5) {
+//		if (charType <= 4) {} 
+		if(charType == 1){
+			queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
+		}else if(charType == 2){
+			queryListByType(charType, page, pagesize, queryListSuccesss1, begindate, enddate);
+		}
+		
+		else if (charType == 5) {
 			querySportList(page, pagesize, begindate, enddate);
 		} else if (charType == 6) {
 			queryYongyaoList(page, pagesize, begindate, enddate);

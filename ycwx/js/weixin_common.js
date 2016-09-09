@@ -21,7 +21,7 @@
 
 // 测试环境（健康之路宜昌）
 //var server = "http://weixin.xmtyw.cn/wlyy/";
-var server = "http://127.0.0.1:8080/fd/";
+var server = "http://127.0.0.1:9111/fd/";
 var appId = "wxd03f859efdf0873d";
 var urlName = "wlyy";
 var weixinUrl = "weixin.xmtyw.cn";

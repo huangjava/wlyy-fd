@@ -48,7 +48,7 @@ public class UserSessionController extends BaseController {
         String openid = request.getParameter("openid");
         String sig = request.getParameter("sig");
 
-        UserSessionModel userSessionModel = userSessionService.callback(code, message, openid, sig);
+        UserSessionModel userSessionModel = userSessionService.weChatCallback(code, message, openid, sig);
         try {
             String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
             if (userSessionModel == null) {

@@ -1,5 +1,6 @@
 package com.yihu.wlyy.services.user;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.daos.UserDao;
 import com.yihu.wlyy.daos.UserSessionDao;
@@ -40,7 +41,7 @@ public class UserSessionService {
     /**
      * 每次调用会更新过期时间，用于避免调用第三方登录
      *
-     * @param openId
+     * @param openId 微信OpenId
      * @return
      */
     public String loginInfo(String openId) {
@@ -69,7 +70,7 @@ public class UserSessionService {
         return null;
     }
 
-    public UserSessionModel callback(String code, String message, String openId, String sig) {
+    public UserSessionModel weChatCallback(String code, String message, String openId, String sig) {
         String signature = openId + "yyweixin@jkzl";
         String md5Crypt = DigestUtils.md5Hex(signature);
         if (!md5Crypt.equalsIgnoreCase(sig)) {
@@ -135,6 +136,53 @@ public class UserSessionService {
         String orgId = request.getParameter("orgId");
         String appUid = request.getParameter("appUid");
         String ticket = request.getParameter("ticket");
+
+        String sso = SystemConf.getInstance().getValue("sso.yihu");
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
+        param.put("orgId", orgId);
+        param.put("appUid", appUid);
+        param.put("ticket", ticket);
+        String result = null;
+        try {
+            result = HttpClientUtil.doPost(sso, param, null, null);
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readValue(result, JsonNode.class);
+            String code = jsonNode.findPath("Code").asText();
+            if (code.equals("10000")) {
+
+                String userCode = jsonNode.findPath("Result").findPath("UserId").asText();
+                String userName = jsonNode.findPath("Result").findPath("LoginId").asText();
+
+                UserModel user = userDao.findOne(userName);
+                if (user == null){
+                    user = new UserModel(userName,userCode);
+                    user = userDao.save(user);
+                }
+
+
+                UserSessionModel userSession = userSessionDao.findOne(user.getCode());
+                if (userSession == null) {
+                    userSession = new UserSessionModel();
+                    userSession.setUserCode(user.getCode());
+                    userSession.setToken(UUID.randomUUID().toString());
+                }
+
+                String nextDay = DateUtil.getNextDay(new Date(), 1);
+                Date expireTime = DateUtil.strToDateLong(nextDay);
+                userSession.setExpireTime(expireTime);
+                userSession.setToken(ticket);
+
+                userSession = userSessionDao.save(userSession);
+
+                return true;
+
+            }
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            e.printStackTrace();
+        }
+        logger.debug(result);
 
         return false;
     }

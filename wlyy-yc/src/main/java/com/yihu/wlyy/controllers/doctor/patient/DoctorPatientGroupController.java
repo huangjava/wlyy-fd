@@ -39,70 +39,53 @@ public class DoctorPatientGroupController extends BaseController {
 //     获取已签约的记录列表
 //     获取待签约的记录列表
 //     获取未签约的记录列表
-//     根据医生的唯一ID，获取不同状态的患者列表
 //     患者详情信息
-//     患者标签
-//     根据患者的唯一ID ，确认该患者是否签约
 
     //-----------------------------------------获取已签约居民列表 开始-------------
-    //获取已签约居民汇总列表（0-6岁儿童(10人），孕产妇（5人）、65岁以上老人（41人）。。。。。）
-    @RequestMapping(value = "signedPatientTypes",method = RequestMethod.GET)
-    @ResponseBody
-    @ApiOperation(value = "获取已签约居民汇总列表")
-    public String getSignedPatientTypes(
-            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId") String doctorId,
-//            @ApiParam(name = "status",value = "签约状态，已签约，待签约，未签约")
-//            @RequestParam(value = "status") String status,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket") String ticket){
-        try{
-            String url = "";
-            Map<String,Object> params = new HashMap<String, Object>();
-            params.put("doctor_id",doctorId);
-            params.put("status","已签约");//TODO 取实际字段值
-//            params.put("status",status);
-            params.put("ticket",ticket);
-            String resultStr = HttpClientUtil.doGet(comUrl + url, params);
-
-            return write(200, "获取已签约居民汇总列表成功！", "list", "");
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "获取已签约居民汇总列表失败！");
-        }
-    }
-
-
-    //获取已签约对应居民分类（0-6岁儿童，孕产妇、65岁以上老人。。。。。）的签约居民列表
-    @RequestMapping(value = "signedPatients",method = RequestMethod.POST)
+    @RequestMapping(value = "signedPatients",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "获取已签约居民列表")
     public String getSignedPatients(
-            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId",required = false) String doctorId,
-            @ApiParam(name = "patientType",value = "签约居民分类",defaultValue = "")
-            @RequestParam(value = "patientType",required = false) String patientType,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket",required = false) String ticket){
+            @ApiParam(name = "orgId",value = "机构编码",defaultValue = "11")
+            @RequestParam(value = "orgId",required = false) String orgId,
+            @ApiParam(name = "userId",value = "当前医生用户id",defaultValue = "doctor001")
+            @RequestParam(value = "userId",required = false) String userId){
+        //TODO 东软接口 3.1 获取已签约的记录列表
+
+        //参数
+//        1	ORGCODE	VARCHAR2(36)	Y	医生所属机构编码
+//        2	USERID	VARCHAR2(36)	Y	医生主索引
+
+        //返回结果
+//        1	SIGNTEAMNAME	VARCHAR2(100)	N	签约团队名称
+//        2	SIGNPERIOD	VARCHAR2(1)	N	签约周期
+//        3	SIGNPERIODFROM	VARCHAR2(20)	N	签约时间
+//        4	CHID	VARCHAR2(36)	Y	居民主索引
+//        5	SELFNAME	VARCHAR2(50)	N	姓名
+//        6	GENDER	VARCHAR2(12)	N	性别
+//        7	BIRTHDAY	VARCHAR2(20)	N	出生日期
+//        8	ADDRESS	VARCHAR2(100)	N	常住地址
+//        9	SORT_TYPE	VARCHAR2(10)		分拣标签
+
         try{
             String url = "";
 //            Map<String,Object> params = new HashMap<String, Object>();
 //            params.put("doctor_id",doctorId);
 //            params.put("patient_type",patientType);
-//            params.put("ticket",ticket);
 //            String resultStr = HttpClientUtil.doGet(comUrl + url, params);
 
+            String[] fenzu = {"0-6岁儿童","孕产妇","65岁以上老人","高血压","2型糖尿病"};
             JSONArray array = new JSONArray();
             for (int i=0;i<5;i++) {
                 JSONObject groupJson = new JSONObject();
                 JSONArray groupPatientArray = new JSONArray();
-                for (int j=0;j<10;j++) {
+                for (int j=0;j<fenzu.length;j++) {
                     // 分组标识
                     String group = "fenzu"+j;
                     // 患者标识
                     Object code = "huanzhebiaozhi"+j;
                     // 姓名
-                    Object name = "xingming"+j;
+                    Object name = "王五"+j;
                     // 头像
                     Object photo = "touxiang"+j;
                     // 生日
@@ -123,34 +106,46 @@ public class DoctorPatientGroupController extends BaseController {
                     Object signType = 1;
 
                         JSONObject patientJson = new JSONObject();
-                        // 设置患者标识
-                        patientJson.put("code", code);
-                        // 设置患者姓名
-                        patientJson.put("name", name);
-                        // 设置患者头像
-                        patientJson.put("photo", photo);
-                        // 设置患者年龄
-                        patientJson.put("age", 25);
-                        // 设置患者性别
-                        patientJson.put("sex", sex);
-                        // 设置患者病情
-                        patientJson.put("diseaseLevel", diseaseCondition);
-                        // 设置患者病种
-                        patientJson.put("disease", disease);
-                        // 设置病历记录总数
-                        patientJson.put("recordAmount", recordAmount);
-                        // 设置病历片段总数
-                        patientJson.put("partAmount", partAmount);
-                        // 设置签约日期
-                        patientJson.put("qyrq", DateUtil.dateToStr(qyrq, DateUtil.YYYY_MM_DD));
-                        // 设置签约类型
-                        patientJson.put("signType", signType);
+                        //唯一id
+                    patientJson.put("chId","35082211111111"+j);
+                    patientJson.put("name","李四"+i);              //姓名
+                    patientJson.put("sex","1");                    // 性别
+                    patientJson.put("age",65);                     //年龄（出生日期处理得到）
+                    patientJson.put("sortType","糖尿病、高血压、老年人");          //分拣标签
+                    patientJson.put("address","湖北省宜昌市已签约");      //地址
+                    patientJson.put("birthday","1990-01-01");     //出生日期
+
+
+
+
+//                        // 设置患者标识
+//                        patientJson.put("code", code);
+//                        // 设置患者姓名
+//                        patientJson.put("name", name);
+//                        // 设置患者头像
+//                        patientJson.put("photo", photo);
+//                        // 设置患者年龄
+//                        patientJson.put("age", 25);
+//                        // 设置患者性别
+//                        patientJson.put("sex", sex);
+//                        // 设置患者病情
+//                        patientJson.put("diseaseLevel", diseaseCondition);
+//                        // 设置患者病种
+//                        patientJson.put("disease", disease);
+//                        // 设置病历记录总数
+//                        patientJson.put("recordAmount", recordAmount);
+//                        // 设置病历片段总数
+//                        patientJson.put("partAmount", partAmount);
+//                        // 设置签约日期
+//                        patientJson.put("qyrq", DateUtil.dateToStr(qyrq, DateUtil.YYYY_MM_DD));
+//                        // 设置签约类型
+//                        patientJson.put("signType", signType);
                         groupPatientArray.put(patientJson);
                 }
                 // 设置分组标识
                 groupJson.put("code","fenzu"+i );
                 // 设置分组名称
-                groupJson.put("name","fenzuming"+i );
+                groupJson.put("name",fenzu[i] );
                 // 设置患者数
                 groupJson.put("total", 8);
                 // 设置患者列表
@@ -166,34 +161,52 @@ public class DoctorPatientGroupController extends BaseController {
     //--------------------------------获取已签约居民列表 结束--------------------------
 
     //--------------------------------获取待签约居民列表 开始--------------------------
-    @RequestMapping(value = "signingPatients",method = RequestMethod.POST)
+    @RequestMapping(value = "signingPatients",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "获取待签约居民列表")
     public String getSigningPatients(
-            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId",required = false) String doctorId,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket",required = false) String ticket){
+            @ApiParam(name = "orgId",value = "机构编码",defaultValue = "11")
+            @RequestParam(value = "orgId",required = false) String orgId,
+            @ApiParam(name = "userId",value = "当前医生用户id",defaultValue = "doctor001")
+            @RequestParam(value = "userId",required = false) String userId){
+
+        //TODO 东软接口 3.3获取待签约居民列表
+        //参数
+//        1	ORGCODE	VARCHAR2(36)	Y	医生所属机构编码
+//        2	USERID	VARCHAR2(36)	Y	医生主索引
+
+        //返回结果
+//        1	CHID	VARCHAR2(36)	Y	居民主索引
+//        2	SELFNAME	VARCHAR2(50)	N	姓名
+//        3	GENDER	VARCHAR2(12)	N	性别
+//        4	BIRTHDAY	VARCHAR2(20)	N	出生日期
+//        5	ADDRESS	VARCHAR2(100)	N	常住地址
+//        6	SORT_TYPE	VARCHAR2(10)		分拣标签
+
         try{
             String url = "";
 //            Map<String,Object> params = new HashMap<String, Object>();
 //            params.put("doctor_id",doctorId);
-//            params.put("status","待签约");//TODO 取实际字段值
-//            params.put("ticket",ticket);
+//            params.put("status","3");//字典值
 //            String resultStr = HttpClientUtil.doGet(comUrl + url, params);
 
             JSONArray array = new JSONArray();
             for (int i=0; i<8;i++) {
                 JSONObject json = new JSONObject();
+                json.put("chId","44132219941116368"+i); //chId  居民主索引
+                json.put("name","李四"+i);              //姓名
+                json.put("sex","1");                    // 性别
+                json.put("age",65);                     //年龄（出生日期处理得到）
+                json.put("sortType","糖尿病、高血压、老年人");          //分拣标签
+                json.put("address","湖北省宜昌市");      //地址
+                json.put("birthday","1990-01-01");     //出生日期
+
+
                 json.put("qyrq","2016-08-31");
                 json.put("code","signingPatients"+i);
                 json.put("disease",0);
-                json.put("sex","2");
                 json.put("idcard","44132219941116368X");
-                json.put("name","sign"+i);
-                json.put("signType","2");
                 json.put("partAmount",0);
-                json.put("age",21);
                 array.put(json);
             }
             return write(200, "获取待签约居民汇总列表成功！", "data", array);
@@ -204,46 +217,53 @@ public class DoctorPatientGroupController extends BaseController {
     }
     //--------------------------------获取待签约居民列表 结束---------------------------
 
-    //--------------------------------获取待签约居民列表 开始--------------------------
+    //--------------------------------获取未签约居民列表 开始--------------------------
     //与获取待签约接口类似，签约状态不同
-    @RequestMapping(value = "noSigningPatients",method = RequestMethod.POST)
+    @RequestMapping(value = "noSigningPatients",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "获取未签约居民列表")
     public String getNoSigningPatients(
-            @ApiParam(name = "doctorId",value = "医生唯一标识",defaultValue = "doctor001")
-            @RequestParam(value = "doctorId",required = false) String doctorId,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket",required = false) String ticket){
+            @ApiParam(name = "orgId",value = "机构编码",defaultValue = "11")
+            @RequestParam(value = "orgId",required = false) String orgId,
+            @ApiParam(name = "userId",value = "当前医生用户id",defaultValue = "doctor001")
+            @RequestParam(value = "userId",required = false) String userId){
+        //TODO 东软接口 3.2获取待签约居民列表
+        //参数
+//        1	ORGCODE	VARCHAR2(36)	Y	医生所属机构编码
+//        2	USERID	VARCHAR2(36)	Y	医生主索引
+
+        //返回结果
+//        1	CHID	VARCHAR2(36)	Y	居民主索引
+//        2	SELFNAME	VARCHAR2(50)	N	姓名
+//        3	GENDER	VARCHAR2(12)	N	性别
+//        4	BIRTHDAY	VARCHAR2(20)	N	出生日期
+//        5	ADDRESS	VARCHAR2(100)	N	常住地址
+//        6	SORT_TYPE	VARCHAR2(10)		分拣标签
+
         try{
             String url = "";
-            Map<String,Object> params = new HashMap<String, Object>();
-            params.put("doctor_id",doctorId);
-            params.put("status","未签约");//TODO 取实际字段值
-            params.put("ticket",ticket);
-            //String resultStr = HttpClientUtil.doGet(comUrl + url, params);
-
-//            "qyrq": "2016-08-31",
-//	                    "code": "a49b601d2f94466b9c5c33b5436afbe1",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "44132219941116368X",
-//	                    "name": "洪涵桃",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 21
+//            Map<String,Object> params = new HashMap<String, Object>();
+//            params.put("doctor_id",userId);
+//            params.put("status","0");
 
             JSONArray array = new JSONArray();
             for (int i=0; i<15;i++) {
                 JSONObject json = new JSONObject();
+                json.put("chId","44132219941116368"+i); //chId  居民主索引
+                json.put("name","李六"+i);              //姓名
+                json.put("sex","1");                    // 性别
+                json.put("age",65);                     //年龄（出生日期处理得到）
+                json.put("sortType","糖尿病、高血压、老年人");          //分拣标签
+                json.put("address","湖北省宜昌市");      //常住地址
+                json.put("birthday","1990-01-01");     //出生日期
+
+
                 json.put("qyrq","2016-08-31");
                 json.put("code","noSigningPatients"+i);
                 json.put("disease",0);
-                json.put("sex","2");
                 json.put("idcard","44132219941116368X");
-                json.put("name","nosign"+i);
                 json.put("signType","2");
                 json.put("partAmount",0);
-                json.put("age",21);
                 array.put(json);
             }
             return write(200, "获取未签约居民汇总列表成功！", "data",array);
@@ -254,162 +274,54 @@ public class DoctorPatientGroupController extends BaseController {
     }
     //--------------------------------获取待签约居民列表 结束---------------------------
 
-    //--------------------------------获取某个签约居民详情信息、标签、是否签约 开始--------------------------
-    @RequestMapping(value = "patientInfo",method = RequestMethod.POST)
+    //--------------------------------获取某个签约居民详情信息 开始--------------------------
+    @RequestMapping(value = "patientInfo",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "获取某个签约居民信息")
     public String getPatientInfo(
             @ApiParam(name = "patientId",value = "签约居民唯一标识",defaultValue = "patient001")
-            @RequestParam(value = "patientId",required = false) String patientId,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket",required = false) String ticket){
+            @RequestParam(value = "patientId",required = false) String patientId){
+        //TODO 医生端没提供接口  居民端有
+
         Map<String,Object> params = new HashMap<String, Object>();
         params.put("doctor_id",patientId);
-        params.put("ticket",ticket);
         try{
-            String url = "";
-            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-//            var data = {
-//                    name: "张三",
-//                    sex: "1",
-//                    photo: "",
-//                    age: "25",
-//                    activeTime: "2015-01-01~2017-01-01",
-//                    tag: "高血压、糖尿病",
-//                    idCard: "350581199002052852",
-//                    mobile: "15656565656",
-//                    tel: "0592-7651545",
-//                    address: "厦门市湖里区吕岭路泰和花园120号6栋-203室",
-//                    linkerTel: "0592-7651545",
-//                    birthday: "1990-01-01"
-//            }
+
             JSONObject json = new JSONObject();
-            json.put("name","yww");
-            json.put("sex","1");
-            json.put("photo","");
-            json.put("age","25");
-            json.put("activeTime","2015-01-01~2017-01-01");
-            json.put("tag","gaoxueya、tangniaobing");
-            json.put("idCard","350581199002052852");
-            json.put("mobile","15805926666");
-            json.put("tel","0592-7651545");
-            json.put("address","厦门市湖里区吕岭路泰和花园120号6栋-203室");
-            json.put("linkerTel","0592-7651545");
+            // 有提供
+            json.put("chId","44132219941116368x"); //chId  居民主索引
+            json.put("name","李六"+patientId);              //姓名
+            json.put("sex","1");                    // 性别
+            json.put("age",65);                     //年龄（出生日期处理得到）
+            json.put("sortType", "糖尿病,高血压,老年人");       //分拣标签
+            json.put("address","湖北省宜昌市");       //常住地址
             json.put("birthday","1990-01-01");
-            return write(200, "success！", "data", json);
 
-            //return write(200, "获取居民生信息成功！", "obj", "");
+            //TODO 未提供
+            json.put("mobile","15805926666");           //联系电话（未提供）
+            json.put("idCard","350581199002052852");
+            json.put("tel","0592-7651545");
+            json.put("linkerTel","0592-7651545");
+
+
+//            JSONObject json = new JSONObject();
+//            json.put("name","yww杨");
+//            json.put("sex","1");
+//            json.put("photo","");
+//            json.put("age","25");
+//            json.put("activeTime","2015-01-01~2017-01-01");
+//            json.put("tag","gaoxueya、tangniaobing");
+//            json.put("idCard","350581199002052852");
+//            json.put("mobile","15805926666");
+//            json.put("tel","0592-7651545");
+//            json.put("address","厦门市湖里区吕岭路泰和花园120号6栋-203室");
+//            json.put("linkerTel","0592-7651545");
+//            json.put("birthday","1990-01-01");
+            return write(200, "获取居民生信息成功！", "data", json);
         } catch (Exception e) {
             error(e);
             return error(-1, "获取居民信息失败！");
         }
     }
-
-    @RequestMapping(value = "patientLabel",method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation(value = "获取某个签约居民标签")
-    public String getPatientLabel(
-            @ApiParam(name = "patientId",value = "签约居民唯一标识",defaultValue = "patient001")
-            @RequestParam(value = "patientId") String patientId,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket") String ticket){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("doctor_id",patientId);
-        params.put("ticket",ticket);
-        try{
-            String url = "";
-            String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-
-            return write(200, "获取居民标签成功！", "list", "");
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "获取居民信息失败！");
-        }
-    }
-
-    @RequestMapping(value = "patientStatus",method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation(value = "获取某个居民签约状态")
-    public String getPatientStatus(
-            @ApiParam(name = "patientId",value = "签约居民唯一标识",defaultValue = "patient001")
-            @RequestParam(value = "patientId") String patientId,
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket") String ticket){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("doctor_id",patientId);
-        params.put("ticket",ticket);
-        try{
-            String url = "";
-            String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-
-            return write(200, "获取居民标签成功！", "obj", "");
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "获取居民信息失败！");
-        }
-    }
-
-    @RequestMapping(value = "labels",method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation(value = "获取所有标签（患者标签）集合")
-    public String getLabels(
-            @ApiParam(name = "ticket",value = "ticket",defaultValue = "12121")
-            @RequestParam(value = "ticket") String ticket){
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("ticket",ticket);
-        try{
-            String url = "";
-            String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-
-            return write(200, "获取标签集合成功！", "list", "");
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "获取标签集合失败！");
-        }
-    }
-
     //--------------------------------获取某个签约居民详情信息、标签、是否签约 结束---------------------------
-
-
-    //统一接口：获取三种签约状态下的记录分类列表
-    //
-
-    //   1. 根据医生唯一ID获取相应的团队列表
-    //   2. 根据团队ID 获取不同状态的患者列表
-
-    /**
-     * 我的患者查询接口
-     *
-     * @return
-     */
-//    @RequestMapping(value = "patients")
-//    @ResponseBody
-//    public String patients() {
-//        try {
-//
-//            return write(200, "患者列表查询成功！", "data", "");
-//        } catch (Exception e) {
-//            error(e);
-//            return invalidUserException(e, -1, "患者列表查询失败！");
-//        }
-//    }
-
-
-    /**
-     * 校验是否有签约信息
-     *
-     * @param idcard
-     * @return
-     */
-//    @RequestMapping(value = "check")
-//    @ResponseBody
-//    public String checkSign(String idcard) {
-//        try {
-//
-//            return write(200, "签约验证成功！", "data", "");
-//        } catch (Exception e) {
-//            error(e);
-//            return error(-1, "签约验证异常！");
-//        }
-//    }
 }

@@ -11,7 +11,10 @@ mui.plusReady(function() {
  * 获取所有居民
  */
 function searchPatients(){
-	sendPost(patiUrl, null, null, handleSuccess); 
+	var orgId = plus.storage.getItem("orgId");
+	var userId = plus.storage.getItem("userId");
+	var params = {orgId:orgId,userId:userId};
+	sendPost(patiUrl, params, null, handleSuccess); 
 }
 
 /*
@@ -117,7 +120,16 @@ var groupClick = function() {
 	 * 跳转到剧名详细信息
 	 */
 	function toDetail() {
-		openWindowWithSub("health-record", "health-record.html", "居民详情");
+		var id = $(this).attr("data-id");	
+			mui.openWindow({
+				url: "health-record.html",
+				id: id,
+				extras: {
+					id: id
+				}
+		});
+		
+//		openWindowWithSub("health-record", "health-record.html", "居民首页");
 		
 //		mui.openWindow({
 //			url: '../../huanzhe/html/huanzhexinxi.html', 

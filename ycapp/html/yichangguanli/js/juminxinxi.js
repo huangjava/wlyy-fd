@@ -13,7 +13,10 @@ mui.plusReady(function() {
  */
 function getPatientInfo(){
 	plus.nativeUI.showWaiting();
-	sendPost("doctor/patient_group/patientInfo", {},
+	var self = plus.webview.currentWebview();
+	var id = self.id;
+	var params = {patientId:id};
+	sendPost("doctor/patient_group/patientInfo", params,
 		function(res) {
 			if(res && res.msg) {
 				plus.nativeUI.toast(res.msg);
@@ -25,8 +28,17 @@ function getPatientInfo(){
 		function(res) {
 			if(res.status == 200) {
 				$("#docInfo").append(template("detail_info_tmpl", res.data));
-				$('#pati_info').on('tap', function(){
-					openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
+				$('#docInfo').on('tap','ul', function(){
+					var id = $(this).attr("data-id");	
+					mui.openWindow({
+						url: "weiqianyuejuminxinxi.html",
+						id: id,
+						extras: {
+							id: id
+						}
+					});
+					
+//					openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
 				})
 			} else {
 				mui.toast(res.msg);

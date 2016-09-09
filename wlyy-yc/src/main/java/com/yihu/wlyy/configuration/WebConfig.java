@@ -1,6 +1,5 @@
 package com.yihu.wlyy.configuration;
 
-import com.yihu.wlyy.interceptors.DoctorAppInterceptor;
 import com.yihu.wlyy.interceptors.UserSessionInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,14 +18,8 @@ public class WebConfig  extends WebMvcConfigurerAdapter {
         return new UserSessionInterceptor();
     }
 
-    @Bean
-    DoctorAppInterceptor doctorAppInterceptor() {
-        return new DoctorAppInterceptor();
-    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userSessionInterceptor());
-        registry.addInterceptor(doctorAppInterceptor());
     }
 }

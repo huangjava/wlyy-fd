@@ -169,6 +169,8 @@ function setValue(data){
 		html =   '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
 	}else if(sign == 2){
 		html =	 '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
+	}else{
+		window.location.href = "../../qygl/html/address-new.html";
 	}
 	document.getElementById("divSign").innerHTML = html;
 	

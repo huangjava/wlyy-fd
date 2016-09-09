@@ -6,8 +6,6 @@ if(userAgent){
 	openid = jsonstr.openid;
 }
 $(function() {
-	saveAgentPage("../../qygl/html/address-new.html");
-	checkUserAgent();
 	getCity();
 	checkSaveBtnStatus();
 });	

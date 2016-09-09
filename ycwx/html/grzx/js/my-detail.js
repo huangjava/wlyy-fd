@@ -1,7 +1,13 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
-var pagetype = 11;
+var openid =null;
+var signType = null;
+var userAgent = window.localStorage.getItem(agentName);
+if(userAgent){
+	var jsonstr = $.parseJSON(userAgent);
+	openid = jsonstr.openid;
+}
 $(function() {	
-	//checkUserAgent();
+	checkUserAgent();
 	queryInit();
 });	
 
@@ -13,6 +19,8 @@ function queryInit(){
 	var Request = new Object();
 	Request = GetRequest(); 
 	var code = Request["code"];
+	signType = Request["signType"];//TODO demo测试使用，之后删除
+
 	var params1 = {};
 	params1.pageUrl = server + "wx/html/grzx/html/my-detail.html?code=" + code + "&state=STATE";
 	//$.ajax(server + "weixin/getSign", {
@@ -116,7 +124,7 @@ function setValue(data){
 	var teamName = data.teamName;
 	var teamCode = data.teamCode;
 	var sign = Number(data.sign);//签约状态
-	
+	sign = signType;
 
 	if(!photo){
 		photo = "../../../images/p-default.png";
@@ -156,7 +164,7 @@ function setValue(data){
 	
 	var html = "";
 	if(sign == 0){
-		html = 	 '<img class="img-sign" src="../../../images/jiatingqianyue@2x.png" onclick="changeJtqy(false,"")"/>';
+		html = 	 '<img class="img-sign" src="../../../images/jiatingqianyue@2x.png" onclick="changeJtqy(false,'+teamCode+')" />';
 	}else if(sign == 1){
 		html =   '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
 	}else if(sign == 2){

@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>完善地址信息</title>
+	<meta name="author" content="yihu.com"/>
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" type="text/css" href="../../../css/cross.css" />
+	<link rel="stylesheet" href="../../../css/cross.ui.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/ss-style.css">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<style>
+		.img-sign{
+			width: 54px;
+    		height: 45px;
+		}
+    	.ui-dialog-content{font-size: 16px;}
+    	.ax-popup .ui-dialog-footer button{color:#323232 !important;}
+    	.ax-popup .ui-dialog-footer button.ui-dialog-autofocus{color:#75BF00 !important;}
+	</style>
+</head>
+<body class="bgc-f3f3f3">
+	<div class="">
+		<!-- 地址信息 开始 -->
+		<ul class="c-list c-border-tb mt10">
+			<li class="c-list-text c-list-link" onclick="getCity()">
+				<div class="c-list-info" style="width: 150px;">
+					<h4>所在城市</h4>
+				</div>
+				<div class="c-list-info c-t-right">
+					<input type="text" id="city" class="width-100 c-t-right" placeholder="请选择" value="" readonly="readonly">
+					<input id="cityCode" value="" style="display: none;" />
+				</div>
+			</li>
+			<li class="c-list-text c-list-link" onclick="getTown()">
+				<div class="c-list-info" style="width: 150px;">
+					<h4>所在区县</h4>
+				</div>
+				<div class="c-list-info c-t-right">
+					<input type="text" id="town" class="width-100 c-t-right" placeholder="请选择" value="">
+					<input id="townCode" value="" style="display: none;" />
+				</div>
+			</li>
+			<li class="c-list-text c-list-link" onclick="getStreet()">
+				<div class="c-list-info" style="width: 150px;">
+					<h4>所在街道</h4>
+				</div>
+				<div class="c-list-info c-t-right" >
+				    <input type="text" id="street" class="width-100 c-t-right" placeholder="请选择" value="">
+				    <input id="streetCode" value="" style="display: none;" />
+				</div>
+			</li>
+			<li class="c-list-text c-list-link" onclick="getCommittee()">
+				<div class="c-list-info" style="width: 150px;">
+					<h4>所在居委会</h4>
+				</div>
+				<div class="c-list-info c-t-right" >
+				    <input type="text" id="committee" class="width-100 c-t-right" placeholder="请选择" value="">
+				    <input id="committeeCode" value="" style="display: none;" />
+				</div>
+			</li>
+			<li class="c-list-text c-list-link">
+				<div class="c-list-info" style="width: 150px;">
+					<h4>地址</h4>
+				</div>
+				<div class="c-list-info c-t-right" >
+				    <input type="text" id="address" class="width-100 c-t-right" placeholder="请输入地址">
+				</div>
+			</li>
+		</ul>
+		<div class="mtb20 mlr15">
+	        <a id="saveCommit" href="javascript:;" class="c-btn c-btn-disable c-btn-full c-btn-radius c-f18">下一步</a>
+	    </div>
+		&nbsp;
+		<!-- 地址信息 结束 -->
+		<div id="info" style="display:none;color: red;text-align: center"></div>
+        <div id="info2" style="display:none;color: green;text-align: center"></div>
+        &nbsp;
+	</div>
+	<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+	<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+	<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+	<script type="text/javascript" src="../../../js/cross.ui.js"></script>
+    <script type="text/javascript" src="../../../js/app.js" ></script>
+    <script type="text/javascript" src="../../../js/common_http.js" ></script>
+    <script type="text/javascript" src="../../../js/mui.min.js" ></script>
+    <script type="text/javascript" src="../../../js/weixin_common.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css">
+    <script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js?11=11"></script>
+    <script src="../../../widget/mobiscroll/2.15.1/js/mobiscroll.js"></script>    
+    <link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.15.1/css/mobiscroll.css">
+	<script type="text/javascript" src="../js/address-new.js" ></script>
+</body>
+</html>

@@ -1,7 +1,12 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
-var pagetype = 11;
+var openid =null;
+var userAgent = window.localStorage.getItem(agentName);
+if(userAgent){
+	var jsonstr = $.parseJSON(userAgent);
+	openid = jsonstr.openid;
+}
 $(function() {	
-	//checkUserAgent();
+	checkUserAgent();
 	queryInit();
 });	
 

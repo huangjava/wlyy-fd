@@ -5,6 +5,7 @@
     <groupId>com.yihu.wlyy</groupId>
     <artifactId>wlyy-yc</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -34,6 +35,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -170,28 +172,22 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
                 <!--<configuration>-->
-                    <!--<arguments>-->
+                    <!--<source>1.8</source>-->
+                    <!--<target>1.8</target>-->
+                    <!--<compilerArguments>-->
                         <!--<verbose/>-->
                         <!--<bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>-->
-                    <!--</arguments>-->
+                    <!--</compilerArguments>-->
                 <!--</configuration>-->
             <!--</plugin>-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <compilerArguments>
-                        <verbose/>
-                        <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>

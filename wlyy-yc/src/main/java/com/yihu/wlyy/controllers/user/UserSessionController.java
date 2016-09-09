@@ -1,10 +1,11 @@
 package com.yihu.wlyy.controllers.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.models.user.UserAgent;
 import com.yihu.wlyy.models.user.UserSessionModel;
 import com.yihu.wlyy.services.user.UserSessionService;
 import com.yihu.wlyy.util.SystemConf;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 /**
  * @created Airhead 2016/9/4.
@@ -25,28 +25,16 @@ public class UserSessionController extends BaseController {
     private UserSessionService userSessionService;
 
     @RequestMapping(value = "/wechat", method = RequestMethod.GET)
-    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginWeChat(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String openId = request.getParameter("openId");
-        String publicName = request.getParameter("publicName");
-        if (openId == null || publicName == null) {
+        if (openId == null) {
             String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
             response.sendRedirect(familyDoctorUrl);
             return;
         }
 
-        String eHomeUrl = SystemConf.getInstance().getValue("eHome");
-        String eHomeScrect = SystemConf.getInstance().getValue("eHomeSecret");
-        String eHomeCallback = SystemConf.getInstance().getValue("eHomeCallback");
-        String signature = DigestUtils.md5Hex(openId + publicName + eHomeCallback + eHomeScrect).toUpperCase();
-        String url = eHomeUrl
-                + "?openid=" + openId
-                + "&weixin=" + URLEncoder.encode(publicName, "UTF-8")
-                + "&returnurl=" + eHomeCallback
-                + "&sig=" + signature;
-
-        response.sendRedirect(url);
+        response.sendRedirect(userSessionService.genEHomeUrl(openId));
     }
-
 
     @RequestMapping(value = "/wechat/info", method = RequestMethod.GET)
     public String loginInfo(String userCode) {
@@ -54,7 +42,7 @@ public class UserSessionController extends BaseController {
     }
 
     @RequestMapping(value = "/wechat/callback", method = RequestMethod.GET)
-    public void callback(HttpServletRequest request, HttpServletResponse response) {
+    public void weChatCallback(HttpServletRequest request, HttpServletResponse response) {
         String code = request.getParameter("code");
         String message = request.getParameter("message");
         String openid = request.getParameter("openid");
@@ -68,9 +56,29 @@ public class UserSessionController extends BaseController {
                 return;
             }
 
-            response.sendRedirect(familyDoctorUrl + "?token=" + userSessionModel.getToken());
+            UserAgent userAgent = new UserAgent();
+            userAgent.setToken(userSessionModel.getToken());
+            userAgent.setOpenid(userSessionModel.getTokenRef());
+            userAgent.setUid(userSessionModel.getUserCode());
+            ObjectMapper objectMapper = new ObjectMapper();
+            String user = objectMapper.writeValueAsString(userAgent);
+            response.setHeader("userAgent", user);
+            response.sendRedirect(familyDoctorUrl);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @RequestMapping(value = "/app", method = RequestMethod.GET)
+    public void loginApp(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String userId = request.getParameter("userId");
+        String appType = request.getParameter("appType");
+        String validTime = request.getParameter("validTime");
+        String orgId = request.getParameter("orgId");
+        String appUid = request.getParameter("appUid");
+        String ticket = request.getParameter("ticket");
+
+
     }
 }

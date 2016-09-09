@@ -193,11 +193,14 @@ function queryChartFailed(res) {
  */
 function queryListByType(type, page, pagesize, successFunction,begindate,enddate) {
 	//拼请求内容
+	var self = plus.webview.currentWebview();
+	var patientId = self.patientId;
 	var params = {};
+	params.patientId=patientId;
 	params.type = type; 
 	params.page = page;
 	params.pagesize = pagesize;
-	params.start = begindate+" 00:00:00";
+	params.begin = begindate+" 00:00:00";
 	params.end = enddate+" 23:59:59";
 //	d.show();
 	//发送ajax请求

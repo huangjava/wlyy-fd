@@ -317,19 +317,19 @@ public class XMLUtil {
 		}
 		return sb.toString();
 	}
-	public static void main(String[] args) throws Exception {
-
-//		Document doc = parseXml("<Root></Root>");
-//	``	Element root = doc.getRootElement();
-//		addElement(root, "A", "阿萨德飞");
-//		addElement(root, "A", 2);
-//		System.out.println("添加子节点：\r\n"+toXML(doc, "GBK", true));
-//		addCDATAElement(root, "B", "所发生的");
-//		System.out.println("添加 CDATA 子节点：\r\n"+toXML(doc, "UTF-8", true));
-
-		String xml = "<Resp><TransactionCode></TransactionCode><RespCode>10000</RespCode><RespMessage>医生查询信息成功</RespMessage><Data><DeptCode>286</DeptCode><DoctorName>陈久毅</DoctorName><Spec>在骨科方面有较高的造诣，率先于我科开展人工髋、膝关节置换手术，擅长人工髋、膝关节置换，关节外科，中西医结合治疗骨折、骨肿瘤、先天性畸形、各种软组织损伤，对四肢骨骨折闭合复位独树一帜。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>164</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>田民</DoctorName><Spec>骨与关节疾病、创伤骨科、脊柱外科。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>266</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>王松</DoctorName><Spec>善长运用AO技术、中西医结合治疗各种骨折；各种关节疾患、脊柱骨病的治疗；小儿骨科和关节镜微创技术，在创伤矫形、关节外科、脊柱外科有较深的认识并作出了一些成绩。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>169</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>张开伟</DoctorName><Spec>擅长人工关节置换、关节镜及其它骨科微创手术。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>174</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>祝乾清</DoctorName><Spec>擅长手法骨折复位、骨科微创手术。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>168</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>方明智</DoctorName><Spec>骨与关节疾病、创伤骨科、脊柱外科。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>176</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>李贵华</DoctorName><Spec>创伤康复、颈肩腰腿痛、骨性关节炎及骨质疏松症的中西医治疗。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>172</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>李玉雄</DoctorName><Spec>在股骨头坏死、骨髓炎、骨结核、外伤性感染等病的中西医结合治疗颇具特色。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>171</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>沈俊</DoctorName><Spec>擅长于治疗各种创伤、颈椎病、股骨头缺血坏死、骨质疏松症、骨关节炎等骨科疾病以及小儿骨科领域的疾患。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>173</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>周建鸿</DoctorName><Spec>擅长脊柱关节疾病、颈椎前后路手术、腰椎间盘突出症、腰椎管狭窄以及脊柱肿瘤的手术治疗。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>4545</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data></Resp>";
-		System.out.println(formatXML(parseXml(xml)));
-	}
+//	public static void main(String[] args) throws Exception {
+//
+////		Document doc = parseXml("<Root></Root>");
+////	``	Element root = doc.getRootElement();
+////		addElement(root, "A", "阿萨德飞");
+////		addElement(root, "A", 2);
+////		System.out.println("添加子节点：\r\n"+toXML(doc, "GBK", true));
+////		addCDATAElement(root, "B", "所发生的");
+////		System.out.println("添加 CDATA 子节点：\r\n"+toXML(doc, "UTF-8", true));
+//
+//		String xml = "<Resp><TransactionCode></TransactionCode><RespCode>10000</RespCode><RespMessage>医生查询信息成功</RespMessage><Data><DeptCode>286</DeptCode><DoctorName>陈久毅</DoctorName><Spec>在骨科方面有较高的造诣，率先于我科开展人工髋、膝关节置换手术，擅长人工髋、膝关节置换，关节外科，中西医结合治疗骨折、骨肿瘤、先天性畸形、各种软组织损伤，对四肢骨骨折闭合复位独树一帜。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>164</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>田民</DoctorName><Spec>骨与关节疾病、创伤骨科、脊柱外科。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>266</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>王松</DoctorName><Spec>善长运用AO技术、中西医结合治疗各种骨折；各种关节疾患、脊柱骨病的治疗；小儿骨科和关节镜微创技术，在创伤矫形、关节外科、脊柱外科有较深的认识并作出了一些成绩。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>169</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>张开伟</DoctorName><Spec>擅长人工关节置换、关节镜及其它骨科微创手术。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>174</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>祝乾清</DoctorName><Spec>擅长手法骨折复位、骨科微创手术。</Spec><DoctorTitle>主任医师</DoctorTitle><DoctorCode>168</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>方明智</DoctorName><Spec>骨与关节疾病、创伤骨科、脊柱外科。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>176</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>李贵华</DoctorName><Spec>创伤康复、颈肩腰腿痛、骨性关节炎及骨质疏松症的中西医治疗。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>172</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>李玉雄</DoctorName><Spec>在股骨头坏死、骨髓炎、骨结核、外伤性感染等病的中西医结合治疗颇具特色。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>171</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>沈俊</DoctorName><Spec>擅长于治疗各种创伤、颈椎病、股骨头缺血坏死、骨质疏松症、骨关节炎等骨科疾病以及小儿骨科领域的疾患。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>173</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data><Data><DeptCode>286</DeptCode><DoctorName>周建鸿</DoctorName><Spec>擅长脊柱关节疾病、颈椎前后路手术、腰椎间盘突出症、腰椎管狭窄以及脊柱肿瘤的手术治疗。</Spec><DoctorTitle>副主任医师</DoctorTitle><DoctorCode>4545</DoctorCode><DeptName>贵州省骨伤医院</DeptName></Data></Resp>";
+//		System.out.println(formatXML(parseXml(xml)));
+//	}
 	public static String formatXML(Document doc) throws Exception {
 		StringWriter out=null;
 		try{

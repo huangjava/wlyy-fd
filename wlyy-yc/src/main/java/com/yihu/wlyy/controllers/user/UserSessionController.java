@@ -36,11 +36,6 @@ public class UserSessionController extends BaseController {
         response.sendRedirect(userSessionService.genEHomeUrl(openId));
     }
 
-    @RequestMapping(value = "/wechat/info", method = RequestMethod.GET)
-    public String loginInfo(String userCode) {
-        return userSessionService.loginInfo(userCode);
-    }
-
     @RequestMapping(value = "/wechat/callback", method = RequestMethod.GET)
     public void weChatCallback(HttpServletRequest request, HttpServletResponse response) {
         String code = request.getParameter("code");
@@ -48,7 +43,7 @@ public class UserSessionController extends BaseController {
         String openid = request.getParameter("openid");
         String sig = request.getParameter("sig");
 
-        UserSessionModel userSessionModel = userSessionService.weChatCallback(code, message, openid, sig);
+        UserSessionModel userSessionModel = userSessionService.loginWeChat(code, message, openid, sig);
         try {
             String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
             if (userSessionModel == null) {
@@ -69,16 +64,8 @@ public class UserSessionController extends BaseController {
         }
     }
 
-
     @RequestMapping(value = "/app", method = RequestMethod.GET)
-    public void loginApp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String userId = request.getParameter("userId");
-        String appType = request.getParameter("appType");
-        String validTime = request.getParameter("validTime");
-        String orgId = request.getParameter("orgId");
-        String appUid = request.getParameter("appUid");
-        String ticket = request.getParameter("ticket");
-
-
+    public void loginApp(HttpServletRequest request, HttpServletResponse response) {
+        userSessionService.loginApp(request, response);
     }
 }

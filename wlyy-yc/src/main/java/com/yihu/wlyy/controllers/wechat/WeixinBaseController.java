@@ -1,10 +1,9 @@
 package com.yihu.wlyy.controllers.wechat;
 
 import com.yihu.wlyy.controllers.BaseController;
-import com.yihu.wlyy.util.SystemConf;
 import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpUtil;
-import com.yihu.wlyy.util.ImageCompress;
+import com.yihu.wlyy.util.SystemConf;
 import com.yihu.wlyy.wx.entity.AccessToken;
 import com.yihu.wlyy.wx.entity.JsapiTicket;
 import com.yihu.wlyy.wx.service.AccessTokenService;
@@ -297,7 +296,7 @@ public class WeixinBaseController extends BaseController {
 				fileOutputStream.write(data, 0, len);
 			}
 			// 生成缩略图
-			ImageCompress.compress(uploadFile.getAbsolutePath(), uploadFile.getAbsolutePath() + "_small", 300, 300);
+//			ImageCompress.compress(uploadFile.getAbsolutePath(), uploadFile.getAbsolutePath() + "_small", 300, 300);
 			// 返回保存路径
 			return datePath + newFileName;
 		} catch (IOException e) {

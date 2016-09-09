@@ -11,16 +11,19 @@ mui.plusReady(function() {
  * 获取所有居民
  */
 function searchPatients(){
+	var orgId = plus.storage.getItem("orgId");
+	var userId = plus.storage.getItem("userId");
+	var params = {orgId:orgId,userId:userId}
 //	var patiUrl = "doctor/patient_group/patients"; // 原url 20160905 yww测试改
 	//var patiUrl = "doctor/login";
 	var signingPatiUrl = "doctor/patient_group/signingPatients"//待签约
 	var noSigningPatiUrl = "doctor/patient_group/noSigningPatients"//未签约
 	//待签约
-	sendPost(signingPatiUrl,{}, null, function(res){
+	sendPost(signingPatiUrl,params, null, function(res){
 		handleSuccess(res, 0);
 	});
 	//未签约
-	sendPost(noSigningPatiUrl,{}, null, function(res){
+	sendPost(noSigningPatiUrl,params, null, function(res){
 		handleSuccess(res, 1);
 	});
 }
@@ -258,7 +261,16 @@ var groupClick = function() {
 	 * 签约审核
 	 */
 	$(".my-team").on("tap", "li[class*='tab-']", function() {
-		openWindowWithSub("qianyueshenhe", "qianyueshenhe.html", "签约审核", {});
+		var id = $(this).attr("data-id");	
+			mui.openWindow({
+				url: "qianyueshenhe.html",
+				id: id,
+				extras: {
+					id: id
+				}
+		});
+		
+//		openWindowWithSub("qianyueshenhe", "qianyueshenhe.html", "签约审核", {});
 	});
 };
 

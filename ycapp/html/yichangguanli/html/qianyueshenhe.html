@@ -32,6 +32,12 @@
 
 	<body>
 		<div class="main" style="overflow: auto;">
+			<div class="h45">
+				<div class="demo-comtop">
+					<a class="mui-action-back"></a>
+					<h1 class="c-f18">签约审核</h1>
+				</div>
+			</div>
 			<div class="bgc-fff">
 				<div class="c-100 c-position-r" id="pati_info">
 
@@ -71,11 +77,11 @@
 	</body>
 
 	<script type="text/html" id="info_tmpl">
-		<ul class="c-list c-border-b">
+		<ul class="c-list c-border-b" data-id="{{chId}}">
 			<li class="c-list-text c-list-link">
 				<div class="l-face"><img style="width: 60px;height: 60px; border-radius: 30px; margin-top: 10px;" src='{{setDocPhoto(photo, sex)}}'></div>
 				<div class="l-list-info pl10">
-					<div class="f-bold ptb5">{{name}}({{setSex(sex)}}&nbsp;{{age}}岁)</div>
+					<div class="f-bold ptb5" >{{name}} ( {{setSex(sex)}}&nbsp;&nbsp;{{age}} 岁 )</div>
 					<div class=" ptb5">手机号码：{{mobile}}</div>
 					<div>家庭住址：{{address}}</div>
 				</div>
@@ -88,7 +94,7 @@
 		<div style="padding-top: 6px;">分组标签</div>
 		<ul class="l-biaoqian-list " style="padding-top: 6px">
 			{{each list as value i}}
-			<li class="l-over" >{{value.tag}}</li>
+			<li class="l-over" >{{value}}</li>
 			{{/each}}
 		</ul>
 	</script>
@@ -129,7 +135,11 @@
 		}
 		
 		function getPatientInfo() {
-			sendPost("doctor/patient_group/patientInfo",null,
+			
+			var self = plus.webview.currentWebview();
+			var id = self.id;
+			var params = {patientId:id}
+			sendPost("doctor/patient_group/patientInfo",params,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);
@@ -142,9 +152,8 @@
 					if (res.status == 200) {
 						var cont = template("info_tmpl", res.data);
 						document.getElementById("pati_info").innerHTML = cont;
-						
-						var data = {list:[{"tag":"糖尿病"},{"tag":"高血压"}]};//  获取从res.data获取患者分组标签********
-						
+						var tags = (res.data.sortType).split(/,|，/);
+						var data = {list:tags};
 						var contw = template("info_tag",data);
 						document.getElementById("tagList").innerHTML = contw;
 						
@@ -164,8 +173,16 @@
 //			document.getElementById("tagList").innerHTML = contw;
 		}
 	
-		$('#pati_info').on("tap", function(){
-			openWindowWithSub("weiqianyuejuminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {});
+		$('#pati_info').on("tap","ul", function(){
+			var id = $(this).attr("data-id");	
+			mui.openWindow({
+				url: "weiqianyuejuminxinxi.html",
+				id: id,
+				extras: {
+					id: id
+				}
+			});
+//			openWindowWithSub(id, "weiqianyuejuminxinxi.html", "居民资料", {});
 		})
 	</script>
 

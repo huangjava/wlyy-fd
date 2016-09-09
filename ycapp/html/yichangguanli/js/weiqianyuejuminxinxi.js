@@ -8,7 +8,10 @@ mui.plusReady(function() {
  */
 function getPatientInfo(){
 	plus.nativeUI.showWaiting();
-	sendPost("doctor/patient_group/patientInfo", {},
+	var self = plus.webview.currentWebview();
+	var id = self.id;
+	var params = {patientId:id};
+	sendPost("doctor/patient_group/patientInfo", params,
 		function(res) {
 			if(res && res.msg) {
 				plus.nativeUI.toast(res.msg);

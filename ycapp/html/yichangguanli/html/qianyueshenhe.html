@@ -32,12 +32,6 @@
 
 	<body>
 		<div class="main" style="overflow: auto;">
-			<div class="h45">
-				<div class="demo-comtop">
-					<a class="mui-action-back"></a>
-					<h1 class="c-f18">签约审核</h1>
-				</div>
-			</div>
 			<div class="bgc-fff">
 				<div class="c-100 c-position-r" id="pati_info">
 
@@ -137,8 +131,8 @@
 		function getPatientInfo() {
 			
 			var self = plus.webview.currentWebview();
-			var id = self.id;
-			var params = {patientId:id}
+			var patientId = self.patientId;
+			var params = {patientId:patientId}
 			sendPost("doctor/patient_group/patientInfo",params,
 				function queryFailed(res) {
 					if (res && res.msg) {
@@ -156,33 +150,13 @@
 						var data = {list:tags};
 						var contw = template("info_tag",data);
 						document.getElementById("tagList").innerHTML = contw;
-						
-						
 					}
 				});
-//			var data = {
-//				list:[{"tag":"wwww"},{"tag":"yyyyy"}],
-//				name: "张三",
-//				sex: "1",
-//				photo: "",
-//				age: 25,
-//				mobile: '15659135555',
-//				address: '宜昌市伍家岗'
-//			}
-//			var contw = template("info_tag",data);
-//			document.getElementById("tagList").innerHTML = contw;
 		}
 	
 		$('#pati_info').on("tap","ul", function(){
-			var id = $(this).attr("data-id");	
-			mui.openWindow({
-				url: "weiqianyuejuminxinxi.html",
-				id: id,
-				extras: {
-					id: id
-				}
-			});
-//			openWindowWithSub(id, "weiqianyuejuminxinxi.html", "居民资料", {});
+			var patientId = $(this).attr("data-id");	
+			openWindowWithSub("qianyueshenhe", "weiqianyuejuminxinxi.html", "居民资料", {patientId:patientId},"weiqianyuejuminxinxi");
 		})
 	</script>
 

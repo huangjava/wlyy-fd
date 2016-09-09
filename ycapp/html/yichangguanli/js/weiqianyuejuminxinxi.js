@@ -9,8 +9,8 @@ mui.plusReady(function() {
 function getPatientInfo(){
 	plus.nativeUI.showWaiting();
 	var self = plus.webview.currentWebview();
-	var id = self.id;
-	var params = {patientId:id};
+	var patientId = self.patientId;
+	var params = {patientId:patientId};
 	sendPost("doctor/patient_group/patientInfo", params,
 		function(res) {
 			if(res && res.msg) {
@@ -28,22 +28,5 @@ function getPatientInfo(){
 			}
 			plus.nativeUI.closeWaiting();
 		});
-
-	//使用静态数据
-//	var data = {
-//		name: "张三",
-//		sex: "1",
-//		photo: "",
-//		age: "25",
-//		activeTime: "2015-01-01~2017-01-01",
-//		tag: "高血压、糖尿病",
-//		idCard: "350581199002052852",
-//		mobile: "15656565656",
-//		tel: "0592-7651545",
-//		address: "厦门市湖里区吕岭路泰和花园120号6栋-203室",
-//		linkerTel: "0592-7651545",
-//		birthday: "1990-01-01"
-//	}
-//	$("body").append(template("detail_info_tmpl", data));
 
 }

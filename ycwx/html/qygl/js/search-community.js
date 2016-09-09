@@ -2,12 +2,27 @@ var d = dialog({contentType:'load', skin:'bk-popup'}).show();
 
 var Request = GetRequest(),
 	town = Request["town"];
+	teamName = Request["teamName"];
 var $communityView = $('#community_view'),
 	$communityList = $('#community_list'),
 	$noResultWrap = $('#no_result_wrap');
 
 // 搜索框
 $('.searchbar').searchBar();
+
+getReqPromise("patient/family/isAssign",{patient:"1"}).then(function(data) {
+	// TODO 是否已分拣
+	var sign = data.data;
+	if(sign==1) {
+		window.location.href = "../html/doctor-homepage.html?teamCode="+teamCode;
+	} else if(sign == -1){
+		window.location.href = "../qygl/html/search-community.html"
+	}
+
+
+}).catch(function(e) {
+	console && console.error(e)
+});
 
 getReqPromise("patient/sign/getSignStatus",{patientCode:"1"}).then(function(data) {
 	// TODO 示例数据

@@ -64,7 +64,7 @@ public class UserSessionService {
     }
 
     public UserSessionModel loginWeChat(String code, String message, String openId, String sig) {
-        String signature = openId + "yyweixin@jkzl";
+        String signature = openId + SystemConf.getInstance().getValue("eHomeSecret");
         String md5Crypt = DigestUtils.md5Hex(signature);
         if (!md5Crypt.equalsIgnoreCase(sig)) {
             return null;

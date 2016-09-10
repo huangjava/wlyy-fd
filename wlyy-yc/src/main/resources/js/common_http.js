@@ -9,6 +9,9 @@
  */
 function sendPost(url, params, dataType, reqType, error, success) {
 	var userAgent = window.localStorage.getItem(agentName);
+	if(userAgent==null){
+		userAgent="";
+	}
 	//发送ajax请求
 	$.ajax(server + url, {
 		data: params,

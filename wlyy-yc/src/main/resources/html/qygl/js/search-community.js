@@ -1,8 +1,12 @@
 var d = dialog({contentType:'load', skin:'bk-popup'}).show();
-
+saveAgentPage("../../qygl/html/search-community.html");
 var Request = GetRequest(),
-	town = Request["town"];
+	userAgent = Request["userAgent"],
+	town = Request["town"],
 	teamName = Request["teamName"];
+var userStr = $.parseJSON(decodeURIComponent(userAgent));
+wxSaveUserAgent(userStr.uid, userStr.openid, userStr.token);
+
 var $communityView = $('#community_view'),
 	$communityList = $('#community_list'),
 	$noResultWrap = $('#no_result_wrap');

@@ -1,13 +1,12 @@
 $(function() {
 	var agentPage = window.localStorage.getItem(pageName);
-	var jsonstr = $.parseJSON(agentPage);
-	var pageUrl = jsonstr.pageurl;
-	
-	var Request = new Object();
-	Request = GetRequest();
-	var userAgent = Request["userAgent"];
-	var userstr = $.parseJSON(userAgent);
-	wxSaveUserAgent((userstr.uid, userstr.openid, userstr.token));
+	var jsonStr = $.parseJSON(agentPage);
+	var pageUrl = jsonStr.pageurl;
+	var Request = GetRequest(),
+		userAgent = Request["userAgent"],
+		town = Request["town"],
+		teamName = Request["teamName"];
+	var userStr = $.parseJSON(decodeURIComponent(userAgent));
+	wxSaveUserAgent(userStr.uid, userStr.openid, userStr.token);
 	window.location.href = pageUrl;
-	
-})
+});

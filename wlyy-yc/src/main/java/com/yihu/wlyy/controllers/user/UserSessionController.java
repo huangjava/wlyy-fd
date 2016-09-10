@@ -55,8 +55,10 @@ public class UserSessionController extends BaseController {
             userAgent.setToken(userSessionModel.getToken());
             userAgent.setOpenid(userSessionModel.getTokenRef());
             userAgent.setUid(userSessionModel.getUserCode());
+            userAgent.setOpenid(openid);
             ObjectMapper objectMapper = new ObjectMapper();
             String user = objectMapper.writeValueAsString(userAgent);
+
             response.sendRedirect(familyDoctorUrl+"?userAgent="+user);
         } catch (IOException e) {
             e.printStackTrace();

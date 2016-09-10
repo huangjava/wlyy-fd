@@ -21,7 +21,7 @@
 
 // 测试环境（健康之路宜昌）
 //var server = "http://weixin.xmtyw.cn/wlyy/";
-var server = "http://127.0.0.1:9111/fd/";
+var server = "http://ehr.yihu.com/yichang/fd/";
 var appId = "wxd03f859efdf0873d";
 var urlName = "wlyy";
 var weixinUrl = "weixin.xmtyw.cn";
@@ -36,7 +36,7 @@ function wxSaveUserAgent(uid, openid, token) {
 	if(window.localStorage.getItem(agentName)){
 		window.localStorage.removeItem(agentName);
 	}
-	var userAgent = "{\"uid\":\"" + uid + "\",\"openid\":\"" + openid + "\",\"token\":\"" + token + "\",\"platform\":3}";
+	var userAgent = "{\"uid\":\"" + uid + "\",\"openid\":\"" + openid + "\",\"token\":\"" + token + "\"}";
 	window.localStorage.setItem(agentName, userAgent);
 	return userAgent;
 }

@@ -34,7 +34,7 @@ var isSignForView = function(data) {
 var startSign = function() {
 	var teamName = encodeURI(document.getElementById("teamName").innerHTML);
 	var orgName = encodeURI(document.getElementById("orgName").innerHTML);
-	window.location.href = "../../qygl/html/start-sign.html?teamCode=" + teamName + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&patientCode='+"1";
+	window.location.href = "../../qygl/html/start-sign.html?teamCode=" + teamCode + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&patientCode='+"1";
 }
 
 var showTeamInfo = function(data) {

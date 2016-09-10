@@ -13,7 +13,7 @@
     <title>开始签约</title>
     <link rel="stylesheet" href="../../../css/cross.css" type="text/css" />
 	<link rel="stylesheet" href="../../../css/cross.ui.css" type="text/css" />
-	<link rel="stylesheet" href="../css/jy-style.css" type="text/css" />
+	<link rel="stylesheet" href="../../../css/jy-style.css" type="text/css" />
 	<style>
 		.c-list,.n-list,.n-list-info{font-size: 16px;}
 	</style>
@@ -33,11 +33,15 @@
         </li>-->
         <li class="c-list-text c-list-link">
             <div class="c-f16 c-909090">
-            	<input id="doctor" style="display: none;" />
-                <p>签约机构：<span class="c-666" id="hospitalName"></span></p>
-                <p>签约团队：<span class="c-666" id="doctorName"></span></p>
+            	<input id="team" style="display: none;" />
+                <p>签约机构：<span class="c-666" id="orgName"></span></p>
             </div>
         </li>
+		<li class="c-list-text c-list-link">
+			<div class="c-f16 c-909090">
+				<p>签约团队：<span class="c-666" id="teamName"></span></p>
+			</div>
+		</li>
     </ul>
 	<ul class="n-list edit-list c-border-tb mt10">
 		<li class="n-list-cover">
@@ -49,7 +53,7 @@
 		<li class="n-list-cover">
 			<div class="n-list-key c-666"><i class="required" style="display: none;"></i>身份证号</div>
 			<div class="n-list-info pl10">
-				<input type="text" class="c-input width-100" maxlength="18" id="idcard" placeholder="请输入身份证号" readonly="readonly" style="pointer-events: none;"/>
+				<input type="text" class="c-input width-100" maxlength="18" id="idCard" placeholder="请输入身份证号" readonly="readonly" style="pointer-events: none;"/>
 			</div>
 		</li>
         <li class="n-list-cover" style="display: none;">
@@ -65,8 +69,19 @@
 			</div>
 		</li>
 	</ul>
-    <div class="plr10 mt15 pb20" onclick="submitSign()">
-        <a href="javascript:;" style="font-size: 18px;" class="c-btn c-btn-full c-btn-4dcd70 border-radius-rounded">提交</a>
+
+	<div class="plr10 mt15 pb20">
+		<div class="input-group-checkbox">
+			<!--<label>-->
+			<div id="agree_sign_btn" class="input-group-pack checked">
+				<span class="tick"></span>
+			</div>
+			<!--</label>-->
+			<a style="color: #37a6ec;font-size: 16px;" onclick="toXieYiShu()">家庭医生签约协议</a>
+		</div>
+	</div>
+    <div class="plr10 mt15 pb20" style="position: fixed;bottom: 0; padding-left: 0;width: 100%;" onclick="submitSign()">
+        <a href="javascript:;" style="font-size: 18px;" class="c-btn c-btn-full c-btn-4dcd70 border-radius-rounded">提交签约</a>
 	    <div class="div-family-remark" style="font-size: 14px;margin-top: 10px; color: red;display: none;
 	            ">备注：<span class="userName"></span>可关注厦门i健康公众号，注册账号后直接与家庭医生互动，享受家庭医生健康服务</div>
     </div>
@@ -85,50 +100,48 @@
 	var d = dialog({contentType:'load', skin:'bk-popup', content:'提交签约信息，请稍后...'});
 	var Request = new Object();
 	Request = GetRequest();
-	var doctor = Request["doctor"];
-	var doctorName = Request["doctorName"];
-	var hospitalName = Request["hospitalName"];
-	var idcard = Request["idcard"];
+	var teamCode = Request["teamCode"];
+	var teamName = Request["teamName"];
+	var orgName = Request["orgName"];
+	var orgCode = Request["orgCode"];
+	var idCard = Request["idCard"];
 	var code = Request["code"];
 	if(code){
 		closeWindow();
 	}
-	// 从医生主页传递的签约邀请code
-	var signInvitationCode = Request["inviCode"];
 	var patientCode = Request["patientCode"];
 	if(!patientCode || patientCode=="undefined") {
 		patientCode = "";
 	}
 	$(function(){
-		if (decodeURI(doctorName)) {
-			document.getElementById("doctorName").innerText = decodeURI(doctorName);
+		if (decodeURI(teamName)) {
+			document.getElementById("teamName").innerText = decodeURI(teamName);
 		}
-		if (decodeURI(hospitalName)) {
-			document.getElementById("hospitalName").innerText = decodeURI(hospitalName);
-		}
-		if(signInvitationCode&&signInvitationCode!="undefined") {
-			$('#name_label').text('代理家人');
-			$(".div-family-remark").show();
+		if (decodeURI(orgName)) {
+			document.getElementById("orgName").innerText = decodeURI(orgName);
 		}
 		query();
 
-		$("#idcard").on("blur", function() {
+		$("#idCard").on("blur", function() {
 			var value = $(this).val();
 			validateIdcard(value);
 		});
 
-	})
+		$('#agree_sign_btn').click(function(e) {
+			$(this).toggleClass("checked");
+		});
+
+	});
+
+	function toXieYiShu(){
+		location.href = "../../qygl/html/argument.html";
+	}
 	
 	//查询用户信息
 	function query() {
 		d1.show();
 		var data={};
-		if(signInvitationCode&&signInvitationCode!="undefined") {
-			sendPost('patient/getPatientByInviLogCode', {invilogCode: signInvitationCode}, 'json', 'post', queryFailed, querySuccess);
-		} else {
-			sendPost('patient/baseinfo', data, 'json', 'post', queryFailed, querySuccess);
-		}
-		
+			sendPost('patient/family/baseinfo', data, 'json', 'post', queryFailed, querySuccess);
 	}	
 	
 	function queryFailed(res) {
@@ -145,28 +158,19 @@
 			var data = res.data;
 			var name = data.name;
 			var mobile = data.mobile;
-			var idcard = data.idcard;
-			var idcardAll = data.idcardAll;
-			var ssc = data.ssc;
+			var idCard = data.idCard;
+			var idCardAll = data.idCardAll;
+			var address = data.address;
 			if(!name) name = "";
 			if(!mobile) mobile = "";
-			if(!ssc) ssc = "";
-			if(!idcard) idcard = "";
+			if(!address) address = "";
+			if(!idCard) idCard = "";
 			document.getElementById("name").value = name;			
 			document.getElementById("mobile").value = mobile;
-			document.getElementById("ssc").value = ssc;
-			document.getElementById("idcard").value = idcard;
+			document.getElementById("address").value = address;
+			document.getElementById("idCard").value = idCard;
 			$(".userName").html(name);
-			$('#idcard').attr('data-idcard',idcardAll);
-			if(!ssc || ssc ==""){
-				dialog({
-					content: '对不起，未办理医保卡或在2016年6月之后办理医保卡的居民暂不能进行签约。请保证在您的帐户中（我的资料）正确录入您的医保卡号，然后再重试！',
-					cancelValue: '我知道了',
-					cancel: function () {
-						wx.closeWindow();
-					}
-				}).showModal();
-			}
+			$('#idCard').attr('data-idCard',idCardAll);
 			d1.close();
 		} else {
 			queryFailed(res);
@@ -179,11 +183,11 @@
 		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'请输入您的姓名'}).show();
 			return false;
 		}
-		if (data.ssc == "") {
-		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'医保卡号信息未完善!'}).show();
+		if (data.address == "") {
+		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'家庭地址填写!'}).show();
 			return false;
 		}
-//		if (data.idcard != "" && !isIdcard(data.idcard)) {
+//		if (data.idCard != "" && !isIdcard(data.idCard)) {
 //		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'身份证号格式不正确'}).show();
 //			return false;
 //		}
@@ -209,40 +213,39 @@
 		}
 		return true;
 	}
-	
-	function validateSsc(v){
-		if(!isSsc(v)){
-			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'医保卡号格式不正确'}).show();
-			document.getElementById("ssc").focus();
-			return false;
-		}
-		return true;
-	}
+
 	
 	//提交签约
 	function submitSign(){
+		var isAgree = $("#agree_sign_btn").hasClass("checked");
+		if(!isAgree){
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'请选择同意签约协议'}).show();
+			return;
+		}
 		var data = {};
 		data.name = $("#name").val();
-		data.ssc = $("#ssc").val();
+		data.address = $("#address").val();
 		data.mobile = $("#mobile").val();
-		//data.idcard = $("#idcard").val();
-		data.idcard = $('#idcard').attr('data-idcard');
+		//data.idCard = $("#idCard").val();
+		data.idCard = $('#idCard').attr('data-idCard');
 		if(validate(data)){
 			d.showModal();
 			//加密设置:获取公钥
-			var encryURL = server + "login/public_key";
-			var key = RSAUtils.getKeyFromServer(encryURL);
+//			var encryURL = server + "login/public_key";
+//			var key = RSAUtils.getKeyFromServer(encryURL);
 			//拼请求内容
-			data.idcard = RSAUtils.encryStr(key, data.idcard);
+//			data.idCard = RSAUtils.encryStr(key, data.idCard);
 			data.streetCode = "123456";
 			data.stateCode = "01";
 
-			data.doctor = doctor;
-			data.doctorName = "";
+			data.teamCode = teamCode;
+			data.teamName = "";
 			data.hospital = "";
-			data.hospitalName = "";
+			data.orgName = "";
 			data.patientCode = patientCode;
-			sendPost("patient/family_contract/sign", data, "json", "post", operateFailed, operateSuccesss);	
+			getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode}).then(function(data) {
+				location.href = "../../qygl/html/sign-success.html";
+			})
 		}		
 	}
 	
@@ -260,17 +263,10 @@
 	function operateSuccesss(res) {
 		if (res.status == 200) {
 				d.close();
-				if(signInvitationCode&&signInvitationCode!="undefined") {
-					dialog({
-					content: '签约申请已提交，请耐心等待，<br/>医生通过后即可为您的家人提供家庭医生服务',
-					okValue:'我知道了',
-					ok: function() {
-						wx.closeWindow();
-					}
-				}).showModal();
-			}else{
-				window.location.href = "../../ssgg/html/doctor-homepage-new.html?waitSign=1&state=" + doctor;
-			}
+				//TODO 签约成功操作
+			getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode}).then(function(data) {
+				location.href = "../../qygl/html/sign-success.html";
+			})
 //			window.location.href = "doctor-home-page.html?doctor=" + doctor;
 		} else {
 			//非200则为失败

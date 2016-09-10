@@ -16,7 +16,7 @@ function getDevices(){
 	var params = {};
 	params.category_code = category_code;
 	d.show();
-	sendPost("/common/device/DeviceList",params,"JSON","GET",queryListFailed,queryListSuccess);
+	sendPost("/common/device/DeviceList",params,"JSON","POST",queryListFailed,queryListSuccess);
 }
 
 function queryListSuccess(res){

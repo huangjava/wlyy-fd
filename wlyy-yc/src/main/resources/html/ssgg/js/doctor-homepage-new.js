@@ -187,7 +187,7 @@ function popThanksDialog() {
         content: '<div class="c-t-left">您的签约申请已提交，请等待医生的审核。请您的亲友们也一起享受家庭医生的服务吧~</div>',
         okValue:'前往分享',
         ok: function (){				            		
-        	location.href = '../../qygl/html/signing-share.html?guide=1'
+        	location.href = '../../qygl/html/signing-share.html'
         },
         cancelValue: '我知道了',
         cancel: function () {

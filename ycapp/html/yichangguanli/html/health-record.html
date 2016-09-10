@@ -14,10 +14,10 @@
 		<link rel="stylesheet" type="text/css" href="../../../common/iconfont/iconfont.css" />
 		<link rel="stylesheet" type="text/css" href="../css/ss-style.css" />
 		<link rel="stylesheet" type="text/css" href="../css/iscroll.css" />
-		<link rel="stylesheet" type="text/css" href="../css/health-record.css" />
 		<link rel="stylesheet" type="text/css" href="../../../widget/swiper/3.1/swiper.min.css">
 		<link rel="stylesheet" type="text/css" href="../../../widget/switchery/switchery.css">
 		<link rel="stylesheet" type="text/css" href="../../../common/css/doc-style.css">
+		<link rel="stylesheet" type="text/css" href="../css/health-record.css" />
 		<link rel="stylesheet" type="text/css" href="../css/xinxi.css">
 		<link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css" />
 		<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.17.1/css/mobiscroll.css">
@@ -31,12 +31,6 @@
         <h1>健康记录</h1>
     </div>
 </div>-->
-		<div class="h45">
-			<div class="demo-comtop">
-				<a class="mui-action-back"></a>
-				<h1 class="c-f18">居民首页</h1>
-			</div>
-		</div>
 
 		<div id="docInfo" style="height: 120px; z-index: 100;"></div>
 		
@@ -45,7 +39,7 @@
 			<div class="iScroller">
 				<ul class="c-lab-mor pt-tab c-f16">
 					<li id="tizhengLi" class="hit"><a href="#">体征记录</a></li>
-					<li id="healthLi****"><a href="#">随防记录</a></li>
+					<!--<li id="healthLi****"><a href="#">随防记录</a></li>-->
 				</ul>
 				<div id="tizhengList" class="pt-tab-list hit">
 					<div class="m-menu-link mt10">
@@ -67,7 +61,7 @@
 							<span class="l-arrow-right fl"></span>
 						</div>
 						<div class="div-btn-group">
-							<a class="c-btn c-btn-full" href="javascript:;" id="qushi">趋势图</a>
+							<!--<a class="c-btn c-btn-full" href="javascript:;" id="qushi">趋势图</a>-->
 							<a class="c-btn c-btn-full active" href="javascript:;" id="liebiao">列表</a>
 						</div>
 					</div>
@@ -164,12 +158,12 @@
 		<dl class="jhadd bgc-fff dt-date-condition f-dn">
 			<dt class="tit p10 border-bom dt-part-time7" data-id="1">
 				<a href="javascript:void(0);" class="more">
-	    			<i class="icon del" style="background: url(../images/gouxun_icon.png) no-repeat;"></i>
+	    			<i class="icon del"></i>
 	    		</a>最近一周
 			</dt>
 			<dt class="tit p10 border-bom dt-part-time30" data-id="2">
 				<a href="javascript:void(0);" class="more">
-	    			<i class="icon" style="background: url(../images/gouxun_icon.png) no-repeat;"></i>
+	    			<i class="icon"></i>
 	  			</a>最近一月
 			</dt>
 			<dt class="tit p10 border-bom f-pr dt-custom" data-id="3">
@@ -209,7 +203,7 @@
 					<div class="c-list-info">
 						<h4 class="c-nowrap">标签</h4>
 					</div>
-					<div class="c-list-value c-f16">{{tag}}</div>
+					<div class="c-list-value c-f16">{{sortType}}</div>
 				</li>
 			</ul>
 		</script>

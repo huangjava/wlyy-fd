@@ -117,18 +117,18 @@ public class UserSessionService {
 
     public boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String userAgent = request.getHeader("userAgent");
-        if (userAgent == null) {
-            //从健康之中APP或者小薇社区进入
-            //小薇社区进入时openId非空
-            String openId = request.getParameter("openId");
-            return !StringUtil.isEmpty(openId) || isLoginApp(request, response);
-        }
+//        if (userAgent == null) {
+//            //从健康之中APP或者小薇社区进入
+//            //小薇社区进入时openId非空
+//            String openId = request.getParameter("openId");
+//            return !StringUtil.isEmpty(openId) || isLoginApp(request, response);
+//        }
 
         if (StringUtil.isEmpty(userAgent)) {
             //从健康之中APP或者小薇社区进入
             //从健康之中APP进入时ticket非空
             String ticket = request.getParameter("ticket");
-            return !StringUtil.isEmpty(ticket) || isLoginApp(request, response);
+            return !StringUtil.isEmpty(ticket) || isLoginWeChat(request, response);
         }
         //以上空的逻辑是否可合并还需要验证
 
@@ -142,15 +142,21 @@ public class UserSessionService {
     }
 
     public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String userAgent = request.getHeader("userAgent");
         ObjectMapper objectMapper = new ObjectMapper();
-        UserAgent user = objectMapper.readValue(userAgent, UserAgent.class);
-        UserSessionModel userSession = userSessionDao.findOne(user.getUid());
-        if (userSession != null) {
-            return true;
-        }
+        if (!StringUtil.isEmpty(userAgent)) {
 
-        response.sendRedirect(genEHomeUrl(user.getOpenid()));
+            UserAgent user = objectMapper.readValue(userAgent, UserAgent.class);
+            UserSessionModel userSession = userSessionDao.findOne(user.getUid());
+            if (userSession != null) {
+                return true;
+            }
+        } else {
+            UserAgent user = new UserAgent();
+            user.setOpenid("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
+            response.sendRedirect(genEHomeUrl("OCEF9T2HW1GBY0KINQK0NEL_ZOSK"));
+        }
         return false;
     }
 

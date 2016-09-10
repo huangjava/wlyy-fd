@@ -1,13 +1,17 @@
 package com.yihu.wlyy.controllers.doctor.health;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.models.health.DevicePatientHealthIndex;
+import com.yihu.wlyy.services.health.PatientHealthIndexService;
 import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpClientUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,16 +33,19 @@ public class DoctorHealthController extends BaseController {
 	@Value("${service-gateway.url}")
 	private String comUrl;
 
+    @Autowired
+    private PatientHealthIndexService healthIndexService;
+
 	//TODO 根据患者标志获取健康指标（原有接口）
 	@ApiOperation("根据患者标志获取健康指标")
-	@RequestMapping(value = "list",method = RequestMethod.POST)
+	@RequestMapping(value = "list",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String getHealthIndexByPatient(
-			@ApiParam(name = "patient", value = "患者唯一标识", defaultValue = " ")
-			@RequestParam(value = "patient", required = false) String patient,
+			@ApiParam(name = "patientId", value = "患者唯一标识", defaultValue = " ")
+			@RequestParam(value = "patientId", required = false) String patientId,
 			@ApiParam(name = "type", value = "健康指标类型（1血糖，2血压，3体重，4腰围）")
 			@RequestParam(value = "type", required = false) int type,
-			@ApiParam(name = "sortDate", value = "排序字段", defaultValue = "")
+			@ApiParam(name = "sortDate", value = "排序字段", defaultValue = "sortDate")
 			@RequestParam(value = "sortDate", required = false) String sortDate,
 			@ApiParam(name = "begin", value = " ", defaultValue = "")
 			@RequestParam(value = "begin", required = false) String begin,
@@ -48,7 +55,7 @@ public class DoctorHealthController extends BaseController {
 			@RequestParam(value = "pagesize", required = false) int pagesize) {
 		String resultStr = "";
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("patient", patient);
+		params.put("patient", patientId);
 		params.put("type", type);
 		params.put("sortDate", sortDate);
 		params.put("begin", begin);
@@ -60,54 +67,31 @@ public class DoctorHealthController extends BaseController {
 //			String url =" ";
 //			resultStr = HttpClientUtil.doGet(comUrl + url, params, username, password);
 
-//            Page<PatientHealthIndex> list = healthIndexService.findByPatien(getUID(), type, DateUtil.strToDateShort(sortDate), pagesize);
-            switch (type){
-                case 1:
-                    JSONArray jsonArray = new JSONArray();
-                    for (int i=1;i<8;i++) {
-                        JSONObject modelJson = new JSONObject();
-                        modelJson.put("id", "w"+i);
-                        modelJson.put("patient","ww");
-                        modelJson.put("value1", 23);
-                        modelJson.put("value2", 23);
-                        modelJson.put("value3", 23);
-                        modelJson.put("value4", 23);
-                        modelJson.put("value5", 23);
-                        modelJson.put("value6",23);
-                        modelJson.put("value7", 23);
-                        modelJson.put("type", type);
-                        modelJson.put("date", "2016-07-0"+i);
-                        modelJson.put("sortDate", DateUtil.dateToStrLong(new Date()));
-                        modelJson.put("czrq", DateUtil.dateToStr(new Date(), DateUtil.YYYY_MM_DD_HH_MM_SS));
-                        jsonArray.put(modelJson);
-                    }
-                    return write(200, "查询成功", "list", jsonArray);
-                case 2:
-                    JSONArray jsonArray2 = new JSONArray();
-                    for (int i=1;i<8;i++) {
-                        JSONObject modelJson = new JSONObject();
-                        modelJson.put("id", "w"+i);
-                        modelJson.put("patient","ww");
-                        modelJson.put("value1", 23);
-                        modelJson.put("value2", 23);
-                        modelJson.put("value3", 23);
-                        modelJson.put("value4", 23);
-                        modelJson.put("value5", 23);
-                        modelJson.put("value6",23);
-                        modelJson.put("value7", 23);
-                        modelJson.put("type", type);
-                        modelJson.put("date", "2016-07-0"+i);
-                        modelJson.put("sortDate", DateUtil.dateToStrLong(new Date()));
-                        modelJson.put("czrq", DateUtil.dateToStr(new Date(), DateUtil.YYYY_MM_DD_HH_MM_SS));
-                        jsonArray2.put(modelJson);
-                    }
-                    return write(200, "查询成功", "list", jsonArray2);
-                case 3:
-                    break;
-                case 4:
-                    break;
+            Page<DevicePatientHealthIndex> list = healthIndexService.findByPatien("P20160812002", type, DateUtil.strToDateShort(sortDate),DateUtil.strToDateShort(begin),DateUtil.strToDateShort(end), pagesize);
+            if (list == null) {
+                return success("查询成功!");
             }
-            return write(200, "查询成功", "list", "");
+            JSONArray jsonArray = new JSONArray();
+            for (DevicePatientHealthIndex model : list) {
+                JSONObject modelJson = new JSONObject();
+                modelJson.put("id", model.getId());
+                modelJson.put("patient", model.getUser());
+                modelJson.put("value1", model.getValue1());
+                modelJson.put("value2", model.getValue2());
+                modelJson.put("value3", model.getValue3());
+                modelJson.put("value4", model.getValue4());
+                modelJson.put("value5", model.getValue5());
+                modelJson.put("value6", model.getValue6());
+                modelJson.put("value7", model.getValue7());
+                modelJson.put("type", model.getType());
+                modelJson.put("date", DateUtil.dateToStrShort(model.getRecordDate()));
+                modelJson.put("sortDate", DateUtil.dateToStrLong(model.getSortDate()));
+                modelJson.put("czrq", DateUtil.dateToStr(model.getCzrq(), DateUtil.YYYY_MM_DD_HH_MM_SS));
+                jsonArray.put(modelJson);
+            }
+            JSONObject values = new JSONObject();
+            values.put("list", jsonArray);
+            return write(200, "查询成功", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);
             return invalidUserException(ex, -1, "查询失败！");

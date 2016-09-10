@@ -39,143 +39,11 @@ function handleSuccess(res, tab) {
 			res = {
 				tab: 0,
 				data:res.data
-//				data: [{
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "0c12ac85973b42e9ba0a99f26179a335",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "341721197711113927",
-//	                    "name": "边绍娟",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 38
-//	                },
-//	                {
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "a49b601d2f94466b9c5c33b5436afbe1",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "44132219941116368X",
-//	                    "name": "洪涵桃",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 21
-//	                }]
 			}
         else
         	res = {
         		tab: 1,
           		data:res.data
-//				data: [{
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "0c12ac85973b42e9ba0a99f26179a335",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "341721197711113927",
-//	                    "name": "边绍娟",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 38
-//	                },
-//	                {
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "a49b601d2f94466b9c5c33b5436afbe1",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "44132219941116368X",
-//	                    "name": "洪涵桃",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 21
-//	                },
-//					{
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "0c12ac85973b42e9ba0a99f26179a335",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "341721197711113927",
-//	                    "name": "边绍娟",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 38
-//	                },
-//	                {
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "a49b601d2f94466b9c5c33b5436afbe1",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "44132219941116368X",
-//	                    "name": "洪涵桃",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 21
-//	                },
-//					{
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "0c12ac85973b42e9ba0a99f26179a335",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "341721197711113927",
-//	                    "name": "边绍娟",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 38
-//	                },
-//	                {
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "a49b601d2f94466b9c5c33b5436afbe1",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "44132219941116368X",
-//	                    "name": "洪涵桃",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 21
-//	                },
-//					{
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "0c12ac85973b42e9ba0a99f26179a335",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "341721197711113927",
-//	                    "name": "边绍娟",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 38
-//	                },
-//	                {
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "a49b601d2f94466b9c5c33b5436afbe1",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "44132219941116368X",
-//	                    "name": "洪涵桃",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 21
-//	                },
-//					{
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "0c12ac85973b42e9ba0a99f26179a335",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "341721197711113927",
-//	                    "name": "边绍娟",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 38
-//	                },
-//	                {
-//	                    "qyrq": "2016-08-31",
-//	                    "code": "a49b601d2f94466b9c5c33b5436afbe1",
-//	                    "disease": 0,
-//	                    "sex": 2,
-//	                    "idcard": "44132219941116368X",
-//	                    "name": "洪涵桃",
-//	                    "signType": "2",
-//	                    "partAmount": 0,
-//	                    "age": 21
-//	                }]
 			}
 		patients = res;
 		if (res.data.length == 0) {
@@ -261,16 +129,8 @@ var groupClick = function() {
 	 * 签约审核
 	 */
 	$(".my-team").on("tap", "li[class*='tab-']", function() {
-		var id = $(this).attr("data-id");	
-			mui.openWindow({
-				url: "qianyueshenhe.html",
-				id: id,
-				extras: {
-					id: id
-				}
-		});
-		
-//		openWindowWithSub("qianyueshenhe", "qianyueshenhe.html", "签约审核", {});
+		var patientId = $(this).attr("data-id");
+		openWindowWithSub("daiqianyue", "qianyueshenhe.html", "签约审核", {patientId:patientId},"qianyueshenhe");
 	});
 };
 

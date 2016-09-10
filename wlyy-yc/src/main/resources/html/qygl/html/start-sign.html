@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta charset="utf-8" />
+	<meta name="author" content="yihu.com" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>开始签约</title>
+    <link rel="stylesheet" href="../../../css/cross.css" type="text/css" />
+	<link rel="stylesheet" href="../../../css/cross.ui.css" type="text/css" />
+	<link rel="stylesheet" href="../css/jy-style.css" type="text/css" />
+	<style>
+		.c-list,.n-list,.n-list-info{font-size: 16px;}
+	</style>
+</head>
+<body>
+<!--<div class="h45">
+    <div class="demo-comtop">
+        <a class="mui-action-back"></a>
+        <h1>签约</h1>
+    </div>
+</div>-->
+<div class="c-main">
+	<ul class="c-list c-border-tb mt10">
+        <!--<li class="c-list-text c-list-link" onclick="window.location.href='sign-agreement.html'">
+            <h4 class="c-nowrap"><span class="c-17b3ec c-f14">家庭医生签约服务协议书</span></h4>
+            <span class="list-icon arrow-right"></span>
+        </li>-->
+        <li class="c-list-text c-list-link">
+            <div class="c-f16 c-909090">
+            	<input id="doctor" style="display: none;" />
+                <p>签约机构：<span class="c-666" id="hospitalName"></span></p>
+                <p>签约团队：<span class="c-666" id="doctorName"></span></p>
+            </div>
+        </li>
+    </ul>
+	<ul class="n-list edit-list c-border-tb mt10">
+		<li class="n-list-cover">
+            <div id="name_label" class="n-list-key c-666">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</div>
+            <div class="n-list-info pl10">
+                <input type="text" class="c-input width-100" id="name" readonly="readonly" />
+            </div>
+        </li>
+		<li class="n-list-cover">
+			<div class="n-list-key c-666"><i class="required" style="display: none;"></i>身份证号</div>
+			<div class="n-list-info pl10">
+				<input type="text" class="c-input width-100" maxlength="18" id="idcard" placeholder="请输入身份证号" readonly="readonly" style="pointer-events: none;"/>
+			</div>
+		</li>
+        <li class="n-list-cover" style="display: none;">
+            <div class="n-list-key c-666">手机号码</div>
+            <div class="n-list-info pl10">
+                <input type="tel" id="mobile" maxlength="11" class="c-input width-100" />
+            </div>
+        </li>
+		<li class="n-list-cover">
+			<div class="n-list-key c-666">家庭住址</div>
+			<div class="n-list-info pl10">
+				<input type="text" class="c-input width-100" id="address" placeholder="请输入家庭地址"  />
+			</div>
+		</li>
+	</ul>
+    <div class="plr10 mt15 pb20" onclick="submitSign()">
+        <a href="javascript:;" style="font-size: 18px;" class="c-btn c-btn-full c-btn-4dcd70 border-radius-rounded">提交</a>
+	    <div class="div-family-remark" style="font-size: 14px;margin-top: 10px; color: red;display: none;
+	            ">备注：<span class="userName"></span>可关注厦门i健康公众号，注册账号后直接与家庭医生互动，享受家庭医生健康服务</div>
+    </div>
+</div>
+<script type="text/javascript" src="../../../js/jquery/2.1.3/jquery.js"></script>
+<script type="text/javascript" src="../../../js/common_http.js" ></script>
+<script type="text/javascript" src="../../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../../js/weixin_common.js" ></script>
+<link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css">
+<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js"></script>
+<script src="../../../js/security.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../../../js/commit_validate.js" ></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    var d1 = dialog({contentType:'load', skin:'bk-popup'});
+	var d = dialog({contentType:'load', skin:'bk-popup', content:'提交签约信息，请稍后...'});
+	var Request = new Object();
+	Request = GetRequest();
+	var doctor = Request["doctor"];
+	var doctorName = Request["doctorName"];
+	var hospitalName = Request["hospitalName"];
+	var idcard = Request["idcard"];
+	var code = Request["code"];
+	if(code){
+		closeWindow();
+	}
+	// 从医生主页传递的签约邀请code
+	var signInvitationCode = Request["inviCode"];
+	var patientCode = Request["patientCode"];
+	if(!patientCode || patientCode=="undefined") {
+		patientCode = "";
+	}
+	$(function(){
+		if (decodeURI(doctorName)) {
+			document.getElementById("doctorName").innerText = decodeURI(doctorName);
+		}
+		if (decodeURI(hospitalName)) {
+			document.getElementById("hospitalName").innerText = decodeURI(hospitalName);
+		}
+		if(signInvitationCode&&signInvitationCode!="undefined") {
+			$('#name_label').text('代理家人');
+			$(".div-family-remark").show();
+		}
+		query();
+
+		$("#idcard").on("blur", function() {
+			var value = $(this).val();
+			validateIdcard(value);
+		});
+
+	})
+	
+	//查询用户信息
+	function query() {
+		d1.show();
+		var data={};
+		if(signInvitationCode&&signInvitationCode!="undefined") {
+			sendPost('patient/getPatientByInviLogCode', {invilogCode: signInvitationCode}, 'json', 'post', queryFailed, querySuccess);
+		} else {
+			sendPost('patient/baseinfo', data, 'json', 'post', queryFailed, querySuccess);
+		}
+		
+	}	
+	
+	function queryFailed(res) {
+		d1.close();
+		if (res && res.msg) {
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:res.msg}).show();      
+		} else {
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'用户信息获取失败'}).show(); 
+		}
+	}
+	
+	function querySuccess(res) {
+		if (res.status == 200) {
+			var data = res.data;
+			var name = data.name;
+			var mobile = data.mobile;
+			var idcard = data.idcard;
+			var idcardAll = data.idcardAll;
+			var ssc = data.ssc;
+			if(!name) name = "";
+			if(!mobile) mobile = "";
+			if(!ssc) ssc = "";
+			if(!idcard) idcard = "";
+			document.getElementById("name").value = name;			
+			document.getElementById("mobile").value = mobile;
+			document.getElementById("ssc").value = ssc;
+			document.getElementById("idcard").value = idcard;
+			$(".userName").html(name);
+			$('#idcard').attr('data-idcard',idcardAll);
+			if(!ssc || ssc ==""){
+				dialog({
+					content: '对不起，未办理医保卡或在2016年6月之后办理医保卡的居民暂不能进行签约。请保证在您的帐户中（我的资料）正确录入您的医保卡号，然后再重试！',
+					cancelValue: '我知道了',
+					cancel: function () {
+						wx.closeWindow();
+					}
+				}).showModal();
+			}
+			d1.close();
+		} else {
+			queryFailed(res);
+		}
+	}
+	
+	//验证信息
+	function validate(data) {
+		if (data.name == "") {
+		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'请输入您的姓名'}).show();
+			return false;
+		}
+		if (data.ssc == "") {
+		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'医保卡号信息未完善!'}).show();
+			return false;
+		}
+//		if (data.idcard != "" && !isIdcard(data.idcard)) {
+//		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'身份证号格式不正确'}).show();
+//			return false;
+//		}
+//		if (data.mobile != "" && !isphone(data.mobile)) {
+//		    dialog({contentType:'tipsbox', skin:'bk-popup' , content:'手机号格式不正确'}).show();
+//			return false;
+//		}
+		return true;
+	}
+
+	function validateIdcard(v){
+		if ( v == "" ||( v != "" && !isIdcard(v))) {
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'身份证号格式不正确'}).show();
+			return false;
+		}
+	}
+	
+	function validatePhone(v){		
+		if(v != "" && !isphone(v)){
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'手机号格式不正确'}).show();
+			document.getElementById("mobile").focus();
+			return false;
+		}
+		return true;
+	}
+	
+	function validateSsc(v){
+		if(!isSsc(v)){
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'医保卡号格式不正确'}).show();
+			document.getElementById("ssc").focus();
+			return false;
+		}
+		return true;
+	}
+	
+	//提交签约
+	function submitSign(){
+		var data = {};
+		data.name = $("#name").val();
+		data.ssc = $("#ssc").val();
+		data.mobile = $("#mobile").val();
+		//data.idcard = $("#idcard").val();
+		data.idcard = $('#idcard').attr('data-idcard');
+		if(validate(data)){
+			d.showModal();
+			//加密设置:获取公钥
+			var encryURL = server + "login/public_key";
+			var key = RSAUtils.getKeyFromServer(encryURL);
+			//拼请求内容
+			data.idcard = RSAUtils.encryStr(key, data.idcard);
+			data.streetCode = "123456";
+			data.stateCode = "01";
+
+			data.doctor = doctor;
+			data.doctorName = "";
+			data.hospital = "";
+			data.hospitalName = "";
+			data.patientCode = patientCode;
+			sendPost("patient/family_contract/sign", data, "json", "post", operateFailed, operateSuccesss);	
+		}		
+	}
+	
+	//失败
+	function operateFailed(res) {
+		d.close();
+		if (res && res.msg) {
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:res.msg}).show();      
+		} else {
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'提交失败'}).show();			
+		}
+		return;
+	}
+
+	function operateSuccesss(res) {
+		if (res.status == 200) {
+				d.close();
+				if(signInvitationCode&&signInvitationCode!="undefined") {
+					dialog({
+					content: '签约申请已提交，请耐心等待，<br/>医生通过后即可为您的家人提供家庭医生服务',
+					okValue:'我知道了',
+					ok: function() {
+						wx.closeWindow();
+					}
+				}).showModal();
+			}else{
+				window.location.href = "../../ssgg/html/doctor-homepage-new.html?waitSign=1&state=" + doctor;
+			}
+//			window.location.href = "doctor-home-page.html?doctor=" + doctor;
+		} else {
+			//非200则为失败
+			operateFailed(res);
+		}
+	}
+	
+	
+	function closeWindow() {
+		var Request = new Object();
+		Request = GetRequest();
+		var code = Request["code"];
+		//从后台那边获取签名等信息
+		var params = {};
+		params.pageUrl = window.location.href;
+		$.ajax(server + "weixin/getSign", {
+			data: params,
+			dataType: "json",
+			type: "post",
+			success: function(res) {
+				if(res.status == 200) {
+					var t = res.data.timestamp;
+					var noncestr = res.data.noncestr;
+					var signature = res.data.signature;
+					wx.config({
+						//debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+						appId: appId, // 必填，公众号的唯一标识
+						timestamp: t, // 必填，生成签名的时间戳
+						nonceStr: noncestr, // 必填，生成签名的随机串
+						signature: signature, // 必填，签名，见附录1
+						jsApiList: [
+								'closeWindow'
+							] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+					});
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>

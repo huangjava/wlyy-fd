@@ -32,11 +32,11 @@ var judgeAgent = "judgeAgent_test";
 var pageName = "pageurl_test";
 
 //保存userAgent
-function wxSaveUserAgent(id, uid, openid, token) {
+function wxSaveUserAgent(uid, openid, token) {
 	if(window.localStorage.getItem(agentName)){
 		window.localStorage.removeItem(agentName);
 	}
-	var userAgent = "{\"id\":" + id + ",\"uid\":\"" + uid + "\",\"openid\":\"" + openid + "\",\"token\":\"" + token + "\",\"platform\":3}";
+	var userAgent = "{\"uid\":\"" + uid + "\",\"openid\":\"" + openid + "\",\"token\":\"" + token + "\",\"platform\":3}";
 	window.localStorage.setItem(agentName, userAgent);
 	return userAgent;
 }

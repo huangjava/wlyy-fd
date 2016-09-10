@@ -2,10 +2,12 @@ $(function() {
 	var agentPage = window.localStorage.getItem(pageName);
 	var jsonstr = $.parseJSON(agentPage);
 	var pageUrl = jsonstr.pageurl;
-	getReqPromise("patient/hospital/getDoctorInfo",{doctorCode:doctorCode})
-		// 数据成功返回，处理页面展示
-		.then(function(data) {
-			wxSaveUserAgent((data.id, data.uid, data.openid, data.token));
-			window.location.href = pageUrl;
-		});
+	
+	var Request = new Object();
+	Request = GetRequest();
+	var userAgent = Request["userAgent"];
+	var userstr = $.parseJSON(userAgent);
+	wxSaveUserAgent((userstr.uid, userstr.openid, userstr.token));
+	window.location.href = pageUrl;
+	
 })

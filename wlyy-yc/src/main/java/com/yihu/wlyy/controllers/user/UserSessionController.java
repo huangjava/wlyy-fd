@@ -27,13 +27,13 @@ public class UserSessionController extends BaseController {
     @RequestMapping(value = "/wechat", method = RequestMethod.GET)
     public void loginWeChat(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String openId = request.getParameter("openId");
+
         if (openId == null) {
             String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
             response.sendRedirect(familyDoctorUrl);
             return;
         }
-
-        response.sendRedirect(userSessionService.genEHomeUrl(openId));
+        response.sendRedirect(userSessionService.genEHomeUrl("OCEF9T2HW1GBY0KINQK0NEL_ZOSK"));
     }
 
     @RequestMapping(value = "/wechat/callback", method = RequestMethod.GET)
@@ -57,8 +57,7 @@ public class UserSessionController extends BaseController {
             userAgent.setUid(userSessionModel.getUserCode());
             ObjectMapper objectMapper = new ObjectMapper();
             String user = objectMapper.writeValueAsString(userAgent);
-            response.setHeader("userAgent", user);
-            response.sendRedirect(familyDoctorUrl);
+            response.sendRedirect(familyDoctorUrl+"?userAgent="+user);
         } catch (IOException e) {
             e.printStackTrace();
         }

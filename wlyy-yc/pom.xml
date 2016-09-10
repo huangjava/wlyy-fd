@@ -5,7 +5,7 @@
     <groupId>com.yihu.wlyy</groupId>
     <artifactId>wlyy-yc</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <modelVersion>4.0.0</modelVersion>
 
     <parent>

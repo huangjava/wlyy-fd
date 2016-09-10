@@ -207,13 +207,12 @@
 	//成功调用登录接口
 	function operateSuccesss(res) {
 		if (res.status == 200) {
-			var id = res.data.id;
 			var uid = res.data.uid;
 			var name = res.data.name;
 			var photo = res.data.photo;
 			var token = res.data.token;
 			//保存用户信息
-			wxSaveUserAgent(id, uid, openid, token);
+			wxSaveUserAgent(uid, openid, token);
 			wxSaveUserAgent1(uid, name, photo);
 			
 			if(type == -1) { // 家庭医生»签约管理
@@ -228,19 +227,19 @@
 				window.location.href = pageurl;
 			}
 			else if(type == 1){//健康服务»在线咨询
-				window.location.href = "../../yszx/html/doctor-consultation.html";
+				window.location.href = "../..//doctor-consultation.html";
 			}
 			else if(type == 2){//健康服务»预约挂号
-				window.location.href = "../../zxyy/html/online-appointment.html";
+				window.location.href = "../..//online-appointment.html";
 			}
 			else if(type == 3){//健康服务»健康指导
-				window.location.href = "../../yszd/html/doctor-guidance.html";
+				window.location.href = "../..//doctor-guidance.html";
 			}
 			else if(type == 4){//健康服务»疾病社区
-				window.location.href = "../../jbsq/html/disease-community.html";
+				window.location.href = "../..//disease-community.html";
 			}
 			else if(type == 5){//健康服务»健康记录
-				window.location.href = "../../jkjl/html/health-record.html";
+				window.location.href = "../..//health-record.html";
 			}
 			else if(type == 6){//自我管理»我的设备
 				window.location.href = "../../wdsb/html/my-equipments.html";
@@ -264,7 +263,7 @@
 				window.location.href = "../../grzx/html/my-appointment.html";
 			}
 			else if(type == 13){//我的»咨询记录
-				window.location.href = "../../zxwz/html/teachers-consulting-list.html";
+				window.location.href = "../..//teachers-consulting-list.html";
 			}
 			else if(type == 14){//我的»我的设备
 				window.location.href = "../../grzx/html/my-equipments.html";

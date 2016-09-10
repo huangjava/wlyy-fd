@@ -4093,6 +4093,20 @@ i.icon-nv {
 	background-size: 100% 100%;
 }
 
+.sdoc-top.smil.team {
+	padding: 38px 15px 36px;
+	height: 100px;
+	background: url(../images/jigou_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+
+.sdoc-top.smil.doctor {
+	padding: 38px 15px 36px;
+	height: 100px;
+	background: url(../images/tuandu_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+
 .sdoc-top.smil.short {
 	height: 60px;
 }

@@ -164,7 +164,7 @@ function setValue(data){
 	
 	var html = "";
 	if(sign == 0){
-		html = 	 '<img class="img-sign" src="../../../images/jiatingqianyue@2x.png" onclick="changeJtqy(false,'+teamCode+')" />';
+		html =   '<div onclick="changeJtqy(false,'+teamCode+')">未签约，去签约</div>';
 	}else if(sign == 1){
 		html =   '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
 	}else if(sign == 2){

@@ -27,7 +27,7 @@ public class NeuSoftWebService {
                     + " <PAGESIZE>2</PAGESIZE>\n"
                     +  " </QUERY_FORM>\n";
     */
-    public String getGPTeamList(String orgCode, String page, String pageSize) throws Exception {
+    public static String getGPTeamList(String orgCode, String page, String pageSize) throws Exception {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("ORGCODE", orgCode);
@@ -58,7 +58,7 @@ public class NeuSoftWebService {
                     + " <PAGESIZE>2</PAGESIZE>\n"
                     +  " </QUERY_FORM>\n";
     */
-    public String getGPTeamInfo(String teamId, String page, String pageSize) {
+    public static String getGPTeamInfo(String teamId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("TEAMID", teamId);
@@ -80,7 +80,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getGPInfo(String doctorId) {
+    public static String getGPInfo(String doctorId) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("USERID", doctorId);
@@ -100,7 +100,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String doSignApply(String selfName, String contactPhone, String appointmentSignDate, String signNo, String templeteId, String signTeam) {
+    public static String doSignApply(String selfName, String contactPhone, String appointmentSignDate, String signNo, String templeteId, String signTeam) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("SELFNAME", selfName);
@@ -125,7 +125,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getSignState(String openId) {
+    public static String getSignState(String openId) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("OPENID", openId);
@@ -145,7 +145,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getOrgList(String district, String street, String community, String address) {
+    public static String getOrgList(String district, String street, String community, String address) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("District", district);
@@ -168,7 +168,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getOrgListByOpenid(String openId) {
+    public static String getOrgListByOpenid(String openId) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("OPENID", openId);
@@ -189,7 +189,7 @@ public class NeuSoftWebService {
     }
 
     //TODO:有段代码说明需要处理
-    public String getGPPhotoInfo(String userID) {
+    public static String getGPPhotoInfo(String userID) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("USERID", userID);
@@ -209,7 +209,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getSignedInfoList(String orgCode, String userId, String page, String pageSize) {
+    public static String getSignedInfoList(String orgCode, String userId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("ORGCODE", orgCode);
@@ -232,7 +232,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getNotSignInfoList(String orgCode, String userId, String page, String pageSize) {
+    public static String getNotSignInfoList(String orgCode, String userId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("ORGCODE", orgCode);
@@ -255,7 +255,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getToSignInfoList(String orgCode, String userId, String page, String pageSize) {
+    public static String getToSignInfoList(String orgCode, String userId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("ORGCODE", orgCode);
@@ -278,7 +278,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String upConfirmSignedInfo(String signTeam, String signTeamName, String signPeriod, String signPreiodFrom, String chid, String agreementName, String orgCode, String userId) {
+    public static String upConfirmSignedInfo(String signTeam, String signTeamName, String signPeriod, String signPreiodFrom, String chid, String agreementName, String orgCode, String userId) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("SIGNTEAM", signTeam);
@@ -305,11 +305,11 @@ public class NeuSoftWebService {
         }
     }
 
-    public String getMyTeam(String orgCode, String userId) {
+    public static String getMyTeam(String orgCode, String userId) {
         try {
             Map<String, String> param = new HashMap<>();
-            param.put("SIGNTEAM", orgCode);
-            param.put("SIGNTEAMNAME", userId);
+            param.put("ORGCODE", orgCode);
+            param.put("USERID", userId);
             String paramXml = XMLUtil.map2xml(param);
 
             Service service = new Service();
@@ -318,7 +318,7 @@ public class NeuSoftWebService {
             call.setOperation("getMyTeam");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -326,7 +326,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String login(String userName, String password) {
+    public static String login(String userName, String password) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("USER_NAME", userName);
@@ -347,7 +347,7 @@ public class NeuSoftWebService {
         }
     }
 
-    public String loginByID(String idNumber, String longinKey) {
+    public static String loginByID(String idNumber, String longinKey) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("IDNUMBER", idNumber);

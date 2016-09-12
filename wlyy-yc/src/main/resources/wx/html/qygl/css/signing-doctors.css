@@ -1,0 +1,59 @@
+html,body { height: 100%;}
+.c-fff { color: #FFF; }
+.c-323232 { color: #323232; }
+.c-747474 { color: #747474; }
+.c-dib { display: inline-block; }
+.c-dn { display: none; }
+.c-vam { vertical-align: middle; }
+.c-tar { text-align: right; }
+.c-tac { text-align: center; }
+.c-f50 { font-size: 50px; }
+.c-f18 { font-size: 18px !important; }
+.c-f12 { font-size: 12px !important; }
+.c-fwb { font-weight: bold; }
+.c-toe{overflow:hidden;word-wrap:normal;white-space:nowrap;text-overflow:ellipsis;}
+.bc-ff6a56 { background-color: #FF6A56;}
+.bc-fff { background-color: #FFF;}
+.bc-75bf00 { background-color: #75BF00; }
+.bc-ff9526 { background-color: #FF9526; }
+.bc-75bf00 { background-color: #75BF00; }
+.bc-9beaf6 { background-color: #9BEAF6; }
+.height-50 { height: 50px; }
+.height-35 { height: 35px; }
+.height-25 { height: 25px; }
+.height-22 { height: 22px; }
+.height-13 { height: 13px; }
+.width-10{ width: 10px }
+.width-20{ width: 20px }
+.width-22{ width: 22px !important; }
+.lheight-50 { line-height: 50px; }
+.lheight-25 { line-height: 25px; }
+.lheight-22 { line-height: 22px; }
+.ml70 { margin-left: 70px; }
+.br20 { border-radius: 20px; }
+.ptb4lr6 { padding: 4px 6px; }
+.pt6 { padding-top: 6px; }
+
+.signing-docotors>li{ position: relative; min-height:75px; border-bottom: 1px solid #DCDCDC; }
+.signing-docotors>li .photo { position:absolute; top: 10px; left: 10px; width: 50px; height:50px; border-radius: 50px; }
+.signing-docotors>li .text-bg { background-color: #FF9526; color: #FFF; border-radius: 10px; text-align: center;}
+.signing-docotors>li>a { display: block; }
+
+.signing-card { border: 1px solid #DCDCDC; border-radius: 5px; overflow: hidden;}
+.signing-card .c-blocks-2 { padding: 6px 10px; }
+.signing-card .status .point { display: inline-block;border:3px solid; border-radius: 5px; }
+.signing-card .status.to-signed { color: #FF6A56; }
+.signing-card .status.to-signed .point { border-color: #FF6A56; }
+.signing-card .status.be-signed { color: #56BDFF; }
+.signing-card .status.be-signed .point { border-color: #56BDFF; }
+.signing-card .status.to-surrender { color: #E6AE3D; }
+.signing-card .status.to-surrender .point { border-color: #E6AE3D; }
+
+.sign-type { position: relative; }
+.sign-type-text { position: absolute; top: 7px; left: 40px; }
+
+#other_view .none-content { padding-top: 150px; }
+#other_view img.none-content-icon { display: block; width: 120px; height: 120px; margin: 0 auto; }
+#other_view .c-50 { width: 50%; margin-left: 0; }
+.only-sanshi { position: absolute; bottom: 0;}
+.only-sanshi img { width: 100%; height: 100px; }

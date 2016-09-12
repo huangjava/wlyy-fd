@@ -217,7 +217,6 @@ public class NeuSoftWebService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
     }
 

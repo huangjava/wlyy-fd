@@ -1,6 +1,6 @@
 $(function() {
 	var agentPage = window.localStorage.getItem(pageName);
-	var pageUrl = "../../html/qygl/html/search-community.html"
+	var pageUrl = "../../../html/qygl/html/search-community.html";
 	if (agentPage!=null) {
 		var jsonStr = $.parseJSON(agentPage);
 		pageUrl = jsonStr.pageurl;

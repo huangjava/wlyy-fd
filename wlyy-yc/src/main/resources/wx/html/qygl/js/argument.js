@@ -1,4 +1,5 @@
 $(function() {
+	saveAgentPage("../../qygl/html/argument.html");
 	var Request = new Object();
 	Request = GetRequest();
 	var teamCode = Request["teamCode"];
@@ -14,7 +15,11 @@ $(function() {
 		$('#agree_btn').hide();
 	}
 	$('#agree_btn').on('click',function() {
-		getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode}).then(function(data) {
+		getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode,openId:openId,random:random}).then(function(data) {
+			if (data.loginUrl) {
+				window.location.href = data.loginUrl;
+				return;
+			}
 			location.href = "../html/sign-success.html";
 		})
 

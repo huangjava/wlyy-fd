@@ -30,6 +30,7 @@ var agentName1 = "wlyyAgent_test1";
 var OpenidAgent = "OpenidAgent_test";
 var judgeAgent = "judgeAgent_test";
 var pageName = "pageurl_test";
+var openId,random;
 
 //保存userAgent
 function wxSaveUserAgent(uid, openid, token) {

@@ -11,16 +11,15 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+//import org.springframework.stereotype.Service;
+
 /**
  * @created Airhead 2016/9/4.
  */
 @org.springframework.stereotype.Service
 public class NeuSoftWebService {
-    //private static String doctorUrl = "http://172.22.224.117:8089/phis_hubei_ws/ws/doctorWsService?wsdl";
-    //private static String patientUrl = "http://172.22.224.117:8089/phis_hubei_ws/ws/personWsService?wsdl";
-    private static String doctorUrl = "http://219.139.130.106:8884/phis_hubei_ws/ws/doctorWsService?wsdl";
-    private static String patientUrl = "http://219.139.130.106:8884/phis_hubei_ws/ws/personWsService?wsdl";
-
+    private static String doctorUrl = SystemConf.getInstance().getValue("neusoft.ws.doctor");
+    private static String patientUrl = SystemConf.getInstance().getValue("neusoft.ws.person");
     private XMLUtil xmlUtil = new XMLUtil();
 
     //1.1 getGPTeamList  获取家庭医生团队列表
@@ -42,6 +41,7 @@ public class NeuSoftWebService {
             Call call = (Call) service.createCall();
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("getGPTeamList");
+
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
             return res;
@@ -217,6 +217,7 @@ public class NeuSoftWebService {
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -232,7 +233,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("getSignedInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});

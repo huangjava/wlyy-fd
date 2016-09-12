@@ -1,4 +1,5 @@
 var d = dialog({contentType:'load', skin:'bk-popup'}).show();
+saveAgentPage("../../qygl/html/select-doctor.html");
 var Request = GetRequest(),
 // 如果从签约首页进入时携带existedSanShi参数，表明该用户已经签约了三师全科医生，
 // 根据该字段存在弹出提示是否与该医生签约家庭医生
@@ -28,6 +29,10 @@ var reqPromise = function(url,data) {
 				//resolve({ });
 			}
 	  		, function success(req) {
+				if (req.loginUrl) {
+					window.location.href = req.loginUrl;
+					return;
+				}
 				resolve(req);
 	  	});
 	});
@@ -56,8 +61,12 @@ if(userAgent) {
 	userAgent = JSON.parse(userAgent);
 } 
   		
-reqPromise("patient/family_contract/getSignMessage",{patientCode:userAgent.uid})
+reqPromise("patient/family_contract/getSignMessage",{patientCode:userAgent.uid,openId:openId,random:random})
  .then(function(data) {
+	if (data.loginUrl) {
+		window.location.href = data.loginUrl;
+		return;
+	}
  	var groups = handleData(data.list),
 	familyList = groups[2] || [],
 	sanshiList = groups[1] || [];
@@ -87,7 +96,7 @@ reqPromise("patient/family_contract/getSignMessage",{patientCode:userAgent.uid})
  }).then(function(flag) {
  	if(flag!==false) {
  		// TODO 目前项目只有厦门，所以city设置为350200
-		reqPromise("/patient/hosptail/getTownByCityCode",{city:'350200'}).then(function(data) {
+		reqPromise("/patient/hosptail/getTownByCityCode",{city:'350200',openId:openId,random:random}).then(function(data) {
 		
 			// TODO 示例数据
 			// data = {"msg":"查询成功","list":[{"code":"350203","name":"思明区"},{"code":"350205","name":"海沧区"},{"code":"350206","name":"湖里区"},{"code":"350211","name":"集美区"},{"code":"350212","name":"同安区"},{"code":"350213","name":"翔安区"}],"status":200}

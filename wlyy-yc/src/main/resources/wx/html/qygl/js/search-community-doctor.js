@@ -1,4 +1,4 @@
-
+saveAgentPage("../../qygl/html/search-community-doctor.html");
 // TODO 社区列表示例数据
 var communitiesData = {"msg":"查询成功","list":[{"code":"3502050100","name":"海沧区嵩屿街道社区卫生服务中心"},{"code":"3502050101","name":"海沧社区卫生服务站"},{"code":"3502050200","name":"石塘社区卫生服务中心"},{"code":"3502050300","name":"东孚卫生院"},{"code":"3502050301","name":"天竺社区卫生服务站"},{"code":"3502050302","name":"国营厦门第一农场社区卫生服务站"},{"code":"3502050400","name":"新阳社区卫生服务中心"},{"code":"0a11148d-5b04-11e6-8344-fa163e8aee56","name":"厦门市海沧医院","photo":""}],"status":200};
 // TODO 医生列表示例数据
@@ -51,6 +51,10 @@ var getReqPromise = function(url, data) {
 				resolve({});
 			}
 	  		, function success(req) {
+				if (req.loginUrl) {
+					window.location.href = req.loginUrl;
+					return;
+				}
 				resolve(req);
 	  	});
 	});
@@ -60,7 +64,10 @@ getSearchPromise = function(data){
 	return Promise.all(_.map(urls,function(url){
 		return getReqPromise(url, data);
 	})).then(function(data) {
-
+		if (data.loginUrl) {
+			window.location.href = data.loginUrl;
+			return;
+		}
 		return {
 			// TODO 示例数据
 			communities: communitiesData.list || data[0].list,
@@ -147,8 +154,12 @@ searchCommunityByPaging = function () {
 	// TODO 示例示例搜索参数
 	// id: 上次搜索结果列表最后一条记录id，type固定为2，query:搜素关键字，pageSize:每页条数
 	var url = urls[0],
-	params = { id:0, query: kw,pageSize:15,type:2 };
+	params = { id:0, query: kw,pageSize:15,type:2 ,openId:openId,random:random};
 	getReqPromise(url,params).then(function(data){
+		if (data.loginUrl) {
+			window.location.href = data.loginUrl;
+			return;
+		}
 		// TODO 示例数据
 		var communities = communitiesData.list;
 		//var communities = data.list;
@@ -180,8 +191,12 @@ searchDoctorByPaging = function () {
 	// TODO 示例示例搜索参数
 	// id: 上次搜索结果列表最后一条记录id，type固定为2，query:搜素关键字，pageSize:每页条数
 	var url = urls[1],
-	params = { id:0, query: kw,pageSize:15,type:2 };
+	params = { id:0, query: kw,pageSize:15,type:2,openId:openId,random:random };
 	getReqPromise(url,params).then(function(data){
+		if (data.loginUrl) {
+			window.location.href = data.loginUrl;
+			return;
+		}
 		// TODO 示例数据
 		var doctors = doctorsData.list;
 		//var doctors = data.list;
@@ -191,7 +206,7 @@ searchDoctorByPaging = function () {
 		if(!moreDoctorScroller) {
 			moreDoctorScroller = initScroller($moreDoctorWrapper,url,
 			function() { // 传递分页参数
-				return $.extend({},params,{id:lastDoctorId});
+				return $.extend({},params,{id:lastDoctorId,openId:openId,random:random});
 			},function(data) {
 				// TODO 示例数据
 				data = {"msg":"查询成功！","list":[{"jobName":" 全科医师","deptName":"","code":"D2010080225","sex":2,"sexName":"女","name":"谭仁祝(全科1)","photo":"","id":1276,"hospitalName":"嘉莲社区医疗服务中心","dept":"","job":"","hospital":"3502030500"},{"jobName":" 全科医师","deptName":"","code":"D2016080225","sex":2,"sexName":"女","name":"谭仁祝(全科)","photo":"","id":1274,"hospitalName":"嘉莲社区医疗服务中心","dept":"","job":"","hospital":"3502030500"},{"jobName":" 全科医师","deptName":"","code":"D2016080005","sex":2,"sexName":"女","name":"大米全科2","photo":"","id":1271,"hospitalName":"嘉莲社区医疗服务中心","dept":"","job":"","hospital":"3502030500"},{"jobName":" 全科医师","deptName":"心血管科","code":"D20160809002","sex":1,"sexName":"男","name":"孙杨(全)","photo":"","id":1264,"hospitalName":"莲前第一社区医疗服务中心","dept":"","job":"","hospital":"3502030400"},{"jobName":" 全科医师","deptName":"","code":"D2016080002","sex":1,"sexName":"男","name":"大米全科1","photo":"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg","id":1262,"hospitalName":"嘉莲社区医疗服务中心","dept":"","job":"","hospital":"3502030500"},{"jobName":" 全科医师","deptName":"心血管科","code":"D20160802","sex":1,"sexName":"男","name":"邹林全科","photo":"","id":1244,"hospitalName":"莲前第一社区医疗服务中心","dept":"","job":"","hospital":"3502030400"},{"jobName":" 全科医师","deptName":"心血管科","code":"D2016001","sex":1,"sexName":"男","name":"陈啊咋全科","photo":"","id":1240,"hospitalName":"莲前第一社区医疗服务中心","dept":"","job":"","hospital":"3502030400"},{"jobName":"全科医师","deptName":"心血管科","code":"D20160805900002","sex":1,"sexName":"男","name":"杨炜武","photo":"http://172.19.103.85:8882/res/images/2016/08/05/20160805154335_66.png","id":1153,"hospitalName":"莲前第一社区医疗服务中心","dept":"","job":"","hospital":"3502030400"},{"jobName":"全科医师","deptName":"心血管科","code":"D20160805900001","sex":1,"sexName":"男","name":"叶泽华","photo":"","id":1152,"hospitalName":"莲前第一社区医疗服务中心","dept":"","job":"","hospital":"3502030400"},{"jobName":"副主任医师","deptName":"妇产科","code":"48833fff339111e6badcfa163e789033","sex":2,"sexName":"女","name":"丘新全","id":1137,"hospitalName":"莲前第一社区医疗服务中心","dept":"","job":"","hospital":"3502030400"}],"status":200};

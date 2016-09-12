@@ -22,7 +22,7 @@ public class NeuSoftWebService {
     private static String patientUrl = SystemConf.getInstance().getValue("neusoft.ws.person");
     private XMLUtil xmlUtil = new XMLUtil();
 
-    //1.1 getGPTeamList  获取家庭医生团队列表
+    //1.1 getGPTeamList  获取家庭医生团队列表  -- 调通
     //参数示例
     /*String paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <ORGCODE>2c9660e34f4fbb9d014f5d50be6c0016</ORGCODE>\n"
                     + " <PAGE>1</PAGE>\n"
@@ -52,7 +52,7 @@ public class NeuSoftWebService {
     }
 
 
-    //1.2 getGPTeamInfo  1.2获取家庭医生团信息
+    //1.2 getGPTeamInfo  1.2获取家庭医生团信息  -- 调通
     //参数示例
     /*
     String paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <TEAMID>74529931-1445-468d-8873-abfa63734e7c</TEAMID>\n"
@@ -82,7 +82,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //1.3获取家庭医生信息  getGPInfo
+    //1.3获取家庭医生信息  getGPInfo  -- 调通
     public static String getGPInfo(String doctorId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -103,7 +103,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //1.4签约申请 doSignApply
+    //1.4签约申请 doSignApply --  未调通  ----
     public static String doSignApply(String selfName, String contactPhone, String appointmentSignDate, String signNo, String templeteId, String signTeam) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -129,7 +129,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //1.5获取签约状态 getSignState
+    //1.5获取签约状态 getSignState -- 未调通
     public static String getSignState(String openId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -150,7 +150,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //1.6获取所有机构列表（根据居民地址） getOrgList
+    //1.6获取所有机构列表（根据居民地址） getOrgList  -- 未开发
     public static String getOrgList(String district, String street, String community, String address) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -174,7 +174,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //1.7获取所有机构列表（根据居民微信主索引） getOrgListByOpenid
+    //1.7获取所有机构列表（根据居民微信主索引） getOrgListByOpenid  -- 未调通
     public static String getOrgListByOpenid(String openId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -195,7 +195,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //1.8根据医生信息获取医生照片 getGPPhotoInfo
+    //1.8根据医生信息获取医生照片 getGPPhotoInfo  -- 未调通
     public static void getGPPhotoInfo(String userID) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -220,7 +220,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //3.1获取已签约的记录列表 getSignedInfoList
+    //3.1获取已签约的记录列表 getSignedInfoList    -- 调通
     public static String getSignedInfoList(String orgCode, String userId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -244,7 +244,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //3.2获取未签约的记录列表  getNotSignInfoList
+    //3.2获取未签约的记录列表  getNotSignInfoList    -- 调通
     public static String getNotSignInfoList(String orgCode, String userId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -268,7 +268,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //3.3获取待签约的记录列表 getToSignInfoList
+    //3.3获取待签约的记录列表 getToSignInfoList  -- 调通
     public static String getToSignInfoList(String orgCode, String userId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -292,7 +292,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //3.4提交确认签约信息 upConfirmSignedInfo
+    //3.4提交确认签约信息 upConfirmSignedInfo  -- 未调通
     //TODO DataHandler的生成逻辑要考虑
     public static String upConfirmSignedInfo(DataHandler dataHandler, String signTeam, String signTeamName, String signPeriod, String signPreiodFrom, String chid, String agreementName, String orgCode, String userId) {
         try {
@@ -321,7 +321,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //4.1获取当前医生参与的团队列表  getMyTeam
+    //4.1获取当前医生参与的团队列表  getMyTeam -- 调通
     public static String getMyTeam(String orgCode, String userId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -365,7 +365,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //5.2登陆验证(根据医生身份证)  loginByID
+    //5.2登陆验证(根据医生身份证)  loginByID  -- 未调通
     public static String loginByID(String idNumber, String longinKey) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -387,7 +387,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //7.1获取已签约的人员详细信息  getSignDetailInfo
+    //7.1获取已签约的人员详细信息  getSignDetailInfo -- 未开发
     public static String getSignDetailInfo(String openId) {
         try {
             Map<String, String> param = new HashMap<>();

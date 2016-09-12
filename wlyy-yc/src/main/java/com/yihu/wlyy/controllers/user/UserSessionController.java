@@ -46,11 +46,7 @@ public class UserSessionController extends BaseController {
         try {
             if (userSessionModel == null) {
                 String loginFail = SystemConf.getInstance().getValue("loginFail");
-                UserAgent userAgent = new UserAgent();
-                userAgent.setOpenid(openId);
-                ObjectMapper objectMapper = new ObjectMapper();
-                String user = objectMapper.writeValueAsString(userAgent);
-                response.sendRedirect(loginFail+"?userAgent="+user);
+                response.sendRedirect(loginFail+"?openId="+openId);
                 return;
             }
             String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");

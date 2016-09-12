@@ -17,7 +17,7 @@ import java.util.Map;
  * Created at 2016/9/10.
  */
 @Component
-public class HospitalTransFormService {
+public class HospitalService {
 
     /**
      * 获取团队列表

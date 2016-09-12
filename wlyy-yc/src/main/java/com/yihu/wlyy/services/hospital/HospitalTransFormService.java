@@ -1,7 +1,5 @@
 package com.yihu.wlyy.services.hospital;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.util.XMLUtil;
 import org.dom4j.DocumentException;
 import org.springframework.stereotype.Component;
@@ -42,7 +40,7 @@ public class HospitalTransFormService {
 
         try {
             Map<String,Object> map  = XMLUtil.xml2map(responseXml);
-            List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
+            List<Map<String,Object>> teams =  XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
                 for (Map<String,Object> team:teams){
                     Map<String,Object> obj = new HashMap<String,Object>();
@@ -66,7 +64,8 @@ public class HospitalTransFormService {
     public static Map<String,Object> getTeamInfoByTeamCode(String teamCode){
         Map<String,Object> result = new HashMap<>();
         //TODO 调用东软接口返回数据
-        String responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        String responseXml = null;
+        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<MSGFORM>\n" +
                 "  <XMLDATA>\n" +
                 "    <TEAMID>74529931-1445-468d-8873-abfa63734e7c</TEAMID>\n" +
@@ -96,7 +95,7 @@ public class HospitalTransFormService {
 
         try {
             Map<String,Object> map  = XMLUtil.xml2map(responseXml);
-            List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
+            List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
                 Map<String,Object> obj = teams.get(0);
                 result.put("teamCode",obj.get("TEAMID"));
@@ -115,6 +114,7 @@ public class HospitalTransFormService {
     }
 
     /**
+     * TODO 返回字段再设置
      * 获取家庭医生详细信息
      * @param doctorCode
      * @return
@@ -123,21 +123,33 @@ public class HospitalTransFormService {
         Map<String,Object> result = new HashMap<>();
         //TODO 调用东软接口返回数据
         String responseXml = "";
+        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<MSGFORM>\n" +
+                "  <XMLDATA>\n" +
+                "    <USER_FULLNAME>张三</USER_FULLNAME>\n" +
+                "    <GENDER>男</GENDER>\n" +
+                "    <PROFESSION>职业经历</PROFESSION>\n" +
+                "    <EDUCATION>硕士</EDUCATION>\n" +
+                "    <SPECIALTY>检查检验</SPECIALTY>\n" +
+                "    <UNIT_NAME>**社区</UNIT_NAME>\n" +
+                "    <DEPT_NAME>检验科</DEPT_NAME>\n" +
+                "    <PHOTO></PHOTO>\n" +
+                "  </XMLDATA>\n" +
+                "</MSGFORM>\n";
 
         try {
-            Map<String,Object> map  = XMLUtil.xml2map(responseXml);
-            List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
-            if (teams!=null && teams.size()>0){
+            List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
+            if (teams!=null){
                 Map<String,Object> obj = teams.get(0);
-//                result.put("code",obj.get("TEAMID"));
-                result.put("name",obj.get("USER_FULLNAME"));
-                result.put("introduce",obj.get("UNIT_NAME"));
-                result.put("hospital_name",obj.get("UNIT_NAME"));//toset
-                result.put("expertise",obj.get("SPECIALTY"));
+//                result.put("doctorCode",obj.get("USERID"));
+                result.put("doctorName",obj.get("USER_FULLNAME"));
+                result.put("orgName",obj.get("UNIT_NAME"));
+                result.put("expertise",obj.get("SPECIALTY"));//toset
+                result.put("introduce",obj.get("EDUCATION"));
                 result.put("photo",obj.get("PHOTO"));//toset
 
             }
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -145,15 +157,38 @@ public class HospitalTransFormService {
     }
 
     /**
+     *  TODO 待定，最新xml格式未给出
      * 获取所有机构列表（根据居民微信主索引）
      * @param openId 微信主索引
      * @return
      */
-    public Map<String,Object> getOrgsByOpenId(String openId){
-        Map<String,Object> map = new HashMap<>();
+    public List<Map<String,Object>>  getOrgsByOpenId(String openId){
+        List<Map<String,Object>> result = new ArrayList<>();
+        //TODO 调用东软接口返回数据
+        String responseXml = "";
+        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<MSGFORM>\n" +
+                "  <XMLDATA>\n" +
+                "    <ORGCODE>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</ORGCODE>\n" +
+                "    <ORGNAME>**社区</ORGNAME>\n" +
+                "  </XMLDATA>\n" +
+                "</MSGFORM>\n";
 
+        try {
+            List<Map<String,Object>> teams =  XMLUtil.xmltoList(responseXml);
+            if (teams!=null && teams.size()>0){
+                for (Map<String,Object> team:teams){
+                    Map<String,Object> obj = new HashMap<String,Object>();
+                    obj.put("code", team.get("ORGCODE"));
+                    obj.put("name", team.get("ORGNAME"));
+                    result.add(obj);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return map;
+        return result;
     }
 
 
@@ -165,11 +200,33 @@ public class HospitalTransFormService {
      * @param address   详细地址
      * @return
      */
-    public Map<String,Object> getOrgsByUserAddr(String district,String street,String community,String address){
-        Map<String,Object> map = new HashMap<>();
+    public List<Map<String,Object>> getOrgsByUserAddr(String district,String street,String community,String address){
+        List<Map<String,Object>> result = new ArrayList<>();
+        //TODO 调用东软接口返回数据
+        String responseXml = "";
+        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<MSGFORM>\n" +
+                "  <XMLDATA>\n" +
+                "    <ORGCODE>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</ORGCODE>\n" +
+                "    <ORGNAME>**社区</ORGNAME>\n" +
+                "  </XMLDATA>\n" +
+                "</MSGFORM>\n";
+        try {
+            Map<String,Object> map  = XMLUtil.xml2map(responseXml);
+            List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
+            if (teams!=null && teams.size()>0){
+                for (Map<String,Object> team:teams){
+                    Map<String,Object> obj = new HashMap<String,Object>();
+                    obj.put("code", team.get("ORGCODE"));
+                    obj.put("name", team.get("ORGNAME"));
+                    result.add(obj);
+                }
+            }
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
 
-
-        return map;
+        return result;
     }
 
     /**
@@ -178,23 +235,38 @@ public class HospitalTransFormService {
      * @param doctorCode  医生主索引
      * @return
      */
-    public Map<String,Object> getTeamByDoctorCode(String orgCode,String doctorCode){
-        Map<String,Object> map = new HashMap<>();
+    public List<Map<String,Object>> getTeamByDoctorCode(String orgCode,String doctorCode){
+        List<Map<String,Object>> result = new ArrayList<>();
+        //TODO 调用东软接口返回数据
+        String responseXml = "";
+        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "  <MSGFORM>\n" +
+                "    <XMLDATA>\n" +
+                "       <TEAMID>420504202001</TEAMID>\n" +
+                "       <TEAMNAME>高血压管理团队</TEAMNAME>\n" +
+                "</XMLDATA>\n" +
+                "    <XMLDATA>\n" +
+                "       <TEAMID>420503003001</TEAMID>\n" +
+                "       <TEAMNAME>签约团队</TEAMNAME>\n" +
+                "    </XMLDATA>\n" +
+                "  </MSGFORM>";
 
-
-        return map;
-    }
-
-    public static void main(String[] args) {
-//        List<Map<String,Object> > list = getTeamsByorgCode("");
-        Map<String ,Object> map = getTeamInfoByTeamCode("");
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            String json = objectMapper.writeValueAsString(map);
-            System.out.println(json);
-        } catch (JsonProcessingException e) {
+            Map<String,Object> map  = XMLUtil.xml2map(responseXml);
+            List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
+            if (teams!=null && teams.size()>0){
+                for (Map<String,Object> team:teams){
+                    Map<String,Object> obj = new HashMap<String,Object>();
+                    obj.put("code", team.get("TEAMID"));
+                    obj.put("name", team.get("TEAMNAME"));
+                    result.add(obj);
+                }
+            }
+        } catch (DocumentException e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
 }

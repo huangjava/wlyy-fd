@@ -26,7 +26,7 @@ public class UserSessionController extends BaseController {
 
     @RequestMapping(value = "/wechat", method = RequestMethod.GET)
     public void loginWeChat(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String openId = request.getParameter("openId");
+        String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
 
         if (openId == null) {
             String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
@@ -40,10 +40,10 @@ public class UserSessionController extends BaseController {
     public void weChatCallback(HttpServletRequest request, HttpServletResponse response) {
         String code = request.getParameter("code");
         String message = request.getParameter("message");
-        String openid = request.getParameter("openid");
+        String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
         String sig = request.getParameter("sig");
 
-        UserSessionModel userSessionModel = userSessionService.loginWeChat(code, message, openid, sig);
+        UserSessionModel userSessionModel = userSessionService.loginWeChat(code, message, openId, sig);
         try {
             String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
             if (userSessionModel == null) {
@@ -55,7 +55,7 @@ public class UserSessionController extends BaseController {
             userAgent.setToken(userSessionModel.getToken());
             userAgent.setOpenid(userSessionModel.getTokenRef());
             userAgent.setUid(userSessionModel.getUserCode());
-            userAgent.setOpenid(openid);
+            userAgent.setOpenid(openId);
             ObjectMapper objectMapper = new ObjectMapper();
             String user = objectMapper.writeValueAsString(userAgent);
 

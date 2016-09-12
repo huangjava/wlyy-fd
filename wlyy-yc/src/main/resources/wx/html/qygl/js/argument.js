@@ -15,7 +15,7 @@ $(function() {
 	}
 	$('#agree_btn').on('click',function() {
 		getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode}).then(function(data) {
-			location.href = "../../qygl/html/sign-success.html";
+			location.href = "../html/sign-success.html";
 		})
 
 	});

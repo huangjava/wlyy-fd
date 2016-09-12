@@ -92,7 +92,7 @@ public class UserSessionService {
         String xiaoWeiComunity = SystemConf.getInstance().getValue("xiaoWeiComunity");
         Map<String, Object> param = new HashMap<>();
         param.put("action", "add");
-        param.put("openid", openId);
+        param.put("openid", "ooLDPt9H0cH3aMOOFknVxWsk5Bhk");
         String response = null;
         try {
             response = HttpClientUtil.doPost(xiaoWeiComunity, param, null, null);
@@ -153,8 +153,6 @@ public class UserSessionService {
                 return true;
             }
         } else {
-            UserAgent user = new UserAgent();
-            user.setOpenid("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
             response.sendRedirect(genEHomeUrl("OCEF9T2HW1GBY0KINQK0NEL_ZOSK"));
         }
         return false;

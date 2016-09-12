@@ -299,9 +299,9 @@ public class DoctorPatientGroupController extends BaseController {
 
             //TODO 未提供
             json.put("mobile","15805926666");           //联系电话（未提供）
-//            json.put("idCard","350581199002052852");
-//            json.put("tel","0592-7651545");
-//            json.put("linkerTel","0592-7651545");
+            json.put("idCard","350581199002052852");
+            json.put("tel","0592-7651545");
+            json.put("linkerTel","0592-7651545");
 
 
 //            JSONObject json = new JSONObject();

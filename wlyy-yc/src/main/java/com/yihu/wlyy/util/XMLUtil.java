@@ -370,12 +370,12 @@ public class XMLUtil {
 
 
     // ---------- map转XML--------------
-    public static String map2xml(Map<Object, Object> dataMap) {
+    public static String map2xml(Map<String, String> dataMap) {
         synchronized (XMLUtil.class) {
             StringBuilder strBuilder = new StringBuilder();
             strBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             strBuilder.append("<QUERY_FORM>");
-            Set<Object> objSet = dataMap.keySet();
+            Set<String> objSet = dataMap.keySet();
             for (Object key : objSet) {
                 if (key == null) {
                     continue;

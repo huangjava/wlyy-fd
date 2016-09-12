@@ -61,11 +61,11 @@ public class DoctorService {
         try {
             String myTeam = NeuSoftWebService.getMyTeam(orgCode, doctorId);
             Document document = DocumentHelper.parseText(myTeam);
-            List<Element> elements = document.getRootElement().elements("XmlData");
+            List<Element> elements = document.getRootElement().elements("XMLDATA");
             JSONArray myTeamArray = new JSONArray();
             for (Element teamElement : elements) {
-                String teamId = teamElement.elementText("teamid");
-                String teamName = teamElement.elementText("teamname");
+                String teamId = teamElement.elementText("TEAMID");
+                String teamName = teamElement.elementText("TEAMNAME");
                 JSONObject teamNode = new JSONObject();
                 teamNode.put("teamName", teamName);
                 teamNode.put("teamId", teamId);

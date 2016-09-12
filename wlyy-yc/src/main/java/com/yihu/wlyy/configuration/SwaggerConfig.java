@@ -90,7 +90,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                 .paths(or(
                         regex(".patient.*[^(Page)]")))
                 .build()
-                .apiInfo(doctorApiInfo());
+                .apiInfo(patientApiInfo());
     }
 
     private ApiInfo patientApiInfo() {

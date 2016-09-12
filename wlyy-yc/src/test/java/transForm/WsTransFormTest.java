@@ -67,14 +67,14 @@ public class WsTransFormTest {
     @Test
     public void testgetTeamInfoByTeamCode(){
         HospitalService service = new HospitalService();
-        Map<String,Object>  list = service.getTeamInfoByTeamCode("");
+        Map<String,Object>  list = service.getTeamInfoByTeamCode("","","");
         System.out.println(list);
     }
 
     @Test
     public void testgetTeamsByorgCode(){
         HospitalService service = new HospitalService();
-        List<Map<String,Object> >  list = service.getTeamsByorgCode("");
+        List<Map<String,Object> >  list = service.getTeamsByorgCode("","","");
         System.out.println(list);
     }
 

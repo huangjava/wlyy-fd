@@ -1,4 +1,4 @@
-package com.yihu.wlyy.services.patient;
+package com.yihu.wlyy.services.person;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.XMLUtil;

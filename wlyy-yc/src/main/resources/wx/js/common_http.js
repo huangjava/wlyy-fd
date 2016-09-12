@@ -73,10 +73,10 @@ function getReqPromise(url, data) {
 		  	function queryFailed (res) {
 				dialog({contentType:'tipsbox', skin:'bk-popup' , content:'加载失败'}).show();
 				// TODO 开启示例数据
-				resolve({});
+				//resolve({});
 			}
 	  		, function success(res) {
-				resolve(res);
+				//resolve(res);
 	  	});
 	});
 }
@@ -87,7 +87,7 @@ function getReqPromise(url, data) {
 function getReqPromises(reqs) {
 	if(!reqs || !reqs.length) {
 		return new Promise(function(resolve, reject) {
-			resolve([]);
+			//resolve([]);
 		});
 	}
 	return Promise.all(_.map(reqs,function(param){

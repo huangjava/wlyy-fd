@@ -12,14 +12,14 @@ $(function() {
 
 //跳转到三师信息
 function changeSanshi(){
-	window.location.href = "../../qygl/html/signing-doctors.html";
+	window.location.href = "../html/signing-doctors.html";
 }
 //跳转到家庭签约信息
 function changeJtqy(signedStatus){
 	if(signedStatus) {
 		window.location.href = "../../ssgg/html/doctor-homepage-new.html"
 	} else {
-		window.location.href = "../../qygl/html/signing-doctors.html"
+		window.location.href = "../html/signing-doctors.html"
 	}
 	//window.location.href = "../../ssgg/html/choose-region.html";
 }
@@ -333,7 +333,7 @@ function submitFailed1(res) {
 function submitSuccess1(res) {
 	if (res.status == 200) {
 		dd.close();
-		window.location.href = "../../qygl/html/search-community.html";
+		window.location.href = "../html/search-community.html";
 		window.scrollTo(0,0);
 		//window.location.reload();
 	} else {

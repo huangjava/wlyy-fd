@@ -50,6 +50,28 @@ public class DoctorController extends BaseController {
             @ApiParam(name = "ticket", value = "ticket", defaultValue = "12121")
             @RequestParam(value = "ticket", required = false) String ticket) throws Exception {
 
+        //TODO 东软接口  （成员为列表）
+        // ------4.1 获取当前医生参与的团队列表
+//        1	ORGCODE	VARCHAR2(36)	Y	医生所属机构编码
+//        2	USERID	VARCHAR2(36)	Y	医生主索引
+//        1	TEAMID	VARCHAR2(30)		团队编号
+//        2	TEAMNAME	VARCHAR2(80)		团队名称
+        // ------1.2 获取家庭医生团队信息
+
+//        1	TEAMID	VARCHAR2(30)		团队编号
+//        2	TEAMNAME	VARCHAR2(80)		团队名称
+//        3	ORGCODE	VARCHAR2(36)	Y	所属机构编码
+//        4	CREATEDUNITNAME	VARCHAR2(50)		创建单位名称
+//        5	CREATEDUNITCODE	VARCHAR2(12)		创建单位编码
+//        6	CREATEDTIME	DATE		创建时间
+//        7	TEAMDESC	VARCHAR2(200)		团队简介
+
+//        8	USERID	VARCHAR2(36)		医生主键
+//        9	USER_FULLNAME	VARCHAR2(32)		医生姓名
+//        10	DEPT_NAME	VARCHAR2(255)		所属科室
+
+        //????团队成员性别？？、？？？？
+
         try{
             String url = "";
             //String resultStr = HttpClientUtil.doGet(comUrl+url,params);

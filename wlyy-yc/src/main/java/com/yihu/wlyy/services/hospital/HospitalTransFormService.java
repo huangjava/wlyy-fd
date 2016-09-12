@@ -123,15 +123,4 @@ public class HospitalTransFormService {
         return map;
     }
 
-    public static void main(String[] args) {
-        List<Map<String,Object> > map = getTeamsByorgCode("");
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String json = objectMapper.writeValueAsString(map);
-            System.out.println(json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

@@ -14,7 +14,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "index.html?userId=USERID&appUID=APPUID&orgId=ORGID&appType=APPTYPE&vaildTime=TIMESTAMP&ticket=TICKET",
+	"launch_path": "main.html",
 	"developer": {
 		"name": "",
 		"email": "",
@@ -1577,7 +1577,8 @@
 					"common/cross/css/ui.all.min.css",
 					"common/cross/css/cross.min.css",
 					"images/noset.png",
-					"html/yichangguanli/js/common.js"
+					"html/yichangguanli/js/common.js",
+					"images/p-default.png"
 				],
 				"refer": [
 					"html/yichangguanli/html/header1.html",
@@ -1635,7 +1636,8 @@
 					"images/gaoyou@2x.png",
 					"images/p-female.png",
 					"html/yichangguanli/css/qianyue.css",
-					"html/yichangguanli/js/common.js"
+					"html/yichangguanli/js/common.js",
+					"images/p-default.png"
 				],
 				"refer": [
 					"html/huanzhe/html/huanzhexinxi.html",
@@ -1654,7 +1656,8 @@
 					"css/mui.min.css",
 					"common/cross/css/cross.css",
 					"html/yichangguanli/html/gerenziliao.html",
-					"html/yichangguanli/html/qianyueshenhe.html"
+					"html/yichangguanli/html/qianyueshenhe.html",
+					"html/yichangguanli/html/health-record.html"
 				],
 				"refer": [
 					"html/yichangguanli/html/weiqianyuejuminxinxi.html"
@@ -1749,7 +1752,8 @@
 					"js/template.js",
 					"html/yichangguanli/js/upload_photo_single.js",
 					"html/yichangguanli/js/templateHelp.js",
-					"html/yichangguanli/js/common.js"
+					"html/yichangguanli/js/common.js",
+					"images/d-male.png"
 				],
 				"refer": [
 					"html/yichangguanli/html/modify1.html",
@@ -1814,7 +1818,9 @@
 					"js/common_http.js",
 					"js/template.js"
 				],
-				"refer": [],
+				"refer": [
+					"html/yichangguanli/html/header1.html"
+				],
 				"priority": 0
 			},
 			"html/yichangguanli/html/yishengxinxi.html": {
@@ -1835,6 +1841,43 @@
 					"js/template.js"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"html/yichangguanli/html/health-record.html": {
+				"resources": [
+					"html/yichangguanli/images/xuetang-pre.png",
+					"widget/artDialog/6.0.5/js/dialog-plus.min.js",
+					"html/yichangguanli/css/health-record.css",
+					"widget/artDialog/6.0.5/css/ui-dialog.min.css",
+					"html/yichangguanli/css/xinxi.css",
+					"html/yichangguanli/images/xueya.png",
+					"images/d-female.png",
+					"widget/swiper/3.1/swiper.min.css",
+					"widget/switchery/switchery.js",
+					"html/yichangguanli/js/health-record.js",
+					"widget/swiper/3.1/swiper.jquery.min.js",
+					"html/yichangguanli/js/health-index.js",
+					"widget/switchery/switchery.css",
+					"html/yichangguanli/js/juminxinxi.js",
+					"html/yichangguanli/css/iscroll.css",
+					"html/yichangguanli/css/ss-style.css",
+					"html/yichangguanli/js/xueya.js",
+					"html/yichangguanli/js/xuetang.js",
+					"widget/mobiscroll/2.17.1/js/mobiscroll.js",
+					"html/yichangguanli/js/common.js",
+					"js/template.js",
+					"js/app.js",
+					"common/iconfont/iconfont.css",
+					"html/yichangguanli/js/templateHelp.js",
+					"widget/mobiscroll/2.17.1/css/mobiscroll.css",
+					"js/common_http.js",
+					"html/yichangguanli/images/xueya-pre.png",
+					"html/yichangguanli/images/xuetang.png",
+					"html/yichangguanli/images/gouxun_icon.png"
+				],
+				"refer": [
+					"html/yichangguanli/html/header1.html"
+				],
 				"priority": 0
 			}
 		},

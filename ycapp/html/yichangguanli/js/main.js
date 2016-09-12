@@ -5,6 +5,37 @@ mui.init({
 });
 
 mui.plusReady(function() {
+
+   //get param from url
+	var Request = GetRequest();
+	var userId = Request["userId"]; // userId
+	var uId = Request["userId"];     //userCode
+	var ticket = Request["ticket"];
+	var iMei = plus.device.uuid;
+	var platform = 2;
+	var oUserAgent = {
+		"id": userId,
+		"uid": uId,
+		"imei": iMei,
+		"token": ticket,
+		"platform": platform
+	};
+	userAgent = JSON.stringify(oUserAgent);
+	//plus.navigator.setUserAgent(userAgent); // 保存后会存到User_Agent对象中
+	plus.navigator.setRequestHeader("userAgent", userAgent);
+	plus.storage.setItem("userAgent", userAgent);
+
+	var orgId = Request["orgId"];
+	var vaildTime = Request["vaildTime"];
+	var appUID = Request["appUID"];
+	var appType = Request["appType"];
+	plus.storage.setItem("orgId", orgId);
+	plus.storage.setItem("appUID", appUID);
+	plus.storage.setItem("ticket", ticket);
+	plus.storage.setItem("userId", userId);
+				
+	alert(userId + orgId + ticket);
+			
 	window.localStorage.removeItem("isLoginOut");
 	var self = plus.webview.currentWebview();
 
@@ -19,7 +50,7 @@ mui.plusReady(function() {
 	var subPages = [ "yiqianyue.html","daiqianyue.html","mine.html"];
 
 	/**
-	 * 初始化已签约、待签约、我的 页面
+	 * 初始化已签约、待签约、我的页面
 	 */
 	var subStyles = {
 		top: 0,

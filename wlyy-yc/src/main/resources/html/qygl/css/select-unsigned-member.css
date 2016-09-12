@@ -1,8 +1,0 @@
-body { background-color: #FFF; }
-
-.item-name { color: #000; border-bottom: 1px solid #E7E7E7; }
-.no-result-img { display: block; width: 320px; height: 184px; margin: 0 auto; margin-top: 160px; }
-#member_view { margin-bottom: 80px; }
-#member_list li { position: relative; }
-#member_list .fa-angle-right { position: absolute; top: 50%; right: 10px; margin-top: -10px; font-size: 20px;}
-#footer { position: fixed;bottom: 0; width: 100%; }

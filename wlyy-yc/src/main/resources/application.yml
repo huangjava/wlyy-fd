@@ -20,3 +20,27 @@ bloodSugger:
   beforeDinner: 14:00-17:59
   afterDinner: 18:00-19:59
   beforeSleep: 20:00-23:59
+
+
+---
+spring:
+  profiles: lfq
+  datasource:
+    url: jdbc:mysql://172.19.103.77:3306/yichang?useUnicode=true&characterEncoding=utf-8&autoReconnect=true
+    username: root
+    password: 123456
+#    driverClassName: com.mysql.jdbc.Driver
+    maxTotal: 500
+    maxIdle: 30
+bloodSugger:
+  fasting: 00:00-07:59
+  afterBreakfast: 08:00-09:59
+  beforeLunch: 10:00-11:59
+  afterLunch: 12:00-13:59
+  beforeDinner: 14:00-17:59
+  afterDinner: 18:00-19:59
+  beforeSleep: 20:00-23:59
+
+server:
+  port: 9113
+  context-path: /fd

@@ -1,5 +1,5 @@
 var d = dialog({contentType:'load', skin:'bk-popup'}).show();
-
+saveAgentPage("../../qygl/html/search-doctor.html");
 var Request = GetRequest();
 var hospital = Request["hospital"];
 // TODO 示例参数接受，设置默认值
@@ -42,6 +42,10 @@ var reqPromise = function(url,data) {
 				resolve({});
 			}
 	  		, function success(req) {
+				if (req.loginUrl) {
+					window.location.href = req.loginUrl;
+					return;
+				}
 				resolve(req);
 	  	});
 	});

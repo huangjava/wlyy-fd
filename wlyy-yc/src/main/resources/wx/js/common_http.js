@@ -76,7 +76,7 @@ function getReqPromise(url, data) {
 				//resolve({});
 			}
 	  		, function success(res) {
-				//resolve(res);
+				resolve(res);
 	  	});
 	});
 }
@@ -87,7 +87,7 @@ function getReqPromise(url, data) {
 function getReqPromises(reqs) {
 	if(!reqs || !reqs.length) {
 		return new Promise(function(resolve, reject) {
-			//resolve([]);
+			resolve([]);
 		});
 	}
 	return Promise.all(_.map(reqs,function(param){

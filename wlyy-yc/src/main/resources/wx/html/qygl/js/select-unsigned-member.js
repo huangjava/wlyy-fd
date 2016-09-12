@@ -1,4 +1,5 @@
-	// 页面载入显示提示“加载中” 
+	// 页面载入显示提示“加载中”
+saveAgentPage("../../qygl/html/search-unsigned-member.html");
 var d = dialog({contentType:'load', skin:'bk-popup'}).show(),
 	// 未签约成员列表容器
 	$memberView = $('#member_view'),

@@ -1,5 +1,6 @@
 package com.yihu.wlyy.services.hospital;
 
+import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.XMLUtil;
 import org.dom4j.DocumentException;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,13 @@ public class HospitalTransFormService {
      * @param orgCode  机构代码
      * @return
      */
-    public static List<Map<String,Object>> getTeamsByorgCode(String orgCode){
+    public static List<Map<String,Object>> getTeamsByorgCode(String orgCode, String page, String pageSize){
         List<Map<String,Object>> result = new ArrayList<>();
+        try {
+        String responseXml = NeuSoftWebService.getGPTeamList(orgCode,page,pageSize);
+
         //TODO 调用东软接口返回数据
-        String responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<MSGFORM>\n" +
                 "  <XMLDATA>\n" +
                 "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
@@ -38,7 +42,7 @@ public class HospitalTransFormService {
                 "  </XMLDATA>\n" +
                 "</MSGFORM>\n";
 
-        try {
+
             Map<String,Object> map  = XMLUtil.xml2map(responseXml);
             List<Map<String,Object>> teams =  XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
@@ -51,6 +55,8 @@ public class HospitalTransFormService {
             }
         } catch (DocumentException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return result;
@@ -61,10 +67,11 @@ public class HospitalTransFormService {
      * @param teamCode 团队主键
      * @return
      */
-    public static Map<String,Object> getTeamInfoByTeamCode(String teamCode){
+    public static Map<String,Object> getTeamInfoByTeamCode(String teamCode , String page, String pageSize){
         Map<String,Object> result = new HashMap<>();
+        String responseXml = NeuSoftWebService.getGPTeamInfo(teamCode, page, pageSize);
+
         //TODO 调用东软接口返回数据
-        String responseXml = null;
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<MSGFORM>\n" +
                 "  <XMLDATA>\n" +
@@ -122,7 +129,7 @@ public class HospitalTransFormService {
     public Map<String,Object> getDoctorInfo(String doctorCode){
         Map<String,Object> result = new HashMap<>();
         //TODO 调用东软接口返回数据
-        String responseXml = "";
+        String responseXml = NeuSoftWebService.getGPInfo(doctorCode);
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<MSGFORM>\n" +
                 "  <XMLDATA>\n" +
@@ -165,7 +172,7 @@ public class HospitalTransFormService {
     public List<Map<String,Object>>  getOrgsByOpenId(String openId){
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
-        String responseXml = "";
+        String responseXml = NeuSoftWebService.getOrgListByOpenid(openId);
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<MSGFORM>\n" +
                 "  <XMLDATA>\n" +
@@ -203,7 +210,7 @@ public class HospitalTransFormService {
     public List<Map<String,Object>> getOrgsByUserAddr(String district,String street,String community,String address){
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
-        String responseXml = "";
+        String responseXml = NeuSoftWebService.getOrgList(district,street,community,address);
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<MSGFORM>\n" +
                 "  <XMLDATA>\n" +

@@ -41,7 +41,7 @@ public class NeuSoftWebService {
             call.setOperation("getGPTeamList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +72,7 @@ public class NeuSoftWebService {
             call.setOperation("getGPTeamInfo");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class NeuSoftWebService {
             call.setOperation("doSignApply");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,7 +137,7 @@ public class NeuSoftWebService {
             call.setOperation("getSignState");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +160,7 @@ public class NeuSoftWebService {
             call.setOperation("getOrgList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,7 +180,7 @@ public class NeuSoftWebService {
             call.setOperation("getOrgListByOpenid");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,7 +201,7 @@ public class NeuSoftWebService {
             call.setOperation("getGPPhotoInfo");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -224,7 +224,6 @@ public class NeuSoftWebService {
             call.setOperation("getSignedInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,7 +246,7 @@ public class NeuSoftWebService {
             call.setOperation("getNotSignInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -270,7 +269,7 @@ public class NeuSoftWebService {
             call.setOperation("getToSignInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -297,7 +296,7 @@ public class NeuSoftWebService {
             call.setOperation("upConfirmSignedInfo");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -339,7 +338,7 @@ public class NeuSoftWebService {
             call.setOperation("login");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();
@@ -360,7 +359,7 @@ public class NeuSoftWebService {
             call.setOperation("loginByID");
 
             String res = (String) call.invoke(new Object[]{paramXml});
-            res = XMLUtil.xml2JSON(res);
+//            res = XMLUtil.xml2JSON(res);
             return res;
         } catch (Exception e) {
             e.printStackTrace();

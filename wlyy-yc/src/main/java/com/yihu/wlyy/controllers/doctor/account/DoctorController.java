@@ -44,7 +44,7 @@ public class DoctorController extends BaseController {
             @ApiParam(name = "ticket", value = "ticket", defaultValue = "12121")
             @RequestParam(value = "ticket", required = false) String ticket) {
         try {
-            java.lang.String myTeam = doctorService.getMyTeam(orgId, userId);
+            String myTeam = doctorService.getMyTeam(orgId, userId);
             return write(200, "获取团队信息成功！", "data", myTeam);
         } catch (Exception e) {
             error(e);
@@ -79,14 +79,7 @@ public class DoctorController extends BaseController {
             @RequestParam(value = "doctorId", required = false) String doctorId,
             @ApiParam(name = "ticket", value = "ticket", defaultValue = "12121")
             @RequestParam(value = "ticket", required = false) String ticket) {
-
-        try {
-            String info = doctorService.getInfo(doctorId);
-            return write(200, "success！", "data", info);
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "获取医生信息失败！");
-        }
+        return this.getDoctorInfo(doctorId, ticket);
     }
 
 }

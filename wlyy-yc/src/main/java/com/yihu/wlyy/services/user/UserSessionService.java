@@ -64,7 +64,7 @@ public class UserSessionService {
     }
 
     public UserSessionModel loginWeChat(String code, String message, String openId, String sig) {
-        String signature = openId + SystemConf.getInstance().getValue("eHomeSecret");
+        String signature = openId + "yyweixin@jkzl";
         String md5Crypt = DigestUtils.md5Hex(signature);
         if (!md5Crypt.equalsIgnoreCase(sig)) {
             return null;
@@ -117,18 +117,18 @@ public class UserSessionService {
 
     public boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String userAgent = request.getHeader("userAgent");
-//        if (userAgent == null) {
-//            //从健康之中APP或者小薇社区进入
-//            //小薇社区进入时openId非空
-//            String openId = request.getParameter("openId");
-//            return !StringUtil.isEmpty(openId) || isLoginApp(request, response);
-//        }
+        if (userAgent == null) {
+            //从健康之中APP或者小薇社区进入
+            //小薇社区进入时openId非空
+            String openId = request.getParameter("openId");
+            return !StringUtil.isEmpty(openId) || isLoginApp(request, response);
+        }
 
-        if (StringUtil.isEmpty(userAgent)) {
+        if (!StringUtil.isEmpty(userAgent)) {
             //从健康之中APP或者小薇社区进入
             //从健康之中APP进入时ticket非空
             String ticket = request.getParameter("ticket");
-            return !StringUtil.isEmpty(ticket) || isLoginWeChat(request, response);
+            return !StringUtil.isEmpty(ticket) || isLoginApp(request, response);
         }
         //以上空的逻辑是否可合并还需要验证
 
@@ -142,21 +142,15 @@ public class UserSessionService {
     }
 
     public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         String userAgent = request.getHeader("userAgent");
         ObjectMapper objectMapper = new ObjectMapper();
-        if (!StringUtil.isEmpty(userAgent)) {
-
-            UserAgent user = objectMapper.readValue(userAgent, UserAgent.class);
-            UserSessionModel userSession = userSessionDao.findOne(user.getUid());
-            if (userSession != null) {
-                return true;
-            }
-        } else {
-            UserAgent user = new UserAgent();
-            user.setOpenid("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
-            response.sendRedirect(genEHomeUrl("OCEF9T2HW1GBY0KINQK0NEL_ZOSK"));
+        UserAgent user = objectMapper.readValue(userAgent, UserAgent.class);
+        UserSessionModel userSession = userSessionDao.findOne(user.getUid());
+        if (userSession != null) {
+            return true;
         }
+
+        response.sendRedirect(genEHomeUrl(user.getOpenid()));
         return false;
     }
 

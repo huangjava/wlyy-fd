@@ -20,10 +20,6 @@ public class WebConfig  extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(userSessionInterceptor())
-                .addPathPatterns("/patient/**")
-                .addPathPatterns("/doctor/**")
-                .addPathPatterns("/user/**")
-                .addPathPatterns("/common/**");
+//        registry.addInterceptor(userSessionInterceptor());
     }
 }

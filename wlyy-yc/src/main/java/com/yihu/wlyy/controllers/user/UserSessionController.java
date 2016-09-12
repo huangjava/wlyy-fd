@@ -5,6 +5,7 @@ import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.models.user.UserAgent;
 import com.yihu.wlyy.models.user.UserSessionModel;
 import com.yihu.wlyy.services.user.UserSessionService;
+import com.yihu.wlyy.util.StringUtil;
 import com.yihu.wlyy.util.SystemConf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,34 +27,31 @@ public class UserSessionController extends BaseController {
 
     @RequestMapping(value = "/wechat", method = RequestMethod.GET)
     public void loginWeChat(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+        String openId = request.getParameter("openId");
 
-        if (openId == null) {
-            String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
-            response.sendRedirect(familyDoctorUrl);
+        if (StringUtil.isEmpty(openId)) {
             return;
         }
-        response.sendRedirect(userSessionService.genEHomeUrl("OCEF9T2HW1GBY0KINQK0NEL_ZOSK"));
+        response.sendRedirect(userSessionService.genEHomeUrl(openId));
     }
 
     @RequestMapping(value = "/wechat/callback", method = RequestMethod.GET)
     public void weChatCallback(HttpServletRequest request, HttpServletResponse response) {
         String code = request.getParameter("code");
         String message = request.getParameter("message");
-        String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+        String openId = request.getParameter("openid");
         String sig = request.getParameter("sig");
 
         UserSessionModel userSessionModel = userSessionService.loginWeChat(code, message, openId, sig);
         try {
-            String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
             if (userSessionModel == null) {
-                response.sendRedirect(familyDoctorUrl);
+                String loginFail = SystemConf.getInstance().getValue("loginFail");
+                response.sendRedirect(loginFail+"?openId="+openId);
                 return;
             }
-
+            String familyDoctorUrl = SystemConf.getInstance().getValue("familyDoctor");
             UserAgent userAgent = new UserAgent();
             userAgent.setToken(userSessionModel.getToken());
-            userAgent.setOpenid(userSessionModel.getTokenRef());
             userAgent.setUid(userSessionModel.getUserCode());
             userAgent.setOpenid(openId);
             ObjectMapper objectMapper = new ObjectMapper();

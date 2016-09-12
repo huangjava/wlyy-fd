@@ -1,3 +1,4 @@
+saveAgentPage("../../wdsb/html/my-equipments.html");
 var d = dialog({contentType:'load', skin:'bk-popup'}).show(),
 	// 设备列表分页查询的最后一条记录的id 
 	lastId = 0,
@@ -62,6 +63,10 @@ deleteDevice = function(code) {
 	if(!code) return;
 	return getReqPromise("patient/device/DeletePatientDevice",{id:code})
 			.then(function(res) {
+				if (res.loginUrl) {
+					window.location.href = res.loginUrl;
+					return;
+				}
 				if(res.status==200){
 					location.reload();
 				}else{
@@ -143,11 +148,15 @@ bindEvents = function (){
 };
 
 // 请求设备列表
-getReqPromises([{url:"patient/device/PatientDeviceList",data:{id:0,pagesize:15}}])
+getReqPromises([{url:"patient/device/PatientDeviceList",data:{id:0,pagesize:15,openId:openId,random:random}}])
 //请求成功后处理
 .then(function(datas) {
 	// TODO 设备列表数据示例
 		var data = datas[0];
+		if (data.loginUrl) {
+			window.location.href = data.loginUrl;
+			return;
+		}
 	//data = {"msg":"查询成功","isFirst":true,"total":1,"list":[{"id":491,"deviceId":3,"deviceSn":"九龙江","deviceName":"血糖仪-爱奥乐G-777G","user":"250ff5e5278d415880e49643a4b9c071","categoryCode":"1","userType":"-1","userIdcard":"350628199011010029","czrq":"2016-09-05 11:27:13"}],"isLast":true,"totalPages":1,"status":200};
 		lastId = getLastItemId(data.list);
 	if(data && data.list.length) {
@@ -161,7 +170,11 @@ getReqPromises([{url:"patient/device/PatientDeviceList",data:{id:0,pagesize:15}}
 	}
 	
 	var deviceListScroller = $deviceListView.initScroll({pullDown: false,pullUpAction: function() {
-		getReqPromise("patient/device/PatientDeviceList", {id:lastId,pagesize:15}).then(function(data) {
+		getReqPromise("patient/device/PatientDeviceList", {id:lastId,pagesize:15,openId:openId,random:random}).then(function(data) {
+			if (data.loginUrl) {
+				window.location.href = data.loginUrl;
+				return;
+			}
 			// TODO 设备列表数据示例
 			//data = {"msg":"查询成功","isFirst":true,"total":1,"list":[{"id":491,"deviceId":3,"deviceSn":"九龙江","deviceName":"血糖仪-爱奥乐G-777G","user":"250ff5e5278d415880e49643a4b9c071","categoryCode":"1","userType":"-1","userIdcard":"350628199011010029","czrq":"2016-09-05 11:27:13"}],"isLast":true,"totalPages":1,"status":200};
 			lastId = getLastItemId(data.list);

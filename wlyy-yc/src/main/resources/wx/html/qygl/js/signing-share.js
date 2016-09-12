@@ -1,3 +1,4 @@
+saveAgentPage("../../qygl/html/signing-share.html");
 var Request = GetRequest();
 var userAgent = window.localStorage.getItem(agentName);
 if(userAgent) {

@@ -1,3 +1,4 @@
+saveAgentPage("../../qygl/html/doctor-homepage.html");
 var Request = new Object();
 Request = GetRequest();
 var teamCode = Request["teamCode"];
@@ -54,10 +55,22 @@ var showTeamInfo = function(data) {
 };
 
 // TODO url,data示例参数为空
-getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,orgCode:"1"}},
-{url: 'patient/hospital/getDoctorList',data:{teamCode:teamCode,begin:0, end:1}},
-{url: '/patient/sign/getSignStatus',data:{patientCode:teamCode}}])
+getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,orgCode:"1",openId:openId,random:random}},
+{url: 'patient/hospital/getDoctorList',data:{teamCode:teamCode,begin:0, end:1,openId:openId,random:random}},
+{url: '/patient/sign/getSignStatus',data:{patientCode:teamCode,openId:openId,random:random}}])
 .then(function(datas) {
+	if (datas[0].loginUrl) {
+		window.location.href = datas[0].loginUrl;
+		return;
+	}
+	if (datas[1].loginUrl) {
+		window.location.href = datas[0].loginUrl;
+		return;
+	}
+	if (datas[2].loginUrl) {
+		window.location.href = datas[0].loginUrl;
+		return;
+	}
 	showTeamInfo(datas[0]);
 	isSignForView(datas[2]);
 	if(!datas[1].list.length) {
@@ -86,7 +99,11 @@ getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,org
 	
 	$showAllMemberBtn.click(function() {
 		d.show();
-		getReqPromise("patient/hospital/getDoctorList",{teamCode:"1",begin:0, end:1}).then(function(data) {
+		getReqPromise("patient/hospital/getDoctorList",{teamCode:"1",begin:0, end:1,openId:openId,random:random}).then(function(data) {
+			if (data.loginUrl) {
+				window.location.href = data.loginUrl;
+				return;
+			}
 			// TODO 后台返回 data 示例数据
 //			data = {"msg":"获取医院医生列表成功！","list":[{"code":"D2016080002","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科1","dept_name":"","photo":"http://172.19.103.85:8882/res/images/2016/08/12/20160812170142_901.jpg","id":1262,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心",relationship:'本人'},{"code":"D2016080005","job_name":" 全科医师","introduce":"我是全科医生","name":"大米全科2","dept_name":"","photo":"","id":1271,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心",relationship:'女儿'},{"code":"D2016080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科)","dept_name":"","photo":"","id":1274,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心",relationship:'女儿'},{"code":"D2010080225","job_name":" 全科医师","introduce":"我是全科医生","name":"谭仁祝(全科1)","dept_name":"","photo":"","id":1276,"expertise":"我是全科医生","hospital_name":"嘉莲社区医疗服务中心",relationship:'女儿'}],"status":200};
 			// 根据列表模板，填充数据，输出列表html代码

@@ -380,11 +380,10 @@ public class XMLUtil {
                 if (key == null) {
                     continue;
                 }
-                strBuilder.append("\n");
-                strBuilder.append("<").append(key.toString()).append(">\n");
+                strBuilder.append("<").append(key.toString()).append(">");
                 Object value = dataMap.get(key);
                 strBuilder.append(coverter(value));
-                strBuilder.append("</").append(key.toString()).append(">\n");
+                strBuilder.append("</").append(key.toString()).append(">");
             }
             strBuilder.append("</QUERY_FORM>");
             return strBuilder.toString();
@@ -439,20 +438,20 @@ public class XMLUtil {
                 }
                 strBuilder.append("<").append(fieldName)
                         .append(" className=\"").append(
-                        value.getClass().getName()).append("\">\n");
+                        value.getClass().getName()).append("\">");
                 if (isObject(value)) {
                     strBuilder.append(coverter(value));
                 } else if (value == null) {
-                    strBuilder.append("null\n");
+                    strBuilder.append("null");
                 } else {
-                    strBuilder.append(value.toString() + "\n");
+                    strBuilder.append(value.toString() + "");
                 }
-                strBuilder.append("</").append(fieldName).append(">\n");
+                strBuilder.append("</").append(fieldName).append(">");
             }
         } else if (object == null) {
-            strBuilder.append("null\n");
+            strBuilder.append("null");
         } else {
-            strBuilder.append(object.toString() + "\n");
+            strBuilder.append(object.toString());
         }
         return strBuilder.toString();
     }

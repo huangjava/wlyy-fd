@@ -2,7 +2,7 @@ package transForm;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yihu.wlyy.services.hospital.HospitalTransFormService;
+import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.util.XMLUtil;
 import org.junit.Test;
 
@@ -45,7 +45,7 @@ public class WsTransFormTest {
 
     @Test
     public void testGetOrgsByOpenId(){
-        HospitalTransFormService service = new HospitalTransFormService();
+        HospitalService service = new HospitalService();
         List<Map<String,Object> > list = service.getOrgsByOpenId("");
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -59,21 +59,21 @@ public class WsTransFormTest {
 
     @Test
     public void testgetDoctorInfo(){
-        HospitalTransFormService service = new HospitalTransFormService();
+        HospitalService service = new HospitalService();
         Map<String,Object>  list = service.getDoctorInfo("");
         System.out.println(list);
     }
 
     @Test
     public void testgetTeamInfoByTeamCode(){
-        HospitalTransFormService service = new HospitalTransFormService();
+        HospitalService service = new HospitalService();
         Map<String,Object>  list = service.getTeamInfoByTeamCode("");
         System.out.println(list);
     }
 
     @Test
     public void testgetTeamsByorgCode(){
-        HospitalTransFormService service = new HospitalTransFormService();
+        HospitalService service = new HospitalService();
         List<Map<String,Object> >  list = service.getTeamsByorgCode("");
         System.out.println(list);
     }

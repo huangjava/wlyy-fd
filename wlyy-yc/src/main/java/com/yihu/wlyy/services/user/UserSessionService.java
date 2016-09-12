@@ -124,7 +124,7 @@ public class UserSessionService {
             return !StringUtil.isEmpty(openId) || isLoginApp(request, response);
         }
 
-        if (StringUtil.isEmpty(userAgent)) {
+        if (!StringUtil.isEmpty(userAgent)) {
             //从健康之中APP或者小薇社区进入
             //从健康之中APP进入时ticket非空
             String ticket = request.getParameter("ticket");

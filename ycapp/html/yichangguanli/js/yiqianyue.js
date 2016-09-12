@@ -120,27 +120,8 @@ var groupClick = function() {
 	 * 跳转到剧名详细信息
 	 */
 	function toDetail() {
-		var id = $(this).attr("data-id");	
-			mui.openWindow({
-				url: "health-record.html",
-				id: id,
-				extras: {
-					id: id
-				}
-		});
-		
-//		openWindowWithSub("health-record", "health-record.html", "居民首页");
-		
-//		mui.openWindow({
-//			url: '../../huanzhe/html/huanzhexinxi.html', 
-//			id: 'huanzhexinxi',
-//			createNew: createNew,
-//			extras: {
-//				patiInfo: patiInfo1,
-//				groundCode: groundCode
-//			}
-//		});
-
+		var patientId = $(this).attr("data-id");	
+		openWindowWithSub("yiqianyue", "health-record.html", "居民首页",{patientId:patientId},"health-record");
 	}
 	mui("#pati_list").on("tap", "li", toDetail);
 	mui("#search_pati_list").on("tap", "li", toDetail);

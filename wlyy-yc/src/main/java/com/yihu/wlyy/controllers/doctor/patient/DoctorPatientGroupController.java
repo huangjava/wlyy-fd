@@ -289,7 +289,7 @@ public class DoctorPatientGroupController extends BaseController {
 
             JSONObject json = new JSONObject();
             // 有提供
-            json.put("chId","44132219941116368x"); //chId  居民主索引
+            json.put("chId",patientId); //chId  居民主索引
             json.put("name","李六"+patientId);              //姓名
             json.put("sex","1");                    // 性别
             json.put("age",65);                     //年龄（出生日期处理得到）

@@ -239,7 +239,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(doctorUrl));
             call.setOperation("getSignedInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});

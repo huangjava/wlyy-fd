@@ -141,6 +141,10 @@ public class NeuSoftWebService {
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("getSignState");
 
+            paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <OPENID>OCEF9T2HW1GBY0KINQK0NEL_ZOSK</OPENID>\n"
+                    +  " </QUERY_FORM>\n";
+
+
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
             return res;
@@ -174,7 +178,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //1.7获取所有机构列表（根据居民微信主索引） getOrgListByOpenid  -- 未调通
+    //1.7获取所有机构列表（根据居民微信主索引） getOrgListByOpenid  -- 未发布
     public static String getOrgListByOpenid(String openId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -183,8 +187,11 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(doctorUrl));
             call.setOperation("getOrgListByOpenid");
+
+            paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <OPENID>OCEF9T2HW1GBY0KINQK0NEL_ZOSK</OPENID>\n"
+                    +  " </QUERY_FORM>\n";
 
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
@@ -293,7 +300,6 @@ public class NeuSoftWebService {
     }
 
     //3.4提交确认签约信息 upConfirmSignedInfo  -- 未调通
-    //TODO DataHandler的生成逻辑要考虑
     public static String upConfirmSignedInfo(DataHandler dataHandler, String signTeam, String signTeamName, String signPeriod, String signPreiodFrom, String chid, String agreementName, String orgCode, String userId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -343,7 +349,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //
+    //登陆验证接口 -- 废弃，不做单独的登陆
     public static String login(String userName, String password) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -365,7 +371,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //5.2登陆验证(根据医生身份证)  loginByID  -- 未调通
+    //5.2登陆验证(根据医生身份证)  loginByID  -- 调通
     public static String loginByID(String idNumber, String longinKey) {
         try {
             Map<String, String> param = new HashMap<>();

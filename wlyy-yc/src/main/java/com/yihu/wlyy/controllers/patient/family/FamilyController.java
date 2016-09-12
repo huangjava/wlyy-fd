@@ -1,14 +1,19 @@
 package com.yihu.wlyy.controllers.patient.family;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.services.hospital.HospitalService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016.08.26.
@@ -17,15 +22,51 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/patient/family")
 public class FamilyController extends BaseController {
 
+    @Autowired
+    private HospitalService hospitalService;
+
     @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
     public String isAssign(
-            @ApiParam(name = "patient", value = "患者Code", required = true)
-            @RequestParam(value = "patient") String patient) {
+            @ApiParam(name = "openId", value = "居民微信主索引", required = true)
+            @RequestParam(value = "openId") String openId) {
         try {
+            int sign = 0;
+            List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(openId);
+            if (list!=null && list.size()>0){
+                sign = 1;
+            }else {
+                sign = -1;
+            }
+            return write(200, "获取分拣状态成功！", "data",sign);
+        } catch (Exception e) {
+            error(e);
+            return error(-1, "分拣状态查询失败！");
+        }
+    }
 
-            return write(200, "获取分拣状态成功！", "data",-1);
+    @RequestMapping(value = "saveGridInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "保存居民网格信息", produces = "application/json", notes = "保存居民网格信息")
+    public String saveAddress(
+            @ApiParam(name = "district", value = "区县ID", required = true)
+            @RequestParam(value = "district") String district,
+            @ApiParam(name = "street", value = "街道ID", required = true)
+            @RequestParam(value = "street") String street,
+            @ApiParam(name = "community", value = "居委会ID", required = true)
+            @RequestParam(value = "community") String community,
+            @ApiParam(name = "address", value = "详细地址", required = true)
+            @RequestParam(value = "address") String address ) {
+        try {
+            List<Map<String,Object>> list =  hospitalService.getOrgsByUserAddr(district, street, community, address);
+            int sign = 0;
+            if (list!=null && list.size()>0){
+                sign = 1;
+            }else {
+                sign = -1;
+            }
+            return write(200, "获取分拣状态成功！", "data",sign);
         } catch (Exception e) {
             error(e);
             return error(-1, "分拣状态查询失败！");

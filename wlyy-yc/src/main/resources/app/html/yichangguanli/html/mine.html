@@ -134,9 +134,9 @@
 				function success(res) {
 					if (res.status == 200) {
 						console.log(JSON.stringify(res.data));
-						var contTeam = template("team_info_tmpl",res.data)
+						var contTeam = template("team_info_tmpl",res.data[0]);
 						document.getElementById("doc_team_info").innerHTML = contTeam;
-						var cont = template("doc_list_tmpl", {data:res.data.list});
+						var cont = template("doc_list_tmpl", {data:res.data[0].list});
 						document.getElementById("group").innerHTML = cont;
 					}
 			});

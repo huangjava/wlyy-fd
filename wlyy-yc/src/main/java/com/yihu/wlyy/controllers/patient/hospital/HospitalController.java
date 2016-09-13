@@ -5,6 +5,7 @@ import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -156,10 +157,10 @@ public class HospitalController extends BaseController {
     public String getDoctorList(
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
             @RequestParam(required = true) String teamCode,
-            @ApiParam(name = "begin", value = "开始个数", required = true)
-            @RequestParam(required = true) Integer begin,
-            @ApiParam(name = "end", value = "结束个数", required = true)
-            @RequestParam(required = true) Integer end) {
+            @ApiParam(name = "begin", value = "开始个数", required = false)
+            @RequestParam(required = false,defaultValue = "1") Integer begin,
+            @ApiParam(name = "end", value = "结束个数", required = false)
+            @RequestParam(required = false,defaultValue = "10") Integer end) {
 
         try {
             //TODO 调用获取团队成员列表接口
@@ -219,7 +220,7 @@ public class HospitalController extends BaseController {
 //            ResultModel resultModel = ResultModel.success("查询成功！");
 //            resultModel.setResultMap(resultMap);
 //            return resultModel.toJson();
-            net.sf.json.JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode);
+            JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode);
             return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);
@@ -249,7 +250,7 @@ public class HospitalController extends BaseController {
                     "}";
             JSONObject jsonObject = new JSONObject(json);
 
-            net.sf.json.JSONObject info =doctorService.getDoctorInfo(doctorCode);
+            JSONObject info =doctorService.getDoctorInfo(doctorCode);
 
             return write(200, "查询成功！", "data", info);
         } catch (Exception e) {

@@ -3,6 +3,8 @@ package com.yihu.wlyy.services.gateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.configuration.GatewayConfig;
 import com.yihu.wlyy.util.HttpClientUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.Map;
  */
 @Service
 public class GateWayService {
+    private static Logger logger = LoggerFactory.getLogger(GateWayService.class);
     @Autowired
     private GatewayConfig gatewayConfig;
 
@@ -41,6 +44,7 @@ public class GateWayService {
             return HttpClientUtil.doPost(gatewayConfig.getUrl(), params, null, null);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         return "{}";

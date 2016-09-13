@@ -6,8 +6,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -82,23 +82,23 @@ public class SignContractService {
                     patient.put("sortType", groupName[index]);          //分拣标签
                     JSONObject gp = group[index];
                     JSONArray gpPatient = groupPatient[index];
-                    gpPatient.put(patient);
+                    gpPatient.add(patient);
                 }
             }
 
             for (int i = 0; i < group.length; ++i) {
                 JSONObject gp = group[i];
                 JSONArray patients = groupPatient[i];
-                if (patients.length() == 0) {
+                if (patients.size() == 0) {
                     continue;
                 }
 
                 gp.put("patients", patients);
-                jsonArray.put(gp);
+                jsonArray.add(gp);
 
                 gp.put("code", i + 1);
                 gp.put("name", groupName[i]);
-                gp.put("total", patients.length());
+                gp.put("total", patients.size());
             }
 
             return jsonArray;
@@ -161,7 +161,7 @@ public class SignContractService {
 //                json.put("idcard","44132219941116368X");
 //                json.put("signType","2");
 //                json.put("partAmount",0);
-                array.put(json);
+                array.add(json);
             }
 
             return array;
@@ -222,7 +222,7 @@ public class SignContractService {
 //                json.put("idcard","44132219941116368X");
 //                json.put("signType","2");
 //                json.put("partAmount",0);
-                array.put(json);
+                array.add(json);
             }
 
             return array;

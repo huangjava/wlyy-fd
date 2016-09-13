@@ -216,7 +216,7 @@ public class DoctorService {
             doctorNode.put("name", name);
             doctorNode.put("dept", deptName);
             doctorNode.put("jobName", "");
-            doctorArray.add(doctorNode);
+            doctorArray.put(doctorNode);
         }
         } catch (DocumentException e) {
             e.printStackTrace();

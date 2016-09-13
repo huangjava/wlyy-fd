@@ -34,6 +34,9 @@ import java.util.*;
 @Transactional(rollbackFor = Exception.class)
 public class PatientHealthIndexService  {
 
+	private static String healthPutUrl = SystemConf.getInstance().getValue("health.data.put");
+
+
 	private Clock clock = Clock.DEFAULT;
 
 	@Autowired
@@ -200,7 +203,7 @@ public class PatientHealthIndexService  {
 			params.put("monitorTime",obj.getRecordDate());
 			params.put("uId",obj.getIdcard());
 			//将数据发送到东软
-			HttpClientUtil.doPost("http://127.0.0.1:8080/fd/patient/health_index/test",params,"","");
+			HttpClientUtil.doPost(healthPutUrl,params,"","");
 			patientHealthIndexDao.save(obj);
 		}
 		else{

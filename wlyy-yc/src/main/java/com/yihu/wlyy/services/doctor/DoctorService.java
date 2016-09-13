@@ -153,5 +153,76 @@ public class DoctorService {
         return null;
     }
 
+    /* ==========================    患者端  ======================================  */
+
+
+
+    public JSONObject getDoctorInfo(String doctorId) {
+        try {
+            String info = NeuSoftWebService.getGPInfo(doctorId);
+
+            Document document = DocumentHelper.parseText(info);
+            Element xmldata = document.getRootElement().element("XMLDATA");
+
+            String name = xmldata.elementText("USER_FULLNAME");
+            String gender = xmldata.elementText("GENDER");
+            String profession = xmldata.elementText("PROFESSION");
+            String education = xmldata.elementText("EDUCATION");
+            String specialty = xmldata.elementText("SPECIALTY");
+            String orgName = xmldata.elementText("UNIT_NAME");
+            String deptName = xmldata.elementText("DEPT_NAME");
+            String photo = xmldata.elementText("PHOTO");
+
+            JSONObject json = new JSONObject();
+            json.put("photo", photo);                   // 照片 8    原有使用的是src
+            json.put("doctorName", name);                 // 医生姓名1
+            json.put("doctorCode", "");     // （未提供）
+            json.put("expertise", profession);        // 专业特长5
+            json.put("teamCode", "");//所属机构6
+            json.put("teamName", "");             // 团队名称
+            json.put("jobName", "");       // 技术职称
+            json.put("introduce", specialty);      // 简介（无）
+            json.put("orgName", orgName);    // 机构名
+            json.put("orgCode", "");    // 机构代码
+
+            return json;
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 通过团队获取 医生列表
+     * @param teamId
+     * @return
+     */
+    public JSONArray getDoctorsByTeam(String teamId){
+        JSONArray doctorArray = new JSONArray();
+
+        try {
+        String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
+        Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
+        List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
+
+        for (Element doctorElement : doctorList) {
+            String id = doctorElement.elementText("USERID");
+            String name = doctorElement.elementText("USER_FULLNAME");
+            String deptName = doctorElement.elementText("DEPT_NAME");
+
+            JSONObject doctorNode = new JSONObject();
+            doctorNode.put("code", id);
+            doctorNode.put("name", name);
+            doctorNode.put("dept", deptName);
+            doctorNode.put("jobName", "");
+            doctorArray.add(doctorNode);
+        }
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        return doctorArray;
+    }
+
 
 }

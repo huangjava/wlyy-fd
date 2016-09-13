@@ -47,6 +47,8 @@ $(function() {
 var startSign = function() {
 	var teamName = encodeURI(document.getElementById("teamName").innerHTML);
 	var orgName = encodeURI(document.getElementById("orgName").innerHTML);
+	var orgCode = document.getElementById("orgCode").innerHTML;
+
 	window.location.href = "../../qygl/html/start-sign.html?teamCode=" + teamName + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&patientCode='+"1";
 }
 	

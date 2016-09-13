@@ -156,10 +156,10 @@ public class HospitalController extends BaseController {
     public String getDoctorList(
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
             @RequestParam(required = true) String teamCode,
-            @ApiParam(name = "begin", value = "开始个数", required = true)
-            @RequestParam(required = true) Integer begin,
-            @ApiParam(name = "end", value = "结束个数", required = true)
-            @RequestParam(required = true) Integer end) {
+            @ApiParam(name = "begin", value = "开始个数", required = false)
+            @RequestParam(required = false,defaultValue = "1") Integer begin,
+            @ApiParam(name = "end", value = "结束个数", required = false)
+            @RequestParam(required = false,defaultValue = "10") Integer end) {
 
         try {
             //TODO 调用获取团队成员列表接口

@@ -150,7 +150,8 @@ function submitSign(){
 		data.hospital = "";
 		data.orgName = "";
 		data.patientCode = patientCode;
-		getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode}).then(function(data) {
+		debugger
+		getReqPromise("patient/sign/sendApplication",{contactPhone:data.mobile, patientName:data.name,teamCode:teamCode }).then(function(data) {
 			if (data.loginUrl) {
 				window.location.href = data.loginUrl;
 				return;
@@ -175,23 +176,23 @@ function operateFailed(res) {
 	return;
 }
 
-function operateSuccesss(res) {
-	if (res.status == 200) {
-		d.close();
-		//TODO 签约成功操作
-		getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode,openId:openId,random:random}).then(function(data) {
-			if (data.loginUrl) {
-				window.location.href = data.loginUrl;
-				return;
-			}
-			location.href = "../../qygl/html/sign-success.html";
-		})
-//			window.location.href = "doctor-home-page.html?doctor=" + doctor;
-	} else {
-		//非200则为失败
-		operateFailed(res);
-	}
-}
+//function operateSuccesss(res) {
+//	if (res.status == 200) {
+//		d.close();
+//		//TODO 签约成功操作
+//		getReqPromise("patient/sign/sendApplication",{teamCode:teamCode,teamName:teamName, orgCode:orgCode, orgName:orgName, patientCode:patientCode,openId:openId,random:random}).then(function(data) {
+//			if (data.loginUrl) {
+//				window.location.href = data.loginUrl;
+//				return;
+//			}
+//			location.href = "../../qygl/html/sign-success.html";
+//		})
+////			window.location.href = "doctor-home-page.html?doctor=" + doctor;
+//	} else {
+//		//非200则为失败
+//		operateFailed(res);
+//	}
+//}
 
 
 function closeWindow() {

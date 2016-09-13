@@ -1,7 +1,7 @@
 package com.yihu.wlyy.services.doctor;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.junit.Test;
 
 /**

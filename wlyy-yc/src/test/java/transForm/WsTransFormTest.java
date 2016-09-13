@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.services.person.SignlTransFormService;
-import org.json.JSONArray;
+import net.sf.json.JSONArray;
 import org.junit.Test;
 
 import java.util.List;

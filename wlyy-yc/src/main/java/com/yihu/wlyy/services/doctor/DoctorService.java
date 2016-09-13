@@ -7,8 +7,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -87,12 +85,12 @@ public class DoctorService {
                     doctorNode.put("name", name);
                     doctorNode.put("dept", deptName);
                     doctorNode.put("jobName", "");
-                    doctorArray.put(doctorNode);
+                    doctorArray.add(doctorNode);
 
                 }
                 teamNode.put("list", doctorArray);
 
-                myTeamArray.put(teamNode);
+                myTeamArray.add(teamNode);
             }
 
             return myTeamArray;

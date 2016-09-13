@@ -1,8 +1,8 @@
 package com.yihu.wlyy.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -65,18 +65,18 @@ public class ResponseKit {
      * @param msg  结果提示信息
      * @return
      */
-    public String write(int code, String msg, String key, List<?> list) {
-        try {
-            Response response = new Response(code, msg).invoke();
-            Map<Object, Object> map = response.getMap();
-            ObjectMapper mapper = response.getMapper();
-            map.put(key, list);
-            return mapper.writeValueAsString(map);
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "服务器异常，请稍候再试！");
-        }
-    }
+//    public String write(int code, String msg, String key, List<?> list) {
+//        try {
+//            Response response = new Response(code, msg).invoke();
+//            Map<Object, Object> map = response.getMap();
+//            ObjectMapper mapper = response.getMapper();
+//            map.put(key, list);
+//            return mapper.writeValueAsString(map);
+//        } catch (Exception e) {
+//            error(e);
+//            return error(-1, "服务器异常，请稍候再试！");
+//        }
+//    }
 
     /**
      * 返回接口处理结果
@@ -198,19 +198,19 @@ public class ResponseKit {
      * @param value 结果数据
      * @return
      */
-    public String write(int code, String msg, String key, Map<?, ?> value) {
-        try {
-            Map<Object, Object> map = new HashMap<Object, Object>();
-            ObjectMapper mapper = new ObjectMapper();
-            map.put("status", code);
-            map.put("msg", msg);
-            map.put(key, value);
-            return mapper.writeValueAsString(map);
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "服务器异常，请稍候再试！");
-        }
-    }
+//    public String write(int code, String msg, String key, Map<?, ?> value) {
+//        try {
+//            Map<Object, Object> map = new HashMap<Object, Object>();
+//            ObjectMapper mapper = new ObjectMapper();
+//            map.put("status", code);
+//            map.put("msg", msg);
+//            map.put(key, value);
+//            return mapper.writeValueAsString(map);
+//        } catch (Exception e) {
+//            error(e);
+//            return error(-1, "服务器异常，请稍候再试！");
+//        }
+//    }
 
     /**
      * 返回接口处理结果

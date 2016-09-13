@@ -1,7 +1,13 @@
 package com.yihu.wlyy.services.person;
 
+import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
+import com.yihu.wlyy.util.XMLUtil;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @created Airhead 2016/9/12.
@@ -60,6 +66,38 @@ public class PersonService {
         }
 
         return null;
+    }
+
+
+    /**
+     *  未给出返回格式
+     * 我的资料
+     * @param openId 微信主索引
+     * @return
+     */
+    public static Map<String,Object> getBaseInfByOpenId(String openId){
+        Map<String,Object> result = new HashMap<>();
+        //TODO 调用东软接口返回数据
+        String responseXml = NeuSoftWebService.getSignDetailInfo(openId);
+
+
+        try {
+            List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
+            if (teams!=null && teams.size()>0){
+                Map<String,Object> obj = teams.get(0);
+                result.put("teamCode",obj.get("TEAMID"));
+                result.put("teamName",obj.get("TEAMNAME"));
+                result.put("orgCode",obj.get("ORGCODE"));
+                result.put("orgName",obj.get("TEAMNAME"));//toset
+                result.put("introduce",obj.get("TEAMDESC"));
+                result.put("photo",obj.get("TEAMNAME"));//toset
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

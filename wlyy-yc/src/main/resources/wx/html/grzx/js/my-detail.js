@@ -1,4 +1,5 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
+saveAgentPage("../../grzx/html/my-detail.html");
 var openid =null;
 var signType = null;
 var userAgent = window.localStorage.getItem(agentName);
@@ -7,7 +8,6 @@ if(userAgent){
 	openid = jsonstr.openid;
 }
 $(function() {	
-	checkUserAgent();
 	queryInit();
 });	
 
@@ -72,7 +72,7 @@ function changeJtqy(signedStatus,teamCode){
 
 //查询列表
 function query() {
-	var data={};
+	var data={openId:openId,random:random};
 	sendPost('patient/family/baseinfo', data, 'json', 'post', queryFailed, querySuccess);
 }	
 
@@ -87,6 +87,10 @@ function queryFailed(res) {
 
 function querySuccess(res) {
 	if (res.status == 200) {
+		if (res.loginUrl) {
+			window.location.href = res.loginUrl;
+			return;
+		}
 		setValue(res.data);	
 		if($("#ssc").val() != ""){
 			$("#ssc").attr("readonly","readonly");

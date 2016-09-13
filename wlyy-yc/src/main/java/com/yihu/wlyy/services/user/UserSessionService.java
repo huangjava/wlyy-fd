@@ -92,7 +92,7 @@ public class UserSessionService {
         String xiaoWeiComunity = SystemConf.getInstance().getValue("xiaoWeiComunity");
         Map<String, Object> param = new HashMap<>();
         param.put("action", "add");
-        param.put("openid", "ooLDPt9H0cH3aMOOFknVxWsk5Bhk");
+        param.put("openid", openId);
         String response = null;
         try {
             response = HttpClientUtil.doPost(xiaoWeiComunity, param, null, null);
@@ -115,20 +115,18 @@ public class UserSessionService {
         return null;
     }
 
-    public boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userAgent = request.getHeader("userAgent");
-//        if (userAgent == null) {
-//            //从健康之中APP或者小薇社区进入
-//            //小薇社区进入时openId非空
-//            String openId = request.getParameter("openId");
-//            return !StringUtil.isEmpty(openId) || isLoginApp(request, response);
-//        }
-
         if (StringUtil.isEmpty(userAgent)) {
             //从健康之中APP或者小薇社区进入
             //从健康之中APP进入时ticket非空
             String ticket = request.getParameter("ticket");
-            return !StringUtil.isEmpty(ticket) || isLoginWeChat(request, response);
+            if (StringUtil.isEmpty(ticket)){
+               return isLoginWeChat(request, response);
+            }
+            else {
+               return isLoginApp(request, response);
+            }
         }
         //以上空的逻辑是否可合并还需要验证
 
@@ -141,8 +139,8 @@ public class UserSessionService {
         return isLoginApp(request, response);
     }
 
-    public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setCharacterEncoding("UTF-8");
         String userAgent = request.getHeader("userAgent");
         ObjectMapper objectMapper = new ObjectMapper();
         if (!StringUtil.isEmpty(userAgent)) {
@@ -153,7 +151,11 @@ public class UserSessionService {
                 return true;
             }
         } else {
-            response.sendRedirect(genEHomeUrl("OCEF9T2HW1GBY0KINQK0NEL_ZOSK"));
+            String openId = request.getParameter("openId");
+            String random = request.getParameter("random");
+            openId = AESUtil.decryptByRandom(openId, random);
+            response.getOutputStream().write(responseKit.write(200, "reLogin", "loginUrl", genEHomeUrl(openId)).getBytes());
+            return false;
         }
         return false;
     }
@@ -165,7 +167,9 @@ public class UserSessionService {
         String orgId = request.getParameter("orgId");
         String appUid = request.getParameter("appUid");
         String ticket = request.getParameter("ticket");
-
+        if (StringUtil.isEmpty(appUid)) {
+            appUid = "0";
+        }
         String sso = SystemConf.getInstance().getValue("sso.yihu");
         Map<String, Object> param = new HashMap<>();
         param.put("userId", userId);
@@ -229,5 +233,4 @@ public class UserSessionService {
                 + "&returnurl=" + eHomeCallback
                 + "&sig=" + signature;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.yihu.wlyy.services.patient;
+package com.yihu.wlyy.services.person;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.XMLUtil;
@@ -22,7 +22,7 @@ public class SignlTransFormService {
      * @param openId  微信主索引
      * @return
      */
-    public static Map<String,Object> getSignStatus(String openId){
+    public static Map<String,Object> getSignState(String openId){
         Map<String,Object> result = new HashMap<>();
         //TODO 调用东软接口返回数据
         String responseXml = NeuSoftWebService.getSignState(openId);
@@ -65,7 +65,7 @@ public class SignlTransFormService {
      * @param signTeam
      * @return
      */
-    public static Map<String,Object> postSign(String selfName, String contactPhone, String appointmentSignDate, String signNo, String templeteId, String signTeam){
+    public static Map<String,Object> doSignApply(String selfName, String contactPhone, String appointmentSignDate, String signNo, String templeteId, String signTeam){
         Map<String,Object> result = new HashMap<>();
         String responseXml = NeuSoftWebService.doSignApply(selfName, null, null, null, null,signTeam);
 

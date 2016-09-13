@@ -2,8 +2,9 @@ package transForm;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yihu.wlyy.services.hospital.HospitalTransFormService;
-import com.yihu.wlyy.util.XMLUtil;
+import com.yihu.wlyy.services.doctor.DoctorService;
+import com.yihu.wlyy.services.hospital.HospitalService;
+import com.yihu.wlyy.services.person.SignlTransFormService;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,38 +16,11 @@ import java.util.Map;
  * Created at 2016/7/28.
  */
 public class WsTransFormTest {
+    private static HospitalService service = new HospitalService();
 
     @Test
-    public void getTeamInfoByTeamCode() throws Exception{
-        String responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "\t<QUERY_FORM>\n" +
-                "\t  <SELFNAME>林霖</SELFNAME>\n" +
-                "\t  <CONTACTPHONE>17112345678</CONTACTPHONE>\n" +
-                "\t  <APPOINTMENTSIGNDATE>2016-09-08</APPOINTMENTSIGNDATE>\n" +
-                "\t  <SIGNNO>123</SIGNNO>\n" +
-                "\t  <TEMPLETEID>Dummy001</TEMPLETEID>\n" +
-                "\t  <SIGNTEAM>09549d72-0511-48ac-b0af-b8453cc2681a</SIGNTEAM>\n" +
-                "\t</QUERY_FORM>\n";
-//                List<Map<String,Object> > list = XMLUtil.xmltoList(responseXml);
-        Map<String ,Object> map = XMLUtil.xmltoMap(responseXml);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-//            String json = objectMapper.writeValueAsString(list);
-//            System.out.println(json);
-
-            String json = objectMapper.writeValueAsString(map);
-            System.out.println(json);
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
-    public void testGetOrgsByOpenId(){
-        HospitalTransFormService service = new HospitalTransFormService();
-        List<Map<String,Object> > list = service.getOrgsByOpenId("");
+    public void getOrgsByOpenId(){
+        List<Map<String,Object> > list = service.getOrgsByOpenId("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String json = objectMapper.writeValueAsString(list);
@@ -58,23 +32,50 @@ public class WsTransFormTest {
     }
 
     @Test
+    public void getMyTeam() throws Exception {
+        DoctorService doctorService = new DoctorService();
+        String info = doctorService.getMyTeam("2c9660e34f4fbb9d014f5d5453b8001b", "f93afa56-417c-4901-aeab-002ded330d86");
+        System.out.println(info);
+    }
+
+
+
+    @Test
+    public void getOrgList() throws Exception {
+        List<Map<String,Object>>   info = service.getOrgsByUserAddr("420502", "420502001", "420502001001", "");
+        System.out.println(info);
+    }
+
+
+    @Test
+    public void doSignApply() throws Exception {
+        SignlTransFormService service = new SignlTransFormService();
+        Map<String,Object>  info = service.doSignApply("林霖","17112345678","2016-09-08","123","Dummy007","b825206f-6af4-4009-b9bc-7a9c71f820d5");
+        System.out.println(info);
+    }
+
+    @Test
+    public void getSignState() throws Exception {
+        SignlTransFormService service = new SignlTransFormService();
+        Map<String,Object> info = service.getSignState("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
+        System.out.println(info);
+    }
+
+    @Test
     public void testgetDoctorInfo(){
-        HospitalTransFormService service = new HospitalTransFormService();
-        Map<String,Object>  list = service.getDoctorInfo("");
+        Map<String,Object>  list = service.getDoctorInfo("a569522f-49d9-46ea-8209-1406e04787ea");
         System.out.println(list);
     }
 
     @Test
     public void testgetTeamInfoByTeamCode(){
-        HospitalTransFormService service = new HospitalTransFormService();
-        Map<String,Object>  list = service.getTeamInfoByTeamCode("");
+        Map<String,Object>  list = service.getTeamInfoByTeamCode("74529931-1445-468d-8873-abfa63734e7c", "1", "10");
         System.out.println(list);
     }
 
     @Test
     public void testgetTeamsByorgCode(){
-        HospitalTransFormService service = new HospitalTransFormService();
-        List<Map<String,Object> >  list = service.getTeamsByorgCode("");
+        List<Map<String,Object>> list = service.getTeamsByorgCode("2c9660e34f4fbb9d014f5d50be6c0016","1","10");
         System.out.println(list);
     }
 

@@ -2,6 +2,14 @@ server:
   port: 9111
   context-path: /fd
     #ssl配置
+bloodSugger:
+  fasting: 00:00-07:59
+  afterBreakfast: 08:00-09:59
+  beforeLunch: 10:00-11:59
+  afterLunch: 12:00-13:59
+  beforeDinner: 14:00-17:59
+  afterDinner: 18:00-19:59
+  beforeSleep: 20:00-23:59
 ---
 spring:
   profiles: dev
@@ -12,15 +20,33 @@ spring:
 #    driverClassName: com.mysql.jdbc.Driver
     maxTotal: 500
     maxIdle: 30
-bloodSugger:
-  fasting: 00:00-07:59
-  afterBreakfast: 08:00-09:59
-  beforeLunch: 10:00-11:59
-  afterLunch: 12:00-13:59
-  beforeDinner: 14:00-17:59
-  afterDinner: 18:00-19:59
-  beforeSleep: 20:00-23:59
 
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://172.19.103.77:3306/yichang?useUnicode=true&characterEncoding=utf-8&autoReconnect=true
+    username: root
+    password: 123456
+#    driverClassName: com.mysql.jdbc.Driver
+    maxTotal: 500
+    maxIdle: 30
+
+
+
+---
+spring:
+  profiles: production
+  datasource:
+    url: jdbc:mysql://10.27.8.70:3306/familydoctor?useUnicode=true&characterEncoding=utf-8&autoReconnect=true
+    username: fd
+    password: fd
+#    driverClassName: com.mysql.jdbc.Driver
+    maxTotal: 500
+    maxIdle: 30
+server:
+  port: 8883
+  context-path: /fd
 
 ---
 spring:

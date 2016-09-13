@@ -1,4 +1,5 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
+saveAgentPage("../../qygl/html/address-new.html");
 var openid =null;
 var userAgent = window.localStorage.getItem(agentName);
 if(userAgent){
@@ -87,7 +88,7 @@ var oldStreet = "";
 //获取省份信息
 function getCity(){
 	d.show();
-	var data={};
+	var data={openId:openId,random:random};
 	data.type = 1;
 	data.code = "";
 	sendPost('common/district', data, 'json', 'post', queryAreaFailed, queryCitySuccess);
@@ -104,6 +105,10 @@ function queryAreaFailed(res) {
 
 function queryCitySuccess(res) {
 	if (res.status == 200) {
+		if (res.loginUrl) {
+			window.location.href = res.loginUrl;
+			return;
+		}
 		setCity(res.list);	
 		d.close();
 	} else {
@@ -147,7 +152,7 @@ function setCity(list){
 //获取区县信息
 function getTown(){
 	d.show();
-	var data={};
+	var data={openId:openId,random:random};
 	data.type = 2;
 	data.code = $('#cityCode').val();
 	oldCity = $('#cityCode').val();
@@ -156,6 +161,10 @@ function getTown(){
 
 function queryTownSuccess(res) {
 	if (res.status == 200) {
+		if (res.loginUrl) {
+			window.location.href = res.loginUrl;
+			return;
+		}
 		setTown(res.list);	
 		d.close();
 	} else {
@@ -203,7 +212,7 @@ function setTown(list){
 //获取街道信息
 function getStreet(){
 	d.show();
-	var data={};
+	var data={openId:openId,random:random};
 	data.type = 3;
 	data.code = $('#townCode').val();
 	oldTown = $('#townCode').val();
@@ -212,6 +221,10 @@ function getStreet(){
 
 function queryStreetSuccess(res) {
 	if (res.status == 200) {
+		if (res.loginUrl) {
+			window.location.href = res.loginUrl;
+			return;
+		}
 		setStreet(res.list);	
 		d.close();
 	} else {
@@ -257,7 +270,7 @@ function setStreet(list){
 //获取街道信息
 function getCommittee(){
 	d.show();
-	var data={};
+	var data={openId:openId,random:random};
 	data.type = 4;
 	data.code = $('#streetCode').val();
 	oldStreet = $('#streetCode').val();
@@ -266,6 +279,10 @@ function getCommittee(){
 
 function queryCommitteeSuccess(res) {
 	if (res.status == 200) {
+		if (res.loginUrl) {
+			window.location.href = res.loginUrl;
+			return;
+		}
 		setCommittee(res.list);	
 		d.close();
 	} else {
@@ -332,6 +349,10 @@ function submitFailed1(res) {
 
 function submitSuccess1(res) {
 	if (res.status == 200) {
+		if (res.loginUrl) {
+			window.location.href = res.loginUrl;
+			return;
+		}
 		dd.close();
 		window.location.href = "../html/search-community.html";
 		window.scrollTo(0,0);

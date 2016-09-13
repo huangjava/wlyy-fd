@@ -1,4 +1,5 @@
 $(function() {
+	saveAgentPage("../../qygl/html/sign-success.html");
 	var num = 5;
 	var intervalId=setInterval(function(){
 		num--;

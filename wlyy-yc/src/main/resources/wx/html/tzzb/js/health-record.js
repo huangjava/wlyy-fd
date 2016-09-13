@@ -1,3 +1,4 @@
+saveAgentPage("../../tzzb/html/health-record.html");
   var switchery = null;
   var date = new Date();
   var year = date.getFullYear();
@@ -486,7 +487,7 @@ var charTypeJson = {
 	 */
 	function queryChatByType(begin, end, successFunction,queryList) {
 		//拼请求内容
-		var params = {};
+		var params = {openId:openId,random:random};
 		params.type = charType;
 		params.begin = begin+" 00:00:00";
 		params.end = end+" 23:59:59";
@@ -494,8 +495,12 @@ var charTypeJson = {
 		
 		//发送ajax请求
 		sendPost("patient/health_index/chart", params, "json", "post", queryChartFailed, function(res){
-				successFunction(res)
-				queryListByType(charType,page, pagesize, queryList,begindate,enddate);
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
+			successFunction(res);
+			queryListByType(charType,page, pagesize, queryList,begindate,enddate);
 		});
 	}
 	

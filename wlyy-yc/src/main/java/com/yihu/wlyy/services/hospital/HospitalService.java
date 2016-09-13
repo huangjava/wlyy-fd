@@ -3,7 +3,7 @@ package com.yihu.wlyy.services.hospital;
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.XMLUtil;
 import org.dom4j.DocumentException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +16,8 @@ import java.util.Map;
  * @vsrsion 1.0
  * Created at 2016/9/10.
  */
-@Component
-public class HospitalTransFormService {
+@Service
+public class HospitalService {
 
     /**
      * 获取团队列表
@@ -30,17 +30,17 @@ public class HospitalTransFormService {
         String responseXml = NeuSoftWebService.getGPTeamList(orgCode,page,pageSize);
 
         //TODO 调用东软接口返回数据
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<MSGFORM>\n" +
-                "  <XMLDATA>\n" +
-                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
-                "    <TEAMNAME>糖尿病团队</TEAMNAME>\n" +
-                "  </XMLDATA>\n" +
-                "    <XMLDATA>\n" +
-                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
-                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
-                "  </XMLDATA>\n" +
-                "</MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<MSGFORM>\n" +
+//                "  <XMLDATA>\n" +
+//                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
+//                "    <TEAMNAME>糖尿病团队</TEAMNAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "    <XMLDATA>\n" +
+//                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
+//                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "</MSGFORM>\n";
 
 
             Map<String,Object> map  = XMLUtil.xml2map(responseXml);
@@ -50,6 +50,15 @@ public class HospitalTransFormService {
                     Map<String,Object> obj = new HashMap<String,Object>();
                     obj.put("name", team.get("TEAMNAME"));
                     obj.put("code", team.get("TEAMID"));
+
+                    //未提供
+                    obj.put("hospital_name", ""); //机构名
+//                    obj.put("expertise", "");
+//                    obj.put("introduce","");
+//                    obj.put("job_name", "");
+                    obj.put("photo", "");   //团队头像
+//                    obj.put("dept_name","");//科室名
+
                     result.add(obj);
                 }
             }
@@ -108,9 +117,10 @@ public class HospitalTransFormService {
                 result.put("teamCode",obj.get("TEAMID"));
                 result.put("teamName",obj.get("TEAMNAME"));
                 result.put("orgCode",obj.get("ORGCODE"));
-                result.put("orgName",obj.get("TEAMNAME"));//toset
                 result.put("introduce",obj.get("TEAMDESC"));
-                result.put("photo",obj.get("TEAMNAME"));//toset
+                //未给出
+                result.put("orgName","");//toset
+                result.put("photo","");//toset
 
             }
         } catch (DocumentException e) {
@@ -148,12 +158,18 @@ public class HospitalTransFormService {
             List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
             if (teams!=null){
                 Map<String,Object> obj = teams.get(0);
-//                result.put("doctorCode",obj.get("USERID"));
                 result.put("doctorName",obj.get("USER_FULLNAME"));
                 result.put("orgName",obj.get("UNIT_NAME"));
-                result.put("expertise",obj.get("SPECIALTY"));//toset
                 result.put("introduce",obj.get("EDUCATION"));
+
+                //未提供
+                result.put("jobName","");//技术职称
+                result.put("doctorCode","");
+                result.put("teamCode","");
+                result.put("teamName","");
+                result.put("expertise","");//专业技术
                 result.put("photo",obj.get("PHOTO"));//toset
+
 
             }
         } catch (Exception e) {
@@ -237,6 +253,7 @@ public class HospitalTransFormService {
     }
 
     /**
+     *  TODO 见 DoctorService
      *  获取当前医生参与的团队列表（待定）
      * @param orgCode 机构编码
      * @param doctorCode  医生主索引
@@ -245,7 +262,7 @@ public class HospitalTransFormService {
     public List<Map<String,Object>> getTeamByDoctorCode(String orgCode,String doctorCode){
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
-        String responseXml = "";
+        String responseXml =  NeuSoftWebService.getMyTeam(orgCode, doctorCode);
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "  <MSGFORM>\n" +
                 "    <XMLDATA>\n" +

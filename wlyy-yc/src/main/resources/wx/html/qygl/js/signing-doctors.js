@@ -1,4 +1,5 @@
 // 页面标识，未登录时将重定向到登录页面，根据这个pagetype来保证登录后的跳转到该页面
+saveAgentPage("../../qygl/html/signing-doctors.html");
 var pagetype = -1;
 var d = dialog({contentType:'load', skin:'bk-popup'});
 var userAgent = window.localStorage.getItem(agentName);
@@ -58,7 +59,7 @@ updateCardView = function($card,data) {
 },
 getReqPromises = function() {
 	return Promise.all(_.map([{url: "weixin/getOpenidByCode",data:{code:code}},
-	{url:"patient/family_contract/getSignMessage",data:{patientCode:uid}}],
+	{url:"patient/family_contract/getSignMessage",data:{patientCode:uid,openId:openId,random:random}}],
 	function(param){
 		return reqPromise(param.url,param.data);
 	}));
@@ -76,11 +77,15 @@ if(userAgent) {
 
 new Promise(function(resolve, reject) {
 	
-  	sendPost("patient/family_contract/getSignMessage", {patientCode:uid}, "json", "post",
+  	sendPost("patient/family_contract/getSignMessage", {patientCode:uid,openId:openId,random:random}, "json", "post",
 	  	function queryFailed () {
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'加载失败'}).show();
 		}
   		, function success(req) {
+			if (req.loginUrl) {
+				window.location.href = req.loginUrl;
+				return;
+			}
   			// TODO 启用示例数据 
   			// resolve(req);
 			if (req.status == 200) {
@@ -90,7 +95,10 @@ new Promise(function(resolve, reject) {
 			}
   		});
 }).then(function(data) {
-
+	if (data.loginUrl) {
+		window.location.href = data.loginUrl;
+		return;
+	}
 	// TODO 示例数据
 	//data = []||{"msg":"获取列表成功！","list":[{"jobName":"健康管理师","code":"D2016080006","disease":1,"level":3,"endDate":"2017-08-04","sex":1,"signStatus":1,"name":"大米健管师2","photo":"","hosptialName":"嘉莲社区医疗服务中心","signType":"1","qyDate":"2016-08-04"},{"jobName":" 全科医师","code":"D2016080005","disease":1,"level":2,"endDate":"2017-08-04","sex":2,"signStatus":1,"name":"大米全科2","photo":"","hosptialName":"嘉莲社区医疗服务中心","signType":"1","qyDate":"2016-08-04"},{"jobName":"专科医师","code":"D2016080004","disease":1,"level":1,"endDate":"2017-08-04","sex":1,"signStatus":1,"name":"大米专科2","photo":"","hosptialName":"厦门大学附属第一医院思明分院","signType":"1","qyDate":"2016-08-04"},{"jobName":" 全科医师","code":"D2016080005","disease":1,"level":2,"endDate":"2017-08-15","sex":2,"signStatus":0,"name":"大米全科2","photo":"","hosptialName":"嘉莲社区医疗服务中心","signType":"2","sqDate":"2016-08-15"}],"status":200};
 	// 根据签约类型signType分组，groups[1]为家庭医生， groups[2]为慢病管理

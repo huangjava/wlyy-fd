@@ -4,7 +4,58 @@ mui.init({
 	}
 });
 
+function loginValidation() {
+	var	Request = GetRequest();
+	var	userId = Request["userId"]; // userId
+	var	uId = Request["userId"];     //userCode
+	var	ticket = Request["ticket"];
+	var	iMei = plus.device.uuid;
+	var	orgId = Request["orgId"];
+	var	vaildTime = Request["vaildTime"];
+	var	appUID = Request["appUID"];
+	var	appType = Request["appType"];
+	var	platform = 2;
+
+	/**
+	 * 请求医生基本信息
+	 */
+	sendPost("loginApp",
+	{
+		"userId":userId,
+		"appUID":appUID,
+		"orgId":orgId,
+		"appType":appType,
+		"vaildTime":vaildTime,
+		"ticket":ticket
+	},
+	null, function(res) {
+		if(res.status == 200) {
+		} else {
+		}
+	});
+
+	var oUserAgent = {
+		"id": userId,
+		"uid": uId,
+		"imei": iMei,
+		"token": ticket,
+		"platform": platform,
+	};
+	userAgent = JSON.stringify(oUserAgent);
+	plus.storage.setItem("userAgent", userAgent);
+	plus.navigator.setUserAgent( userAgent , false);
+
+	alert(JSON.stringify(plus.navigator.getUserAgent()))
+
+	plus.storage.setItem("orgId", orgId);
+	plus.storage.setItem("appUID", appUID);
+	plus.storage.setItem("ticket", ticket);
+	plus.storage.setItem("userId", userId);
+}
+
 mui.plusReady(function() {
+	loginValidation();
+
 	window.localStorage.removeItem("isLoginOut");
 	var self = plus.webview.currentWebview();
 
@@ -15,11 +66,11 @@ mui.plusReady(function() {
 	var client_id = plus.storage.getItem("appUID");
 	var ticket = plus.storage.getItem("ticket");
 	var userId = plus.storage.getItem("userId");
-	
+
 	var subPages = [ "yiqianyue.html","daiqianyue.html","mine.html"];
 
 	/**
-	 * 初始化已签约、待签约、我的 页面
+	 * 初始化已签约、待签约、我的页面
 	 */
 	var subStyles = {
 		top: 0,
@@ -33,7 +84,7 @@ mui.plusReady(function() {
 		}
 		self.append(sub_wv);
 	}
-    
+
 	var activeSub = subPages[0];
 	var aTab = document.querySelectorAll(".mui-tab-item");
 	for(var i = 0; i < aTab.length; i++) {
@@ -51,6 +102,7 @@ mui.plusReady(function() {
 			activeSub = targetSub;
 		});
 	}
+
 	/**
 	 * 请求医生基本信息
 	 */
@@ -60,13 +112,13 @@ mui.plusReady(function() {
 			"ticket":ticket
 		},
 		null, function(res) {
-		if(res.status == 200) {
-			var infoStr = JSON.stringify(res.data);
-			plus.storage.setItem("docInfo", infoStr);
-			//TODO 测试用
-			console.log(infoStr);
-		} else {
-			mui.toast("获取医生信息失败");
-		}
-	});
+			if(res.status == 200) {
+				var infoStr = JSON.stringify(res.data);
+				plus.storage.setItem("docInfo", infoStr);
+				//TODO 测试用
+				console.log(infoStr);
+			} else {
+				mui.toast("获取医生信息失败");
+			}
+		});
 });

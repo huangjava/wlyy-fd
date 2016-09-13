@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -155,12 +154,11 @@ public class ResponseKit {
      */
     public String write(int code, String msg, String key, Object value) {
         try {
-            Map<Object, Object> map = new HashMap<Object, Object>();
-            ObjectMapper mapper = new ObjectMapper();
-            map.put("status", code);
-            map.put("msg", msg);
-            map.put(key, value);
-            return mapper.writeValueAsString(map);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status", code);
+            jsonObject.put("msg", msg);
+            jsonObject.put(key, value);
+            return jsonObject.toString();
         } catch (Exception e) {
             error(e);
             return error(-1, "服务器异常，请稍候再试！");

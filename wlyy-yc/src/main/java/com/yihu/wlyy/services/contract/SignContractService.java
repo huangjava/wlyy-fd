@@ -1,6 +1,7 @@
 package com.yihu.wlyy.services.contract;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
+import com.yihu.wlyy.util.StringUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.dom4j.Document;
@@ -42,15 +43,15 @@ public class SignContractService {
     //    <SORT_TYPE>1</SORT_TYPE>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String getSignedPatients(String orgCode, String doctorId, String page, String pageSize) {
+    public String getSignedInfoList(String orgCode, String doctorId, String page, String pageSize) {
         try {
             String signedInfoList = NeuSoftWebService.getSignedInfoList(orgCode, doctorId, page, pageSize);
             Document document = DocumentHelper.parseText(signedInfoList);
             List<Element> elements = document.getRootElement().elements("XMLDATA");
-            String[] groupName = {"高血压", "糖尿病", "结核病", "精神病", "老年人", "孕产妇", "儿童"};
+            String[] groupName = {"未分拣", "高血压", "糖尿病", "结核病", "精神病", "老年人", "孕产妇", "儿童"};
             JSONArray jsonArray = new JSONArray();
-            JSONObject[] group = {new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject()};
-            JSONArray[] groupPatient = {new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray()};
+            JSONObject[] group = {new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject()};
+            JSONArray[] groupPatient = {new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray(), new JSONArray()};
             for (Element element : elements) {
                 String signTeamName = element.elementText("SIGNTEAMNAME");
                 String signPeriod = element.elementText("SIGNPERIOD");
@@ -72,25 +73,31 @@ public class SignContractService {
                 patient.put("address", address);      //地址
                 patient.put("birthday", birthday);     //出生日期
 
+
                 String[] sortList = sortType.split(",");
                 for (String sort : sortList) {
-                    int index = Integer.parseInt(sort);
-                    JSONObject gp = group[index - 1];
-                    JSONArray gpPatient = groupPatient[index - 1];
-                    gpPatient.add(patient);
-                    if (gp.get("patients") == null) {
-                        gp.put("patients", gpPatient);
-                        jsonArray.add(gp);
+                    if (StringUtil.isEmpty(sort)) {
+                        sort = "0";
                     }
+
+                    patient.put("sortType", sort);          //分拣标签
+
+                    int index = Integer.parseInt(sort);
+                    JSONObject gp = group[index];
+                    JSONArray gpPatient = groupPatient[index];
+                    gpPatient.add(patient);
                 }
             }
 
             for (int i = 0; i < group.length; ++i) {
                 JSONObject gp = group[i];
-                JSONArray patients = (JSONArray) gp.get("patients");
-                if (patients == null) {
+                JSONArray patients = groupPatient[i];
+                if (patients.size() == 0) {
                     continue;
                 }
+
+                gp.put("patients", patients);
+                jsonArray.add(gp);
 
                 gp.put("code", i + 1);
                 gp.put("name", groupName[i]);
@@ -167,6 +174,7 @@ public class SignContractService {
 
         return null;
     }
+
     // getNotSignInfoList
     //    <?xml version="1.0" encoding="UTF-8"?>
     //    <MSGFORM>

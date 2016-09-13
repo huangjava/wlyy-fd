@@ -1,13 +1,13 @@
 package com.yihu.wlyy.services.contract;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
-import com.yihu.wlyy.util.StringUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class SignContractService {
     //    <SORT_TYPE>1</SORT_TYPE>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String getSignedInfoList(String orgCode, String doctorId, String page, String pageSize) {
+    public JSONArray getSignedPatients(String orgCode, String doctorId, String page, String pageSize) {
         try {
             String signedInfoList = NeuSoftWebService.getSignedInfoList(orgCode, doctorId, page, pageSize);
             Document document = DocumentHelper.parseText(signedInfoList);
@@ -73,38 +73,35 @@ public class SignContractService {
                 patient.put("address", address);      //地址
                 patient.put("birthday", birthday);     //出生日期
 
-
                 String[] sortList = sortType.split(",");
                 for (String sort : sortList) {
-                    if (StringUtil.isEmpty(sort)) {
+                    if (StringUtils.isEmpty(sort)) {
                         sort = "0";
                     }
-
-                    patient.put("sortType", sort);          //分拣标签
-
                     int index = Integer.parseInt(sort);
+                    patient.put("sortType", groupName[index]);          //分拣标签
                     JSONObject gp = group[index];
                     JSONArray gpPatient = groupPatient[index];
-                    gpPatient.add(patient);
+                    gpPatient.put(patient);
                 }
             }
 
             for (int i = 0; i < group.length; ++i) {
                 JSONObject gp = group[i];
                 JSONArray patients = groupPatient[i];
-                if (patients.size() == 0) {
+                if (patients.length() == 0) {
                     continue;
                 }
 
                 gp.put("patients", patients);
-                jsonArray.add(gp);
+                jsonArray.put(gp);
 
                 gp.put("code", i + 1);
                 gp.put("name", groupName[i]);
-                gp.put("total", patients.size());
+                gp.put("total", patients.length());
             }
 
-            return jsonArray.toString();
+            return jsonArray;
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -133,7 +130,7 @@ public class SignContractService {
     //    </XMLDATA>
     //    </MSGFORM>
 
-    public String getToSignInfoList(String orgCode, String doctorId, String page, String pageSize) {
+    public JSONArray getToSignInfoList(String orgCode, String doctorId, String page, String pageSize) {
         try {
             String toSignInfoList = NeuSoftWebService.getToSignInfoList(orgCode, doctorId, page, pageSize);
             Document document = DocumentHelper.parseText(toSignInfoList);
@@ -164,17 +161,16 @@ public class SignContractService {
 //                json.put("idcard","44132219941116368X");
 //                json.put("signType","2");
 //                json.put("partAmount",0);
-                array.add(json);
+                array.put(json);
             }
 
-            return array.toString();
+            return array;
         } catch (DocumentException e) {
             e.printStackTrace();
         }
 
         return null;
     }
-
     // getNotSignInfoList
     //    <?xml version="1.0" encoding="UTF-8"?>
     //    <MSGFORM>
@@ -195,7 +191,7 @@ public class SignContractService {
     //    <SORT_TYPE></SORT_TYPE>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String getNotSignInfoList(String orgCode, String doctorId, String page, String pageSize) {
+    public JSONArray getNotSignInfoList(String orgCode, String doctorId, String page, String pageSize) {
         try {
             String toSignInfoList = NeuSoftWebService.getNotSignInfoList(orgCode, doctorId, page, pageSize);
             Document document = DocumentHelper.parseText(toSignInfoList);
@@ -226,10 +222,10 @@ public class SignContractService {
 //                json.put("idcard","44132219941116368X");
 //                json.put("signType","2");
 //                json.put("partAmount",0);
-                array.add(json);
+                array.put(json);
             }
 
-            return array.toString();
+            return array;
         } catch (DocumentException e) {
             e.printStackTrace();
         }

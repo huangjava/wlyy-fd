@@ -1,7 +1,8 @@
 saveAgentPage("../../qygl/html/doctor-homepage.html");
-var Request = new Object();
-Request = GetRequest();
+var Request = GetRequest();
 var teamCode = Request["teamCode"];
+var orgName = decodeURIComponent(Request["orgName"]||"");
+var teamName ="";
 // 页面载入显示提示“加载中”
 var d = dialog({contentType:'load', skin:'bk-popup'}).show(),
 	// 团队成员列表
@@ -38,6 +39,12 @@ var startSign = function() {
 	window.location.href = "../../qygl/html/start-sign.html?teamCode=" + teamCode + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&patientCode='+"1";
 }
 
+var doctorInfo = function(doctorCode) {
+	var teamName = encodeURI(document.getElementById("teamName").innerHTML);
+	var orgName = encodeURI(document.getElementById("orgName").innerHTML);
+	window.location.href = "../../qygl/html/doctor-info.html?teamCode=" + teamCode + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&doctorCode='+doctorCode;
+}
+
 var showTeamInfo = function(data) {
 	
 	if(!data) return ;
@@ -46,9 +53,10 @@ var showTeamInfo = function(data) {
 	}else{
 		document.getElementById("photo").src = data.data.url;
 	}
+	teamName =  data.data.teamName;
 	document.getElementById("teamCode").innerHTML = data.data.teamCode;
 	document.getElementById("teamName").innerHTML = data.data.teamName;
-	document.getElementById("orgName").innerHTML = data.data.orgName;
+	document.getElementById("orgName").innerHTML = orgName;
 	document.getElementById("orgCode").innerHTML = data.data.orgCode;
 	document.getElementById("introduce").innerHTML = data.data.introduce;
 	
@@ -74,7 +82,7 @@ getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,org
 	showTeamInfo(datas[0]);
 	isSignForView(datas[2]);
 	if(!datas[1].list.length) {
-		$noResultWrap.show();
+		$showAllMemberBtn.html("暂无团队成员");
 		return ;
 	}
 	

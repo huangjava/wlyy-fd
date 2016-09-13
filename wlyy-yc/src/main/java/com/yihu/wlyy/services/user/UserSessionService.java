@@ -90,7 +90,7 @@ public class UserSessionService {
             if (StringUtil.isEmpty(ticket)) {
                 return isLoginWeChat(request, response);
             } else {
-                return isLoginApp(request, response);
+                return isLoginApp(request, response, null);
             }
         }
 
@@ -100,7 +100,7 @@ public class UserSessionService {
             return isLoginWeChat(user);
         }
 
-        return isLoginApp(user);
+        return isLoginApp(request, response, user);
     }
 
     public boolean isLoginWeChat(UserAgent userAgent) {
@@ -121,64 +121,69 @@ public class UserSessionService {
         return false;
     }
 
-    public boolean isLoginApp(UserAgent userAgent) {
-        if (userAgent == null) {
-            return false;
-        }
-
-        UserSessionModel userSession = userSessionDao.findOne(userAgent.getUid());
-        return userSession != null;
-
-    }
-
-    public boolean isLoginApp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String userId = request.getParameter("userId");
-        String appType = request.getParameter("appType");
-        String validTime = request.getParameter("validTime");
-        String orgId = request.getParameter("orgId");
-        String appUid = request.getParameter("appUid");
-        String ticket = request.getParameter("ticket");
-        if (StringUtil.isEmpty(appUid)) {
-            appUid = "0";
-        }
-        String sso = SystemConf.getInstance().getValue("sso.yihu");
-        Map<String, Object> param = new HashMap<>();
-        param.put("userId", userId);
-        param.put("orgId", orgId);
-        param.put("appUid", appUid);
-        param.put("ticket", ticket);
-        String result = null;
+    public boolean isLoginApp(HttpServletRequest request, HttpServletResponse response, UserAgent userAgent) throws IOException {
         try {
-            result = HttpClientUtil.doPost(sso, param, null, null);
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode jsonNode = mapper.readValue(result, JsonNode.class);
-            String code = jsonNode.findPath("Code").asText();
-            if (!code.equals("10000")) {
-                logger.debug(result);
+            if (userAgent == null) {
                 return false;
             }
 
-            String userCode = jsonNode.findPath("Result").findPath("UserID").asText();
-            String userName = jsonNode.findPath("Result").findPath("LoginID").asText();
+            String userId = request.getParameter("userId");
+            String appType = request.getParameter("appType");
+            String validTime = request.getParameter("validTime");
+            String orgId = request.getParameter("orgId");
+            String appUid = request.getParameter("appUid");
+            String ticket = request.getParameter("ticket");
+            String userCode = userAgent.getUid();
+            String userName = "";
+
+            //有ticket说明是从APP第一次进入，由main.html发起
+            if (!StringUtil.isEmpty(ticket)) {
+                if (StringUtil.isEmpty(appUid)) {
+                    appUid = "0";
+                }
+                String sso = SystemConf.getInstance().getValue("sso.yihu");
+                Map<String, Object> param = new HashMap<>();
+                param.put("userId", userId);
+                param.put("orgId", orgId);
+                param.put("appUid", appUid);
+                param.put("ticket", ticket);
+                String result = null;
+
+                result = HttpClientUtil.doPost(sso, param, null, null);
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonNode = mapper.readValue(result, JsonNode.class);
+                String code = jsonNode.findPath("Code").asText();
+                if (!code.equals("10000")) {
+                    logger.debug(result);
+                    return false;
+                }
+
+                userCode = jsonNode.findPath("Result").findPath("UserID").asText();
+                userName = jsonNode.findPath("Result").findPath("LoginID").asText();
+            }
+
+
             UserSessionModel userSession = userSessionDao.findOne(userCode);
             if (userSession != null) {
                 return true;
             }
 
-            UserModel user = userDao.findOne(userName);
+            UserModel user = userDao.findOneByCode(userCode);
             if (user == null) {
                 user = new UserModel(userName, userCode);
-                String idCard = getIdCard(userCode);
-                user.setIdCard(idCard);
-                user.setIdCard(getExternalIdentity(idCard));
+                //暂时不处理关联
+//                String idCard = getIdCard(userCode);
+//                user.setIdCard(idCard);
+//                user.setIdCard(getExternalIdentity(idCard));
                 user = userDao.save(user);
-            }
-
-            if (StringUtil.isEmpty(user.getIdCard()) || StringUtil.isEmpty(user.getExternalIdentity())) {
-                String idCard = getIdCard(userCode);
-                user.setIdCard(idCard);
-                user.setIdCard(getExternalIdentity(idCard));
-                user = userDao.save(user);
+            } else {
+                if (StringUtil.isEmpty(user.getIdCard()) || StringUtil.isEmpty(user.getExternalIdentity())) {
+                    //暂时不处理关联
+//                    String idCard = getIdCard(userCode);
+//                    user.setIdCard(idCard);
+//                    user.setIdCard(getExternalIdentity(idCard));
+                    user = userDao.save(user);
+                }
             }
 
             userSession = new UserSessionModel();

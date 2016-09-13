@@ -43,6 +43,6 @@ public class GateWayService {
             e.printStackTrace();
         }
 
-        return null;
+        return "{}";
     }
 }

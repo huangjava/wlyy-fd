@@ -56,7 +56,7 @@ public class DoctorPatientGroupController extends BaseController {
             @ApiParam(name = "userId", value = "当前医生用户id", defaultValue = "doctor001")
             @RequestParam(value = "userId", required = false) String userId) {
         try {
-            String signedPatients = signContractService.getSignedPatients(orgId, userId, "1", "100");
+            String signedPatients = signContractService.getSignedInfoList(orgId, userId, "1", "100");
             return write(200, "获取已签约居民汇总列表成功！", "data", signedPatients);
         } catch (Exception e) {
             error(e);

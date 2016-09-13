@@ -190,13 +190,13 @@ public class UserSessionService {
             String code = jsonNode.findPath("Code").asText();
             if (!code.equals("10000")) {
                 //TODO:WriteResponse,Not Login Jkzl App
-                response.getOutputStream().print(result);
+//                response.getOutputStream().print(result);
                 logger.debug(result);
                 return false;
             }
 
-            String userCode = jsonNode.findPath("Result").findPath("UserId").asText();
-            String userName = jsonNode.findPath("Result").findPath("LoginId").asText();
+            String userCode = jsonNode.findPath("Result").findPath("UserID").asText();
+            String userName = jsonNode.findPath("Result").findPath("LoginID").asText();
             UserSessionModel userSession = userSessionDao.findOne(userCode);
             if (userSession != null) {
                 return true;

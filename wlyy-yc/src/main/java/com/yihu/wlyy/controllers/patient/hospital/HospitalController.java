@@ -100,7 +100,7 @@ public class HospitalController extends BaseController {
 //        params.put("ticket",ticket);
 //        try {
 //            String url = "";
-//            String resultStr = HttpClientUtil.doPost(comUrl + url, params, username, password);
+//            String resultStr = HttpClientUtil.post(comUrl + url, params, username, password);
 //            return write(200, "身份认证成功！", "obj", "");
 //        } catch (Exception e) {
 //            error(e);

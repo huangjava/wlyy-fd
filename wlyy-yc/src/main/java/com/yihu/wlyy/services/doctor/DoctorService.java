@@ -1,6 +1,8 @@
 package com.yihu.wlyy.services.doctor;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -153,6 +155,36 @@ public class DoctorService {
         return null;
     }
 
+    // loginByID
+    //    <?xml version="1.0" encoding="UTF-8"?>
+    //    <MSGFORM>
+    //    <XMLDATA>
+    //    <RESULTFLAG>0</RESULTFLAG>
+    //    <USERID></USERID>
+    //    <ORGCODE></ORGCODE>
+    //    </XMLDATA>
+    //    </MSGFORM>
+    public String loginByID(String idCard, String loginKey) {
+        try {
+            String info = NeuSoftWebService.loginByID(idCard, loginKey);
+            Document document = DocumentHelper.parseText(info);
+            Element xmldata = document.getRootElement().element("XMLDATA");
+            String userId = xmldata.elementText("USERID");
+            String orgCode = xmldata.elementText("ORGCODE");
+
+
+            JSONObject json = new JSONObject();
+            json.put("orgCode", orgCode);
+            json.put("name", userId);
+
+            json.toString();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     /* ==========================    患者端  ======================================  */
 
 
@@ -216,7 +248,7 @@ public class DoctorService {
             doctorNode.put("name", name);
             doctorNode.put("dept", deptName);
             doctorNode.put("jobName", "");
-            doctorArray.put(doctorNode);
+            doctorArray.add(doctorNode);
         }
         } catch (DocumentException e) {
             e.printStackTrace();

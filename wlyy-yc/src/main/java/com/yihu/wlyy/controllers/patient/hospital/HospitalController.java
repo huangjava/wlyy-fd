@@ -5,6 +5,7 @@ import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -219,7 +220,7 @@ public class HospitalController extends BaseController {
 //            ResultModel resultModel = ResultModel.success("查询成功！");
 //            resultModel.setResultMap(resultMap);
 //            return resultModel.toJson();
-            net.sf.json.JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode);
+            JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode);
             return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);
@@ -249,7 +250,7 @@ public class HospitalController extends BaseController {
                     "}";
             JSONObject jsonObject = new JSONObject(json);
 
-            net.sf.json.JSONObject info =doctorService.getDoctorInfo(doctorCode);
+            JSONObject info =doctorService.getDoctorInfo(doctorCode);
 
             return write(200, "查询成功！", "data", info);
         } catch (Exception e) {

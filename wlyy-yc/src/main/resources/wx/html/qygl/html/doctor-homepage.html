@@ -38,7 +38,7 @@
 			</div>
 			
 			
-			<div id="team_member_warp" class="bgc-fff mt10 c-border-tb list-item-1">
+			<div id="team_descr" class="bgc-fff mt10 c-border-tb list-item-1">
 		        <div class="ui-grid ptb15 plr10 c-border-b">
 		        	<img src="../../../images/tuanduchengyuan_icon.png" class="c-w-20 c-h-20 c-vam"/>
 		            <div class="ui-col-1 c-vam pl5">
@@ -284,7 +284,7 @@
 		<script type="text/html" id="member_li_tmpl">
 			{{each list as it}}
 			<li data-code="{{it.code}}" class="c-list sever-list">
-				<a href="doctor-info.html?doctorCode={{it.code}}" class="ui-grid c-000">
+				<a href="#" onclick="doctorInfo('{{it.code}}')" class="ui-grid c-000">
 					 <span class="list-icon arrow-right"></span>
 			        <div class="ui-col-0 c-w-60 pt5 pb5" >
 			        	<img src="{{it.photo||(it.sex==1?'../../../images/d-male.png':'../../../images/d-female.png')}}" class="c-br50 c-w-50 c-h-50"></img>

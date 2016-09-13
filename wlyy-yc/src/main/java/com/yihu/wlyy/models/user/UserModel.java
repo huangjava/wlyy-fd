@@ -29,6 +29,7 @@ public class UserModel extends IdModel {
     private Integer points;
     private String openId;
     private Integer status;
+    private String idCard;
 
     public UserModel() {
 
@@ -189,5 +190,14 @@ public class UserModel extends IdModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "id_card")
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 }

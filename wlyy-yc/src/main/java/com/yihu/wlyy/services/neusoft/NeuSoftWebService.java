@@ -372,11 +372,11 @@ public class NeuSoftWebService {
     }
 
     //5.2登陆验证(根据医生身份证)  loginByID  -- 调通
-    public static String loginByID(String idNumber, String longinKey) {
+    public static String loginByID(String idNumber, String loginKey) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("IDNUMBER", idNumber);  //医生身份证
-            param.put("LOGINKEY", longinKey); //健康之路登陆验证key
+            param.put("LOGINKEY", loginKey); //健康之路登陆验证key
             String paramXml = XMLUtil.map2xml(param);
 
             Service service = new Service();

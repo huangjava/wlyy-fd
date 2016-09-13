@@ -153,8 +153,37 @@ public class DoctorService {
         return null;
     }
 
-    /* ==========================    患者端  ======================================  */
+    // loginByID
+    //    <?xml version="1.0" encoding="UTF-8"?>
+    //    <MSGFORM>
+    //    <XMLDATA>
+    //    <RESULTFLAG>0</RESULTFLAG>
+    //    <USERID></USERID>
+    //    <ORGCODE></ORGCODE>
+    //    </XMLDATA>
+    //    </MSGFORM>
+    public String loginByID(String idCard, String loginKey) {
+        try {
+            String info = NeuSoftWebService.loginByID(idCard, loginKey);
+            Document document = DocumentHelper.parseText(info);
+            Element xmldata = document.getRootElement().element("XMLDATA");
+            String userId = xmldata.elementText("USERID");
+            String orgCode = xmldata.elementText("ORGCODE");
 
+
+            JSONObject json = new JSONObject();
+            json.put("orgCode", orgCode);
+            json.put("name", userId);
+
+            json.toString();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /* ==========================    患者端  ======================================  */
 
 
     public JSONObject getDoctorInfo(String doctorId) {
@@ -195,29 +224,30 @@ public class DoctorService {
 
     /**
      * 通过团队获取 医生列表
+     *
      * @param teamId
      * @return
      */
-    public JSONArray getDoctorsByTeam(String teamId){
+    public JSONArray getDoctorsByTeam(String teamId) {
         JSONArray doctorArray = new JSONArray();
 
         try {
-        String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
-        Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
-        List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
+            String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
+            Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
+            List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
 
-        for (Element doctorElement : doctorList) {
-            String id = doctorElement.elementText("USERID");
-            String name = doctorElement.elementText("USER_FULLNAME");
-            String deptName = doctorElement.elementText("DEPT_NAME");
+            for (Element doctorElement : doctorList) {
+                String id = doctorElement.elementText("USERID");
+                String name = doctorElement.elementText("USER_FULLNAME");
+                String deptName = doctorElement.elementText("DEPT_NAME");
 
-            JSONObject doctorNode = new JSONObject();
-            doctorNode.put("code", id);
-            doctorNode.put("name", name);
-            doctorNode.put("dept", deptName);
-            doctorNode.put("jobName", "");
-            doctorArray.add(doctorNode);
-        }
+                JSONObject doctorNode = new JSONObject();
+                doctorNode.put("code", id);
+                doctorNode.put("name", name);
+                doctorNode.put("dept", deptName);
+                doctorNode.put("jobName", "");
+                doctorArray.add(doctorNode);
+            }
         } catch (DocumentException e) {
             e.printStackTrace();
         }

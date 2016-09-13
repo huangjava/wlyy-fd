@@ -1,8 +1,8 @@
-//mui.init({
-//	keyEventBind: {
-//		backbutton: false  //Boolean(默认true)关闭back按键监听
-//	}
-//});
+/*mui.init({
+	keyEventBind: {
+		backbutton: false  //Boolean(默认true)关闭back按键监听
+	}
+});*/
 
 function loginValidation() {
 	var	Request = GetRequest();
@@ -19,7 +19,7 @@ function loginValidation() {
 	/**
 	 * 请求医生基本信息
 	 */
-	sendPost("loginApp",
+	/*sendPost("loginApp",
 	{
 		"userId":userId,
 		"appUID":appUID,
@@ -34,7 +34,7 @@ function loginValidation() {
 		} else {
 
 		}
-	}, "GET");
+	}, "GET");*/
 
 	var oUserAgent = {
 		//"id": userId,
@@ -74,9 +74,6 @@ $(function() {
 		$('.main iframe').eq($(this).index()).show().siblings().hide();
 	})
 
-	//$.each($('.main iframe'), function (i, v) {
-	//	$(v).attr('src', $(v).attr('data-html'));
-	//})
 
 	/**
 	 * 请求医生基本信息
@@ -87,15 +84,14 @@ $(function() {
 			"ticket": ticket
 		},
 		null, function(res) {
-
-
 			if(res.status == 200) {
-				var infoStr = JSON.stringify(res.data);
-				plus.storage.setItem("docInfo", infoStr);
-				//TODO 测试用
-				console.log(infoStr);
+				plus.storage.setItem("docInfo", JSON.stringify(res.data));
+                $.each($('.main iframe'), function (i, v) {
+                    $(v).attr('src', $(v).attr('data-html'));
+                })
 			} else {
 				mui.toast("获取医生信息失败");
 			}
+            plus.nativeUI.closeWaiting();
 		});
 });

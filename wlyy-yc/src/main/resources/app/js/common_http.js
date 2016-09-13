@@ -64,7 +64,7 @@ function sendGet(url, params, custError, custSuccess){
  * success 请求成功处理方法
  */
 function sendPost(url, params, custError, custSuccess,dataType) {
-	
+
 	if(dataType==undefined){
 		dataType="POST"
 	}
@@ -81,6 +81,7 @@ function sendPost(url, params, custError, custSuccess,dataType) {
 		type: dataType,
 		timeout: 1000000,
 		error: custError || function(xht, type, throwErr) {
+            alert(url);
 			plus.nativeUI.closeWaiting();
 			var random = Math.random();
 			isLoginOut = window.localStorage.isLoginOut;

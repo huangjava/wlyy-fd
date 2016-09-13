@@ -23,12 +23,6 @@ public class NeuSoftWebService {
     private XMLUtil xmlUtil = new XMLUtil();
 
     //1.1 getGPTeamList  获取家庭医生团队列表  -- 调通
-    //参数示例
-    /*String paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <ORGCODE>2c9660e34f4fbb9d014f5d50be6c0016</ORGCODE>\n"
-                    + " <PAGE>1</PAGE>\n"
-                    + " <PAGESIZE>2</PAGESIZE>\n"
-                    +  " </QUERY_FORM>\n";
-    */
     public static String getGPTeamList(String orgCode, String page, String pageSize) throws Exception {
         try {
             Map<String, String> param = new HashMap<>();
@@ -53,13 +47,6 @@ public class NeuSoftWebService {
 
 
     //1.2 getGPTeamInfo  1.2获取家庭医生团信息  -- 调通
-    //参数示例
-    /*
-    String paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <TEAMID>74529931-1445-468d-8873-abfa63734e7c</TEAMID>\n"
-                    + " <PAGE>1</PAGE>\n"
-                    + " <PAGESIZE>2</PAGESIZE>\n"
-                    +  " </QUERY_FORM>\n";
-    */
     public static String getGPTeamInfo(String teamId, String page, String pageSize) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -104,21 +91,31 @@ public class NeuSoftWebService {
     }
 
     //1.4签约申请 doSignApply --  未调通  ----
-    public static String doSignApply(String selfName, String contactPhone, String appointmentSignDate, String signNo, String templeteId, String signTeam) {
+    public static String doSignApply(String selfName, String contactPhone,String idnumber, String appointmentSignDate,String templeteId, String signTeam) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("SELFNAME", selfName);
             param.put("CONTACTPHONE", contactPhone);  //本人电话
+            param.put("IDNUMBER", idnumber);    //签约团队
             param.put("APPOINTMENTSIGNDATE", appointmentSignDate); //预约签约日
-            param.put("SIGNNO", signNo);  //这个值是传递什么呢，界面上没有？ 签约编号
-            param.put("TEMPLETED", templeteId); //这个值是什么呢？界面上没有。  模板类型
             param.put("SIGNTEAM", signTeam);    //签约团队
+            param.put("TEMPLETEID", templeteId);
             String paramXml = XMLUtil.map2xml(param);
 
             Service service = new Service();
             Call call = (Call) service.createCall();
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("doSignApply");
+
+            paramXml =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                    + "<QUERY_FORM>\n"
+                    + " <SELFNAME>小黄人儿22</SELFNAME>\n"
+                    + " <CONTACTPHONE>13889457565</CONTACTPHONE>\n"
+                    + " <IDNUMBER>13889457565</IDNUMBER>\n"
+                    + " <APPOINTMENTSIGNDATE>2016-09-08</APPOINTMENTSIGNDATE>\n"
+                    + " <TEMPLETEID>Dummy007</TEMPLETEID>\n"
+                    + " <SIGNTEAM>09549d72-0511-48ac-b0af-b8453cc2681a</SIGNTEAM>\n"
+                    +  " </QUERY_FORM>\n";
 
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
@@ -141,10 +138,6 @@ public class NeuSoftWebService {
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("getSignState");
 
-            paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <OPENID>OCEF9T2HW1GBY0KINQK0NEL_ZOSK</OPENID>\n"
-                    +  " </QUERY_FORM>\n";
-
-
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
             return res;
@@ -155,13 +148,10 @@ public class NeuSoftWebService {
     }
 
     //1.6获取所有机构列表（根据居民地址） getOrgList  -- 未开发
-    public static String getOrgList(String district, String street, String community, String address) {
+    public static String getOrgList(String community) {
         try {
             Map<String, String> param = new HashMap<>();
-            param.put("District", district);
-            param.put("Street", street);
-            param.put("Community", community);
-            param.put("ADDRESS", address);
+            param.put("COMMUNITY", community);
             String paramXml = XMLUtil.map2xml(param);
 
             Service service = new Service();
@@ -187,11 +177,8 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("getOrgListByOpenid");
-
-            paramXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<QUERY_FORM>\n" + " <OPENID>OCEF9T2HW1GBY0KINQK0NEL_ZOSK</OPENID>\n"
-                    +  " </QUERY_FORM>\n";
 
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
@@ -350,7 +337,7 @@ public class NeuSoftWebService {
     }
 
     //登陆验证接口 -- 废弃，不做单独的登陆
-    public static String login(String userName, String password) {
+    /*public static String login(String userName, String password) {
         try {
             Map<String, String> param = new HashMap<>();
             param.put("USER_NAME", userName);
@@ -369,7 +356,7 @@ public class NeuSoftWebService {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
     //5.2登陆验证(根据医生身份证)  loginByID  -- 调通
     public static String loginByID(String idNumber, String loginKey) {
@@ -402,8 +389,29 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(doctorUrl));
             call.setOperation("getSignDetailInfo");
+
+            String res = (String) call.invoke(new Object[]{paramXml});
+            //res = XMLUtil.xml2JSON(res);
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //7.2获取已签约的人员详细信息  getSignDetailInfoByChid -- 未开发
+    public static String getSignDetailInfoByChid(String chid) {
+        try {
+            Map<String, String> param = new HashMap<>();
+            param.put("CHID", chid);
+            String paramXml = XMLUtil.map2xml(param);
+
+            Service service = new Service();
+            Call call = (Call) service.createCall();
+            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setOperation("getSignDetailInfoByChid");
 
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);

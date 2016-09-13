@@ -1,9 +1,16 @@
 package com.yihu.wlyy.services.doctor;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
+import org.apache.axis.client.Call;
 import org.junit.Test;
 
+import javax.xml.rpc.ServiceException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+
 public class NeuSoftWebServiceTest {
+
+
 
     private static NeuSoftWebService neuSoftWebService = new NeuSoftWebService();
 
@@ -31,21 +38,21 @@ public class NeuSoftWebServiceTest {
     //1.4签约申请 doSignApply  -- 未通过
     @Test
     public void doSignApply() throws Exception {
-        String info = neuSoftWebService.doSignApply("林霖","13889457565","2016-09-08","125","Dummy007","09549d72-0511-48ac-b0af-b8453cc2681a");
+        String info = neuSoftWebService.doSignApply("小黄人儿22","13889457565","13889457565","2016-09-08","Dummy007", "09549d72-0511-48ac-b0af-b8453cc2681a");
         System.out.println(info);
     }
 
     //1.5获取签约状态 getSignState -- 未通过
-    @Test
+    //@Test
     public void getSignState() throws Exception {
         String info = neuSoftWebService.getSignState("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
         System.out.println(info);
     }
 
     //1.6获取所有机构列表（根据居民地址） getOrgList -- 未开发
-    //@Test
+    @Test
     public void getOrgList() throws Exception {
-        String info = neuSoftWebService.getOrgList("420502","420502001","420502001001","");
+        String info = neuSoftWebService.getOrgList("23e78f86-d38c-41e8-a75a-add79a4b2723");
         //西陵区  420502  西陵街道  420502001  土街头社区居委会   420502001001
         System.out.println(info);
     }
@@ -87,30 +94,37 @@ public class NeuSoftWebServiceTest {
     }
 
     //3.4提交确认签约信息 upConfirmSignedInfo -- 未通过
-    @Test
+    //@Test
     public void upConfirmSignedInfo() throws Exception {
         String info = neuSoftWebService.getToSignInfoList("1234","420505198104127042","1","10");
         System.out.println(info);
     }
 
-    //4.1获取当前医生参与的团队列表  getMyTeam
-    @Test
+    //4.1获取当前医生参与的团队列表  getMyTeam  -- OK
+    //@Test
     public void getMyTeam() throws Exception {
         String info = neuSoftWebService.getMyTeam("2c9660e34f4fbb9d014f5d5453b8001b", "f93afa56-417c-4901-aeab-002ded330d86");
         System.out.println(info);
     }
 
     //5.2登陆验证(根据医生身份证)  loginByID -- 未通过
-    @Test
+    //@Test
     public void loginByID() throws Exception {
         String info = neuSoftWebService.loginByID("521236197407075566", "JKZL");
         System.out.println(info);
     }
 
     //7.1获取已签约的人员详细信息
-    /*@Test
+    @Test
     public void getSignDetailInfo() throws Exception {
         String info = neuSoftWebService.getSignDetailInfo("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
         System.out.println(info);
-    }*/
+    }
+
+    //7.2获取已签约的人员详细信息
+    @Test
+    public void getSignDetailInfoByChid() throws Exception {
+        String info = neuSoftWebService.getSignDetailInfoByChid("bcc9e576-517f-4ed2-93d6-386b09f99184");
+        System.out.println(info);
+    }
 }

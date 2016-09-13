@@ -226,7 +226,7 @@ public class HospitalService {
     public List<Map<String,Object>> getOrgsByUserAddr(String district,String street,String community,String address){
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
-        String responseXml = NeuSoftWebService.getOrgList(district,street,community,address);
+        String responseXml = NeuSoftWebService.getOrgList(community);
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<MSGFORM>\n" +
                 "  <XMLDATA>\n" +

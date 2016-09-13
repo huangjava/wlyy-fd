@@ -1,5 +1,7 @@
 package com.yihu.wlyy.services.doctor;
 
+import com.yihu.wlyy.daos.UserDao;
+import com.yihu.wlyy.models.user.UserModel;
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -7,6 +9,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,15 @@ import java.util.List;
  */
 @Service
 public class DoctorService {
+    @Autowired
+    private UserDao userDao;
+
+    //获取与东软交互的医生唯一标识
+    public String getDoctorId(String userId) {
+        UserModel userModel = userDao.findOneByCode(userId);
+        return userModel == null ? "" : userModel.getExternalIdentity();
+    }
+
     //  getMyTeam
     //    <?xml version="1.0" encoding="UTF-8"?>
     //    <MsgForm>
@@ -186,7 +198,6 @@ public class DoctorService {
     /* ==========================    患者端  ======================================  */
 
 
-
     public JSONObject getDoctorInfo(String doctorId) {
         try {
             String info = NeuSoftWebService.getGPInfo(doctorId);
@@ -225,29 +236,30 @@ public class DoctorService {
 
     /**
      * 通过团队获取 医生列表
+     *
      * @param teamId
      * @return
      */
-    public JSONArray getDoctorsByTeam(String teamId){
+    public JSONArray getDoctorsByTeam(String teamId) {
         JSONArray doctorArray = new JSONArray();
 
         try {
-        String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
-        Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
-        List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
+            String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
+            Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
+            List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
 
-        for (Element doctorElement : doctorList) {
-            String id = doctorElement.elementText("USERID");
-            String name = doctorElement.elementText("USER_FULLNAME");
-            String deptName = doctorElement.elementText("DEPT_NAME");
+            for (Element doctorElement : doctorList) {
+                String id = doctorElement.elementText("USERID");
+                String name = doctorElement.elementText("USER_FULLNAME");
+                String deptName = doctorElement.elementText("DEPT_NAME");
 
-            JSONObject doctorNode = new JSONObject();
-            doctorNode.put("code", id);
-            doctorNode.put("name", name);
-            doctorNode.put("dept", deptName);
-            doctorNode.put("jobName", "");
-            doctorArray.add(doctorNode);
-        }
+                JSONObject doctorNode = new JSONObject();
+                doctorNode.put("code", id);
+                doctorNode.put("name", name);
+                doctorNode.put("dept", deptName);
+                doctorNode.put("jobName", "");
+                doctorArray.add(doctorNode);
+            }
         } catch (DocumentException e) {
             e.printStackTrace();
         }

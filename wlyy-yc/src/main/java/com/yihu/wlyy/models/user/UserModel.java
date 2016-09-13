@@ -38,8 +38,6 @@ public class UserModel extends IdModel {
     public UserModel(String openId) {
         this.code = UUID.randomUUID().toString().replace("-", "");
         this.name = "yichang_" + code.substring(0, 6);
-        this.salt = openId.substring(0, 4);
-//        this.password
         this.createTime = new Date();
         this.externalIdentity = openId;
         this.openId = openId;
@@ -49,11 +47,7 @@ public class UserModel extends IdModel {
     public UserModel(String name, String code) {
         this.name = name;
         this.code = code;
-        this.salt = openId.substring(0, 4);
-//        this.password
         this.createTime = new Date();
-        this.externalIdentity = openId;
-//        this.openId = openId;
         this.status = 1;
     }
 

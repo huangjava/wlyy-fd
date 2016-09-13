@@ -22,7 +22,7 @@ mui.plusReady(function() {
 	};
 	userAgent = JSON.stringify(oUserAgent);
 	//plus.navigator.setUserAgent(userAgent); // 保存后会存到User_Agent对象中
-	plus.navigator.setRequestHeader("userAgent", userAgent);
+	//plus.navigator.setRequestHeader("userAgent", userAgent);
 	plus.storage.setItem("userAgent", userAgent);
 
 	var orgId = Request["orgId"];
@@ -33,7 +33,7 @@ mui.plusReady(function() {
 	plus.storage.setItem("appUID", appUID);
 	plus.storage.setItem("ticket", ticket);
 	plus.storage.setItem("userId", userId);
-				
+
 	alert(userId + orgId + ticket);
 			
 	window.localStorage.removeItem("isLoginOut");
@@ -46,7 +46,21 @@ mui.plusReady(function() {
 	var client_id = plus.storage.getItem("appUID");
 	var ticket = plus.storage.getItem("ticket");
 	var userId = plus.storage.getItem("userId");
-	
+	sendPost("loginApp",
+		{
+			"userId":userId,
+			"appUID":appUID,
+			"orgId":orgId,
+			"appType":appType,
+			"vaildTime":vaildTime,
+			"ticket":ticket
+		},
+		null, function(res) {
+			if(res.status == 200) {
+				//TODO 测试用
+			} else {
+			}
+		});
 	var subPages = [ "yiqianyue.html","daiqianyue.html","mine.html"];
 
 	/**
@@ -82,6 +96,7 @@ mui.plusReady(function() {
 			activeSub = targetSub;
 		});
 	}
+
 	/**
 	 * 请求医生基本信息
 	 */

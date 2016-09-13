@@ -3,7 +3,7 @@ package com.yihu.wlyy.services.hospital;
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.XMLUtil;
 import org.dom4j.DocumentException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.Map;
  * @vsrsion 1.0
  * Created at 2016/9/10.
  */
-@Component
+@Service
 public class HospitalService {
 
     /**
@@ -30,17 +30,17 @@ public class HospitalService {
         String responseXml = NeuSoftWebService.getGPTeamList(orgCode,page,pageSize);
 
         //TODO 调用东软接口返回数据
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<MSGFORM>\n" +
-                "  <XMLDATA>\n" +
-                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
-                "    <TEAMNAME>糖尿病团队</TEAMNAME>\n" +
-                "  </XMLDATA>\n" +
-                "    <XMLDATA>\n" +
-                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
-                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
-                "  </XMLDATA>\n" +
-                "</MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<MSGFORM>\n" +
+//                "  <XMLDATA>\n" +
+//                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
+//                "    <TEAMNAME>糖尿病团队</TEAMNAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "    <XMLDATA>\n" +
+//                "    <TEAMID>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</TEAMID>\n" +
+//                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "</MSGFORM>\n";
 
 
             Map<String,Object> map  = XMLUtil.xml2map(responseXml);
@@ -262,7 +262,7 @@ public class HospitalService {
     public List<Map<String,Object>> getTeamByDoctorCode(String orgCode,String doctorCode){
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
-        String responseXml = "";
+        String responseXml =  NeuSoftWebService.getMyTeam(orgCode, doctorCode);
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "  <MSGFORM>\n" +
                 "    <XMLDATA>\n" +

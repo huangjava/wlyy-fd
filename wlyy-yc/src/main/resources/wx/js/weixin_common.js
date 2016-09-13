@@ -22,6 +22,8 @@
 // 测试环境（健康之路宜昌）
 //var server = "http://weixin.xmtyw.cn/wlyy/";
 var server = "http://ehr.yihu.com/yichang/fd/";
+//var server = "http://192.168.131.11:9111/fd/";
+
 var appId = "wxd03f859efdf0873d";
 var urlName = "wlyy";
 var weixinUrl = "weixin.xmtyw.cn";

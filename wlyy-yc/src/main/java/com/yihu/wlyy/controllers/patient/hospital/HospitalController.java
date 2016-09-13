@@ -1,11 +1,12 @@
 package com.yihu.wlyy.controllers.patient.hospital;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.services.doctor.DoctorService;
+import com.yihu.wlyy.services.hospital.HospitalService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,12 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/patient/hospital")
 public class HospitalController extends BaseController {
+
+
+    @Autowired
+    private HospitalService hospitalService;
+    @Autowired
+    private DoctorService doctorService;
 
     @RequestMapping(value = "/getTownByCityCode", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "根据市得到区", produces = "application/json", notes = "根据市得到区")
@@ -81,7 +88,11 @@ public class HospitalController extends BaseController {
     @ApiOperation(value = "根据机构编码获取团队列表", produces = "application/json", notes = "根据机构编码获取团队列表")
     public String getTeamsByOrg(
             @ApiParam(name = "orgCode", value = "机构编码", required = false)
-            @RequestParam(required = false) String orgCode) {
+            @RequestParam(required = false) String orgCode,
+            @ApiParam(name = "page", value = "页数")
+            @RequestParam(required = false,defaultValue = "1") String page,
+            @ApiParam(name = "pageSize", value = "每页大小")
+            @RequestParam(required = false,defaultValue = "15") String pageSize) {
 
         Map<String,Object> params = new HashMap<String, Object>();
         params.put("orgCode",orgCode);
@@ -97,8 +108,10 @@ public class HospitalController extends BaseController {
 
         try {
             //TODO 示例
-            ObjectMapper objectMapper = new ObjectMapper();
-            List list = objectMapper.readValue("[{\"code\":\"D2016080002\",\"job_name\":\" 第一社团\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1262,\"expertise\":\"思明高级社区服务\",\"hospital_name\":\"第一社团\"},{\"code\":\"D2016080005\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2016080006\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2010080225\",\"job_name\":\" 第一社团3\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\" 第一社团3)\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1276,\"expertise\":\"思明区中华街道社区卫生服务中心\",\"hospital_name\":\" 第一社团3\"}]",List.class);
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            List list = objectMapper.readValue("[{\"code\":\"D2016080002\",\"job_name\":\" 第一社团\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1262,\"expertise\":\"思明高级社区服务\",\"hospital_name\":\"第一社团\"},{\"code\":\"D2016080005\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2016080006\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2010080225\",\"job_name\":\" 第一社团3\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\" 第一社团3)\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1276,\"expertise\":\"思明区中华街道社区卫生服务中心\",\"hospital_name\":\" 第一社团3\"}]",List.class);
+
+            List<Map<String,Object>> list = hospitalService.getTeamsByorgCode("2c9660e34f4fbb9d014f5d50be6c0016", page, pageSize);
 
             return write(200, "查询成功！", "list", list);
         } catch (Exception ex) {
@@ -110,26 +123,28 @@ public class HospitalController extends BaseController {
     @RequestMapping(value = "/getTeamInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "获取医生团队详细信息", produces = "application/json", notes = "获取医生团队详细信息")
     public String getTeamInfo(
-            @ApiParam(name = "orgCode", value = "机构编码", required = true)
-            @RequestParam(required = true) String orgCode,
+//            @ApiParam(name = "orgCode", value = "机构编码", required = true)
+//            @RequestParam(required = true) String orgCode,
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
-            @RequestParam(required = true) String teamCode) {
+            @RequestParam(required = true) String teamCode,
+            @ApiParam(name = "page", value = "页数", required = false)
+            @RequestParam(required = false,defaultValue = "1") String page,
+            @ApiParam(name = "pageSize", value = "每页大小", required = false)
+            @RequestParam(required = false,defaultValue = "15") String pageSize) {
         try {
-            String json = "{\n" +
-                    "\"photo\":\"\",\n" +
-                    "\"teamCode\":\""+teamCode+"\",\n" +
-                    "\"teamName\":\"第一社团\",\n" +
-                    "\"orgCode\":\""+orgCode+"\",\n" +
-                    "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
-                    "\"introduce\":\"思明高级社区服务\",\n" +
-                    "}";
-            JSONObject jsonObject = new JSONObject(json);
-//            Map resultMap = new HashMap<>();
-//            resultMap.put("data", jsonObject);
-//            ResultModel resultModel = ResultModel.success("查询成功！");
-//            resultModel.setResultMap(resultMap);
-//            return resultModel.toJson();
-            return write(200, "查询成功！", "data", jsonObject);
+//            String json = "{\n" +
+//                    "\"photo\":\"\",\n" +
+//                    "\"teamCode\":\""+teamCode+"\",\n" +
+//                    "\"teamName\":\"第一社团\",\n" +
+//                    "\"orgCode\":\""+orgCode+"\",\n" +
+//                    "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
+//                    "\"introduce\":\"思明高级社区服务\",\n" +
+//                    "}";
+//            JSONObject jsonObject = new JSONObject(json);
+
+            Map<String,Object> info = hospitalService.getTeamInfoByTeamCode( teamCode,page,pageSize);
+
+            return write(200, "查询成功！", "data", info);
         } catch (Exception ex) {
             error(ex);
             return error(-1, "查询失败！");
@@ -147,6 +162,7 @@ public class HospitalController extends BaseController {
             @RequestParam(required = true) Integer end) {
 
         try {
+            //TODO 调用获取团队成员列表接口
             String json = "[\n" +
                     "        {\n" +
                     "            \"code\": \"D2016080002\",\n" +
@@ -197,12 +213,13 @@ public class HospitalController extends BaseController {
                     "            \"relationship\": \"女儿\"\n" +
                     "        }\n" +
                     "    ]";
-            JSONArray jsonArray = new JSONArray(json);
+//            JSONArray jsonArray = new JSONArray(json);
 //            Map resultMap = new HashMap<>();
 //            resultMap.put("list", jsonArray);
 //            ResultModel resultModel = ResultModel.success("查询成功！");
 //            resultModel.setResultMap(resultMap);
 //            return resultModel.toJson();
+            net.sf.json.JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode);
             return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);
@@ -231,7 +248,10 @@ public class HospitalController extends BaseController {
                     "\"introduce\":\"主治医师，2004年毕业于福建医科大学\",\n" +
                     "}";
             JSONObject jsonObject = new JSONObject(json);
-            return write(200, "查询成功！", "data", jsonObject);
+
+            net.sf.json.JSONObject info =doctorService.getDoctorInfo(doctorCode);
+
+            return write(200, "查询成功！", "data", info);
         } catch (Exception e) {
             error(e);
             return error(-1, "医生详细信息失败！");

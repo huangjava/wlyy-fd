@@ -169,4 +169,4 @@ function refresh(e) {
 /**
  * 自定义刷新事件
  */
-//window.addEventListener("refresh", refresh);
+window.addEventListener("updatedaiqianyue", refresh);

@@ -103,6 +103,8 @@
 		
 	<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../../js/jquery/2.1.3/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../../widget/artDialog/6.0.5/css/ui-dialog.min.css" />
+	<script src="../../../widget/artDialog/6.0.5/js/dialog-plus.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="../../../js/mui.min.js"></script>
 	<script src="../../../widget/mobiscroll/2.17.1/js/mobiscroll.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.17.1/css/mobiscroll.css" />
@@ -134,9 +136,9 @@
 				function success(res) {
 					if (res.status == 200) {
 						console.log(JSON.stringify(res.data));
-						var contTeam = template("team_info_tmpl",res.data)
+						var contTeam = template("team_info_tmpl",res.data[0]);
 						document.getElementById("doc_team_info").innerHTML = contTeam;
-						var cont = template("doc_list_tmpl", {data:res.data.list});
+						var cont = template("doc_list_tmpl", {data:res.data[0].list});
 						document.getElementById("group").innerHTML = cont;
 					}
 			});

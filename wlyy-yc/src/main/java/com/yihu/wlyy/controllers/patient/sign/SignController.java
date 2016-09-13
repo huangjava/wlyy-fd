@@ -1,14 +1,19 @@
 package com.yihu.wlyy.controllers.patient.sign;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.services.person.SignlTransFormService;
+import com.yihu.wlyy.util.DateUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016.08.26.
@@ -16,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/patient/sign")
 public class SignController extends BaseController {
+
+    @Autowired
+    private SignlTransFormService signlTransFormService;
 
     @RequestMapping(value = "getSignStatus", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
@@ -127,19 +135,16 @@ public class SignController extends BaseController {
     @ResponseBody
     @ApiOperation(value = "发送签约申请", produces = "application/json", notes = "发送签约申请")
     public String sign(
-            @ApiParam(name = "patientCode", value = "患者Code", required = true)
-            @RequestParam(required = true) String patientCode,
-            @ApiParam(name = "orgCode", value = "机构Code", required = true)
-            @RequestParam(required = true) String orgCode,
-            @ApiParam(name = "orgName", value = "机构名称", required = true)
-            @RequestParam(required = false)String orgName,
+            @ApiParam(name = "patientName", value = "姓名", required = true)
+            @RequestParam(required = true) String patientName,
+            @ApiParam(name = "contactPhone", value = "本人电话", required = true)
+            @RequestParam(required = true) String contactPhone,
             @ApiParam(name = "teamCode", value = "团队Code", required = true)
-            @RequestParam(required = true) String teamCode,
-            @ApiParam(name = "teamName", value = "团队名称", required = true)
-            @RequestParam(required = false)String teamName) {
+            @RequestParam(required = true) String teamCode) {
         try {
 
-            return write(200, "签约申请已发送！", "data", "");
+            Map<String,Object> info = signlTransFormService.doSignApply(patientName,contactPhone, DateUtil.getStringDateShort(),"123","Dummy007",teamCode);
+            return write(200, "签约申请已发送！", "data", info);
         } catch (Exception e) {
             error(e);
             return error(-1, "签约申请发送失败！");

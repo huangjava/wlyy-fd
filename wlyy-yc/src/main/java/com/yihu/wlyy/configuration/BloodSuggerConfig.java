@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * @created Airhead 2016/8/1.
  */
 @Configuration
-public class BloodSuggerConfiguration {
+public class BloodSuggerConfig {
     @Value("${bloodSugger.fasting}")
     private String fasting;
     @Value("${bloodSugger.afterBreakfast}")

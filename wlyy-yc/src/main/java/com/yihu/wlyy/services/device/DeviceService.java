@@ -2,7 +2,7 @@ package com.yihu.wlyy.services.device;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yihu.wlyy.configuration.BloodSuggerConfiguration;
+import com.yihu.wlyy.configuration.BloodSuggerConfig;
 import com.yihu.wlyy.daos.*;
 import com.yihu.wlyy.models.common.ResultModel;
 import com.yihu.wlyy.models.device.*;
@@ -34,7 +34,7 @@ public class DeviceService  {
 	@Autowired
 	private PatientHealthIndexDao patientHealthIndexDao;
 	@Autowired
-	private BloodSuggerConfiguration bloodSuggerConfiguration;
+	private BloodSuggerConfig bloodSuggerConfig;
 	@Autowired
 	private DeviceDetailDao deviceDetailDao;
 
@@ -236,13 +236,13 @@ public class DeviceService  {
 	}
 
 	public String formatBloodSuger(String dateTime) {
-		String[] fasting = bloodSuggerConfiguration.getFasting().split("-");
-		String[] afterBreakfast = bloodSuggerConfiguration.getAfterBreakfast().split("-");
-		String[] beforeLunch = bloodSuggerConfiguration.getBeforeLunch().split("-");
-		String[] afterLunch = bloodSuggerConfiguration.getAfterLunch().split("-");
-		String[] beforeDinner = bloodSuggerConfiguration.getBeforeDinner().split("-");
-		String[] afterDinner = bloodSuggerConfiguration.getAfterDinner().split("-");
-		String[] beforeSleep = bloodSuggerConfiguration.getBeforeSleep().split("-");
+		String[] fasting = bloodSuggerConfig.getFasting().split("-");
+		String[] afterBreakfast = bloodSuggerConfig.getAfterBreakfast().split("-");
+		String[] beforeLunch = bloodSuggerConfig.getBeforeLunch().split("-");
+		String[] afterLunch = bloodSuggerConfig.getAfterLunch().split("-");
+		String[] beforeDinner = bloodSuggerConfig.getBeforeDinner().split("-");
+		String[] afterDinner = bloodSuggerConfig.getAfterDinner().split("-");
+		String[] beforeSleep = bloodSuggerConfig.getBeforeSleep().split("-");
 		if (isInArea(dateTime, fasting)) {
 			return "1";//"空腹血糖"
 		}

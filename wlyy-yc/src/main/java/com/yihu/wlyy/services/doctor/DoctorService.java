@@ -7,6 +7,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +59,7 @@ public class DoctorService {
     //    <DEPT_NAME>儿科</DEPT_NAME>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String getMyTeam(String orgCode, String doctorId) {
+    public JSONArray getMyTeam(String orgCode, String doctorId) {
         try {
             String myTeam = NeuSoftWebService.getMyTeam(orgCode, doctorId);
             Document document = DocumentHelper.parseText(myTeam);
@@ -85,15 +87,15 @@ public class DoctorService {
                     doctorNode.put("name", name);
                     doctorNode.put("dept", deptName);
                     doctorNode.put("jobName", "");
-                    doctorArray.add(doctorNode);
+                    doctorArray.put(doctorNode);
 
                 }
                 teamNode.put("list", doctorArray);
 
-                myTeamArray.add(teamNode);
+                myTeamArray.put(teamNode);
             }
 
-            return myTeamArray.toString();
+            return myTeamArray;
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -114,7 +116,7 @@ public class DoctorService {
     //    <PHOTO></PHOTO>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String getInfo(String doctorId) {
+    public JSONObject getInfo(String doctorId) {
         try {
             String info = NeuSoftWebService.getGPInfo(doctorId);
 
@@ -145,7 +147,37 @@ public class DoctorService {
             json.put("provinceName", "");    // 省份（无）--湖北
             json.put("cityName", "");        // 城市（无）--宜昌
 
-            return json.toString();
+            return json;
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    // loginByID
+    //    <?xml version="1.0" encoding="UTF-8"?>
+    //    <MSGFORM>
+    //    <XMLDATA>
+    //    <RESULTFLAG>0</RESULTFLAG>
+    //    <USERID></USERID>
+    //    <ORGCODE></ORGCODE>
+    //    </XMLDATA>
+    //    </MSGFORM>
+    public String loginByID(String idCard, String loginKey) {
+        try {
+            String info = NeuSoftWebService.loginByID(idCard, loginKey);
+            Document document = DocumentHelper.parseText(info);
+            Element xmldata = document.getRootElement().element("XMLDATA");
+            String userId = xmldata.elementText("USERID");
+            String orgCode = xmldata.elementText("ORGCODE");
+
+
+            JSONObject json = new JSONObject();
+            json.put("orgCode", orgCode);
+            json.put("name", userId);
+
+            json.toString();
         } catch (DocumentException e) {
             e.printStackTrace();
         }

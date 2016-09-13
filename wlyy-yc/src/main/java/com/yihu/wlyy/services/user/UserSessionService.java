@@ -89,10 +89,7 @@ public class UserSessionService {
             userSession.setUserCode(user.getCode());
             userSession.setToken(UUID.randomUUID().toString());
         }
-
-        String nextDay = DateUtil.getNextDay(new Date(), 1);
-        Date expireTime = DateUtil.strToDateLong(nextDay);
-        userSession.setExpireTime(expireTime);
+        userSession.setExpireTime(DateUtil.addDateTime(1, new Date()));
 
         userSession = userSessionDao.save(userSession);
 
@@ -214,9 +211,7 @@ public class UserSessionService {
             userSession = new UserSessionModel();
             userSession.setUserCode(user.getCode());
             userSession.setToken(ticket);
-            String nextDay = DateUtil.getNextDay(new Date(), 1);
-            Date expireTime = DateUtil.strToDateLong(nextDay);
-            userSession.setExpireTime(expireTime);
+            userSession.setExpireTime(DateUtil.addDateTime(1, new Date()));
 
             userSessionDao.save(userSession);
             return true;

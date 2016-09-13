@@ -66,7 +66,7 @@ public class PatientDeviceController extends BaseController {
 									 @RequestParam(value="pagesize",required = true) int pagesize) {
 		try {
 			//TODO demo数据
-			String demo ="[{\"id\":456,\"deviceId\":1,\"deviceSn\":\"cc3321xxxccc1211\",\"deviceName\":\"血压计-康为A206G\",\"user\":\"CS20160830001\",\"categoryCode\":\"2\",\"userType\":\"2\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:50:58\"},{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}]";
+//			String demo ="[{\"id\":456,\"deviceId\":1,\"deviceSn\":\"cc3321xxxccc1211\",\"deviceName\":\"血压计-康为A206G\",\"user\":\"CS20160830001\",\"categoryCode\":\"2\",\"userType\":\"2\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:50:58\"},{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}]";
 //			List list = objectMapper.readValue(demo,List.class);
 
 //			String user = getUID();
@@ -121,7 +121,7 @@ public class PatientDeviceController extends BaseController {
 	 * 设备删除
 	 */
 	@ApiOperation("设备删除")
-	@RequestMapping(value = "DeletePatientDevice", produces = "application/json;charset=UTF-8",method = RequestMethod.DELETE)
+	@RequestMapping(value = "deletePatientDevice", produces = "application/json;charset=UTF-8",method = RequestMethod.DELETE)
 	@ResponseBody
 	public String delete(@ApiParam(name="id",value="删除设备关联ID")
 						  @RequestParam(value="id",required = true) String id) {

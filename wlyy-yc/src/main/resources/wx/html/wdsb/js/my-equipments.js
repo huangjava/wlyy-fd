@@ -61,7 +61,7 @@ initTouch = function (){
 // 删除设备
 deleteDevice = function(code) {
 	if(!code) return;
-	return getReqPromise("patient/device/DeletePatientDevice",{id:code})
+	return getReqPromise("patient/device/deletePatientDevice",{id:code})
 			.then(function(res) {
 				if (res.loginUrl) {
 					window.location.href = res.loginUrl;
@@ -148,7 +148,7 @@ bindEvents = function (){
 };
 
 // 请求设备列表
-getReqPromises([{url:"patient/device/PatientDeviceList",data:{id:0,pagesize:15,openId:openId,random:random}}])
+getReqPromises([{url:"patient/device/patientDeviceList",data:{id:0,pagesize:15,openId:openId,random:random}}])
 //请求成功后处理
 .then(function(datas) {
 	// TODO 设备列表数据示例
@@ -170,7 +170,7 @@ getReqPromises([{url:"patient/device/PatientDeviceList",data:{id:0,pagesize:15,o
 	}
 	
 	var deviceListScroller = $deviceListView.initScroll({pullDown: false,pullUpAction: function() {
-		getReqPromise("patient/device/PatientDeviceList", {id:lastId,pagesize:15,openId:openId,random:random}).then(function(data) {
+		getReqPromise("patient/device/patientDeviceList", {id:lastId,pagesize:15,openId:openId,random:random}).then(function(data) {
 			if (data.loginUrl) {
 				window.location.href = data.loginUrl;
 				return;

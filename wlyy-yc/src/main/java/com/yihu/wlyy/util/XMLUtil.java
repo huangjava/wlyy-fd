@@ -551,44 +551,48 @@ public class XMLUtil {
 
 
     public static Map xmltoMap(String xml) {
-        try {
-            Map map = new HashMap();
-            Document document = DocumentHelper.parseText(xml);
-            Element nodeElement = document.getRootElement();
-            List node = nodeElement.elements();
-            for (Iterator it = node.iterator(); it.hasNext();) {
-                Element elm = (Element) it.next();
-                map.put(elm.getName(), elm.getText());
-                elm = null;
+        if (!StringUtil.isEmpty(xml)) {
+            try {
+                Map map = new HashMap();
+                Document document = DocumentHelper.parseText(xml);
+                Element nodeElement = document.getRootElement();
+                List node = nodeElement.elements();
+                for (Iterator it = node.iterator(); it.hasNext(); ) {
+                    Element elm = (Element) it.next();
+                    map.put(elm.getName(), elm.getText());
+                    elm = null;
+                }
+                node = null;
+                nodeElement = null;
+                document = null;
+                return map;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            node = null;
-            nodeElement = null;
-            document = null;
-            return map;
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
 
     public static List xmltoList(String xml) {
-        try {
-            List<Map> list = new ArrayList<Map>();
-            Document document = DocumentHelper.parseText(xml);
-            Element nodesElement = document.getRootElement();
-            List nodes = nodesElement.elements();
-            for (Iterator its = nodes.iterator(); its.hasNext();) {
-                Element nodeElement = (Element) its.next();
-                Map map = xmltoMap(nodeElement.asXML());
-                list.add(map);
-                map = null;
+        if (!StringUtil.isEmpty(xml)) {
+            try {
+                List<Map> list = new ArrayList<Map>();
+                Document document = DocumentHelper.parseText(xml);
+                Element nodesElement = document.getRootElement();
+                List nodes = nodesElement.elements();
+                for (Iterator its = nodes.iterator(); its.hasNext(); ) {
+                    Element nodeElement = (Element) its.next();
+                    Map map = xmltoMap(nodeElement.asXML());
+                    list.add(map);
+                    map = null;
+                }
+                nodes = null;
+                nodesElement = null;
+                document = null;
+                return list;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            nodes = null;
-            nodesElement = null;
-            document = null;
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }

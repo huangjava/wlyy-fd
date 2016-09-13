@@ -24,6 +24,7 @@ public class WebConfig  extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/patient/**")
                 .addPathPatterns("/doctor/**")
                 .addPathPatterns("/user/**")
-                .addPathPatterns("/common/**");
+                .addPathPatterns("/common/**")
+                .addPathPatterns("/loginApp/**");
     }
 }

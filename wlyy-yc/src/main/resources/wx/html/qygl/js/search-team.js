@@ -2,6 +2,9 @@ var d = dialog({contentType:'load', skin:'bk-popup'}).show();
 saveAgentPage("../../qygl/html/search-team.html");
 var Request = GetRequest();
 var hospital = Request["hospital"];
+var hospitalName = decodeURIComponent(Request["name"]||"");
+var hospitalAddress = decodeURIComponent(Request["address"]||"");
+
 // TODO 示例参数接受，设置默认值
 var code = Request["code"] ;
 var name = decodeURIComponent(Request["name"]||"");
@@ -10,6 +13,9 @@ var state = Request["state"];
 var stateArray = "";
 
 var pagetype = 17;
+$("#community-name").html(hospitalName);
+$("#community-address").html(hospitalAddress);
+
 //checkUserAgent();
 
 if(state){
@@ -21,6 +27,8 @@ if(state){
 		name = stateArray[1];
 	}
 }
+
+
 
 //var userAgent = window.localStorage.getItem(agentName);
 
@@ -101,7 +109,7 @@ getReqPromises([{url:"patient/hospital/getTeamsByOrg",data:{orgCode:hospital,ope
 	$teamList.on('click','li',function() {
 		//checkUserAgent();
 		var team = $(this).attr('data-code');
-		window.location.href = "doctor-homepage.html?teamCode="+team;
+		window.location.href = "doctor-homepage.html?teamCode="+team+"&orgName="+name;
 	});
 	
 }).catch(function(e) {

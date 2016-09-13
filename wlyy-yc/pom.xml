@@ -199,6 +199,17 @@
             <version>0.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>xml-pic</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>xml-pic</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.0</version>
+        </dependency>
+
 
     </dependencies>
     <build>

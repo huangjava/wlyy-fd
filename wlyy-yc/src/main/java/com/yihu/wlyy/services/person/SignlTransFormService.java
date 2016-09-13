@@ -60,14 +60,12 @@ public class SignlTransFormService {
      * @param selfName              居民名称
      * @param contactPhone          本人电话
      * @param appointmentSignDate   签约日期
-     * @param signNo                签约号
-     * @param templeteId
      * @param signTeam
      * @return
      */
-    public static Map<String,Object> doSignApply(String selfName, String contactPhone, String appointmentSignDate, String signNo, String templeteId, String signTeam){
+    public static Map<String,Object> doSignApply(String selfName, String contactPhone, String appointmentSignDate, String idnumber,String signTeam){
         Map<String,Object> result = new HashMap<>();
-        String responseXml = NeuSoftWebService.doSignApply(selfName, null, null, null, null,signTeam);
+        String responseXml = NeuSoftWebService.doSignApply(selfName, null,null, null,null,signTeam);
 
         //TODO 调用东软接口返回数据
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.services.person.SignlTransFormService;
-import org.json.JSONArray;
+import net.sf.json.JSONArray;
 import org.junit.Test;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public class WsTransFormTest {
     @Test
     public void doSignApply() throws Exception {
         SignlTransFormService service = new SignlTransFormService();
-        Map<String,Object>  info = service.doSignApply("林霖","17112345678","2016-09-08","123","Dummy007","b825206f-6af4-4009-b9bc-7a9c71f820d5");
+        Map<String,Object>  info = service.doSignApply("林霖","17112345678","350425198507080016","2016-09-08","b825206f-6af4-4009-b9bc-7a9c71f820d5");
         System.out.println(info);
     }
 

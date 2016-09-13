@@ -176,9 +176,17 @@ function checkSnBind(snCode,suc){
 	params.device_sn = snCode;
 	sendPost("patient/device/patientDeviceIdCard",params,"JSON","POST",
 		function(res){
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:res}).show();
 			$("#bang-btn").removeClass("active");
 		},function(res){
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
 			if(res.status==200){
 				for(var j in res.data){
 					var data = res.data[j];
@@ -270,9 +278,17 @@ function checkSuccess(snCode){
 	}
 	sendPost("/patient/device/savePatientDevice",{"json":JSON.stringify(params)},"JSON","post",
 		function(res){
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备绑定失败！'}).show();	
 		},
 		function(res){
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
 			if(res.status == '200'){
 				dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备绑定成功！'}).show();
 				setTimeout(function(){

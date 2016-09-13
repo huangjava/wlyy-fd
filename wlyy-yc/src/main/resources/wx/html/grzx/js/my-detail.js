@@ -1,12 +1,13 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
 saveAgentPage("../../grzx/html/my-detail.html");
-var openid =null;
-var signType = null;
-var userAgent = window.localStorage.getItem(agentName);
-if(userAgent){
-	var jsonstr = $.parseJSON(userAgent);
-	openid = jsonstr.openid;
+var Request = GetRequest();
+if(Request["openid"]){
+	openId = decodeURIComponent(Request["openid"]);
 }
+if(Request["r"]){
+	random = Request["r"];
+}
+
 $(function() {	
 	queryInit();
 });	
@@ -15,49 +16,6 @@ function queryInit(){
 	d.show();
     //查询用户信息
 	query();
-	//从后台那边获取签名等信息
-	var Request = new Object();
-	Request = GetRequest(); 
-	var code = Request["code"];
-	signType = Request["signType"];//TODO demo测试使用，之后删除
-
-	var params1 = {};
-	params1.pageUrl = server + "wx/html/grzx/html/my-detail.html?code=" + code + "&state=STATE";
-	//$.ajax(server + "weixin/getSign", {
-	//	data: params1,
-	//	dataType: "json",
-	//	type: "post",
-	//	success: function(res){
-	//		if (res.status == 200) {
-	//			var t = res.data.timestamp;
-	//			var noncestr = res.data.noncestr;
-	//			var signature = res.data.signature;
-	//			wx.config({
-	//				//debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-	//			    appId: appId, // 必填，公众号的唯一标识
-	//			    timestamp: t, // 必填，生成签名的时间戳
-	//			    nonceStr: noncestr, // 必填，生成签名的随机串
-	//			    signature: signature,// 必填，签名，见附录1
-	//			    jsApiList: [
-	//			    	'chooseImage',
-	//			        'uploadImage'
-	//			    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-	//			});
-	//		}
-	//	}
-	//});
-	$("#backLogin").click(function (){
-		dialog({
-	        content:'您确定继续退出登录吗？',
-	        ok: function (){
-	        	clearAgent();
-				window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=http%3a%2f%2f" + weixinUrl + "%2f" + urlName + "%2fwx%2fhtml%2fgrzx%2fhtml%2fmy-detail.html&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
-	        },
-	        cancel: function () {
-				return;
-	        }
-		}).showModal();
-	})
 }
 
 //跳转到家庭签约信息
@@ -128,7 +86,6 @@ function setValue(data){
 	var teamName = data.teamName;
 	var teamCode = data.teamCode;
 	var sign = Number(data.sign);//签约状态
-	sign = signType;
 
 	if(!photo){
 		photo = "../../../images/p-default.png";
@@ -171,10 +128,8 @@ function setValue(data){
 		html =   '<div onclick="changeJtqy(false,'+teamCode+')">未签约，去签约</div>';
 	}else if(sign == 1){
 		html =   '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
-	}else if(sign == 2){
-		html =	 '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
 	}else{
-		window.location.href = "../../qygl/html/address-new.html";
+		window.location.href = "../../qygl/html/search-community.html";
 	}
 	document.getElementById("divSign").innerHTML = html;
 	

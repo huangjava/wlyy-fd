@@ -5,8 +5,8 @@ import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,7 +100,7 @@ public class HospitalController extends BaseController {
 //        params.put("ticket",ticket);
 //        try {
 //            String url = "";
-//            String resultStr = HttpClientUtil.doPost(comUrl + url, params, username, password);
+//            String resultStr = HttpClientUtil.post(comUrl + url, params, username, password);
 //            return write(200, "身份认证成功！", "obj", "");
 //        } catch (Exception e) {
 //            error(e);
@@ -248,7 +248,7 @@ public class HospitalController extends BaseController {
                     "\"expertise\":\"擅长各种急救，医疗知识\",\n" +
                     "\"introduce\":\"主治医师，2004年毕业于福建医科大学\",\n" +
                     "}";
-            JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject = JSONObject.fromObject(json);
 
             JSONObject info =doctorService.getDoctorInfo(doctorCode);
 

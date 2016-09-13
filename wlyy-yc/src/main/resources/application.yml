@@ -10,6 +10,20 @@ bloodSugger:
   beforeDinner: 14:00-17:59
   afterDinner: 18:00-19:59
   beforeSleep: 20:00-23:59
+
+yihu:
+  gateway:
+    url: http://service.yihu.com:8085/WSGW/rest
+    client:
+      id: xxx
+      version: 1.0
+
+neusoft:
+  ws:
+    doctor: http://219.139.130.106:8884/phis_hubei_ws/ws/doctorWsService?wsdl
+    person: http://219.139.130.106:8884/phis_hubei_ws/ws/personWsService?wsdl
+    key: JKZL
+
 ---
 spring:
   profiles: dev
@@ -70,3 +84,12 @@ bloodSugger:
 server:
   port: 9113
   context-path: /fd
+
+yihu:
+  gateway:
+    url: http://service.yihu.com:8085/WSGW/rest
+    client:
+      id: xxx
+      version: 1.0
+
+

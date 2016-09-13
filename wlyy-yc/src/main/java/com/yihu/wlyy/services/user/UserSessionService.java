@@ -7,6 +7,9 @@ import com.yihu.wlyy.daos.UserSessionDao;
 import com.yihu.wlyy.models.user.UserAgent;
 import com.yihu.wlyy.models.user.UserModel;
 import com.yihu.wlyy.models.user.UserSessionModel;
+import com.yihu.wlyy.services.doctor.DoctorService;
+import com.yihu.wlyy.services.gateway.GateWayApi;
+import com.yihu.wlyy.services.gateway.GateWayService;
 import com.yihu.wlyy.util.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -34,6 +37,10 @@ public class UserSessionService {
     private UserSessionDao userSessionDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private GateWayService gateWayService;
+    @Autowired
+    private DoctorService doctorService;
 
     /**
      * 每次调用会更新过期时间，用于避免调用第三方登录
@@ -121,11 +128,10 @@ public class UserSessionService {
             //从健康之中APP或者小薇社区进入
             //从健康之中APP进入时ticket非空
             String ticket = request.getParameter("ticket");
-            if (StringUtil.isEmpty(ticket)){
-               return isLoginWeChat(request, response);
-            }
-            else {
-               return isLoginApp(request, response);
+            if (StringUtil.isEmpty(ticket)) {
+                return isLoginWeChat(request, response);
+            } else {
+                return isLoginApp(request, response);
             }
         }
         //以上空的逻辑是否可合并还需要验证
@@ -199,6 +205,9 @@ public class UserSessionService {
             UserModel user = userDao.findOne(userName);
             if (user == null) {
                 user = new UserModel(userName, userCode);
+                String idCard = getIdCard(userCode);
+                user.setIdCard(idCard);
+                user.setIdCard(getExternalIdentity(idCard));
                 user = userDao.save(user);
             }
 
@@ -232,5 +241,41 @@ public class UserSessionService {
                 + "&weixin=" + weiWeChat
                 + "&returnurl=" + eHomeCallback
                 + "&sig=" + signature;
+    }
+
+    private String getIdCard(String userCode) {
+        Map<String, String> apiParam = new HashMap<>();
+        apiParam.put("returnMsg", "IdNumber");
+        apiParam.put("doctorUid", userCode);
+        String result = gateWayService.post(GateWayApi.queryUserInfoByID, apiParam);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = objectMapper.readValue(result, JsonNode.class);
+            String code = jsonNode.findPath("Code").asText();
+            if (!code.equals("10000")) {
+                logger.error("调用网关接口失败");
+                return "";
+            }
+
+            return jsonNode.findPath("IdNumber").asText();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    private String getExternalIdentity(String idCard) {
+        String identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode jsonNode = objectMapper.readValue(identity, JsonNode.class);
+            return jsonNode.findPath("idCard").asText();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 }

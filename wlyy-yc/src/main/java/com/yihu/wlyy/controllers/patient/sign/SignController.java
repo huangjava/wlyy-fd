@@ -28,9 +28,7 @@ public class SignController extends BaseController {
     @RequestMapping(value = "getSignStatus", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询患者是否有签约信息", produces = "application/json", notes = "查询患者是否有签约信息")
-    public String isSign(
-            @ApiParam(name = "patientCode", value = "患者Code", required = true)
-            @RequestParam(value = "patientCode") String patientCode) {
+    public String isSign() {
         try {
             String json = "{\n" +
                     "\"signStatus\":0,\n" +
@@ -139,11 +137,13 @@ public class SignController extends BaseController {
             @RequestParam(required = true) String patientName,
             @ApiParam(name = "contactPhone", value = "本人电话", required = true)
             @RequestParam(required = true) String contactPhone,
+            @ApiParam(name = "idnumber", value = "身份证号", required = true)
+            @RequestParam(required = true) String idnumber,
             @ApiParam(name = "teamCode", value = "团队Code", required = true)
             @RequestParam(required = true) String teamCode) {
         try {
 
-            Map<String,Object> info = signlTransFormService.doSignApply(patientName,contactPhone, DateUtil.getStringDateShort(),"123","Dummy007",teamCode);
+            Map<String,Object> info = signlTransFormService.doSignApply(patientName,contactPhone, DateUtil.getStringDateShort(),idnumber,teamCode);
             return write(200, "签约申请已发送！", "data", info);
         } catch (Exception e) {
             error(e);

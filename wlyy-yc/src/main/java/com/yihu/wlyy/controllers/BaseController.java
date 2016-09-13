@@ -2,8 +2,8 @@ package com.yihu.wlyy.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.util.ResponseKit;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class BaseController {
             if (StringUtils.isEmpty(userAgent)) {
                 userAgent = request.getHeader("User-Agent");
             }
-            JSONObject json = new JSONObject(userAgent);
+            JSONObject json = JSONObject.fromObject(userAgent);
             return json.getString("uid");
 
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class BaseController {
             if (StringUtils.isEmpty(userAgent)) {
                 userAgent = request.getHeader("User-Agent");
             }
-            JSONObject json = new JSONObject(userAgent);
+            JSONObject json = JSONObject.fromObject(userAgent);
             return json.getString("openid");
 
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class BaseController {
             if (StringUtils.isEmpty(userAgent)) {
                 userAgent = request.getHeader("User-Agent");
             }
-            JSONObject json = new JSONObject(userAgent);
+            JSONObject json = JSONObject.fromObject(userAgent);
             return json.getLong("id");
         } catch (Exception e) {
             return 0;
@@ -82,7 +82,7 @@ public class BaseController {
             if (StringUtils.isEmpty(userAgent)) {
                 userAgent = request.getHeader("User-Agent");
             }
-            JSONObject json = new JSONObject(userAgent);
+            JSONObject json = JSONObject.fromObject(userAgent);
             return json.getString("imei");
         } catch (Exception e) {
             return null;
@@ -95,7 +95,7 @@ public class BaseController {
             if (StringUtils.isEmpty(userAgent)) {
                 userAgent = request.getHeader("User-Agent");
             }
-            JSONObject json = new JSONObject(userAgent);
+            JSONObject json = JSONObject.fromObject(userAgent);
             return json.getString("token");
         } catch (Exception e) {
             return null;
@@ -142,9 +142,9 @@ public class BaseController {
      * @param msg  结果提示信息
      * @return
      */
-    public String write(int code, String msg, String key, List<?> list) {
-        return responseKit.write(code, msg, key, list);
-    }
+//    public String write(int code, String msg, String key, List<?> list) {
+//        return responseKit.write(code, msg, key, list);
+//    }
 
     /**
      * 返回接口处理结果
@@ -216,9 +216,9 @@ public class BaseController {
      * @param value 结果数据
      * @return
      */
-    public String write(int code, String msg, String key, Map<?, ?> value) {
-        return responseKit.write(code, msg, key, value);
-    }
+//    public String write(int code, String msg, String key, Map<?, ?> value) {
+//        return responseKit.write(code, msg, key, value);
+//    }
 
     /**
      * 返回接口处理结果

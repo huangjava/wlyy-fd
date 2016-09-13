@@ -4,6 +4,7 @@ import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.models.common.ResultModel;
 import com.yihu.wlyy.models.device.Device;
 import com.yihu.wlyy.models.device.DeviceCategory;
+import com.yihu.wlyy.models.device.DeviceResultModel;
 import com.yihu.wlyy.services.device.DeviceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +26,7 @@ public class DeviceController extends BaseController {
 	@ApiOperation("新增设备信息")
 	@RequestMapping(value = "/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultModel pushData(
+	public DeviceResultModel pushData(
 			@ApiParam(name="deviceData",value="设备数据")
 			@RequestParam(value = "deviceData") String deviceData,
 			@ApiParam(name="deviceType",value="设备类型")
@@ -33,19 +34,19 @@ public class DeviceController extends BaseController {
 		try {
 			return deviceService.pushData(deviceData, deviceType);
 		} catch (Exception e) {
-			return ResultModel.error("Device data incoming failure");
+			return DeviceResultModel.error("Device data incoming failure");
 		}
 	}
 	@ApiOperation("获取设备信息")
 	@RequestMapping(value = "/data", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
-	public ResultModel getData(
+	public DeviceResultModel getData(
 			@ApiParam(name="deviceData",value="设备编码")
 			@RequestParam(value = "deviceCode", required = false) String deviceCode) {
 		try {
 			return deviceService.getData(deviceCode);
 		} catch (Exception e) {
-			return  ResultModel.error("Device data acquisition failure");
+			return  DeviceResultModel.error("Device data acquisition failure");
 		}
 	}
 }

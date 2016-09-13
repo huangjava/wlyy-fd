@@ -1,4 +1,11 @@
 saveAgentPage("../../wdsb/html/my-equipments.html");
+var Request = GetRequest();
+if(Request["openid"]){
+	openId = decodeURIComponent(Request["openid"]);
+}
+if(Request["r"]){
+	random = Request["r"];
+}
 var d = dialog({contentType:'load', skin:'bk-popup'}).show(),
 	// 设备列表分页查询的最后一条记录的id 
 	lastId = 0,

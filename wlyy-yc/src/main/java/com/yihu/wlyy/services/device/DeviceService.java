@@ -4,7 +4,6 @@ package com.yihu.wlyy.services.device;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.configuration.BloodSuggerConfig;
 import com.yihu.wlyy.daos.*;
-import com.yihu.wlyy.models.common.ResultModel;
 import com.yihu.wlyy.models.device.*;
 import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.StringUtil;
@@ -71,7 +70,7 @@ public class DeviceService  {
 		return deviceDao.findOne(Long.valueOf(id));
 	}
 
-	public ResultModel pushData(String deviceData, String deviceType) throws Exception {
+	public DeviceResultModel pushData(String deviceData, String deviceType) throws Exception {
 
 		DeviceInfo deviceInfo = new DeviceInfo();
 		deviceInfo.setDeviceData(deviceData);
@@ -138,11 +137,11 @@ public class DeviceService  {
 			e.printStackTrace();
 		}
 
-		return ResultModel.success("Device data incoming success");
+		return DeviceResultModel.success("Device data incoming success");
 	}
 
-	public ResultModel getData(String deviceCode) throws Exception {
-		ResultModel result = ResultModel.success("Device data acquisition success");
+	public DeviceResultModel getData(String deviceCode) throws Exception {
+		DeviceResultModel result = DeviceResultModel.success("Device data acquisition success");
 		Map<String, Object> resultMap = new HashMap<>();
 		Iterable<DeviceDetail> deviceDetailIterable;
 		if (StringUtil.isEmpty(deviceCode)) {
@@ -153,7 +152,7 @@ public class DeviceService  {
 		List<DeviceDetail> deviceDetailList;
 		deviceDetailList = IteratorUtils.toList(deviceDetailIterable.iterator());
 		resultMap.put("deviceDetailList", deviceDetailList);
-		result.setResultMap(resultMap);
+		result.setObjectMap(resultMap);
 		return result;
 	}
 

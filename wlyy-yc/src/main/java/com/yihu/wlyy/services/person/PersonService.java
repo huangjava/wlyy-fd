@@ -80,7 +80,6 @@ public class PersonService {
         //TODO 调用东软接口返回数据
         String responseXml = NeuSoftWebService.getSignDetailInfo(openId);
 
-
         try {
             List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){

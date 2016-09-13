@@ -13,7 +13,7 @@ public class UserSessionInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return userSessionService.isLogin(request, response);
-//        return super.preHandle(request, response, handler);
+//        return userSessionService.isLogin(request, response);
+        return super.preHandle(request, response, handler);
     }
 }

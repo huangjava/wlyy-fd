@@ -40,8 +40,8 @@ public class PatientDeviceController extends BaseController {
 		try {
 			PatientDevice device = objectMapper.readValue(json,PatientDevice.class);
 			// 设置患者标识
-//			String user = getUID();
-			String user = "CS20160830001";
+			String user = getUID();
+//			String user = "CS20160830001";
 			device.setUser(user);
 
 			patientDeviceService.saveDevice(device);
@@ -65,12 +65,8 @@ public class PatientDeviceController extends BaseController {
 									 @ApiParam(name="pagesize",value="每页条数",defaultValue = "10")
 									 @RequestParam(value="pagesize",required = true) int pagesize) {
 		try {
-			//TODO demo数据
-//			String demo ="[{\"id\":456,\"deviceId\":1,\"deviceSn\":\"cc3321xxxccc1211\",\"deviceName\":\"血压计-康为A206G\",\"user\":\"CS20160830001\",\"categoryCode\":\"2\",\"userType\":\"2\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:50:58\"},{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}]";
-//			List list = objectMapper.readValue(demo,List.class);
-
-//			String user = getUID();
-			String user = "CS20160830001";
+			String user = getUID();
+//			String user = "CS20160830001";
 			Page<PatientDevice> list = patientDeviceService.findByPatient(user, id, pagesize);
 			return write(200, "查询成功", "list", list);
 		} catch (Exception ex) {
@@ -85,11 +81,6 @@ public class PatientDeviceController extends BaseController {
 	public String getPatientDeviceInfo(@ApiParam(name="id",value="患者设备ID",defaultValue = "146")
 									 @RequestParam(value="id",required = true) String id) {
 		try {
-			//TODO 示例数据
-			String demo = "{\"id\":448,\"deviceId\":3,\"deviceSn\":\"xxx1112221\",\"deviceName\":\"血糖仪-爱奥乐G-777G\",\"user\":\"CS20160830001\",\"categoryCode\":\"1\",\"userType\":\"-1\",\"userIdcard\":\"350204194810272040\",\"czrq\":\"2016-09-02 14:34:14\"}";
-//			PatientDevice device = objectMapper.readValue(demo,PatientDevice.class);
-
-
 			PatientDevice device = patientDeviceService.findById(id);
 			return write(200, "查询成功", "data", device);
 		} catch (Exception ex) {
@@ -108,8 +99,8 @@ public class PatientDeviceController extends BaseController {
 										 @ApiParam(name="device_sn",value="设备SN码",defaultValue = "15L000002")
 										 @RequestParam(value="device_sn",required = true) String deviceSn) {
 		try {
-//			String user = getUID();
-			String user = "CS20160830001";
+			String user = getUID();
+//			String user = "CS20160830001";
 			List<Map<String,String>> list = patientDeviceService.getDeviceUser(user,deviceSn,type);
 			return write(200, "获取设备绑定信息成功！", "data",list);
 		} catch (Exception ex) {
@@ -127,18 +118,16 @@ public class PatientDeviceController extends BaseController {
 						  @RequestParam(value="id",required = true) String id) {
 		try {
 			PatientDevice pd = patientDeviceService.findById(id);
-			if(pd!=null)
-			{
-//				String user = getUID();
-				String user = "CS20160830001";
+			if (pd!=null) {
+				String user = getUID();
+//				String user = "CS20160830001";
 				if (!StringUtils.equals(pd.getUser(), user)) {
 					return error(-1, "只允许删除自己的设备！");
 				}
 				// 删除设备
 				patientDeviceService.deleteDevice(id);
 				return success("设备已删除！");
-			}
-			else{
+			} else{
 				return error(-1, "不存在该设备！");
 			}
 		} catch (Exception ex) {

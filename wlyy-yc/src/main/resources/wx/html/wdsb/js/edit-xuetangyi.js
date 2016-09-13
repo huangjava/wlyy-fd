@@ -96,6 +96,10 @@ function checkSnBind(snCode,checkSuccess){
 	params.device_sn = snCode;
 	sendPost("patient/device/patientDeviceIdCard",params,"JSON","POST",
 		function(res){
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备SN校验失败！'}).show();
 		},function(res){
 			if(res.status==200){
@@ -131,6 +135,10 @@ function checkSnBind(snCode,checkSuccess){
 function getDeviceInfo(deviceId){
 	sendPost("/common/device/deviceInfo?id="+deviceId,{},"JSON","POST",
 		function(res){
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备信息获取失败！'}).show();
 		},
 		function(res){
@@ -163,6 +171,10 @@ function checkSuccess(snCode){
 	}
 	sendPost("/patient/device/savePatientDevice",{"json":JSON.stringify(params)},"JSON","post",
 		function(res){
+			if (res.loginUrl) {
+				window.location.href = res.loginUrl;
+				return;
+			}
 			dialog({contentType:'tipsbox', skin:'bk-popup' , content:'设备绑定失败！'}).show();	
 		},
 		function(res){

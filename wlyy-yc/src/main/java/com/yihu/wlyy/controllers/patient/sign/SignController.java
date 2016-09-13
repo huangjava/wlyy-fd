@@ -28,9 +28,7 @@ public class SignController extends BaseController {
     @RequestMapping(value = "getSignStatus", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询患者是否有签约信息", produces = "application/json", notes = "查询患者是否有签约信息")
-    public String isSign(
-            @ApiParam(name = "patientCode", value = "患者Code", required = true)
-            @RequestParam(value = "patientCode") String patientCode) {
+    public String isSign() {
         try {
             String json = "{\n" +
                     "\"signStatus\":0,\n" +

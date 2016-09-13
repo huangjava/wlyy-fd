@@ -20,7 +20,11 @@ function getDevices(){
 }
 
 function queryListSuccess(res){
-	d.close();	
+	if (res.loginUrl) {
+		window.location.href = res.loginUrl;
+		return;
+	}
+	d.close();
 	if(res.status==200){
 		if(res.list&&res.list.length>0){
 			for(var i in res.list){
@@ -50,6 +54,10 @@ function showList(rowData){
 
 
 function queryListFailed(res) {
+	if (res.loginUrl) {
+		window.location.href = res.loginUrl;
+		return;
+	}
 	d.close();
 	if (res &&  res.msg) {
 		dialog({contentType:'tipsbox', skin:'bk-popup' , content:res.msg}).show();

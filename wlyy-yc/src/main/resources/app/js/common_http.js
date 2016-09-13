@@ -27,7 +27,7 @@ if(publish_version == true) {
 } else {
 	appId = "wxd03f859efdf0873d";
 	server1 = "http%3a%2f%2fweixin.xmtyw.cn%2fwlyy%2f";
-	
+	server = "http://localhost:9111/fd/"
 	//	alert("注意：这是测试版！");
 	//接口服务器
 //		server = "http://weixin.xmtyw.cn/wlyy/";//卫计委的测试服务器
@@ -73,7 +73,7 @@ function sendPost(url, params, custError, custSuccess,dataType) {
 	}
 	//发送ajax请求
 	console.log(server);
-	mui.ajax(server + url, {
+	$.ajax(server + url, {
 		//	mui.ajax( url, {
 		data: params || {},
 		dataType: 'json',
@@ -81,8 +81,7 @@ function sendPost(url, params, custError, custSuccess,dataType) {
 		type: dataType,
 		timeout: 1000000,
 		error: custError || function(xht, type, throwErr) {
-			alert(url)
-			console.error(type + " : " + throwErr);
+			plus.nativeUI.closeWaiting();
 			var random = Math.random();
 			isLoginOut = window.localStorage.isLoginOut;
 			if(isLoginOut) {
@@ -149,6 +148,14 @@ function sendPost(url, params, custError, custSuccess,dataType) {
 				return;
 			}
 			custSuccess(res);
+		},
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader("userAgent", plus.storage.getItem("userAgent"));
+			//xhr.setRequestHeader("Access-Control-Allow-Origin", plus.storage.getItem("userAgent"));
+		},
+		headers: {
+			"Access-Control-Allow-Origin":"*",
+			"Access-Control-Allow-Headers":"X-Requested-With"
 		}
 	});
 
@@ -180,7 +187,7 @@ function exit2Login() {
  */
 function showConfirm(content) {
 	mui.confirm(content, "提示", ["确定"], function() {
-		exit2Login();
+		//exit2Login();
 		plus.storage.removeItem("isLoginOut");
 	});
 }

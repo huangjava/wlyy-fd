@@ -7,6 +7,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +59,7 @@ public class DoctorService {
     //    <DEPT_NAME>儿科</DEPT_NAME>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String getMyTeam(String orgCode, String doctorId) {
+    public JSONArray getMyTeam(String orgCode, String doctorId) {
         try {
             String myTeam = NeuSoftWebService.getMyTeam(orgCode, doctorId);
             Document document = DocumentHelper.parseText(myTeam);
@@ -85,15 +87,15 @@ public class DoctorService {
                     doctorNode.put("name", name);
                     doctorNode.put("dept", deptName);
                     doctorNode.put("jobName", "");
-                    doctorArray.add(doctorNode);
+                    doctorArray.put(doctorNode);
 
                 }
                 teamNode.put("list", doctorArray);
 
-                myTeamArray.add(teamNode);
+                myTeamArray.put(teamNode);
             }
 
-            return myTeamArray.toString();
+            return myTeamArray;
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -114,7 +116,7 @@ public class DoctorService {
     //    <PHOTO></PHOTO>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String getInfo(String doctorId) {
+    public JSONObject getInfo(String doctorId) {
         try {
             String info = NeuSoftWebService.getGPInfo(doctorId);
 
@@ -145,7 +147,7 @@ public class DoctorService {
             json.put("provinceName", "");    // 省份（无）--湖北
             json.put("cityName", "");        // 城市（无）--宜昌
 
-            return json.toString();
+            return json;
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -186,6 +188,7 @@ public class DoctorService {
     /* ==========================    患者端  ======================================  */
 
 
+
     public JSONObject getDoctorInfo(String doctorId) {
         try {
             String info = NeuSoftWebService.getGPInfo(doctorId);
@@ -224,30 +227,29 @@ public class DoctorService {
 
     /**
      * 通过团队获取 医生列表
-     *
      * @param teamId
      * @return
      */
-    public JSONArray getDoctorsByTeam(String teamId) {
+    public JSONArray getDoctorsByTeam(String teamId){
         JSONArray doctorArray = new JSONArray();
 
         try {
-            String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
-            Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
-            List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
+        String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
+        Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
+        List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
 
-            for (Element doctorElement : doctorList) {
-                String id = doctorElement.elementText("USERID");
-                String name = doctorElement.elementText("USER_FULLNAME");
-                String deptName = doctorElement.elementText("DEPT_NAME");
+        for (Element doctorElement : doctorList) {
+            String id = doctorElement.elementText("USERID");
+            String name = doctorElement.elementText("USER_FULLNAME");
+            String deptName = doctorElement.elementText("DEPT_NAME");
 
-                JSONObject doctorNode = new JSONObject();
-                doctorNode.put("code", id);
-                doctorNode.put("name", name);
-                doctorNode.put("dept", deptName);
-                doctorNode.put("jobName", "");
-                doctorArray.add(doctorNode);
-            }
+            JSONObject doctorNode = new JSONObject();
+            doctorNode.put("code", id);
+            doctorNode.put("name", name);
+            doctorNode.put("dept", deptName);
+            doctorNode.put("jobName", "");
+            doctorArray.add(doctorNode);
+        }
         } catch (DocumentException e) {
             e.printStackTrace();
         }

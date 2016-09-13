@@ -8,11 +8,11 @@ import org.junit.Test;
 public class SignContractServiceTest {
 
     private static SignContractService signContractService = new SignContractService();
-    @Test
-    public void getSignedInfoList() throws Exception {
-        String signedInfoList = signContractService.getSignedInfoList("420503003000", "9bf5afea-3200-4489-b93a-b5261351479e", "1", "10");
-        System.out.println(signedInfoList);
-    }
+//    @Test
+//    public void getSignedInfoList() throws Exception {
+//        String signedInfoList = signContractService.getSignedInfoList("420503003000", "9bf5afea-3200-4489-b93a-b5261351479e", "1", "10");
+//        System.out.println(signedInfoList);
+//    }
 
     @Test
     public void getToSignInfoList() throws Exception {

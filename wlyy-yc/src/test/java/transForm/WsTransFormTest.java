@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.services.person.SignlTransFormService;
+import org.json.JSONArray;
 import org.junit.Test;
 
 import java.util.List;
@@ -34,8 +35,8 @@ public class WsTransFormTest {
     @Test
     public void getMyTeam() throws Exception {
         DoctorService doctorService = new DoctorService();
-        String info = doctorService.getMyTeam("2c9660e34f4fbb9d014f5d5453b8001b", "f93afa56-417c-4901-aeab-002ded330d86");
-        System.out.println(info);
+        JSONArray info = doctorService.getMyTeam("2c9660e34f4fbb9d014f5d5453b8001b", "f93afa56-417c-4901-aeab-002ded330d86");
+        System.out.println(info.toString());
     }
 
 

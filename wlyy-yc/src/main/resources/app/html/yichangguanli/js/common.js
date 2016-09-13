@@ -57,3 +57,30 @@ function openModifyWindow(title, extras){
 function closeWebView(id){
 	plus.webview.getWebviewById(id).close();
 }
+
+var plus = {
+	waiting: undefined,
+	storage: {
+		removeItem: function(k) {
+			window.localStorage.removeItem(k);
+		},
+		getItem: function (k) {
+			return window.localStorage.getItem(k);
+		},
+		setItem: function (k, v) {
+			window.localStorage.setItem(k, v);
+		}
+	},
+	nativeUI: {
+		showWaiting: function(){
+			return plus.waiting = dialog({contentType:'load', skin:'bk-popup'}).show();
+		},
+		closeWaiting: function(){
+			if(plus.waiting)
+				plus.waiting.close();
+		},
+		toast: function (msg) {
+			dialog({contentType:'tipsbox', skin:'bk-popup' , content: msg, bottom:true}).show();
+		}
+	}
+}

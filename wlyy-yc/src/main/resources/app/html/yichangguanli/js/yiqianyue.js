@@ -21,7 +21,7 @@ function searchPatients(){
  * 请求成功
  */
 function handleSuccess(res) {
-	
+
 	if (res.status == 200) {
 		patients = res;
 		if (res.data.length == 0) {
@@ -162,4 +162,4 @@ function refresh(e) {
 /**
  * 自定义刷新事件
  */
-//window.addEventListener("refresh", refresh);
+window.addEventListener("updateyiqianyue", refresh);

@@ -65,7 +65,7 @@
 			
 		</div>
 		
-		<div style="padding: 10px;">
+		<div id="submit" style="padding: 10px;">
 			<div style="border-radius: 10px;background: #17b3ec;height: 36px;color: #fff;line-height: 36px;text-align: center;">提交签约</div>
 		</div>
 	</body>
@@ -125,7 +125,18 @@
 		 * 初始化事件
 		 */
 		function initEvent(){
-
+			$('#submit').on("tap","div",function(){
+				var uploadImgUrl =  [$('.upload-img ul li img').attr('src')];
+				function fusucdes(){
+					//已签约数据刷新
+					mui.fire(plus.webview.getWebviewById('yiqianyue.html'), 'updateyiqianyue', {name: 1});
+					//待签约、未签约数据刷新
+					mui.fire(plus.webview.getWebviewById('daiqianyue.html'), 'updatedaiqianyue', {});
+					//返回上层页面
+					mui.back();
+				}
+				uploadImg(uploadImgUrl,fusucdes);
+			});
 		}
 		
 		function getPatientInfo() {

@@ -33,9 +33,9 @@ mui.plusReady(function() {
 	plus.storage.setItem("appUID", appUID);
 	plus.storage.setItem("ticket", ticket);
 	plus.storage.setItem("userId", userId);
-				
+
 	alert(userId + orgId + ticket);
-			
+
 	window.localStorage.removeItem("isLoginOut");
 	var self = plus.webview.currentWebview();
 

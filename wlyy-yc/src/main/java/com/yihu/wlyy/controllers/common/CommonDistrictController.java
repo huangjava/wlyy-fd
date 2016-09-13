@@ -1,4 +1,4 @@
-package com.yihu.wlyy.controllers.district;
+package com.yihu.wlyy.controllers.common;
 
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.services.district.DistrictService;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "common")
-public class DistrictController extends BaseController{
+public class CommonDistrictController extends BaseController{
     @Autowired
     private DistrictService districtService;
 

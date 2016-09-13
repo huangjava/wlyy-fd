@@ -117,18 +117,16 @@ public class UserSessionService {
 
     public boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userAgent = request.getHeader("userAgent");
-//        if (userAgent == null) {
-//            //从健康之中APP或者小薇社区进入
-//            //小薇社区进入时openId非空
-//            String openId = request.getParameter("openId");
-//            return !StringUtil.isEmpty(openId) || isLoginApp(request, response);
-//        }
-
         if (StringUtil.isEmpty(userAgent)) {
             //从健康之中APP或者小薇社区进入
             //从健康之中APP进入时ticket非空
             String ticket = request.getParameter("ticket");
-            return !StringUtil.isEmpty(ticket) || isLoginWeChat(request, response);
+            if (StringUtil.isEmpty(ticket)){
+               return isLoginWeChat(request, response);
+            }
+            else {
+               return isLoginApp(request, response);
+            }
         }
         //以上空的逻辑是否可合并还需要验证
 
@@ -169,7 +167,9 @@ public class UserSessionService {
         String orgId = request.getParameter("orgId");
         String appUid = request.getParameter("appUid");
         String ticket = request.getParameter("ticket");
-
+        if (StringUtil.isEmpty(appUid)) {
+            appUid = "0";
+        }
         String sso = SystemConf.getInstance().getValue("sso.yihu");
         Map<String, Object> param = new HashMap<>();
         param.put("userId", userId);

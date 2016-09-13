@@ -1,4 +1,4 @@
-package com.yihu.wlyy.controllers.patient.device;
+package com.yihu.wlyy.controllers.common;
 
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.models.common.ResultModel;
@@ -15,15 +15,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/common/device")
-@Api(description = "设备管理")
-public class DeviceController extends BaseController {
+@Api(description = "公共设备管理")
+public class CommonDeviceController extends BaseController {
 
 
 	@Autowired
 	private DeviceService deviceService;
 
 	@ApiOperation("获取设备分类")
-	@RequestMapping(value = "DeviceCategory", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+	@RequestMapping(value = "deviceCategory", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceCategory() {
 		try {
@@ -36,7 +36,7 @@ public class DeviceController extends BaseController {
 	}
 
 	@ApiOperation("获取设备列表")
-	@RequestMapping(value = "DeviceList", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+	@RequestMapping(value = "deviceList", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceList(@ApiParam(name="category_code",value="设备类型代码",defaultValue = "1")
 								@RequestParam(value="category_code",required = true) String categoryCode) {
@@ -59,7 +59,7 @@ public class DeviceController extends BaseController {
 	}
 
 	@ApiOperation("获取设备信息")
-	@RequestMapping(value = "DeviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
+	@RequestMapping(value = "deviceInfo", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDeviceInfo(@ApiParam(name="id",value="设备ID",defaultValue = "19")
 								@RequestParam(value="id",required = true) String id) {
@@ -78,33 +78,6 @@ public class DeviceController extends BaseController {
 			return write(200, "查询成功", "data", device);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());
-		}
-	}
-
-	@ApiOperation("新增设备信息")
-	@RequestMapping(value = "/data", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-	@ResponseBody
-	public ResultModel pushData(
-			@ApiParam(name="deviceData",value="设备数据")
-			@RequestParam(value = "deviceData") String deviceData,
-			@ApiParam(name="deviceType",value="设备类型")
-			@RequestParam(value = "deviceType") String deviceType) {
-		try {
-			return deviceService.pushData(deviceData, deviceType);
-		} catch (Exception e) {
-			return ResultModel.error("Device data incoming failure");
-		}
-	}
-	@ApiOperation("获取设备信息")
-	@RequestMapping(value = "/data", produces = "application/json;charset=UTF-8", method = RequestMethod.GET)
-	@ResponseBody
-	public ResultModel getData(
-			@ApiParam(name="deviceData",value="设备编码")
-			@RequestParam(value = "deviceCode", required = false) String deviceCode) {
-		try {
-			return deviceService.getData(deviceCode);
-		} catch (Exception e) {
-			return  ResultModel.error("Device data acquisition failure");
 		}
 	}
 }

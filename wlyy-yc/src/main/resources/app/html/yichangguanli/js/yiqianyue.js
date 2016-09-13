@@ -3,6 +3,11 @@ var patiUrl = "doctor/patient_group/signedPatients";
 var patients; 		//缓存所有居民信息，为查询准备
 var openedGroup = {}; //打开的分组，为了切换tab能保持分组状态
 mui.plusReady(function() {
+    $('.mui-action-back').on('tap', function(){
+        alert(1);
+        window.history.go(-1);
+        return false;
+    })
 	plus.nativeUI.showWaiting();
 	searchPatients(); //请求所有居民
 });
@@ -120,8 +125,18 @@ var groupClick = function() {
 	 * 跳转到剧名详细信息
 	 */
 	function toDetail() {
-		var patientId = $(this).attr("data-id");	
-		openWindowWithSub("yiqianyue", "health-record.html", "居民首页",{patientId:patientId},"health-record");
+		var patientId = $(this).attr("data-id");
+
+
+        mui.openWindow({
+            url: 'health-record.html?patientId='+ patientId,
+            id: 'health-record.html',
+            extras: {
+                title: '居民首页'
+            }
+        });
+
+		//openWindowWithSub("yiqianyue", "health-record.html", "居民首页",{patientId:patientId},"health-record");
 	}
 	mui("#pati_list").on("tap", "li", toDetail);
 	mui("#search_pati_list").on("tap", "li", toDetail);

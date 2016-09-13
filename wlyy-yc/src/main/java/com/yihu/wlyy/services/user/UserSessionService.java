@@ -42,34 +42,6 @@ public class UserSessionService {
     @Autowired
     private DoctorService doctorService;
 
-    /**
-     * 每次调用会更新过期时间，用于避免调用第三方登录
-     *
-     * @param userName 微信OpenId
-     * @return
-     */
-    public String loginInfo(String userName) {
-        UserModel user = userDao.findOne(userName);
-        if (user == null) {
-            return responseKit.error(SystemConf.NOT_LOGIN, "用户未登录或未注册。");
-        }
-
-        UserSessionModel userSessionModel = userSessionDao.findOne(user.getCode());
-        if (userSessionModel == null) {
-            return responseKit.error(SystemConf.NOT_LOGIN, "用户未登录。");
-        }
-
-        String nextDay = DateUtil.getNextDay(new Date(), 1);
-        Date expireTime = DateUtil.strToDateLong(nextDay);
-        userSessionModel.setExpireTime(expireTime);
-        userSessionDao.save(userSessionModel);
-
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("token", userSessionModel.getToken());
-        map.put("userName", userSessionModel.getUserCode());
-        return responseKit.write(200, "用户登录成功。", "data", map);
-    }
-
     public UserSessionModel loginWeChat(String code, String message, String openId, String sig) {
         String signature = openId + SystemConf.getInstance().getValue("eHomeSecret");
         String md5Crypt = DigestUtils.md5Hex(signature);
@@ -112,16 +84,6 @@ public class UserSessionService {
         return userSession;
     }
 
-    public UserSessionModel loginApp(HttpServletRequest request, HttpServletResponse response) {
-//        String userId = request.getParameter("userId");
-//        String appType = request.getParameter("appType");
-//        String validTime = request.getParameter("validTime");
-//        String orgId = request.getParameter("orgId");
-//        String appUid = request.getParameter("appUid");
-//        String ticket = request.getParameter("ticket");
-        return null;
-    }
-
     public boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userAgent = request.getHeader("userAgent");
         if (StringUtil.isEmpty(userAgent)) {
@@ -134,36 +96,42 @@ public class UserSessionService {
                 return isLoginApp(request, response);
             }
         }
-        //以上空的逻辑是否可合并还需要验证
 
         ObjectMapper objectMapper = new ObjectMapper();
         UserAgent user = objectMapper.readValue(userAgent, UserAgent.class);
         if (!StringUtil.isEmpty(user.getOpenid())) {
-            return isLoginWeChat(request, response);
+            return isLoginWeChat(user);
         }
 
-        return isLoginApp(request, response);
+        return isLoginApp(user);
+    }
+
+    public boolean isLoginWeChat(UserAgent userAgent) {
+        if (userAgent == null) {
+            return false;
+        }
+
+        UserSessionModel userSession = userSessionDao.findOne(userAgent.getUid());
+        return userSession != null;
+
     }
 
     public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setCharacterEncoding("UTF-8");
-        String userAgent = request.getHeader("userAgent");
-        ObjectMapper objectMapper = new ObjectMapper();
-        if (!StringUtil.isEmpty(userAgent)) {
+        String openId = request.getParameter("openId");
+        String random = request.getParameter("random");
+        openId = AESUtil.decryptByRandom(openId, random);
+        response.getOutputStream().write(responseKit.write(200, "reLogin", "loginUrl", genEHomeUrl(openId)).getBytes());
+        return false;
+    }
 
-            UserAgent user = objectMapper.readValue(userAgent, UserAgent.class);
-            UserSessionModel userSession = userSessionDao.findOne(user.getUid());
-            if (userSession != null) {
-                return true;
-            }
-        } else {
-            String openId = request.getParameter("openId");
-            String random = request.getParameter("random");
-            openId = AESUtil.decryptByRandom(openId, random);
-            response.getOutputStream().write(responseKit.write(200, "reLogin", "loginUrl", genEHomeUrl(openId)).getBytes());
+    public boolean isLoginApp(UserAgent userAgent) {
+        if (userAgent == null) {
             return false;
         }
-        return false;
+
+        UserSessionModel userSession = userSessionDao.findOne(userAgent.getUid());
+        return userSession != null;
+
     }
 
     public boolean isLoginApp(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -185,12 +153,10 @@ public class UserSessionService {
         String result = null;
         try {
             result = HttpClientUtil.doPost(sso, param, null, null);
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readValue(result, JsonNode.class);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readValue(result, JsonNode.class);
             String code = jsonNode.findPath("Code").asText();
             if (!code.equals("10000")) {
-                //TODO:WriteResponse,Not Login Jkzl App
-//                response.getOutputStream().print(result);
                 logger.debug(result);
                 return false;
             }
@@ -211,6 +177,13 @@ public class UserSessionService {
                 user = userDao.save(user);
             }
 
+            if (StringUtil.isEmpty(user.getIdCard()) || StringUtil.isEmpty(user.getExternalIdentity())) {
+                String idCard = getIdCard(userCode);
+                user.setIdCard(idCard);
+                user.setIdCard(getExternalIdentity(idCard));
+                user = userDao.save(user);
+            }
+
             userSession = new UserSessionModel();
             userSession.setUserCode(user.getCode());
             userSession.setToken(ticket);
@@ -220,13 +193,11 @@ public class UserSessionService {
 
             userSessionDao.save(userSession);
             return true;
-
         } catch (Exception e) {
             logger.debug(e.getMessage());
             e.printStackTrace();
         }
 
-        response.getOutputStream().print(result);
         return false;
     }
 

@@ -172,16 +172,16 @@ public class UserSessionService {
             if (user == null) {
                 user = new UserModel(userName, userCode);
                 //暂时不处理关联
-//                String idCard = getIdCard(userCode);
-//                user.setIdCard(idCard);
-//                user.setIdCard(getExternalIdentity(idCard));
+                String idCard = getIdCard(userCode);
+                user.setIdCard(idCard);
+                user.setIdCard(getExternalIdentity(idCard));
                 user = userDao.save(user);
             } else {
                 if (StringUtil.isEmpty(user.getIdCard()) || StringUtil.isEmpty(user.getExternalIdentity())) {
                     //暂时不处理关联
-//                    String idCard = getIdCard(userCode);
-//                    user.setIdCard(idCard);
-//                    user.setIdCard(getExternalIdentity(idCard));
+                    String idCard = getIdCard(userCode);
+                    user.setIdCard(idCard);
+                    user.setIdCard(getExternalIdentity(idCard));
                     user = userDao.save(user);
                 }
             }

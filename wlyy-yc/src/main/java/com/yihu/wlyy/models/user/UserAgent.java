@@ -8,6 +8,8 @@ public class UserAgent {
     private String uid;
     private String imei;
     private String openid;
+    private String doctorId;
+    private String clientType;
 
     public String getToken() {
         return token;
@@ -39,5 +41,21 @@ public class UserAgent {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 }

@@ -233,8 +233,7 @@ public class HospitalService {
 //                "  </XMLDATA>\n" +
 //                "</MSGFORM>\n";
         try {
-            Map<String,Object> map  = XMLUtil.xml2map(responseXml);
-            List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
+            List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
                 for (Map<String,Object> team:teams){
                     Map<String,Object> obj = new HashMap<String,Object>();
@@ -243,7 +242,7 @@ public class HospitalService {
                     result.add(obj);
                 }
             }
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

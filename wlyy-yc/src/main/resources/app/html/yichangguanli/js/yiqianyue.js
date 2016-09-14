@@ -51,18 +51,18 @@ function dealTmpl(res) {
 		return openedGroup[code]==1;
 	});
 	
-	template.helper("setSex", function(s) {
-		if (s == 1) {
-			return "男"
-		} else if (s == 2) {
-			return "女"
-		}
-	});
+	//template.helper("setSex", function(s) {
+	//	if (s == 1) {
+	//		return "男"
+	//	} else if (s == 2) {
+	//		return "女"
+	//	}
+	//});
 
 	template.helper("setPhoto", function(s) {
-		if (s == 1) {
-			return "../../../images/p-default.png";
-		} else if (s == 2) {
+		if (s == "男") {
+			return "../../../images/p-male.png";
+		} else if (s == "女") {
 			return "../../../images/p-female.png";
 		} else {
 			return "../../../images/p-default.png";
@@ -71,26 +71,26 @@ function dealTmpl(res) {
 	template.helper("setJson", function(j) {
 		return JSON.stringify(j);
 	});
-	template.helper("setDisease", function(d) {
-		switch (d) {
-			case 0:
-				return "健康";
-				break;
-			case 1:
-				return "高血压";
-				break;
-			case 2:
-				return "糖尿病";
-				break;
-		}
-	});
-	template.helper("setSignType", function(t) {
-		if (t == 1) {
-			return "三师";
-		} else if (t == 2) {
-			return "家庭";
-		}
-	});
+	//template.helper("setDisease", function(d) {
+	//	switch (d) {
+	//		case 0:
+	//			return "健康";
+	//			break;
+	//		case 1:
+	//			return "高血压";
+	//			break;
+	//		case 2:
+	//			return "糖尿病";
+	//			break;
+	//	}
+	//});
+	//template.helper("setSignType", function(t) {
+	//	if (t == 1) {
+	//		return "三师";
+	//	} else if (t == 2) {
+	//		return "家庭";
+	//	}
+	//});
 	var cont = template("pati_list_tmpl", res);
 	$("#pati_list").html(cont);
 	groupClick();

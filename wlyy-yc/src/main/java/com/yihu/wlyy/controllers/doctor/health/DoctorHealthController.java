@@ -7,8 +7,8 @@ import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpClientUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -86,10 +86,8 @@ public class DoctorHealthController extends BaseController {
                 modelJson.put("date", DateUtil.dateToStrShort(model.getRecordDate()));
                 modelJson.put("sortDate", DateUtil.dateToStrLong(model.getSortDate()));
                 modelJson.put("czrq", DateUtil.dateToStr(model.getCzrq(), DateUtil.YYYY_MM_DD_HH_MM_SS));
-                jsonArray.put(modelJson);
+                jsonArray.add(modelJson);
             }
-            JSONObject values = new JSONObject();
-            values.put("list", jsonArray);
             return write(200, "查询成功", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);

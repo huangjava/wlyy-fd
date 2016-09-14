@@ -11,7 +11,7 @@ function getPatientInfo(){
 	//var self = plus.webview.currentWebview();
     var	Request = GetRequest();
     var	patientId = Request["patientId"];
-    alert(patientId)
+    //alert(patientId)
 	var params = {patientId:patientId};
 	sendPost("doctor/patient_group/patientInfo", params,
 		function(res) {

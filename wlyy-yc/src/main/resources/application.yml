@@ -13,10 +13,13 @@ bloodSugger:
 
 yihu:
   gateway:
-    url: http://service.yihu.com:8085/WSGW/rest
+    url: http://service.yihu.com:8080/WSGW/rest
     client:
-      id: xxx
+      id: 9000237
       version: 1.0
+  xiaowei:
+    comunity: http://xwsqtest.yihu.com/tags.aspx
+    wechat: MyFamilyDoctors
 
 neusoft:
   ws:
@@ -81,15 +84,15 @@ bloodSugger:
   afterDinner: 18:00-19:59
   beforeSleep: 20:00-23:59
 
-server:
-  port: 9113
-  context-path: /fd
+#server:
+#  port: 9113
+#  context-path: /fd
 
 yihu:
   gateway:
-    url: http://service.yihu.com:8085/WSGW/rest
+    url: http://service.yihu.com:8080/WSGW/rest
     client:
-      id: xxx
+      id: 9000237
       version: 1.0
 
 

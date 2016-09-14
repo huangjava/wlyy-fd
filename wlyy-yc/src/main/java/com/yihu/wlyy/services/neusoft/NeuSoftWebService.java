@@ -11,8 +11,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-//import org.springframework.stereotype.Service;
-
 /**
  * @created Airhead 2016/9/4.
  */
@@ -107,16 +105,6 @@ public class NeuSoftWebService {
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("doSignApply");
 
-            paramXml =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                    + "<QUERY_FORM>\n"
-                    + " <SELFNAME>小黄人儿22</SELFNAME>\n"
-                    + " <CONTACTPHONE>13889457565</CONTACTPHONE>\n"
-                    + " <IDNUMBER>13889457565</IDNUMBER>\n"
-                    + " <APPOINTMENTSIGNDATE>2016-09-08</APPOINTMENTSIGNDATE>\n"
-                    + " <TEMPLETEID>Dummy007</TEMPLETEID>\n"
-                    + " <SIGNTEAM>09549d72-0511-48ac-b0af-b8453cc2681a</SIGNTEAM>\n"
-                    +  " </QUERY_FORM>\n";
-
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
             return res;
@@ -200,7 +188,6 @@ public class NeuSoftWebService {
             Call call = (Call) service.createCall();
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("getGPPhotoInfo");
-
             DataHandler[] ret = (DataHandler[])call.invoke(new Object[] { paramXml });
             byte[] b = new byte[ret[0].getInputStream().available()];
             ret[0].getInputStream().read(b);
@@ -290,14 +277,14 @@ public class NeuSoftWebService {
     public static String upConfirmSignedInfo(DataHandler dataHandler, String signTeam, String signTeamName, String signPeriod, String signPreiodFrom, String chid, String agreementName, String orgCode, String userId) {
         try {
             Map<String, String> param = new HashMap<>();
-            param.put("SIGNTEAM", signTeam);
-            param.put("SIGNTEAMNAME", signTeamName);
-            param.put("SIGNPERIOD", signPeriod);  //签约周期
-            param.put("SIGNPERIODFROM", signPreiodFrom); //签约日期
+            param.put("SIGNTEAM", signTeam); //签约团队信息
+            param.put("SIGNTEAMNAME", signTeamName);  //置空
+            param.put("SIGNPERIOD", signPeriod);  //签约周期 默认按年默认1年
+            param.put("SIGNPERIODFROM", signPreiodFrom); //签约日期 当天
             param.put("CHID", chid);   //居民主索引
             param.put("AGREEMENTNAME", agreementName);  //上传协议名称
-            param.put("ORGCODE", orgCode); //医生所属机构编
-            param.put("USERID", userId);
+            param.put("ORGCODE", orgCode); //医生所属机构编号
+            param.put("USERID", userId); //医生ID
             String paramXml = XMLUtil.map2xml(param);
 
             Service service = new Service();
@@ -336,28 +323,6 @@ public class NeuSoftWebService {
         }
     }
 
-    //登陆验证接口 -- 废弃，不做单独的登陆
-    /*public static String login(String userName, String password) {
-        try {
-            Map<String, String> param = new HashMap<>();
-            param.put("USER_NAME", userName);
-            param.put("PASS_WORD", password);
-            String paramXml = XMLUtil.map2xml(param);
-
-            Service service = new Service();
-            Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
-            call.setOperation("login");
-
-            String res = (String) call.invoke(new Object[]{paramXml});
-            //res = XMLUtil.xml2JSON(res);
-            return res;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
-
     //5.2登陆验证(根据医生身份证)  loginByID  -- 调通
     public static String loginByID(String idNumber, String loginKey) {
         try {
@@ -380,7 +345,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //7.1获取已签约的人员详细信息  getSignDetailInfo -- 未开发
+    //7.1获取人员详细信息by openId  getSignDetailInfo -- 未开发
     public static String getSignDetailInfo(String openId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -401,7 +366,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //7.2获取已签约的人员详细信息  getSignDetailInfoByChid -- 未开发
+    //7.2获取人员详细信息by chid  getSignDetailInfoByChid -- 未开发
     public static String getSignDetailInfoByChid(String chid) {
         try {
             Map<String, String> param = new HashMap<>();

@@ -187,14 +187,15 @@
 
 
 		mui("#group").on("tap", "li", function() {
-			var id = $(this).attr("data-id");	
-			mui.openWindow({
-				url: "yishengxinxi.html",
-				id: id,
-				extras: {
-					id: id
-				}
-			});
+			var id = $(this).attr("data-id");
+            openWindow('yishengxinxi.html?doctorId='+id);
+//			mui.openWindow({
+//				url: "yishengxinxi.html",
+//				id: id,
+//				extras: {
+//					id: id
+//				}
+//			});
 //			openWebview("yishengxinxi.html?id="+id);
 		});
 		/*

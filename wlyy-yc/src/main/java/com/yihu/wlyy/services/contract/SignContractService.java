@@ -312,6 +312,9 @@ public class SignContractService {
             String info = NeuSoftWebService.getSignDetailInfoByChid(patientId);
             Document document = DocumentHelper.parseText(info);
             Element element = document.getRootElement().element("XMLDATA");
+            if(element == null){
+                return null;
+            }
 //            String chId = element.elementText("CHID");
             String serialversionuid = element.elementText("SERIALVERSIONUID");
             String selfName = element.elementText("SELFNAME");

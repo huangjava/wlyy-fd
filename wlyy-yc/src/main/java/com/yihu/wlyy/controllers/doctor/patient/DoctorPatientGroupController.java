@@ -256,6 +256,9 @@ public class DoctorPatientGroupController extends BaseController {
 //        patientId = "bcc9e576-517f-4ed2-93d6-386b09f99184";
         try {
             JSONObject info = signContractService.getPatientInfo(patientId);
+            if(info == null){
+                return write(-1,"居民信息不存在！");
+            }
             return write(200, "获取居民生信息成功！", "data", info);
         } catch (Exception e) {
             error(e);

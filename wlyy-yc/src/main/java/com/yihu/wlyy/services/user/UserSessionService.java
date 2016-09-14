@@ -97,19 +97,24 @@ public class UserSessionService {
         ObjectMapper objectMapper = new ObjectMapper();
         UserAgent user = objectMapper.readValue(userAgent, UserAgent.class);
         if (!StringUtil.isEmpty(user.getOpenid())) {
-            return isLoginWeChat(user);
+            return isLoginWeChat(request, response, user);
         }
 
         return isLoginApp(request, response, user);
     }
 
-    public boolean isLoginWeChat(UserAgent userAgent) {
+    public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response, UserAgent userAgent) throws Exception {
         if (userAgent == null) {
             return false;
         }
 
         UserSessionModel userSession = userSessionDao.findOne(userAgent.getUid());
-        return userSession != null;
+        if(userSession != null){
+            return true;
+        }
+
+        response.getOutputStream().write(responseKit.write(200, "reLogin", "loginUrl", genEHomeUrl(userAgent.getOpenid())).getBytes());
+        return false;
 
     }
 

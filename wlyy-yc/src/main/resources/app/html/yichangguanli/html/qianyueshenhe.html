@@ -1,164 +1,248 @@
 <!doctype html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title>签约审核</title>
-		<meta name="author" content="yihu.com" />
-		<meta name="format-detection" content="telephone=no" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<link rel="stylesheet" type="text/css" href="../../../common/iconfont/iconfont.css">
-		<link rel="stylesheet" type="text/css" href="../../../common/cross/css/cross.css">
-		<link rel="stylesheet" href="../../../common/cross/css/cross.ui.css" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="../../../common/css/jy-style.css">
-		<link rel="stylesheet" type="text/css" href="../../../common/css/doc-style.css" />
-		<link rel="stylesheet" type="text/css" href="../css/xinxi.css">
-		<style>
-			.p-clcardna {
-				width: 90px;
-				height: 30px;
-				background-position: center top;
-				left: -6px;
-				bottom: -3px;
-				line-height: 38px;
-				background-size: auto 100%;
-			}
-			.l-biaoqian-list{padding: 20px 0%;}
-			.l-biaoqian-list li{margin: 5px 0%;}
-		</style>
-	</head>
+<head>
+	<meta charset="utf-8">
+	<title>签约审核</title>
+	<meta name="author" content="yihu.com" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="stylesheet" type="text/css" href="../../../common/iconfont/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/cross/css/cross.css">
+	<link rel="stylesheet" href="../../../common/cross/css/cross.ui.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="../../../common/css/jy-style.css">
+	<link rel="stylesheet" type="text/css" href="../../../common/css/doc-style.css" />
+	<link rel="stylesheet" type="text/css" href="../css/xinxi.css">
+	<style>
+		.p-clcardna {
+			width: 90px;
+			height: 30px;
+			background-position: center top;
+			left: -6px;
+			bottom: -3px;
+			line-height: 38px;
+			background-size: auto 100%;
+		}
+		.l-biaoqian-list{padding: 20px 0%;}
+		.l-biaoqian-list li{margin: 5px 0%;}
+		/*底部*/
+		.btmdiv{position: fixed; display:none;bottom:0px;margin: auto;left: 0;right: 0;z-index: 10000;width: 100%;max-width: 640px;}
+		.btmdiv ul{ display: block; margin:0 10px 10px ;border-radius: 5px;border:1px #e1e1e1 solid; overflow: hidden; }
+		.btmdiv li{  overflow: hidden; background: #fff; border-top:1px #e1e1e1 solid; font-size:14px; color: #12b7f5; text-align: center; line-height: 36px;}
+		.btmdiv li:nth-of-type(1){ border:none}
+		.btmdiv li.inphone{ position: relative;}
+		.btmdiv li a{ width: 100%; height: 36px; float:left;}
 
-	<body>
-        <div class="h45">
-            <div class="demo-comtop">
-                <a class="mui-action-back" id="mui-action-back"></a>
-                <!--团队成员医生信息页-->
-                <h1>签约审核</h1>
-            </div>
-        </div>
-		<div class="main" style="overflow: auto;">
+		.imgup { padding: 10px;}
+		.imgup a{ width: 65px; height: 65px; display: inline; float:left;}
+		.imgup a img{ width: 100%; height: 100%;}
+		#dndArea{width: 100%;height: 36px;min-height: 100% !important;padding: 0 !important;margin: 0 !important;background-size:100% 100% !important;border:none !important;top: 0px;left: 0px;position: absolute;}
+		#dndArea *{left: 0 !important;top: 0px !important;width: 100%  !important;background:none;height: 100% !important;border: none;}
+		#filePicker .webuploader-pick{ padding: 0 !important;margin: 0 !important;background: none !important;}
+		#uploader .queueList{margin: 10px 15px 0  !important;}
+		#filePicker .webuploader-pick{ display: none !important;}
+		#uploader .filelist div.file-panel span.rotateRight,#uploader .filelist div.file-panel span.rotateLeft{ display: none !important;}
+		#uploader .statusBar{margin: 0 !important; padding: 0 !important;}
+		#uploader .statusBar .info{ width: 269px;line-height: 26px;padding: 10px 0 0 0;}
+		.uploadBtn{ display: none !important}
+		.list-block li{}
+		#uploader .filelist li{ width: 64px !important; height: 64px  !important;}
+		#uploader .filelist li p.imgWrap{ width: 64px !important;height:64px  !important;}
+		.filelist li .file-panel{ height: 30px !important;background: none !important;}
+		.filelist li .file-panel .cancel{    background: url(../../../images/btn_shanchu_h.png) !important;background-size: 100% 100% !important;top: -18px !important;position: absolute;right: 8px !important;}
+		.list-block.edit-cyc1{background: #fff;}
+		#upimg >ul> li:nth-last-of-type(1){padding: 10px 0;overflow: hidden;}
+		.editbtn{ display: none;}
+	</style>
+</head>
 
-			<div class="bgc-fff">
-				<div class="c-100 c-position-r" id="pati_info">
+<body>
+<div class="h45">
+	<div class="demo-comtop">
+		<a class="mui-action-back" id="mui-action-back"></a>
+		<!--团队成员医生信息页-->
+		<h1>签约审核</h1>
+	</div>
+</div>
+<div class="main" style="overflow: auto;">
 
-				</div>
-			</div>
+	<div class="bgc-fff">
+		<div class="c-100 c-position-r" id="pati_info">
 
-			<div id="tagList" class="mt20" style="background: #fff; padding-left: 15px">
-				<!--<div style="padding-top: 6px;">分组标签</div>
-				<ul class="l-biaoqian-list " style="padding-top: 6px">
-					<li class="l-over" data-val="高血压">高血压</li>
-					<li class="l-over" data-val="糖尿病">糖尿病</li>
-				</ul>-->
-			</div>
-		
-			<ul class="n-list edit-list-file c-border-tb mt10">
-				<li class="ptb12 n-list-cover c-border-b">
-					<div class="n-list-key">
-						附件（纸质协议）<span class="c-f14 c-909090"></span>
-					</div>
-				</li>
-
-				<li class="pt10 mb10">
-					<div class="upload-img">
-						<ul class="add-img pt10">
-							<li class="add">
-							</li>
-						</ul>
-					</div>
-				</li>
-			</ul>
-			
 		</div>
-		
-		<div id="submit" style="padding: 10px;">
-			<div style="border-radius: 10px;background: #17b3ec;height: 36px;color: #fff;line-height: 36px;text-align: center;">提交签约</div>
-		</div>
-	</body>
+	</div>
 
-	<script type="text/html" id="info_tmpl">
-		<ul class="c-list c-border-b" data-id="{{chId}}">
-			<li class="c-list-text c-list-link">
-				<div class="l-face"><img style="width: 60px;height: 60px; border-radius: 30px; margin-top: 10px;" src='{{setDocPhoto(photo, sex)}}'></div>
-				<div class="l-list-info pl10">
-					<div class="f-bold ptb5" >{{name}} ( {{setSex(sex)}}&nbsp;&nbsp;{{age}} 岁 )</div>
-					<div class=" ptb5">手机号码：{{mobile}}</div>
-					<div>家庭住址：{{address}}</div>
-				</div>
-				<span class="list-icon arrow-right"></span>
-			</li>
-		</ul>
-	</script>
-	
-	<script id="info_tag" type="text/html">
-		<div style="padding-top: 6px;">分组标签</div>
-		<ul class="l-biaoqian-list " style="padding-top: 6px">
-			{{each list as value i}}
-			<li class="l-over" >{{value}}</li>
-			{{/each}}
-		</ul>
-	</script>
+	<div id="tagList" class="mt20" style="background: #fff; padding-left: 15px">
+		<!--<div style="padding-top: 6px;">分组标签</div>
+        <ul class="l-biaoqian-list " style="padding-top: 6px">
+            <li class="l-over" data-val="高血压">高血压</li>
+            <li class="l-over" data-val="糖尿病">糖尿病</li>
+        </ul>-->
+	</div>
 
-	<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../../js/jquery/2.1.3/jquery.js"></script>
-	<script type="text/javascript" src="../../../js/mui.min.js"></script>
-	<script src="../../../widget/mobiscroll/2.17.1/js/mobiscroll.js"></script>
-	<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.17.1/css/mobiscroll.css" />
-	<script src="../../../js/common_http.js?11=11" type="text/javascript" charset="utf-8"></script>
-	<script src="../../../widget/scale/scale.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../../js/upload_preview.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../../js/template.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../js/templateHelp.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../js/iscroll/iscroll.js" type="text/javascript" charset="utf-8"></script>
-	
-	<script type="text/javascript">
-		$(function() {
-			$('.main').css("max-height", ($(window).height() - 56) + "px");
-			getPatientInfo();
-			initEvent();
-			
+	<ul class="n-list edit-list-file c-border-tb mt10">
+		<li class="ptb12 n-list-cover c-border-b">
+			<div class="n-list-key">
+				附件（纸质协议）<span class="c-f14 c-909090"></span>
+			</div>
+		</li>
+
+		<li class="pt10 mb10">
+			<div class="upload-img">
+				<ul class="add-img pt10">
+					<li class="add">
+
+					</li>
+					<li>
+						<div id="uploader">
+
+							<div class="queueList">
+
+							</div>
+							<div class="statusBar" style="display:none;">
+								<div class="progress">
+									<span class="text">0%</span>
+									<span class="percentage"></span>
+								</div><div class="info"></div>
+								<div class="btns">
+									<div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+
+</div>
+
+<div id="submit" style="padding: 10px;">
+	<div style="border-radius: 10px;background: #17b3ec;height: 36px;color: #fff;line-height: 36px;text-align: center;">提交签约</div>
+</div>
+
+<div class="btmdiv">
+	<ul >
+		<li class="inphone">
+			<div id="dndArea" class="placeholder">
+				<div id="filePicker"></div>
+			</div>
+			<a href="javascript:void(0);" >从手机中选择图片</a></li>
+	</ul>
+	<ul >
+		<li><a href="javascript:void(0);" class="cancel">取消</a></li>
+	</ul>
+</div>
+
+</body>
+
+<script type="text/html" id="info_tmpl">
+	<ul class="c-list c-border-b" data-id="{{chId}}">
+		<li class="c-list-text c-list-link">
+			<div class="l-face"><img style="width: 60px;height: 60px; border-radius: 30px; margin-top: 10px;" src='{{setDocPhoto(photo, sex)}}'></div>
+			<div class="l-list-info pl10">
+				<div class="f-bold ptb5" >{{name}} ( {{setSex(sex)}}&nbsp;&nbsp;{{age}} 岁 )</div>
+				<div class=" ptb5">手机号码：{{mobile}}</div>
+				<div>家庭住址：{{address}}</div>
+			</div>
+			<span class="list-icon arrow-right"></span>
+		</li>
+	</ul>
+</script>
+
+<script id="info_tag" type="text/html">
+	<div style="padding-top: 6px;">分组标签</div>
+	<ul class="l-biaoqian-list " style="padding-top: 6px">
+		{{each list as value i}}
+		<li class="l-over" >{{value}}</li>
+		{{/each}}
+	</ul>
+</script>
+
+<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery/2.1.3/jquery.js"></script>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script src="../../../widget/mobiscroll/2.17.1/js/mobiscroll.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../widget/mobiscroll/2.17.1/css/mobiscroll.css" />
+<script src="../../../js/common_http.js?11=11" type="text/javascript" charset="utf-8"></script>
+<script src="../../../widget/scale/scale.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="../../../js/upload_preview.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="../../../js/template.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/templateHelp.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/iscroll/iscroll.js" type="text/javascript" charset="utf-8"></script>
+<!--上传控件-->
+<link rel="stylesheet" type="text/css" href="../../../js/webuploader/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="../../../js/webuploader/style.css" />
+<script type="text/javascript" src="../../../js/webuploader/webuploader.js"></script>
+<script type="text/javascript" src="../../../js/webuploader/upload.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$('.main').css("max-height", ($(window).height() - 56) + "px");
+		getPatientInfo();
+		initEvent();
+
 //			var myScroll = new IScroll('.main', { mouseWheel: true, tap: true });
+		$.upload("","",""); //图片控件初始化
+	});
+
+	function cycture(file){//处理图片上传后回调
+		debugger
+	}
+
+	var imgArea = document.querySelector(".add-img");
+	var $imgUpBtn = $(".add");//点击弹窗
+	var $btmdiv = $(".btmdiv");//弹窗
+	var $btmCancel = $(".cancel", $(".btmdiv"));//取消
+	var $inPhone = $(".inphone", $(".btmdiv"));//手机中选择
+
+	//添加附件
+	document.querySelector(".add").addEventListener("tap", function() {
+		$btmdiv.slideDown();
+	});
+
+	$btmCancel.on("click",function(){
+		$btmdiv.slideUp();
+	})//弹窗取消
+
+	$inPhone.on("click",function(){
+		$btmdiv.slideUp();
+	})// 手机选择图片
+
+	/**
+	 * 初始化事件
+	 */
+	function initEvent(){
+		document.getElementById('mui-action-back').addEventListener('tap', function() {
+			closeWindow();
 		});
 
-		var imgArea = document.querySelector(".add-img");
-		//添加附件
-		document.querySelector(".add").addEventListener("tap", function() {
-			showActionSheet(imgArea, this);
-		});
-		
-		/**
-		 * 初始化事件
-		 */
-		function initEvent(){
-            document.getElementById('mui-action-back').addEventListener('tap', function() {
-                closeWindow();
-            });
-
-			$('#submit').on("tap","div",function(){
-				var uploadImgUrl =  [$('.upload-img ul li img').attr('src')];
-				function fusucdes(){
+		$('#submit').on("tap","div",function(){
+			var uploadImgUrl =  [$('.upload-img ul li img').attr('src')];
+			function fusucdes(){
 //					//已签约数据刷新
 //					mui.fire(plus.webview.getWebviewById('yiqianyue.html'), 'updateyiqianyue', {name: 1});
 //					//待签约、未签约数据刷新
 //					mui.fire(plus.webview.getWebviewById('daiqianyue.html'), 'updatedaiqianyue', {});
 //					//返回上层页面
 //					mui.back();
-				}
-				uploadImg(uploadImgUrl,fusucdes);
-			});
-		}
-		
-		function getPatientInfo() {
-			
+			}
+			//uploadImg(uploadImgUrl,fusucdes);
+			$('.uploadBtn').trigger("click");
+		});
+	}
+
+	function getPatientInfo() {
+
 //			var self = plus.webview.currentWebview();
 //			var patientId = self.patientId;
-            var	Request = GetRequest();
-            var	patientId = Request["patientId"];
-			var params = {patientId:patientId}
-			sendPost("doctor/patient_group/patientInfo",params,
+		var	Request = GetRequest();
+		var	patientId = Request["patientId"];
+		var params = {patientId:patientId}
+		sendPost("doctor/patient_group/patientInfo",params,
 				function queryFailed(res) {
 					if (res && res.msg) {
 						plus.nativeUI.toast(res.msg);
@@ -177,11 +261,11 @@
 						document.getElementById("tagList").innerHTML = contw;
 					}
 				});
-		}
-	
-		$('#pati_info').on("tap","ul", function(){
-			var patientId = $(this).attr("data-id");
-            openWindow('weiqianyuejuminxinxi.html?patientId='+patientId);
+	}
+
+	$('#pati_info').on("tap","ul", function(){
+		var patientId = $(this).attr("data-id");
+		openWindow('weiqianyuejuminxinxi.html?patientId='+patientId);
 //            mui.openWindow({
 //                url: 'weiqianyuejuminxinxi.html?patientId='+patientId,
 //                id: 'weiqianyuejuminxinxi.html',
@@ -190,7 +274,7 @@
 //                }
 //            });
 //			openWindowWithSub("qianyueshenhe", "weiqianyuejuminxinxi.html", "居民资料", {patientId:patientId},"weiqianyuejuminxinxi");
-		})
-	</script>
+	})
+</script>
 
 </html>

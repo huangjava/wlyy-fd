@@ -50,50 +50,50 @@ public class DoctorController extends BaseController {
             @RequestParam(value = "ticket", required = false) String ticket) {
 //        orgId = "2c9660e34f4fbb9d014f5d5453b8001b";
 //        userId = "f93afa56-417c-4901-aeab-002ded330d86";
-//        try {
-//            JSONArray myTeam = doctorService.getMyTeam(orgId, userId);
-//            return write(200, "获取团队信息成功！", "data", myTeam);
-//        } catch (Exception e) {
-//            error(e);
-//            return error(-1, "获取团队信息失败！");
-//        }
-
-        //接口调通前测试用
-
-        try{
-            String url = "";
-            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-            JSONObject jsonTeam = new JSONObject();
-            //团队信息（页面暂未使用）
-            jsonTeam.put("团队编号","");
-            jsonTeam.put("teamName","骨科小分队");
-            jsonTeam.put("所属机构编码","");
-            jsonTeam.put("创建单位名称","");
-            jsonTeam.put("创建单位编码","");
-            jsonTeam.put("创建时间","");
-            jsonTeam.put("团队简介","");
-            //团队成员列表
-            //需要姓名、性别（或头像）、所属科室、职称
-            JSONArray array = new JSONArray();
-            for (int i=0; i<5;i++) {
-                JSONObject json = new JSONObject();
-                json.put("id","201600"+i);
-                json.put("name","张三"+i);
-                json.put("dept","骨科");
-                json.put("jobName","主治医师");
-                json.put("org","厦门第一医院");
-                json.put("sex","1");
-                json.put("photo","");
-                json.put("expertise","全部都是文字，最多多少个文字？怎么展示？这只是个示例，多少个字，这边就展示相应的多少行，不会多余，也不会减少");
-                json.put("introduce","全部都是文字，最多多少个文字？怎么展示？这只是个示例，多少个字，这边就展示相应的多少行，不会多余，也不会减少");
-                array.add(json);
-            }
-            jsonTeam.put("list",array);
-            return write(200, "获取团队信息成功！", "data", jsonTeam);
+        try {
+            JSONArray myTeam = doctorService.getMyTeam(orgId, userId);
+            return write(200, "获取团队信息成功！", "data", myTeam);
         } catch (Exception e) {
             error(e);
             return error(-1, "获取团队信息失败！");
         }
+
+        //接口调通前测试用
+
+//        try{
+//            String url = "";
+//            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
+//            JSONObject jsonTeam = new JSONObject();
+//            //团队信息（页面暂未使用）
+//            jsonTeam.put("团队编号","");
+//            jsonTeam.put("teamName","骨科小分队");
+//            jsonTeam.put("所属机构编码","");
+//            jsonTeam.put("创建单位名称","");
+//            jsonTeam.put("创建单位编码","");
+//            jsonTeam.put("创建时间","");
+//            jsonTeam.put("团队简介","");
+//            //团队成员列表
+//            //需要姓名、性别（或头像）、所属科室、职称
+//            JSONArray array = new JSONArray();
+//            for (int i=0; i<5;i++) {
+//                JSONObject json = new JSONObject();
+//                json.put("id","201600"+i);
+//                json.put("name","张三"+i);
+//                json.put("dept","骨科");
+//                json.put("jobName","主治医师");
+//                json.put("org","厦门第一医院");
+//                json.put("sex","1");
+//                json.put("photo","");
+//                json.put("expertise","全部都是文字，最多多少个文字？怎么展示？这只是个示例，多少个字，这边就展示相应的多少行，不会多余，也不会减少");
+//                json.put("introduce","全部都是文字，最多多少个文字？怎么展示？这只是个示例，多少个字，这边就展示相应的多少行，不会多余，也不会减少");
+//                array.add(json);
+//            }
+//            jsonTeam.put("list",array);
+//            return write(200, "获取团队信息成功！", "data", jsonTeam);
+//        } catch (Exception e) {
+//            error(e);
+//            return error(-1, "获取团队信息失败！");
+//        }
     }
 
     // 获取医生信息
@@ -105,38 +105,37 @@ public class DoctorController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId,
             @ApiParam(name = "ticket", value = "ticket", defaultValue = "12121")
             @RequestParam(value = "ticket", required = false) String ticket) {
-//        userId = "a569522f-49d9-46ea-8209-1406e04787ea";
-//        try {
-//            JSONObject info = doctorService.getInfo(userId);
-//            return write(200, "success！", "data", info);
-//        } catch (Exception e) {
-//            error(e);
-//            return error(-1, "获取医生信息失败！");
-//        }
-
-        // 接口调通前测试用
-        try{
-            String url = "";
-            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
-            JSONObject json = new JSONObject();
-            json.put("photo","");                   // 照片 8    原有使用的是src
-            json.put("name","张三"+userId);                 // 医生姓名1
-            json.put("sex","1");                    // 医生性别2
-            // 职业经历3 ****
-            // 教育背景4 ****
-            json.put("mobile","15805926666no");     // 医生联系方式（未提供）
-            json.put("expertise","中医内科疾病，糖尿病慢性并发症；肿瘤手术后及放、化疗后中医药调理；脾胃虚弱及睡眠障碍、多汗、亚健康调理等");        // 专业特长5
-            json.put("hospitalName","第一医院");//所属机构6
-            json.put("deptName","骨科");             // 所属科室7
-            json.put("jobName","主治医师");       // （无）
-            json.put("introduce","全部都是文字，最多多少个文字？怎么展示？这只是个示例，多少个字，这边就展示相应的多少行，不会多余，也不会减少");      // 简介（无）
-            json.put("provinceName","福建省");    // 省份（无）--湖北
-            json.put("cityName","厦门市");        // 城市（无）--宜昌
-            return write(200, "success！", "data", json);
+        try {
+            JSONObject info = doctorService.getInfo(userId);
+            return write(200, "success！", "data", info);
         } catch (Exception e) {
             error(e);
             return error(-1, "获取医生信息失败！");
         }
+
+        // 接口调通前测试用
+//        try{
+//            String url = "";
+//            //String resultStr = HttpClientUtil.doGet(comUrl+url,params);
+//            JSONObject json = new JSONObject();
+//            json.put("photo","");                   // 照片 8    原有使用的是src
+//            json.put("name","张三"+userId);                 // 医生姓名1
+//            json.put("sex","1");                    // 医生性别2
+//            // 职业经历3 ****
+//            // 教育背景4 ****
+//            json.put("mobile","15805926666no");     // 医生联系方式（未提供）
+//            json.put("expertise","中医内科疾病，糖尿病慢性并发症；肿瘤手术后及放、化疗后中医药调理；脾胃虚弱及睡眠障碍、多汗、亚健康调理等");        // 专业特长5
+//            json.put("hospitalName","第一医院");//所属机构6
+//            json.put("deptName","骨科");             // 所属科室7
+//            json.put("jobName","主治医师");       // （无）
+//            json.put("introduce","全部都是文字，最多多少个文字？怎么展示？这只是个示例，多少个字，这边就展示相应的多少行，不会多余，也不会减少");      // 简介（无）
+//            json.put("provinceName","福建省");    // 省份（无）--湖北
+//            json.put("cityName","厦门市");        // 城市（无）--宜昌
+//            return write(200, "success！", "data", json);
+//        } catch (Exception e) {
+//            error(e);
+//            return error(-1, "获取医生信息失败！");
+//        }
     }
 
     // 获取医生信息

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -150,14 +151,18 @@ public class FamilyController extends BaseController {
             @RequestParam(value = "address") String address) {
         try {
             //TODO 调用接口获取数据
+            Map<String,Object> result = new HashMap<>();
             List<Map<String,Object>> list =  hospitalService.getOrgsByUserAddr(town, street, committee, address);
             int sign = 0;
             if (list!=null && list.size()>0){
                 sign = 1;
+                result.put("code",list.get(0).get("code").toString());
+                result.put("name",list.get(0).get("name").toString());
             }else {
                 sign = -1;
             }
-            return write(200, "保存成功！", "data",sign);
+            result.put("sign",sign);
+            return write(200, "保存成功！", "data",result);
         } catch (Exception e) {
             error(e);
             return error(-1, "保存失败！");

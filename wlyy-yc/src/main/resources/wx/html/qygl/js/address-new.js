@@ -354,8 +354,15 @@ function submitSuccess1(res) {
 			return;
 		}
 		dd.close();
-		window.location.href = "../html/search-community.html";
-		window.scrollTo(0,0);
+		var code = res.data.code;
+		var name = res.data.name;
+		if(res.data.sign == '1'){
+			window.location.href = "../html/search-team.html?hospital="+code+"&name="+name;
+			window.scrollTo(0,0);
+		}else {
+			dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'保存地址信息失败！'}).show();
+		}
+
 		//window.location.reload();
 	} else {
 		submitFailed1(res);

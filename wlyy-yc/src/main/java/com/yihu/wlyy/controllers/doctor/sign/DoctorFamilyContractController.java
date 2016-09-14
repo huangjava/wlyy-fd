@@ -2,6 +2,7 @@ package com.yihu.wlyy.controllers.doctor.sign;
 
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
+import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpClientUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -75,9 +76,15 @@ public class DoctorFamilyContractController extends BaseController {
                 }
                 inputStream.close();
                 dataHandler = new DataHandler(fileBuffer, "application/octet-stream");
-                break;
+                break; // 取完第一张照片即中断
             }
+
+            //其他信息处理。
+            signPeriod = "1";  //默认为1年
+            signPreiodFrom = DateUtil.getNow().toString(); //默认当天
+            agreementName = chid + "agreement";   //居民唯一标识 + agreement
             String res = neuSoftWebService.upConfirmSignedInfo(dataHandler,signTeam,signTeamName,signPeriod,signPreiodFrom,chid,agreementName,orgCode,userId);
+
             return write(200, "更新成功", "data", res);
         } catch (Exception e) {
             error(e);

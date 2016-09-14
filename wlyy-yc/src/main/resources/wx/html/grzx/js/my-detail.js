@@ -1,11 +1,14 @@
 var d = dialog({contentType:'load', skin:'bk-popup'});
 saveAgentPage("../../grzx/html/my-detail.html");
+var teamName,orgName,teamCode;
 var Request = GetRequest();
 if(Request["openid"]){
 	openId = decodeURIComponent(Request["openid"]);
+	window.localStorage.setItem("openid", openId);
 }
 if(Request["r"]){
 	random = Request["r"];
+	window.localStorage.setItem("random", random);
 }
 
 $(function() {	
@@ -19,10 +22,10 @@ function queryInit(){
 }
 
 //跳转到家庭签约信息
-function changeJtqy(signedStatus,teamCode){
-	if(signedStatus) {
-		window.location.href = "../../qygl/html/doctor-homepage.html?teamCode="+teamCode;
-	} else {
+function changeJtqy(sign) {
+	if(sign == 1) {
+		window.location.href = "../../qygl/html/doctor-homepage.html?teamCode="+teamCode+"&orgName="+orgName;
+	} else if (sign == 0) {
 		window.location.href = "../../qygl/html/search-community.html"
 	}
 	//window.location.href = "../../ssgg/html/choose-region.html";
@@ -83,8 +86,9 @@ function setValue(data){
 	var areaName = data.townCode;
 	var streetName = data.streetCode;
 	var address = data.address;
-	var teamName = data.teamName;
-	var teamCode = data.teamCode;
+	teamName = data.teamName;
+	orgName = data.orgName;
+	teamCode = data.teamCode;
 	var sign = Number(data.sign);//签约状态
 
 	if(!photo){
@@ -125,9 +129,9 @@ function setValue(data){
 	
 	var html = "";
 	if(sign == 0){
-		html =   '<div onclick="changeJtqy(false,'+teamCode+')">未签约，去签约</div>';
+		html =   '<div onclick="changeJtqy(false)">未签约，去签约</div>';
 	}else if(sign == 1){
-		html =   '<div onclick="changeJtqy(true,'+teamCode+')">'+teamName+'</div>';
+		html =  '<div onclick="changeJtqy(true)">'+teamName+'</div>';
 	}else{
 		window.location.href = "../../qygl/html/search-community.html";
 	}

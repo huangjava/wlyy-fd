@@ -2,6 +2,7 @@ package com.yihu.wlyy.controllers.patient.device;
 
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.models.device.PatientDevice;
+import com.yihu.wlyy.services.device.DeviceService;
 import com.yihu.wlyy.services.device.PatientDeviceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,12 +31,13 @@ public class PatientDeviceController extends BaseController {
 
 	@Autowired
 	private PatientDeviceService patientDeviceService;
-
+	@Autowired
+	private DeviceService deviceService;
 
 	@ApiOperation("设备保存接口")
 	@RequestMapping(value = "savePatientDevice", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
-	public String saveDevice(@ApiParam(name="json",value="设备数据json")
+	public String savePatientDevice(@ApiParam(name="json",value="设备数据json")
 							  @RequestParam(value="json",required = true) String json) {
 		try {
 			PatientDevice device = objectMapper.readValue(json,PatientDevice.class);
@@ -44,8 +46,12 @@ public class PatientDeviceController extends BaseController {
 //			String user = "CS20160830001";
 			device.setUser(user);
 
-			patientDeviceService.saveDevice(device);
-
+			if (!patientDeviceService.saveDevice(device)) {
+				return error(-1, "患者绑定设备失败！");
+			}
+			if (!deviceService.saveDeviceData(device)) {
+				return error(-1, "保存设备信息失败！");
+			}
 			return success("设备保存成功！");
 		}
 		catch (Exception ex) {

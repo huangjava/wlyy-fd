@@ -1,14 +1,15 @@
 // 页面载入显示提示“加载中” 
 
-
+var Request = GetRequest();
+var teamCode = Request["teamCode"];
+var orgName = decodeURIComponent(Request["orgName"]||"");
+var teamName =decodeURIComponent(Request["teamName"]||""),
+	orgCode = Request["orgCode"],
+	doctorCode = Request["doctorCode"];
 
 
 $(function() {
 	saveAgentPage("../../qygl/html/doctor-info.html");
-	var Request = new Object();
-		Request = GetRequest();
-		var doctorCode = Request["doctorCode"];
-		
 	
 	getReqPromise("patient/hospital/getDoctorInfo",{doctorCode:doctorCode,openId:openId,random:random})
 
@@ -26,12 +27,12 @@ $(function() {
 		}else{
 			document.getElementById("photo").src = data.data.url;
 		}
-		document.getElementById("doctorCode").innerHTML = data.data.doctorCode;
+		document.getElementById("doctorCode").innerHTML = doctorCode;
 		document.getElementById("doctorName").innerHTML = data.data.doctorName;
 		document.getElementById("orgCode").innerHTML = data.data.orgCode;
-		document.getElementById("orgName").innerHTML = data.data.orgName;
+		document.getElementById("orgName").innerHTML = orgName;
 		document.getElementById("teamCode").innerHTML = data.data.teamCode;
-		document.getElementById("teamName").innerHTML = data.data.teamName;
+		document.getElementById("teamName").innerHTML = teamName;
 		document.getElementById("jobName").innerHTML = data.data.jobName;
 		document.getElementById("expertise").innerHTML = data.data.expertise;
 		document.getElementById("introduce").innerHTML = data.data.introduce;

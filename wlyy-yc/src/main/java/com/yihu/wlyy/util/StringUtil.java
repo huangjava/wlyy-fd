@@ -160,6 +160,10 @@ public class StringUtil {
         }
     }
 
+    public static boolean isNotEmpty(Object strObj) {
+        return !isEmpty(strObj);
+    }
+
 
     public static boolean isStrEmpty(String str) {
         if ((str == null) || (str.trim().length() < 1) || "null".endsWith(str.toLowerCase())) {

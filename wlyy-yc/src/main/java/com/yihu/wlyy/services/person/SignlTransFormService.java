@@ -23,28 +23,29 @@ public class SignlTransFormService {
      * @return
      */
     public static Map<String,Object> getSignState(String openId){
-        Map<String,Object> result = new HashMap<>();
+        Map<String,Object> result = null;
         //TODO 调用东软接口返回数据
         String responseXml = NeuSoftWebService.getSignState(openId);
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                " <MSGFORM>\n" +
-                "   <XMLDATA>\n" +
-                "       <STATUS>1</STATUS>\n" +
-                "       <TEAMID>420505001002</TEAMID>\n" +
-                "       <TEAMNAME>高血压团队</TEAMNAME>\n" +
-                "       <ORGCODE>420505001000</ORGCODE>\n" +
-                "       <CREATEDUNITNAME>古老背社区卫生服务中心</CREATEDUNITNAME>\n" +
-                "       < CREATEDUNITCODE> 420505001000</CREATEDUNITCODE>\n" +
-                "       < CREATEDTIME>2016-01-01</ CREATEDTIME>\n" +
-                "       < TEAMDESC>高血压团队简介</ TEAMDESC>\n" +
-                "       < UNIT_NAME>古老背社区卫生服务中心</ UNIT_NAME>\n" +
-                "    </XMLDATA>\n" +
-                "  </MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                " <MSGFORM>\n" +
+//                "   <XMLDATA>\n" +
+//                "       <STATUS>1</STATUS>\n" +
+//                "       <TEAMID>420505001002</TEAMID>\n" +
+//                "       <TEAMNAME>高血压团队</TEAMNAME>\n" +
+//                "       <ORGCODE>420505001000</ORGCODE>\n" +
+//                "       <CREATEDUNITNAME>古老背社区卫生服务中心</CREATEDUNITNAME>\n" +
+//                "       < CREATEDUNITCODE> 420505001000</CREATEDUNITCODE>\n" +
+//                "       < CREATEDTIME>2016-01-01</ CREATEDTIME>\n" +
+//                "       < TEAMDESC>高血压团队简介</ TEAMDESC>\n" +
+//                "       < UNIT_NAME>古老背社区卫生服务中心</ UNIT_NAME>\n" +
+//                "    </XMLDATA>\n" +
+//                "  </MSGFORM>\n";
 
         try {
             List<Map<String,Object>> teams =  XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
                     Map<String,Object> obj = teams.get(0);
+                result = new HashMap<>();
                 result.put("signStatus", obj.get("STATUS"));
             }
         } catch (Exception e) {
@@ -68,12 +69,12 @@ public class SignlTransFormService {
         String responseXml = NeuSoftWebService.doSignApply(selfName, null,null, null,null,signTeam);
 
         //TODO 调用东软接口返回数据
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<MSGFORM>\n" +
-                "   <XMLDATA>\n" +
-                "     <RESULTFLAG>1</RESULTFLAG>\n" +
-                "   </XMLDATA>\n" +
-                "</MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<MSGFORM>\n" +
+//                "   <XMLDATA>\n" +
+//                "     <RESULTFLAG>1</RESULTFLAG>\n" +
+//                "   </XMLDATA>\n" +
+//                "</MSGFORM>\n";
 
         try {
             List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);

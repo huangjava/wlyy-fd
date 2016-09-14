@@ -3,9 +3,9 @@ package com.yihu.wlyy.controllers.patient.family;
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.services.person.PersonService;
+import com.yihu.wlyy.services.person.SignlTransFormService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,21 +27,32 @@ public class FamilyController extends BaseController {
     @Autowired
     private HospitalService hospitalService;
     @Autowired
+    private SignlTransFormService signlTransFormService;
+    @Autowired
     private PersonService personService;
 
     @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
-    public String isAssign(
-            @ApiParam(name = "openId", value = "居民微信主索引", required = true)
-            @RequestParam(value = "openId") String openId) {
+    public String isAssign() {
         try {
             int sign = 0;
+            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+//            String openId = getOpenid();
+
             List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(openId);
+
+            Map<String,Object> info = signlTransFormService. getSignState(openId);
+
             if (list!=null && list.size()>0){
-                sign = 1;
+                if (info!=null && "0".equals(info.get("signStatus")))
+                {
+                    sign = 0;//已分拣+未签约
+                }else {
+                    sign = 1;//已分拣+已签约
+                }
             }else {
-                sign = -1;
+                sign = -1;//未分拣
             }
             return write(200, "获取分拣状态成功！", "data",sign);
         } catch (Exception e) {
@@ -81,7 +93,10 @@ public class FamilyController extends BaseController {
     @ApiOperation(value = "获取患者基本信息", produces = "application/json", notes = "获取患者基本信息")
     public String baseinfo() {
         try {
-            Map<String,Object> info = personService.getBaseInfByOpenId(getOpenid());
+            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+//            String openId = getOpenid();
+
+            Map<String,Object> info = personService.getBaseInfByOpenId(openId);
             return write(200, "患者信息查询成功！", "data", info);
         } catch (Exception e) {
             error(e);
@@ -138,8 +153,19 @@ public class FamilyController extends BaseController {
             @ApiParam(name = "address", value = "患者Code", required = true)
             @RequestParam(value = "address") String address) {
         try {
-
-            return write(200, "保存成功！", "data",  1);
+            //TODO 调用接口获取数据
+            Map<String,Object> result = new HashMap<>();
+            List<Map<String,Object>> list =  hospitalService.getOrgsByUserAddr(town, street, committee, address);
+            int sign = 0;
+            if (list!=null && list.size()>0){
+                sign = 1;
+                result.put("code",list.get(0).get("code").toString());
+                result.put("name",list.get(0).get("name").toString());
+            }else {
+                sign = -1;
+            }
+            result.put("sign",sign);
+            return write(200, "保存成功！", "data",result);
         } catch (Exception e) {
             error(e);
             return error(-1, "保存失败！");

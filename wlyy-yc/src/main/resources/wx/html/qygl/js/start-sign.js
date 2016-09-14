@@ -7,7 +7,6 @@ var teamCode = Request["teamCode"];
 var teamName = Request["teamName"];
 var orgName = Request["orgName"];
 var orgCode = Request["orgCode"];
-var idCard = Request["idCard"];
 var code = Request["code"];
 if(code){
 	closeWindow();
@@ -25,10 +24,10 @@ $(function(){
 	}
 	query();
 
-	$("#idCard").on("blur", function() {
-		var value = $(this).val();
-		validateIdcard(value);
-	});
+	//$("#idCard").on("blur", function() {
+	//	var value = $(this).val();
+	//	validateIdcard(value);
+	//});
 
 	$('#agree_sign_btn').click(function(e) {
 		$(this).toggleClass("checked");

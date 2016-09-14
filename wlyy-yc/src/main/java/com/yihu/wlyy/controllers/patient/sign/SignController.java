@@ -140,8 +140,8 @@ public class SignController extends BaseController {
             @RequestParam(required = true) String patientName,
             @ApiParam(name = "contactPhone", value = "本人电话", required = true)
             @RequestParam(required = true) String contactPhone,
-            @ApiParam(name = "idnumber", value = "身份证号", required = true)
-            @RequestParam(required = true) String idnumber,
+            @ApiParam(name = "idnumber", value = "身份证号", required = false)
+            @RequestParam(required = false) String idnumber,
             @ApiParam(name = "teamCode", value = "团队Code", required = true)
             @RequestParam(required = true) String teamCode) {
         try {

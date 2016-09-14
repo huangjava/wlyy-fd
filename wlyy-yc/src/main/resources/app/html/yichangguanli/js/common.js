@@ -84,3 +84,11 @@ var plus = {
 		}
 	}
 }
+
+function openWindow(url){
+    window.top.openSubPage(url);
+}
+
+function closeWindow(){
+    window.top.closeSubPage();
+}

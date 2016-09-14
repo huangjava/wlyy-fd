@@ -277,14 +277,14 @@ public class NeuSoftWebService {
     public static String upConfirmSignedInfo(DataHandler dataHandler, String signTeam, String signTeamName, String signPeriod, String signPreiodFrom, String chid, String agreementName, String orgCode, String userId) {
         try {
             Map<String, String> param = new HashMap<>();
-            param.put("SIGNTEAM", signTeam);
-            param.put("SIGNTEAMNAME", signTeamName);
-            param.put("SIGNPERIOD", signPeriod);  //签约周期
-            param.put("SIGNPERIODFROM", signPreiodFrom); //签约日期
+            param.put("SIGNTEAM", signTeam); //签约团队信息
+            param.put("SIGNTEAMNAME", signTeamName);  //置空
+            param.put("SIGNPERIOD", signPeriod);  //签约周期 默认按年默认1年
+            param.put("SIGNPERIODFROM", signPreiodFrom); //签约日期 当天
             param.put("CHID", chid);   //居民主索引
             param.put("AGREEMENTNAME", agreementName);  //上传协议名称
             param.put("ORGCODE", orgCode); //医生所属机构编号
-            param.put("USERID", userId);
+            param.put("USERID", userId); //医生ID
             String paramXml = XMLUtil.map2xml(param);
 
             Service service = new Service();
@@ -345,7 +345,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //7.1获取已签约的人员详细信息  getSignDetailInfo -- 未开发
+    //7.1获取人员详细信息by openId  getSignDetailInfo -- 未开发
     public static String getSignDetailInfo(String openId) {
         try {
             Map<String, String> param = new HashMap<>();
@@ -366,7 +366,7 @@ public class NeuSoftWebService {
         }
     }
 
-    //7.2获取已签约的人员详细信息  getSignDetailInfoByChid -- 未开发
+    //7.2获取人员详细信息by chid  getSignDetailInfoByChid -- 未开发
     public static String getSignDetailInfoByChid(String chid) {
         try {
             Map<String, String> param = new HashMap<>();

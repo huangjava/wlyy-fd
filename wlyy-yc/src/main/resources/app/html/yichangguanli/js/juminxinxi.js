@@ -26,8 +26,9 @@ function getPatientInfo(){
 			if(res.status == 200) {
 				$("#docInfo").append(template("detail_info_tmpl", res.data));
 				$('#docInfo').on('tap','ul', function(){
-					var patientId = $(this).attr("data-id");	
-					openWindowWithSub("juminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {patientId:patientId},"weiqianyuejuminxinxi");
+					var patientId = $(this).attr("data-id");
+                    openWindow('weiqianyuejuminxinxi.html?patientId='+patientId+'&supPage=health-record');
+					//openWindowWithSub("juminxinxi", "weiqianyuejuminxinxi.html", "居民资料", {patientId:patientId},"weiqianyuejuminxinxi");
 				})
 			} else {
 				mui.toast(res.msg);

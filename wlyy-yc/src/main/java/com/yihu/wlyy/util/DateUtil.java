@@ -783,4 +783,32 @@ public class DateUtil {
 	public static long compareDateTime(java.util.Date s1, java.util.Date s2) {
 		return s1.getTime() - s2.getTime();
 	}
+
+	public static Date addDate(int add, Date d) {
+
+		if (d == null) {
+			return null;
+		}
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime((java.util.Date) d);
+		cal.setTimeZone(TimeZone.getDefault());
+		cal.add(Calendar.DAY_OF_MONTH, add);
+
+		return new Date(cal.getTime().getTime());
+	}
+
+	public static java.util.Date addDateTime(int add, Date d) {
+
+		if (d == null) {
+			return null;
+		}
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime((java.util.Date) d);
+		cal.setTimeZone(TimeZone.getDefault());
+		cal.add(Calendar.DAY_OF_MONTH, add);
+
+		return cal.getTime();
+	}
 }

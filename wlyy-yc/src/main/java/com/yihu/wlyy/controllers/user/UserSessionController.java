@@ -63,8 +63,8 @@ public class UserSessionController extends BaseController {
         }
     }
 
+    //只是为了拦截前端信息
     @RequestMapping(value = "/app", method = RequestMethod.GET)
     public void loginApp(HttpServletRequest request, HttpServletResponse response) {
-        userSessionService.loginApp(request, response);
     }
 }

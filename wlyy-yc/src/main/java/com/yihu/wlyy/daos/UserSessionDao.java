@@ -11,6 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserSessionDao extends CrudRepository<UserSessionModel, Long> {
 
-    @Query("select a from UserSessionModel a where a.userCode = ?1")
+    @Query("select a from UserSessionModel a where a.userCode = ?1 and a.expireTime > now()")
     UserSessionModel findOne(String userCode);
 }

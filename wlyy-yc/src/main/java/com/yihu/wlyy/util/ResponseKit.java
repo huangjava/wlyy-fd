@@ -1,6 +1,5 @@
 package com.yihu.wlyy.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -50,7 +49,7 @@ public class ResponseKit {
     public String write(int code, String msg) {
         try {
             Response response = new Response(code, msg).invoke();
-            return response.getMapper().writeValueAsString(response.getMap());
+            return response.getJsonObject().toString();
         } catch (Exception e) {
             error(e);
             return null;
@@ -68,7 +67,7 @@ public class ResponseKit {
 //        try {
 //            Response response = new Response(code, msg).invoke();
 //            Map<Object, Object> map = response.getMap();
-//            ObjectMapper mapper = response.getMapper();
+//            ObjectMapper mapper = response.getJsonObject();
 //            map.put(key, list);
 //            return mapper.writeValueAsString(map);
 //        } catch (Exception e) {
@@ -143,7 +142,6 @@ public class ResponseKit {
     }
 
 
-
     /**
      * 返回接口处理结果
      *
@@ -168,19 +166,19 @@ public class ResponseKit {
     public String write(int code, String msg, String key, Page<?> list) {
         try {
             Map<Object, Object> map = new HashMap<Object, Object>();
-            ObjectMapper mapper = new ObjectMapper();
-            map.put("status", code);
-            map.put("msg", msg);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status", code);
+            jsonObject.put("msg", msg);
             // 是否为第一页
-            map.put("isFirst", list.isFirst());
+            jsonObject.put("isFirst", list.isFirst());
             // 是否为最后一页
-            map.put("isLast", list.isLast());
+            jsonObject.put("isLast", list.isLast());
             // 总条数
-            map.put("total", list.getTotalElements());
+            jsonObject.put("total", list.getTotalElements());
             // 总页数
-            map.put("totalPages", list.getTotalPages());
-            map.put(key, list.getContent());
-            return mapper.writeValueAsString(map);
+            jsonObject.put("totalPages", list.getTotalPages());
+            jsonObject.put(key, list.getContent());
+            return jsonObject.toString();
         } catch (Exception e) {
             error(e);
             return error(-1, "服务器异常，请稍候再试！");
@@ -220,12 +218,11 @@ public class ResponseKit {
      */
     public String write(int code, String msg, String key, String value) {
         try {
-            Map<Object, Object> map = new HashMap<Object, Object>();
-            ObjectMapper mapper = new ObjectMapper();
-            map.put("status", code);
-            map.put("msg", msg);
-            map.put(key, value);
-            return mapper.writeValueAsString(map);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status", code);
+            jsonObject.put("msg", msg);
+            jsonObject.put(key, value);
+            return jsonObject.toString();
         } catch (Exception e) {
             error(e);
             return error(-1, "服务器异常，请稍候再试！");
@@ -236,7 +233,7 @@ public class ResponseKit {
         private int code;
         private String msg;
         private Map<Object, Object> map;
-        private ObjectMapper mapper;
+        private JSONObject jsonObject;
 
         public Response(int code, String msg) {
             this.code = code;
@@ -247,15 +244,15 @@ public class ResponseKit {
             return map;
         }
 
-        public ObjectMapper getMapper() {
-            return mapper;
+        public JSONObject getJsonObject() {
+            return jsonObject;
         }
 
         public Response invoke() {
-            map = new HashMap<Object, Object>();
-            mapper = new ObjectMapper();
-            map.put("status", code);
-            map.put("msg", msg);
+            map = new HashMap<>();
+            jsonObject = new JSONObject();
+            jsonObject.put("status", code);
+            jsonObject.put("msg", msg);
             return this;
         }
     }

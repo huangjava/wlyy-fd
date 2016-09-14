@@ -1,16 +1,8 @@
 package com.yihu.wlyy.controllers.doctor.patient;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-
-import javax.activation.DataHandler;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.util.XMLUtil;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.activation.DataHandler;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+
 @Controller
 @RequestMapping(value = "/upload")
 public class FileUploadController extends BaseController {
@@ -27,7 +27,8 @@ public class FileUploadController extends BaseController {
     XMLUtil xmlUtil = new XMLUtil();
 
     /**
-     * Í¼Æ¬ÉÏ´«
+     * Í¼Æ¬ï¿½Ï´ï¿½
+     *
      * @return
      * @throws IOException
      * @throws IllegalStateException
@@ -35,7 +36,7 @@ public class FileUploadController extends BaseController {
     @RequestMapping(value = "image", method = RequestMethod.POST/* , headers = "Accept=image/png" */)
     @ResponseBody
     public String image(HttpServletRequest request, HttpServletResponse response) {
-        //TODO µ¥ÕÅÍ¼Æ¬
+        //TODO ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
         try {
 //            JaxWsDynamicClientFactory factory = JaxWsDynamicClientFactory.newInstance();
 //            Client client = factory.createClient("");
@@ -59,18 +60,18 @@ public class FileUploadController extends BaseController {
                 }
                 inputStream.close();
                 dataHandler = new DataHandler(fileBuffer, "application/octet-stream");
-                //invoke("·½·¨Ãû","²ÎÊý1","²ÎÊý2"£¬"".....)
+                //invoke("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½1","ï¿½ï¿½ï¿½ï¿½2"ï¿½ï¿½"".....)
 //                Object[] resultGp = client.invoke("getGPInfo", docGroupParamStr);
-                //»ñÈ¡·µ»ØÐÅÏ¢
+                //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
                 break;
             }
             JSONObject json = new JSONObject();
             json.put("status", 200);
-            json.put("msg", "ÉÏ´«³É¹¦");
+            json.put("msg", "ï¿½Ï´ï¿½ï¿½É¹ï¿½");
             return json.toString();
         } catch (Exception e) {
             error(e);
-            return error(-1, "ÉÏ´«Ê§°Ü");
+            return error(-1, "ï¿½Ï´ï¿½Ê§ï¿½ï¿½");
         }
 
 //                DataHandler?dh1?=?null;
@@ -82,7 +83,7 @@ public class FileUploadController extends BaseController {
 //                    ?????e.printStackTrace();
 //                    ???}
 //                ????
-////?·½·¨µ÷ÓÃ
+////?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //                String?ret?=?(String)?call.invoke(new?Object[]?{dh1,?inputXml?});
 
     }

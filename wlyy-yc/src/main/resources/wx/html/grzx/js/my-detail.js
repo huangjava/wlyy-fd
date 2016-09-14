@@ -133,7 +133,7 @@ function setValue(data){
 	}else if(sign == 1){
 		html =  '<div onclick="changeJtqy(true)">'+teamName+'</div>';
 	}else{
-		window.location.href = "../../qygl/html/search-community.html";
+		//window.location.href = "../../qygl/html/search-community.html";
 	}
 	document.getElementById("divSign").innerHTML = html;
 	

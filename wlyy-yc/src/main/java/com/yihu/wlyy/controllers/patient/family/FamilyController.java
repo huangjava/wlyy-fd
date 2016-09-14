@@ -37,8 +37,8 @@ public class FamilyController extends BaseController {
     public String isAssign() {
         try {
             int sign = 0;
-            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
-//            String openId = getOpenid();
+//            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+            String openId = getOpenid();
 
             List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(openId);
 
@@ -93,8 +93,8 @@ public class FamilyController extends BaseController {
     @ApiOperation(value = "获取患者基本信息", produces = "application/json", notes = "获取患者基本信息")
     public String baseinfo() {
         try {
-            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
-//            String openId = getOpenid();
+//            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+            String openId = getOpenid();
 
             Map<String,Object> info = personService.getBaseInfByOpenId(openId);
             return write(200, "患者信息查询成功！", "data", info);

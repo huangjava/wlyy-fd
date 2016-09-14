@@ -1,13 +1,12 @@
 package com.yihu.wlyy.services.contract;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
-import org.apache.commons.lang.StringUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;

@@ -34,13 +34,15 @@ public class FamilyController extends BaseController {
     @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
-    public String isAssign(
-            @ApiParam(name = "openId", value = "居民微信主索引", required = true)
-            @RequestParam(value = "openId") String openId) {
+    public String isAssign() {
         try {
             int sign = 0;
-            List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(getOpenid());
-            Map<String,Object> info = signlTransFormService. getSignState(getOpenid());
+            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+//            String openId = getOpenid();
+
+            List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(openId);
+
+            Map<String,Object> info = signlTransFormService. getSignState(openId);
 
             if (list!=null && list.size()>0){
                 if (info!=null && "0".equals(info.get("signStatus")))
@@ -89,10 +91,11 @@ public class FamilyController extends BaseController {
     @RequestMapping(value = "baseinfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取患者基本信息", produces = "application/json", notes = "获取患者基本信息")
-    public String baseinfo(
-            @ApiParam(name = "openId", value = "openId", required = true)
-           @RequestParam(required = true) String openId) {
+    public String baseinfo() {
         try {
+            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+//            String openId = getOpenid();
+
             Map<String,Object> info = personService.getBaseInfByOpenId(openId);
             return write(200, "患者信息查询成功！", "data", info);
         } catch (Exception e) {

@@ -81,7 +81,6 @@ public class PersonService {
     public static Map<String,Object> getBaseInfByOpenId(String openId){
         Map<String,Object> result = new HashMap<>();
         //TODO 调用东软接口返回数据
-        openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
         String userInfoXml = NeuSoftWebService.getSignDetailInfo(openId);
         String stateXml = NeuSoftWebService.getSignState(openId);
         try {

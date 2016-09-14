@@ -98,5 +98,6 @@ yihu:
     client:
       id: 9000237
       version: 1.0
-
+system:
+  profile: /system.yichang.properties
 

@@ -148,7 +148,7 @@
 			});
 
 			function getDocInfo(){
-				plus.nativeUI.showWaiting();
+//				plus.nativeUI.showWaiting();
 				var userId = plus.storage.getItem("userId");
 				var ticket = plus.storage.getItem("ticket");
 				var params = {userId:userId,ticket:ticket}
@@ -169,14 +169,15 @@
 						} else {
 							mui.toast(req.msg);
 						}
-						plus.nativeUI.closeWaiting();
+//						plus.nativeUI.closeWaiting();
 					});
 			}
 			
 			function clickEvent() {
 
                 document.getElementById('mui-action-back').addEventListener('tap', function() {
-                    history.go(-1);
+                    closeWindow();
+//                    history.go(-1);
 //                    history.back();
                 });
 

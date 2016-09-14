@@ -57,6 +57,7 @@ $(function() {
 
 	loginValidation();
 	$('.main iframe').height($(window).height() - 51);
+    $('#subPage').height($(window).height());
 	window.localStorage.removeItem("isLoginOut");
 
 	var userAgent = JSON.parse(plus.storage.getItem("userAgent"));
@@ -95,3 +96,12 @@ $(function() {
             plus.nativeUI.closeWaiting();
 		});
 });
+
+function openSubPage(url){
+    url += (url.indexOf('?')==-1 ? '?' : '&') +'tim='+ new Date().getTime() ;
+    $('#subPage').show().attr('src', url);
+}
+
+function closeSubPage(){
+    $('#subPage').hide();
+}

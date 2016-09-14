@@ -57,6 +57,8 @@ $(function() {
 
 	loginValidation();
 	$('.main iframe').height($(window).height() - 51);
+    $('#subPage').height($(window).height());//子页面
+    //$('#subsubPage').height($(window).height());//子页面的子页面
 	window.localStorage.removeItem("isLoginOut");
 
 	var userAgent = JSON.parse(plus.storage.getItem("userAgent"));
@@ -95,3 +97,32 @@ $(function() {
             plus.nativeUI.closeWaiting();
 		});
 });
+
+function openSubPage(url){
+    url += (url.indexOf('?')==-1 ? '?' : '&') +'tim='+ new Date().getTime() ;
+    $('#subPage').show().attr('src', url);
+}
+
+function closeSubPage(){
+    $('#subPage').hide().attr('src','');
+    //$('#subPage').hide();
+}
+//
+//function hideSubPage(){
+//    $('#subPage').hide();
+//}
+//
+//function showSubPage(){
+//    $('#subPage').show();
+//}
+//
+//function openSubSubPage(url){
+//    $('#subPage').hide();
+//    url += (url.indexOf('?')==-1 ? '?' : '&') +'tim='+ new Date().getTime() ;
+//    $('#subSubPage').show().attr('src', url);
+//}
+//
+//function closeSubSubPage(){
+//    $('#subSubPage').hide().attr('src','');
+//    $('#subPage').show();
+//}

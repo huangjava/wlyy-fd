@@ -168,7 +168,16 @@
 		}
 		
 		mui("body").on("tap","#doc_info",function(){
-			openWindowWithSub("gerenziliao", "gerenziliao.html", "个人资料", {});
+            openWindow('gerenziliao.html');
+//                window.open('gerenziliao.html');
+//            mui.openWindow({
+//                url: 'gerenziliao.html',
+//                id: 'gerenziliao.html',
+//                extras: {
+//                    title: '个人资料'
+//                }
+//            });
+//			openWindowWithSub("gerenziliao", "gerenziliao.html", "个人资料", {});
 		})
 		
 		mui("#list").on("tap", "li.tab", function() {
@@ -178,14 +187,15 @@
 
 
 		mui("#group").on("tap", "li", function() {
-			var id = $(this).attr("data-id");	
-			mui.openWindow({
-				url: "yishengxinxi.html",
-				id: id,
-				extras: {
-					id: id
-				}
-			});
+			var id = $(this).attr("data-id");
+            openWindow('yishengxinxi.html?doctorId='+id);
+//			mui.openWindow({
+//				url: "yishengxinxi.html",
+//				id: id,
+//				extras: {
+//					id: id
+//				}
+//			});
 //			openWebview("yishengxinxi.html?id="+id);
 		});
 		/*

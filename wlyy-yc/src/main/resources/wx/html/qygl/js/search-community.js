@@ -6,9 +6,11 @@ var Request = GetRequest(),
 	teamName = Request["teamName"];
 if(Request["openid"]){
 	openId = decodeURIComponent(Request["openid"]);
+	window.localStorage.setItem("openid", openId);
 }
 if(Request["r"]){
 	random = Request["r"];
+	window.localStorage.setItem("random", random);
 }
 
 if (userAgent!=null) {

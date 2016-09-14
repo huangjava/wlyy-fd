@@ -1,5 +1,5 @@
 
-mui.plusReady(function() {
+$(function() {
 	getPatientInfo();
 });
 

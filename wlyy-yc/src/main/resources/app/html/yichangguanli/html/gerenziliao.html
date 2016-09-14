@@ -19,6 +19,15 @@
 	</head>
 
 	<body>
+    <div class="h45">
+        <div class="demo-comtop">
+            <a class="mui-action-back" id="mui-action-back"></a>
+            <!--团队成员医生信息页-->
+            <h1>个人资料</h1>
+        </div>
+    </div>
+
+
 	
 		<script type="text/html" id="detail_info_tmpl">
 			<ul class="c-list c-border-b">
@@ -135,12 +144,11 @@
 		<script type="text/javascript">
 			
 			mui.plusReady(function() {
-				
 				getDocInfo();
 			});
 
 			function getDocInfo(){
-				plus.nativeUI.showWaiting();
+//				plus.nativeUI.showWaiting();
 				var userId = plus.storage.getItem("userId");
 				var ticket = plus.storage.getItem("ticket");
 				var params = {userId:userId,ticket:ticket}
@@ -161,37 +169,48 @@
 						} else {
 							mui.toast(req.msg);
 						}
-						plus.nativeUI.closeWaiting();
+//						plus.nativeUI.closeWaiting();
 					});
 			}
 			
 			function clickEvent() {
+
+                document.getElementById('mui-action-back').addEventListener('tap', function() {
+                    closeWindow();
+//                    history.go(-1);
+//                    history.back();
+                });
+
+
+
+
 				// 头像点击事件
-				document.getElementById('edit_photo').addEventListener('tap', function() {
-					var imgDom = this.querySelector("img");
-					var url1 = showActionSheet(imgDom, this, function(fileUrl){
-						var uploadServerUrl = server + "upload/image";
-						var task = plus.uploader.createUpload(uploadServerUrl, {
-							method: "post"
-						}, function(t, status) {
-							if (status == 200) {
-								mui.toast("头像上传成功！");
-								fileHttpUrl = JSON.parse(t.responseText).urls;
-							} else {
-								mui.toast("头像修改失败,请稍后重试");
-								plus.nativeUI.closeWaiting();
-							}
-						});
-						task.addFile(fileUrl, {})
-						task.start();
-					});
-				});
-				
+//				document.getElementById('edit_photo').addEventListener('tap', function() {
+
+//					var imgDom = this.querySelector("img");
+//					var url1 = showActionSheet(imgDom, this, function(fileUrl){
+//						var uploadServerUrl = server + "upload/image";
+//						var task = plus.uploader.createUpload(uploadServerUrl, {
+//							method: "post"
+//						}, function(t, status) {
+//							if (status == 200) {
+//								mui.toast("头像上传成功！");
+//								fileHttpUrl = JSON.parse(t.responseText).urls;
+//							} else {
+//								mui.toast("头像修改失败,请稍后重试");
+//								plus.nativeUI.closeWaiting();
+//							}
+//						});
+//						task.addFile(fileUrl, {})
+//						task.start();
+//					});
+//				});
+
 				// 其他修改点击事件
-				//原有可修改擅长、简介 20160908  
+				//原有可修改擅长、简介 20160908
 //				$('.modify').on('tap', function(){
 //					openModifyWindow(
-//						$(this).attr('data-title'), 
+//						$(this).attr('data-title'),
 //						{type: $(this).attr('data-type'), val: $(this).attr('data-cont')});
 //				})
 			}

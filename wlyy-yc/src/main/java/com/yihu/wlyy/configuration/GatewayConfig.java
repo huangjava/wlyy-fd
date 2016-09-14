@@ -1,20 +1,19 @@
 package com.yihu.wlyy.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by Airhead on 2016/9/13.
  */
 @Configuration
-@ConfigurationProperties(prefix = "yihu.gateway")
+//@ConfigurationProperties(prefix = "yihu.gateway")
 public class GatewayConfig {
-    @Value("${.client.id}")
+    @Value("${yihu.gateway.client.id}")
     private String clientId;
-    @Value("${client.version}")
+    @Value("${yihu.gateway.client.version}")
     private String clientVersion;
-    @Value("${url}")
+    @Value("${yihu.gateway.url}")
     private String url;
 
 

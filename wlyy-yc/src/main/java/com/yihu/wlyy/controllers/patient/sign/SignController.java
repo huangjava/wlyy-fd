@@ -28,16 +28,15 @@ public class SignController extends BaseController {
     @RequestMapping(value = "getSignStatus", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询患者是否有签约信息", produces = "application/json", notes = "查询患者是否有签约信息")
-    public String isSign(
-            @ApiParam(name = "openId", value = "openId", required = true)
-            @RequestParam(required = true) String openId) {
+    public String isSign() {
         try {
             String json = "{\n" +
                     "\"signStatus\":0,\n" +
                     "}";
             JSONObject jsonObject = new JSONObject(json);
             //TODO openID获取
-            Map<String,Object> info = signlTransFormService. getSignState("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
+            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+            Map<String,Object> info = signlTransFormService. getSignState(openId);
 
             return write(200, "获取签约状态成功！", "data", info);
         } catch (Exception e) {

@@ -37,6 +37,12 @@ function getPatientInfo(){
 function clickEvent() {
 
     document.getElementById('mui-action-back').addEventListener('tap', function () {
+        var	Request = GetRequest();
+        var	patientId = Request["patientId"];
+        var supPage = Request["supPage"];
         closeWindow();
+        if(supPage){
+            openWindow(supPage+'.html?patientId='+patientId);
+        }
     });
 }

@@ -81,6 +81,10 @@ public class UserSessionService {
         return userSession;
     }
 
+    public void loginApp(UserAgent userAgent){
+
+    }
+
     public boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userAgent = request.getHeader("userAgent");
         if (StringUtil.isEmpty(userAgent)) {

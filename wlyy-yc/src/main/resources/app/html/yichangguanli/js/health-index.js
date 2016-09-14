@@ -193,8 +193,10 @@ function queryChartFailed(res) {
  */
 function queryListByType(type, page, pagesize, successFunction,begindate,enddate) {
 	//拼请求内容
-	var self = plus.webview.currentWebview();
-	var patientId = self.patientId;
+	//var self = plus.webview.currentWebview();
+	//var patientId = self.patientId;
+    var	Request = GetRequest();
+    var	patientId = Request["patientId"];
 	var params = {};
 	params.patientId=patientId;
 	params.type = type; 

@@ -33,9 +33,9 @@
 		<div class="c-main">
 			<div class="h45">
 				<div class="demo-comtop">
-					<a class="mui-action-back"></a>
+					<a class="mui-action-back" id="mui-action-back"></a>
 					<!--团队成员医生信息页-->
-					<h1>医生主页</h1>
+					<h1>医生详情</h1>
 				</div>
 			</div>
 			<div class="sdoc-top smil short clearfix">
@@ -43,11 +43,11 @@
 					<img id="photo" src="" class="c-images-cycle">
 				</span>
 				<p class="c-t-left c-f18">
-					<span id="name" class="c-f20 mr10 ml10">老不死</span><label id="jobName">主任医生</label></p>
+					<span id="name" class="c-f20 mr10 ml10"></span><label id="jobName"></label></p>
 				<p class="c-t-left c-f14 c-toe mt10">
-					<span id="hospitalName" class="mr10 ml10">xxxx医院</span></p>
+					<span id="hospitalName" class="mr10 ml10"></span></p>
 				<p class="c-t-left c-f16 c-toe f-dn">
-					<span id="deptName" class="mr10 ml10">骨科</span></p>
+					<span id="deptName" class="mr10 ml10"></span></p>
 			</div>
 
 			<div class="slider-detail plr15 bgc-fff mtb10 c-border-tb">
@@ -75,17 +75,19 @@
 		<script type="text/javascript" src="../../../js/common_http.js"></script>
 		<script type="text/javascript" src="../../../js/template.js"></script>
 		<script type="text/javascript" src="../js/templateHelp.js"></script>
+        <script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 
 		<script>
-			mui.plusReady(function() {
-				var self = plus.webview.currentWebview();
-				var id = self.id;
-				getDocInfo(id);
+			$(function() {
+				getDocInfo();
+                clickEvent();
 			})
 
-			function getDocInfo(id) {
+			function getDocInfo() {
+                var	Request = GetRequest();
+                var	doctorId = Request["doctorId"];
 				var ticket = plus.storage.getItem("ticket");
-				var params = {doctorId:id,ticket:ticket}
+				var params = {doctorId:doctorId,ticket:ticket}
 				
 				sendPost("doctor/memberInfo", params, 		
 					function queryFailed(res) {
@@ -106,27 +108,18 @@
 							$('#expertise').html(data.expertise);
 							$('#introduce').html(data.introduce);
 							$('#photo').attr("src", setDocPhoto(data.photo, data.sex));
-										
 						}
-					});
-//				var data = {
-//					name: "张三",
-//					dept: "骨科",
-//					jobName: "主任医师",
-//					hospitalName: "xxxx机构名称",
-//					sex: "1",
-//					photo: "",
-//					expertise: "隧道发生的纠纷绿卡时间的乱罚款撒旦解放了开始大举发力点死啊警方立刻受到飓风",
-//					introduce: "隧道发生的纠纷绿卡时间的乱罚款撒旦解放了开始大举发力点死啊警方立刻受到飓风"
-//				}
-//				$('#name').html(data.name);
-//				$('#deptName').html(data.dept);
-//				$('#hospitalName').html(data.hospitalName);
-//				$('#jobName').html(data.jobName);
-//				$('#expertise').html(data.expertise);
-//				$('#introduce').html(data.introduce);
-//				$('#photo').attr("src", setDocPhoto(data.photo, data.sex));
+					}
+                );
 			}
+
+            function clickEvent() {
+                document.getElementById('mui-action-back').addEventListener('tap', function () {
+                    closeWindow();
+//                    history.go(-1);
+//                    history.back();
+                });
+            }
 		</script>
 	</body>
 

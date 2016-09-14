@@ -60,8 +60,10 @@ $(function() {
 	pageInit();
 	
 	function queryData() {
-		var self = plus.webview.currentWebview();
-		var patientId = self.patientId;
+		//var self = plus.webview.currentWebview();
+		//var patientId = self.patientId;
+        var	Request = GetRequest();
+        var	patientId = Request["patientId"];
 		var params = {};
 		params.patientId=patientId;
 		params.type = charType; 
@@ -84,6 +86,13 @@ $(function() {
 
 //绑定事件
 function bindEvents() {
+
+    document.getElementById('mui-action-back').addEventListener('tap', function() {
+        closeWindow();
+//                    history.go(-1);
+//                    history.back();
+    });
+
 	//标签切换
 	$(".pt-tab li").click(function() {
 		var id = $(this).attr("id");
@@ -175,7 +184,7 @@ function bindEvents() {
 		if ($(".dt-date-condition").css("display") == "none") {
 			$(".div-dialog-content").hide();
 			$(".div-add-btn").removeClass("active");
-			alert("data")
+			//alert("data")
 		} else {
 			$(".dt-date-condition").hide();
 		}

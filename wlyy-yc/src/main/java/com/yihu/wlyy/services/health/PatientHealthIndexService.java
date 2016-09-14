@@ -7,10 +7,7 @@ import com.yihu.wlyy.daos.PatientDeviceDao;
 import com.yihu.wlyy.models.device.PatientDevice;
 import com.yihu.wlyy.models.health.DevicePatientHealthIndex;
 import com.yihu.wlyy.models.patient.PatientModel;
-import com.yihu.wlyy.util.CommonUtil;
-import com.yihu.wlyy.util.DateUtil;
-import com.yihu.wlyy.util.HttpClientUtil;
-import com.yihu.wlyy.util.SystemConf;
+import com.yihu.wlyy.util.*;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,13 +31,8 @@ import java.util.*;
 @Transactional(rollbackFor = Exception.class)
 public class PatientHealthIndexService  {
 
-	private static String healthPutUrl = SystemConf.getInstance().getValue("health.data.put");
-
-
 	private Clock clock = Clock.DEFAULT;
 
-	@Autowired
-	private PatientDao patientDao;
 	@Autowired
 	private DevicePatientHealthIndexDao patientHealthIndexDao;
 	@Autowired
@@ -126,7 +118,6 @@ public class PatientHealthIndexService  {
 		obj.setSortDate(time);      //排序时间
 
 		String idcard = "";
-		PatientModel patient = null;
 		if(deviceSn!=null && deviceSn.length()>0)   //设备数据
 		{
 			obj.setDeviceSn(deviceSn);
@@ -139,20 +130,11 @@ public class PatientHealthIndexService  {
 			if(device!=null)
 			{
 				patientCode = device.getUser();
-				patient = patientDao.findByCode(patientCode);
-				idcard = device.getUserIdcard();
-			}
-		}
-		//自输数据
-		else{
-			patient = patientDao.findByCode(patientCode);
-			if(patient!=null) {
-				idcard = patient.getIdCard();
 			}
 		}
 
 		//身份证不为空
-		if(patient!=null) {
+		if(StringUtil.isNotEmpty(idcard)) {
 			obj.setUser(patientCode);
 			obj.setIdcard(idcard);
 
@@ -201,12 +183,11 @@ public class PatientHealthIndexService  {
 
 			params.put("monitorType",obj.getType());
 			params.put("monitorTime",obj.getRecordDate());
-			params.put("uId",obj.getIdcard());
-			//将数据发送到东软
-			HttpClientUtil.doPost(healthPutUrl,params,"","");
+//			params.put("uId",obj.getIdcard());
+			//将数据发送到公司
+			HttpClientUtil.doPost(SystemConf.getInstance().getHealthPutUrl(),params,"","");
 			patientHealthIndexDao.save(obj);
-		}
-		else{
+		} else{
 			throw new Exception("不存在该患者！");
 		}
 

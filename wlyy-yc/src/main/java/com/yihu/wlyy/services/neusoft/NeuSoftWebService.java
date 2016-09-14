@@ -16,8 +16,6 @@ import java.util.Map;
  */
 @org.springframework.stereotype.Service
 public class NeuSoftWebService {
-    private static String doctorUrl = SystemConf.getInstance().getValue("neusoft.ws.doctor");
-    private static String patientUrl = SystemConf.getInstance().getValue("neusoft.ws.person");
     private XMLUtil xmlUtil = new XMLUtil();
 
     //1.1 getGPTeamList  获取家庭医生团队列表  -- 调通
@@ -31,7 +29,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getGPTeamList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -55,7 +53,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getGPTeamInfo");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -76,7 +74,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getGPInfo");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -102,7 +100,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("doSignApply");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -123,7 +121,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getSignState");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -144,7 +142,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getOrgList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -165,7 +163,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getOrgListByOpenid");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -186,7 +184,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(patientUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getGPPhotoInfo");
             DataHandler[] ret = (DataHandler[])call.invoke(new Object[] { paramXml });
             byte[] b = new byte[ret[0].getInputStream().available()];
@@ -213,7 +211,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getDoctorUrl()));
             call.setOperation("getSignedInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -237,7 +235,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getNotSignInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -261,7 +259,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getToSignInfoList");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -298,7 +296,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("upConfirmSignedInfo");
 
             String res = (String) call.invoke(new Object[]{dataHandler,paramXml});
@@ -320,7 +318,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getMyTeam");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -342,7 +340,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("loginByID");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -363,7 +361,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getSignDetailInfo");
 
             String res = (String) call.invoke(new Object[]{paramXml});
@@ -384,7 +382,7 @@ public class NeuSoftWebService {
 
             Service service = new Service();
             Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
+            call.setTargetEndpointAddress(new URL(SystemConf.getInstance().getPatientUrl()));
             call.setOperation("getSignDetailInfoByChid");
 
             String res = (String) call.invoke(new Object[]{paramXml});

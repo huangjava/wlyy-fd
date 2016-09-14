@@ -37,7 +37,8 @@ spring:
 #    driverClassName: com.mysql.jdbc.Driver
     maxTotal: 500
     maxIdle: 30
-
+system:
+  profile: /system.dev.properties
 ---
 spring:
   profiles: test
@@ -48,7 +49,8 @@ spring:
 #    driverClassName: com.mysql.jdbc.Driver
     maxTotal: 500
     maxIdle: 30
-
+system:
+  profile: /system.test.properties
 
 
 ---
@@ -61,6 +63,8 @@ spring:
 #    driverClassName: com.mysql.jdbc.Driver
     maxTotal: 500
     maxIdle: 30
+system:
+  profile: /system.prod.properties
 server:
   port: 8883
   context-path: /fd
@@ -94,5 +98,6 @@ yihu:
     client:
       id: 9000237
       version: 1.0
-
+system:
+  profile: /system.yichang.properties
 

@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
 
 public class BaseController {
 
@@ -50,9 +48,14 @@ public class BaseController {
             if (StringUtils.isEmpty(userAgent)) {
                 userAgent = request.getHeader("User-Agent");
             }
-            JSONObject json = JSONObject.fromObject(userAgent);
-            return json.getString("openid");
 
+            JSONObject json = JSONObject.fromObject(userAgent);
+            String openId = json.getString("openid");
+            if ("\"null\"".equals(openId)){
+                return null;
+            }else {
+                return json.getString("openid");
+            }
         } catch (Exception e) {
             return null;
         }

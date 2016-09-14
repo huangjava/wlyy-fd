@@ -117,7 +117,7 @@ public class HospitalController extends BaseController {
 //            ObjectMapper objectMapper = new ObjectMapper();
 //            List list = objectMapper.readValue("[{\"code\":\"D2016080002\",\"job_name\":\" 第一社团\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1262,\"expertise\":\"思明高级社区服务\",\"hospital_name\":\"第一社团\"},{\"code\":\"D2016080005\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2016080006\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2010080225\",\"job_name\":\" 第一社团3\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\" 第一社团3)\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1276,\"expertise\":\"思明区中华街道社区卫生服务中心\",\"hospital_name\":\" 第一社团3\"}]",List.class);
 
-//            String orgCode ="2c9660e34f4fbb9d014f5d50be6c0016";
+             orgCode ="2c9660e34f4fbb9d014f5d50be6c0016";
 
             List<Map<String,Object>> list = hospitalService.getTeamsByorgCode(orgCode, page, pageSize);
 
@@ -150,6 +150,7 @@ public class HospitalController extends BaseController {
 //                    "}";
 //            JSONObject jsonObject = new JSONObject(json);
 
+            teamCode ="74529931-1445-468d-8873-abfa63734e7c";
             Map<String,Object> info = hospitalService.getTeamInfoByTeamCode( teamCode,page,pageSize);
 
             return write(200, "查询成功！", "data", info);
@@ -227,6 +228,7 @@ public class HospitalController extends BaseController {
 //            ResultModel resultModel = ResultModel.success("查询成功！");
 //            resultModel.setResultMap(resultMap);
 //            return resultModel.toJson();
+            teamCode = "74529931-1445-468d-8873-abfa63734e7c    ";
             JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode);
             return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {

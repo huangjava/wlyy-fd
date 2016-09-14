@@ -53,12 +53,15 @@ var showTeamInfo = function(data) {
 	}else{
 		document.getElementById("photo").src = data.data.url;
 	}
-	teamName =  data.data.teamName;
+	if(data.data.teamName){
+		teamName =  data.data.teamName;
+	}
+
 	document.getElementById("teamCode").innerHTML = data.data.teamCode;
-	document.getElementById("teamName").innerHTML = data.data.teamName;
+	document.getElementById("teamName").innerHTML = teamName;
 	document.getElementById("orgName").innerHTML = orgName;
-	document.getElementById("orgCode").innerHTML = data.data.orgCode;
-	document.getElementById("introduce").innerHTML = data.data.introduce;
+	document.getElementById("orgCode").innerHTML = data.data.orgCode=='undefined'?'':data.data.orgCode;
+	document.getElementById("introduce").innerHTML = data.data.introduce=='undefined'?'':data.data.introduce;
 	
 };
 

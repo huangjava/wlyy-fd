@@ -52,4 +52,47 @@ var startSign = function() {
 
 	window.location.href = "../../qygl/html/start-sign.html?teamCode=" + teamName + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&patientCode='+"1";
 }
+
+var isSignForView = function(data) {
+	if(!data) return ;
+	var sign = data.data.signStatus;
+	if(sign == 0) { // 未签约
+		document.getElementById("btnSign").innerHTML = '<a onclick="startSign()" class="c-btn c-btn-4dcd70 c-btn-full c-btn-radius c-f18">申请签约</a>';
+		$('#btnSign').show();
+		$('#btnSign').closest("div").addClass("h64");
+		$("#divAgree").hide();
+
+	} else if(sign == 1) { // 已签约
+		//document.getElementById("btnSign").innerHTML = '<a onclick="overSign()" class="c-btn c-btn-E0A526 c-btn-full c-btn-radius c-f18">申请解约</a>';
+		$('#btnSign').hide();
+		$('.btn-main').show();
+		$('#btnSign').closest("div").removeClass("h64");
+		$("#divAgree").show();
+	} else if(sign == 2) {//待签约
+		document.getElementById("btnSign").innerHTML = '<a onclick="cancelSign()" class="c-btn c-btn-E0A526 c-btn-full c-btn-radius c-f18">取消申请</a>';
+		$('#btnSign').show();
+		$('.btn-main').show();
+		$('#btnSign').closest("div").removeClass("h64");
+		$("#divAgree").show();
+	}
+}
+
+getReqPromises([{url: '/patient/sign/getSignStatus',data:{}}])
+	.then(function(datas) {
+		if (datas[0].loginUrl) {
+			window.location.href = datas[0].loginUrl;
+			return;
+		}
+
+		isSignForView(datas[0]);
+		// 关闭页面加载提示
+	}).then(function() {
+
+	})
+
+
+// 捕捉过程中产生的异常
+	.catch(function(e) {
+		console && console.error(e);
+	});
 	

@@ -11,8 +11,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-//import org.springframework.stereotype.Service;
-
 /**
  * @created Airhead 2016/9/4.
  */
@@ -107,16 +105,6 @@ public class NeuSoftWebService {
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("doSignApply");
 
-            paramXml =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                    + "<QUERY_FORM>\n"
-                    + " <SELFNAME>小黄人儿22</SELFNAME>\n"
-                    + " <CONTACTPHONE>13889457565</CONTACTPHONE>\n"
-                    + " <IDNUMBER>13889457565</IDNUMBER>\n"
-                    + " <APPOINTMENTSIGNDATE>2016-09-08</APPOINTMENTSIGNDATE>\n"
-                    + " <TEMPLETEID>Dummy007</TEMPLETEID>\n"
-                    + " <SIGNTEAM>09549d72-0511-48ac-b0af-b8453cc2681a</SIGNTEAM>\n"
-                    +  " </QUERY_FORM>\n";
-
             String res = (String) call.invoke(new Object[]{paramXml});
             //res = XMLUtil.xml2JSON(res);
             return res;
@@ -200,7 +188,6 @@ public class NeuSoftWebService {
             Call call = (Call) service.createCall();
             call.setTargetEndpointAddress(new URL(patientUrl));
             call.setOperation("getGPPhotoInfo");
-
             DataHandler[] ret = (DataHandler[])call.invoke(new Object[] { paramXml });
             byte[] b = new byte[ret[0].getInputStream().available()];
             ret[0].getInputStream().read(b);
@@ -296,7 +283,7 @@ public class NeuSoftWebService {
             param.put("SIGNPERIODFROM", signPreiodFrom); //签约日期
             param.put("CHID", chid);   //居民主索引
             param.put("AGREEMENTNAME", agreementName);  //上传协议名称
-            param.put("ORGCODE", orgCode); //医生所属机构编
+            param.put("ORGCODE", orgCode); //医生所属机构编号
             param.put("USERID", userId);
             String paramXml = XMLUtil.map2xml(param);
 
@@ -335,28 +322,6 @@ public class NeuSoftWebService {
             return null;
         }
     }
-
-    //登陆验证接口 -- 废弃，不做单独的登陆
-    /*public static String login(String userName, String password) {
-        try {
-            Map<String, String> param = new HashMap<>();
-            param.put("USER_NAME", userName);
-            param.put("PASS_WORD", password);
-            String paramXml = XMLUtil.map2xml(param);
-
-            Service service = new Service();
-            Call call = (Call) service.createCall();
-            call.setTargetEndpointAddress(new URL(doctorUrl));
-            call.setOperation("login");
-
-            String res = (String) call.invoke(new Object[]{paramXml});
-            //res = XMLUtil.xml2JSON(res);
-            return res;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 
     //5.2登陆验证(根据医生身份证)  loginByID  -- 调通
     public static String loginByID(String idNumber, String loginKey) {

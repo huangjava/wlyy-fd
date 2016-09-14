@@ -194,16 +194,16 @@
         </dependency>
 
         <dependency>
-            <groupId>xml-pic</groupId>
+            <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>xml-pic</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.4.5</version>
+        </dependency>
 
     </dependencies>
     <build>

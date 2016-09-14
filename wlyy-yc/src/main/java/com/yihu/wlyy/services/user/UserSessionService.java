@@ -55,9 +55,12 @@ public class UserSessionService {
             user = userDao.save(user);
         }
 
-        UserSessionModel userSession = userSessionDao.findOne(user.getCode());
+        UserSessionModel userSession = userSessionDao.findOneNotExpire(user.getCode());
         if (userSession == null) {
-            userSession = new UserSessionModel();
+            userSession = userSessionDao.findOne(user.getCode());
+            if (userSession == null) {
+                userSession = new UserSessionModel();
+            }
             userSession.setUserCode(user.getCode());
             userSession.setToken(UUID.randomUUID().toString());
         }
@@ -108,7 +111,7 @@ public class UserSessionService {
             return false;
         }
 
-        UserSessionModel userSession = userSessionDao.findOne(userAgent.getUid());
+        UserSessionModel userSession = userSessionDao.findOneNotExpire(userAgent.getUid());
         if(userSession != null){
             return true;
         }
@@ -168,7 +171,7 @@ public class UserSessionService {
             }
 
 
-            UserSessionModel userSession = userSessionDao.findOne(userCode);
+            UserSessionModel userSession = userSessionDao.findOneNotExpire(userCode);
             if (userSession != null) {
                 return true;
             }
@@ -190,8 +193,10 @@ public class UserSessionService {
                     user = userDao.save(user);
                 }
             }
-
-            userSession = new UserSessionModel();
+            userSession = userSessionDao.findOne(user.getCode());
+            if (userSession == null) {
+                userSession = new UserSessionModel();
+            }
             userSession.setUserCode(user.getCode());
             userSession.setToken(ticket);
             userSession.setExpireTime(DateUtil.addDateTime(1, new Date()));

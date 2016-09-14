@@ -188,7 +188,7 @@ public class DoctorService {
             json.put("orgCode", orgCode);
             json.put("name", userId);
 
-            json.toString();
+            return json.toString();
         } catch (DocumentException e) {
             e.printStackTrace();
         }

@@ -197,7 +197,7 @@ public class UserSessionService {
                     user = userDao.save(user);
                 }
             }
-            if (userSession != null) {
+            if (userSession == null) {
                 userSession = new UserSessionModel();
             }
             userSession.setUserCode(user.getCode());
@@ -228,6 +228,8 @@ public class UserSessionService {
     }
 
     private String getIdCard(String userCode) {
+//        return "420505198104127043";
+
         Map<String, String> apiParam = new HashMap<>();
         apiParam.put("returnMsg", "IdNumber");
         apiParam.put("doctorUid", userCode);

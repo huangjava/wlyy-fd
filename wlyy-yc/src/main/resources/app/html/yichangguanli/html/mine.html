@@ -135,7 +135,6 @@
 				
 				function success(res) {
 					if (res.status == 200) {
-                        debugger
                         if(res.data.length>0){
                             var contTeam = template("team_info_tmpl",res.data[0]);
                             document.getElementById("doc_team_info").innerHTML = contTeam;

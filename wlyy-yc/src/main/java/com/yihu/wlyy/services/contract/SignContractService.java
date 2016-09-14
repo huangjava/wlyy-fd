@@ -10,6 +10,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,13 +64,14 @@ public class SignContractService {
                 String birthday = element.elementText("BIRTHDAY");
                 String address = element.elementText("ADDRESS");
                 String sortType = element.elementText("SORT_TYPE");
+                int age= getAge(new Date(birthday.replace('-','/')));
 
 
                 JSONObject patient = new JSONObject();
                 patient.put("chId", chId);                //唯一id
                 patient.put("name", selfName);              //姓名
                 patient.put("sex", gender);                    // 性别
-                patient.put("age", birthday);                     //年龄（出生日期处理得到）//TODO:Age
+                patient.put("age", age);                     //年龄（出生日期处理得到）//TODO:Age
                 patient.put("sortType", sortType);          //分拣标签      //多个分拣的格式是怎么样的？
                 patient.put("address", address);      //地址
                 patient.put("birthday", birthday);     //出生日期
@@ -80,7 +83,6 @@ public class SignContractService {
                     }
                     int index = Integer.parseInt(sort);
                     patient.put("sortType", groupName[index]);          //分拣标签
-                    JSONObject gp = group[index];
                     JSONArray gpPatient = groupPatient[index];
                     gpPatient.add(patient);
                 }
@@ -94,19 +96,51 @@ public class SignContractService {
                 }
 
                 gp.put("patients", patients);
-                jsonArray.add(gp);
-
-                gp.put("code", i + 1);
+                gp.put("code", i);
                 gp.put("name", groupName[i]);
                 gp.put("total", patients.size());
+                jsonArray.add(gp);
             }
 
             return jsonArray;
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    public static int getAge(Date birthDay) throws Exception {
+        //获取当前系统时间
+        Calendar cal = Calendar.getInstance();
+        //如果出生日期大于当前时间，则抛出异常
+        if (cal.before(birthDay)) {
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        //取出系统当前时间的年、月、日部分
+        int yearNow = cal.get(Calendar.YEAR);
+        int monthNow = cal.get(Calendar.MONTH);
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+
+        //将日期设置为出生日期
+        cal.setTime(birthDay);
+        //取出出生日期的年、月、日部分
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH);
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+        //当前年份与出生年份相减，初步计算年龄
+        int age = yearNow - yearBirth;
+        //当前月份与出生日期的月份相比，如果月份小于出生月份，则年龄上减1，表示不满多少周岁
+        if (monthNow <= monthBirth) {
+            //如果月份相等，在比较日期，如果当前日，小于出生日，也减1，表示不满多少周岁
+            if (monthNow == monthBirth) {
+                if (dayOfMonthNow < dayOfMonthBirth) age--;
+            }else{
+                age--;
+            }
+        }
+        return age;
     }
 
     //  getToSignInfoList

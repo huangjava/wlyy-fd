@@ -168,7 +168,14 @@
 		}
 		
 		mui("body").on("tap","#doc_info",function(){
-			openWindowWithSub("gerenziliao", "gerenziliao.html", "个人资料", {});
+            mui.openWindow({
+                url: 'gerenziliao.html',
+                id: 'gerenziliao.html',
+                extras: {
+                    title: '个人资料'
+                }
+            });
+//			openWindowWithSub("gerenziliao", "gerenziliao.html", "个人资料", {});
 		})
 		
 		mui("#list").on("tap", "li.tab", function() {

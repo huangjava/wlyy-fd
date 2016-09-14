@@ -31,7 +31,15 @@
 	</head>
 
 	<body>
+        <div class="h45">
+            <div class="demo-comtop">
+                <a class="mui-action-back" id="mui-action-back"></a>
+                <!--团队成员医生信息页-->
+                <h1>签约审核</h1>
+            </div>
+        </div>
 		<div class="main" style="overflow: auto;">
+
 			<div class="bgc-fff">
 				<div class="c-100 c-position-r" id="pati_info">
 
@@ -107,7 +115,7 @@
 	<script src="../../js/iscroll/iscroll.js" type="text/javascript" charset="utf-8"></script>
 	
 	<script type="text/javascript">
-		mui.plusReady(function() {
+		$(function() {
 			$('.main').css("max-height", ($(window).height() - 56) + "px");
 			getPatientInfo();
 			initEvent();
@@ -125,15 +133,19 @@
 		 * 初始化事件
 		 */
 		function initEvent(){
+            document.getElementById('mui-action-back').addEventListener('tap', function() {
+                closeWindow();
+            });
+
 			$('#submit').on("tap","div",function(){
 				var uploadImgUrl =  [$('.upload-img ul li img').attr('src')];
 				function fusucdes(){
-					//已签约数据刷新
-					mui.fire(plus.webview.getWebviewById('yiqianyue.html'), 'updateyiqianyue', {name: 1});
-					//待签约、未签约数据刷新
-					mui.fire(plus.webview.getWebviewById('daiqianyue.html'), 'updatedaiqianyue', {});
-					//返回上层页面
-					mui.back();
+//					//已签约数据刷新
+//					mui.fire(plus.webview.getWebviewById('yiqianyue.html'), 'updateyiqianyue', {name: 1});
+//					//待签约、未签约数据刷新
+//					mui.fire(plus.webview.getWebviewById('daiqianyue.html'), 'updatedaiqianyue', {});
+//					//返回上层页面
+//					mui.back();
 				}
 				uploadImg(uploadImgUrl,fusucdes);
 			});
@@ -141,8 +153,10 @@
 		
 		function getPatientInfo() {
 			
-			var self = plus.webview.currentWebview();
-			var patientId = self.patientId;
+//			var self = plus.webview.currentWebview();
+//			var patientId = self.patientId;
+            var	Request = GetRequest();
+            var	patientId = Request["patientId"];
 			var params = {patientId:patientId}
 			sendPost("doctor/patient_group/patientInfo",params,
 				function queryFailed(res) {
@@ -166,8 +180,16 @@
 		}
 	
 		$('#pati_info').on("tap","ul", function(){
-			var patientId = $(this).attr("data-id");	
-			openWindowWithSub("qianyueshenhe", "weiqianyuejuminxinxi.html", "居民资料", {patientId:patientId},"weiqianyuejuminxinxi");
+			var patientId = $(this).attr("data-id");
+            openWindow('weiqianyuejuminxinxi.html?patientId='+patientId);
+//            mui.openWindow({
+//                url: 'weiqianyuejuminxinxi.html?patientId='+patientId,
+//                id: 'weiqianyuejuminxinxi.html',
+//                extras: {
+//                    title: '个人资料'
+//                }
+//            });
+//			openWindowWithSub("qianyueshenhe", "weiqianyuejuminxinxi.html", "居民资料", {patientId:patientId},"weiqianyuejuminxinxi");
 		})
 	</script>
 

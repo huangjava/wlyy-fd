@@ -1,7 +1,7 @@
 var tab = 0;
 var patients; 		//缓存所有居民信息，为查询准备
 var myTeamDom = $('.my-team');
-mui.plusReady(function() {
+$(function() {
 	plus.nativeUI.showWaiting();
 	searchPatients(); //请求所有居民
 	groupClick();
@@ -130,7 +130,9 @@ var groupClick = function() {
 	 */
 	$(".my-team").on("tap", "li[class*='tab-']", function() {
 		var patientId = $(this).attr("data-id");
-		openWindowWithSub("daiqianyue", "qianyueshenhe.html", "签约审核", {patientId:patientId},"qianyueshenhe");
+        openWindow("qianyueshenhe.html?patientId="+patientId)
+
+		//openWindowWithSub("daiqianyue", "qianyueshenhe.html", "签约审核", {patientId:patientId},"qianyueshenhe");
 	});
 };
 

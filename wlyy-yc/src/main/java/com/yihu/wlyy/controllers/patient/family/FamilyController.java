@@ -148,7 +148,14 @@ public class FamilyController extends BaseController {
             @RequestParam(value = "address") String address) {
         try {
             //TODO 调用接口获取数据
-            return write(200, "保存成功！", "data",  1);
+            List<Map<String,Object>> list =  hospitalService.getOrgsByUserAddr(town, street, committee, address);
+            int sign = 0;
+            if (list!=null && list.size()>0){
+                sign = 1;
+            }else {
+                sign = -1;
+            }
+            return write(200, "保存成功！", "data",sign);
         } catch (Exception e) {
             error(e);
             return error(-1, "保存失败！");

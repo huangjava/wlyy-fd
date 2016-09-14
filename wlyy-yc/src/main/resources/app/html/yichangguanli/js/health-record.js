@@ -9,7 +9,7 @@ var pagetype = 5
 var returnChary = 0;
 var charType = 1;
 
-mui.plusReady(function() {
+$(function() {
 	$('div[tabindex="-1"]').remove()
 	bindEvents();
 	//开关控件

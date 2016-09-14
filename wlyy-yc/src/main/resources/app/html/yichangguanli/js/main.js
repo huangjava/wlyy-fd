@@ -41,7 +41,8 @@ function loginValidation() {
 		"uid": uId,
 		"imei": iMei,
 		"token": ticket,
-		"openid" : ""
+		"openid" : "",
+        "clientType":"doctor"
 		//"platform": platform,
 	};
 	var userAgent = JSON.stringify(oUserAgent);
@@ -55,14 +56,88 @@ function loginValidation() {
 $(function() {
 	plus.nativeUI.showWaiting();
 
-	loginValidation();
+	//loginValidation(); 20160914晚
+
+    //----------------20160914
+    (function(){
+        var	Request = GetRequest();
+        var	userId = Request["userId"]; // userId
+        var	uId = Request["userId"];     //userCode
+        var	ticket = Request["ticket"];
+        var	orgId = Request["orgId"];
+        var	vaildTime = Request["vaildTime"];
+        var	appUID = Request["appUID"];
+        var	appType = Request["appType"];
+        var	platform = 2, iMei = "ceshi";
+        //var oUserAgent = {
+        //	//"id": userId,
+        //	"uid": uId,
+        //	"imei": iMei,
+        //	"token": ticket,
+        //	"openid" : ""
+        //	//"platform": platform,
+        //};
+        var oUserAgent = {
+            //"id": userId,
+            "uid": uId,
+            "imei": iMei,
+            "token": ticket,
+            "openid" : "",
+            "clientType":"doctor"
+            //"platform": platform,
+        };
+        /**
+         * 请求医生基本信息
+         */
+        sendPost("user",
+            {
+                userAgent:JSON.stringify(oUserAgent)
+            },
+            null, function(res) {
+                if(res.status == 200) {
+                    // plus.storage.setItem("userAgent", res.data);
+                    oUserAgent.doctorId =res.data.doctorId;
+                    userId = res.data.doctorId;
+                    var userAgent = JSON.stringify(oUserAgent);
+                    plus.storage.setItem("userAgent", userAgent);
+                    plus.storage.setItem("orgId", orgId);
+                    plus.storage.setItem("appUID", appUID);
+                    plus.storage.setItem("ticket", ticket);
+                    plus.storage.setItem("userId", userId);
+
+                    sendPost("doctor/baseinfo",
+                        {
+                            "userId": userId,
+                            "ticket": ticket
+                        },
+                        null, function(res) {
+                            if(res.status == 200) {
+                                plus.storage.setItem("docInfo", JSON.stringify(res.data));
+                                $.each($('.main iframe'), function (i, v) {
+                                    $(v).attr('src', $(v).attr('data-html'));
+                                })
+                            } else {
+                                mui.toast("获取医生信息失败");
+                            }
+                            plus.nativeUI.closeWaiting();
+                        });
+                } else {
+
+                }
+            }, "GET");
+    })();
+
+    //------------------------------
+
+
+
 	$('.main iframe').height($(window).height() - 51);
     $('#subPage').height($(window).height());//子页面
     //$('#subsubPage').height($(window).height());//子页面的子页面
 	window.localStorage.removeItem("isLoginOut");
 
-	var userAgent = JSON.parse(plus.storage.getItem("userAgent"));
-	var userId = userAgent.uid;
+	//var userAgent = JSON.parse(plus.storage.getItem("userAgent"));
+	//var userId = '9bf5afea-3200-4489-b93a-b5261351479e';
 	var orgId = plus.storage.getItem("orgId");
 	var client_id = plus.storage.getItem("appUID");
 	var ticket = plus.storage.getItem("ticket");
@@ -80,22 +155,22 @@ $(function() {
 	/**
 	 * 请求医生基本信息
 	 */
-	sendPost("doctor/baseinfo",
-		{
-			"userId": userId,
-			"ticket": ticket
-		},
-		null, function(res) {
-			if(res.status == 200) {
-				plus.storage.setItem("docInfo", JSON.stringify(res.data));
-                $.each($('.main iframe'), function (i, v) {
-                    $(v).attr('src', $(v).attr('data-html'));
-                })
-			} else {
-				mui.toast("获取医生信息失败");
-			}
-            plus.nativeUI.closeWaiting();
-		});
+	//sendPost("doctor/baseinfo",
+	//	{
+	//		"userId": userId,
+	//		"ticket": ticket
+	//	},
+	//	null, function(res) {
+	//		if(res.status == 200) {
+	//			plus.storage.setItem("docInfo", JSON.stringify(res.data));
+     //           $.each($('.main iframe'), function (i, v) {
+     //               $(v).attr('src', $(v).attr('data-html'));
+     //           })
+	//		} else {
+	//			mui.toast("获取医生信息失败");
+	//		}
+     //       plus.nativeUI.closeWaiting();
+	//	});
 });
 
 function openSubPage(url){

@@ -55,12 +55,9 @@ public class UserSessionService {
             user = userDao.save(user);
         }
 
-        UserSessionModel userSession = userSessionDao.findOneNotExpire(user.getCode());
+        UserSessionModel userSession = userSessionDao.findOne(user.getCode());
         if (userSession == null) {
-            userSession = userSessionDao.findOne(user.getCode());
-            if (userSession == null) {
-                userSession = new UserSessionModel();
-            }
+            userSession = new UserSessionModel();
             userSession.setUserCode(user.getCode());
             userSession.setToken(UUID.randomUUID().toString());
         }
@@ -111,7 +108,7 @@ public class UserSessionService {
             return false;
         }
 
-        UserSessionModel userSession = userSessionDao.findOneNotExpire(userAgent.getUid());
+        UserSessionModel userSession = userSessionDao.findOne(userAgent.getUid());
         if(userSession != null){
             return true;
         }
@@ -171,11 +168,12 @@ public class UserSessionService {
             }
 
 
-            UserSessionModel userSession = userSessionDao.findOneNotExpire(userCode);
+            UserSessionModel userSession = userSessionDao.findOne(userCode);
             if (userSession != null) {
-                return true;
+                if (DateUtil.compareDate(userSession.getExpireTime(), DateUtil.getNow()) > 0) {
+                    return true;
+                }
             }
-
             UserModel user = userDao.findOneByCode(userCode);
             if (user == null) {
                 user = new UserModel(userName, userCode);
@@ -193,8 +191,7 @@ public class UserSessionService {
                     user = userDao.save(user);
                 }
             }
-            userSession = userSessionDao.findOne(user.getCode());
-            if (userSession == null) {
+            if (userSession != null) {
                 userSession = new UserSessionModel();
             }
             userSession.setUserCode(user.getCode());

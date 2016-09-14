@@ -92,3 +92,19 @@ function openWindow(url){
 function closeWindow(){
     window.top.closeSubPage();
 }
+
+//function hideWindow(url){
+//    window.top.hideSubPage(url);
+//}
+//
+//function showWindow(){
+//    window.top.showSubPage();
+//}
+//
+//function openSubWindow(url){
+//    window.top.openSubSubPage(url);
+//}
+//
+//function closeSubWindow(){
+//    window.top.closeSubSubPage();
+//}

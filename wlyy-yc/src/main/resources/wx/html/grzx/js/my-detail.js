@@ -3,9 +3,11 @@ saveAgentPage("../../grzx/html/my-detail.html");
 var Request = GetRequest();
 if(Request["openid"]){
 	openId = decodeURIComponent(Request["openid"]);
+	window.localStorage.setItem("openid", openId);
 }
 if(Request["r"]){
 	random = Request["r"];
+	window.localStorage.setItem("random", random);
 }
 
 $(function() {	

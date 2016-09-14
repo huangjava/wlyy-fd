@@ -2,9 +2,11 @@ saveAgentPage("../../tzzb/html/health-record.html");
 var Request = GetRequest();
 if(Request["openid"]){
 	openId = decodeURIComponent(Request["openid"]);
+	window.localStorage.setItem("openid", openId);
 }
 if(Request["r"]){
 	random = Request["r"];
+	window.localStorage.setItem("random", random);
 }
   var switchery = null;
   var date = new Date();

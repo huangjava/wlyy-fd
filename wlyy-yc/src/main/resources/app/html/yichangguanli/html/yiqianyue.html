@@ -60,15 +60,15 @@
 					{{each val.patients as value j}}
 					<li class="n-list-link list-arrow-r n-list-cover" data-id="{{value.chId}}" data-name="{{value.name}}" data-ground="{{val.code}}" data-info="{{value | setJson}}">
 						<div class="patient-face patient-face-new">
-							{{if value.photo}}
-							<img src="{{value.photo}}"> {{else}}
-							<img src="{{value.sex | setPhoto}}"> {{/if}}
+                            <img src="{{setPhoto}}">
+							<!--{{if value.photo}}-->
+							<!--<img src="{{value.photo}}"> {{else}}-->
+							<!--<img src="{{value.sex | setPhoto}}"> {{/if}}-->
 						</div>
 
 						<div class="n-list-info">
-							<h4 class="c-nowrap c-f16">{{value.name}}<em class="ml5 c-f15 c-909090"> ( {{value.sex | setSex}}  {{value.age}}岁 )</em></h4>
+							<h4 class="c-nowrap c-f16">{{value.name}}<em class="ml5 c-f15 c-909090"> ( {{value.sex}}  {{value.age}}岁 )</em></h4>
 							<p class="c-f15 c-909090 pt5">{{value.sortType}}</p>
-							<!--<p class="c-f15 c-909090 pt5">{{value.disease | setDisease}}</p>-->
 							<em class="red-point"></em> </div>
 					</li>
 					{{/each}}

@@ -1,5 +1,5 @@
 
-mui.plusReady(function() {
+$(function() {
 	getPatientInfo();
 });
 
@@ -8,8 +8,11 @@ mui.plusReady(function() {
  */
 function getPatientInfo(){
 	plus.nativeUI.showWaiting();
-	var self = plus.webview.currentWebview();
-	var patientId = self.patientId;
+	//var self = plus.webview.currentWebview();
+	//var patientId = self.patientId;
+
+    var	Request = GetRequest();
+    var	patientId = Request["patientId"];
 	var params = {patientId:patientId};
 	sendPost("doctor/patient_group/patientInfo", params,
 		function(res) {
@@ -23,10 +26,17 @@ function getPatientInfo(){
 		function(res) {
 			if(res.status == 200) {
 				$("body").append(template("detail_info_tmpl", res.data));
+                clickEvent();
 			} else {
 				mui.toast(res.msg);
 			}
 			plus.nativeUI.closeWaiting();
-		});
+		}
+    );
+}
+function clickEvent() {
 
+    document.getElementById('mui-action-back').addEventListener('tap', function () {
+        closeWindow();
+    });
 }

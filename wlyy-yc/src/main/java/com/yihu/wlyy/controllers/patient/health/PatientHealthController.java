@@ -36,8 +36,8 @@ public class PatientHealthController extends BaseController {
 			@ApiParam(name = "patient", value = "患者Code", required = true)
 			@RequestParam(value = "patient") String patient	) {
 		try {
-//			String user = getUID();
-			String user = "CS20160830001";
+			String user = getUID();
+//			String user = "CS20160830001";
 
 			JSONArray array = healthIndexService.findRecentByPatient(user);
 			if (array != null) {
@@ -91,8 +91,8 @@ public class PatientHealthController extends BaseController {
 			int type) {
 		try {
 
-//			String user = getUID();
-			String user = "CS20160830001";
+			String user = getUID();
+//			String user = "CS20160830001";
 			DevicePatientHealthIndex healthIndex = null;
 			if (type == 1) {
 				// 血糖等一天只能存在一条数据
@@ -179,7 +179,7 @@ public class PatientHealthController extends BaseController {
 
 	@RequestMapping(value = "addPatientHealthIndex",method = RequestMethod.POST)
 	@ResponseBody
-	@ApiOperation(value = "保存指标（设备）", produces = "application/json", notes = "保存指标（设备）")
+	@ApiOperation(value = "保存指标（手录）", produces = "application/json", notes = "保存指标（手录）")
 	public String addPatientHealthIndex(
 			@ApiParam(name = "data", value = "指标数据", required = true)
 			@RequestParam(value="data",required = true) String data,
@@ -187,8 +187,8 @@ public class PatientHealthController extends BaseController {
 			@RequestParam(value="type",required = true) String type)
 	{
 		try {
-//			String user = getUID();
-			String user = "CS20160830001";
+			String user = getUID();
+//			String user = "CS20160830001";
 			DevicePatientHealthIndex obj = healthIndexService.addPatientHealthIndex(data, type,user, null);
 			return success("新增患者指标成功！");
 		}
@@ -214,23 +214,9 @@ public class PatientHealthController extends BaseController {
 			String begin,
 			@ApiParam(name = "end", value = "结束时间", required = true)
 			String end) {
-//		try {
-//			//TODO  demo数据
-//			String demo = null;
-//			if (type==1){
-//				demo = "[{\"date\":\"2016-09-05\",\"value1\":\"3\",\"czrq\":\"2016-09-05 00:00:00\",\"type\":1},{\"date\":\"2016-09-06\",\"value2\":\"11\",\"value1\":\"55\",\"czrq\":\"2016-09-06 00:00:00\",\"type\":1},{\"date\":\"2016-09-07\",\"value2\":\"46\",\"value1\":\"34\",\"czrq\":\"2016-09-07 00:00:00\",\"type\":1}]";
-//			}else if (type==2){
-//				demo = "[{\"date\":\"2016-09-07 10:58:00\",\"value2\":\"97\",\"value1\":\"66\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:36\",\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"22\",\"value1\":\"22\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:29\",\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"63\",\"value1\":\"55\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:43\",\"type\":2},{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"78\",\"value1\":\"36\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:00\",\"type\":2},{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"95\",\"value1\":\"90\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:14\",\"type\":2}]";
-//			}
-//			List list =  objectMapper.readValue(demo,List.class);
-//			return write(200, "查询成功", "list", list);
-//		} catch (Exception ex) {
-//			error(ex);
-//			return invalidUserException(ex, -1, "查询失败！");
-//		}
 
-//		tring user = getUID();
-		String user = "CS20160830001";
+		String user = getUID();
+//		String user = "CS20160830001";
 
 		try {
 			Iterable<DevicePatientHealthIndex> list = healthIndexService.findChartByPatien(user, type, begin, end);
@@ -285,24 +271,9 @@ public class PatientHealthController extends BaseController {
 			@RequestParam(value="page",required = true) int page,
 			@ApiParam(name = "pagesize", value = "页数", required = true)
 			@RequestParam(value="pagesize",required = true) int pagesize) {
-//		try {
-//			//TODO  demo数据
-//			String demo = null;
-//			if (type==1){
-//				demo = "[{\"date\":\"2016-09-07\",\"value2\":\"46\",\"value1\":\"34\",\"czrq\":\"2016-09-07 00:00:00\",\"sortDate\":\"2016-09-07 00:00:00\",\"type\":1},{\"date\":\"2016-09-06\",\"value2\":\"11\",\"value1\":\"55\",\"czrq\":\"2016-09-06 00:00:00\",\"sortDate\":\"2016-09-06 00:00:00\",\"type\":1},{\"date\":\"2016-09-05\",\"value1\":\"3\",\"czrq\":\"2016-09-05 00:00:00\",\"sortDate\":\"2016-09-05 00:00:00\",\"type\":1}]";
-//			}else if (type==2){
-//				demo = "[{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"95\",\"value1\":\"90\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:14\",\"sortDate\":\"2016-09-07 16:58:00\",\"id\":3367,\"type\":2},{\"date\":\"2016-09-07 16:58:00\",\"value2\":\"78\",\"value1\":\"36\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:00\",\"sortDate\":\"2016-09-07 16:58:00\",\"id\":3366,\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"63\",\"value1\":\"55\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:43\",\"sortDate\":\"2016-09-07 16:57:00\",\"id\":3365,\"type\":2},{\"date\":\"2016-09-07 16:57:00\",\"value2\":\"22\",\"value1\":\"22\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:57:29\",\"sortDate\":\"2016-09-07 16:57:00\",\"id\":3364,\"type\":2},{\"date\":\"2016-09-07 10:58:00\",\"value2\":\"97\",\"value1\":\"66\",\"patient\":\"CS20160830001\",\"czrq\":\"2016-09-07 16:58:36\",\"sortDate\":\"2016-09-07 10:58:00\",\"id\":3368,\"type\":2}]";
-//			}
-//			List list =  objectMapper.readValue(demo,List.class);
-//
-//			return write(200, "查询成功", "list", list);
-//		} catch (Exception ex) {
-//			error(ex);
-//			return invalidUserException(ex, -1, "查询失败！");
-//		}
 
-//		String user = getUID();
-		String user = "CS20160830001";
+		String user = getUID();
+//		String user = "CS20160830001";
 		try {
 			List<DevicePatientHealthIndex> list = healthIndexService.findIndexByPatient(user, type, start,end,page, pagesize);
 

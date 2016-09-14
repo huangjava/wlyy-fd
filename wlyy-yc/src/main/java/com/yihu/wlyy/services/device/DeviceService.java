@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Component
 @Transactional(rollbackFor = Exception.class)
-public class DeviceService  {
+public class DeviceService {
 
 	@Autowired
 	DeviceInfoDao deviceInfoDao;
@@ -42,12 +42,13 @@ public class DeviceService  {
 
 	@Autowired
 	private DeviceDao deviceDao;
-	
+
 	private ObjectMapper objectMapper = new ObjectMapper();
 	private Integer aStart;
 
 	/**
 	 * 查询所有的设备类型
+	 *
 	 * @return
 	 */
 	public List<DeviceCategory> findAllCategory() {
@@ -64,9 +65,8 @@ public class DeviceService  {
 
 	/**
 	 * 获取设备信息
-     */
-	public Device findById(String id)
-	{
+	 */
+	public Device findById(String id) {
 		return deviceDao.findOne(Long.valueOf(id));
 	}
 
@@ -82,13 +82,13 @@ public class DeviceService  {
 		if (deviceType.equals("0")) {
 			Map<String, String> dataMap = new HashMap<>();
 			String[] dataArr = deviceData.split(",");
-			String deviceCode =  StringUtil.replaceStrAll(dataArr[0], "imei=", "");
-			String user =  StringUtil.replaceStrAll(dataArr[4], "user=", "");
-			String sys =  StringUtil.replaceStrAll(dataArr[5], "sys=", "");
-			String dia =  StringUtil.replaceStrAll(dataArr[6], "dia=", "");
-			String pul =  StringUtil.replaceStrAll(dataArr[7], "pul=", "");
-			String ano =  StringUtil.replaceStrAll(dataArr[8], "ano=", "");
-			String time =  StringUtil.replaceStrAll(dataArr[9], "time=", "");
+			String deviceCode = StringUtil.replaceStrAll(dataArr[0], "imei=", "");
+			String user = StringUtil.replaceStrAll(dataArr[4], "user=", "");
+			String sys = StringUtil.replaceStrAll(dataArr[5], "sys=", "");
+			String dia = StringUtil.replaceStrAll(dataArr[6], "dia=", "");
+			String pul = StringUtil.replaceStrAll(dataArr[7], "pul=", "");
+			String ano = StringUtil.replaceStrAll(dataArr[8], "ano=", "");
+			String time = StringUtil.replaceStrAll(dataArr[9], "time=", "");
 			dataMap.put("user", user);
 			dataMap.put("sys", sys);
 			dataMap.put("dia", dia);
@@ -124,8 +124,8 @@ public class DeviceService  {
 			paramMap.put("type", "1");
 			paramMap.put("deviceSn", str7);
 			DecimalFormat df = new DecimalFormat("0.0");
-			dataMap.put("gi",  StringUtil.toString(df.format((float)Integer.parseInt(str10) / 18)));
-			String time = "20"+str11+"-"+str12+"-"+str13+" "+str14+":"+str15+":00";
+			dataMap.put("gi", StringUtil.toString(df.format((float) Integer.parseInt(str10) / 18)));
+			String time = "20" + str11 + "-" + str12 + "-" + str13 + " " + str14 + ":" + str15 + ":00";
 			dataMap.put("time", time);
 			paramMap.put("data", JSONObject.fromObject(dataMap).toString());
 		}
@@ -159,9 +159,9 @@ public class DeviceService  {
 	/**
 	 * 保存设备数据
 	 */
-	public String savePatientDeviceData(String data,String type,String deviceSn) throws Exception {
+	public String savePatientDeviceData(String data, String type, String deviceSn) throws Exception {
 		String msg = "";
-		Map<String,String> map = (Map<String,String>)objectMapper.readValue(data,Map.class);
+		Map<String, String> map = (Map<String, String>) objectMapper.readValue(data, Map.class);
 
 		PatientHealthIndex obj = new PatientHealthIndex();
 		obj.setCzrq(DateUtil.getSysDateTime());
@@ -180,12 +180,12 @@ public class DeviceService  {
 		obj.setSortDate(time);      //排序时间
 
 		String userType = "-1";
-		if(map.containsKey("user")) { //存在身份标识 ,多用户
+		if (map.containsKey("user")) { //存在身份标识 ,多用户
 			userType = map.get("user");
 		}
 		//根据设备获取患者
-		PatientDevice device = patientDeviceDao.findByDeviceSnAndCategoryCodeAndUserType(deviceSn,type,userType);
-		if(device!=null) {
+		PatientDevice device = patientDeviceDao.findByDeviceSnAndCategoryCodeAndUserType(deviceSn, type, userType);
+		if (device != null) {
 			obj.setUser(device.getUser());
 			obj.setIdcard(device.getUserIdcard());
 			// 1血糖 2血压 3体重 4腰围
@@ -211,14 +211,14 @@ public class DeviceService  {
 					obj.setValue1(map.get("waistline"));  //腰围
 					break;
 				default:
-					msg =  "Can not support the metric!";
+					msg = "Can not support the metric!";
 					break;
 			}
 		} else {
 			msg = "This device is not relate patient!";
 		}
 
-		if(msg.length()==0) {
+		if (msg.length() == 0) {
 			patientHealthIndexDao.save(obj);
 		}
 
@@ -276,5 +276,18 @@ public class DeviceService  {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * 保存设备信息
+	 */
+	public Boolean saveDeviceData(PatientDevice patientDevice) throws Exception {
+		Iterable<DeviceDetail> deviceDetails = deviceDetailDao.findByCode(patientDevice.getDeviceSn());
+		if (!deviceDetails.iterator().hasNext()) {
+			DeviceDetail deviceDetail = new DeviceDetail(patientDevice.getDeviceName(),
+					"", patientDevice.getDeviceSn(), "");
+
+		}
+		return true;
 	}
 }

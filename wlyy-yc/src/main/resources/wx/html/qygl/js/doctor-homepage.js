@@ -58,10 +58,10 @@ var showTeamInfo = function(data) {
 	}
 
 	document.getElementById("teamCode").innerHTML = data.data.teamCode;
-	document.getElementById("teamName").innerHTML = teamName;
+	document.getElementById("teamName").innerHTML = teamName || "";
 	document.getElementById("orgName").innerHTML = orgName;
-	document.getElementById("orgCode").innerHTML = data.data.orgCode=='undefined'?'':data.data.orgCode;
-	document.getElementById("introduce").innerHTML = data.data.introduce=='undefined'?'':data.data.introduce;
+	document.getElementById("orgCode").innerHTML = data.data.orgCode || "";
+	document.getElementById("introduce").innerHTML = data.data.introduce ||"";
 	
 };
 
@@ -86,6 +86,7 @@ getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,org
 	isSignForView(datas[2]);
 	if(!datas[1].list.length) {
 		$showAllMemberBtn.html("暂无团队成员");
+		d.close();
 		return ;
 	}
 	
@@ -121,10 +122,10 @@ getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,org
 			var html = template("member_li_tmpl", data);
 			// 将列表添加到页面
 			$teamMemberList.append(html);
-			d.close();
 			$showAllMemberBtn.css({
 				display: 'none'
 			});
+			d.close();
 		})
 	});
 })

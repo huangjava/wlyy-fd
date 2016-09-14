@@ -110,7 +110,9 @@ public class UserSessionService {
 
         UserSessionModel userSession = userSessionDao.findOne(userAgent.getUid());
         if(userSession != null){
-            return true;
+            if (DateUtil.compareDate(userSession.getExpireTime(), DateUtil.getNow()) > 0) {
+                return true;
+            }
         }
 
         response.getOutputStream().write(responseKit.write(200, "reLogin", "loginUrl", genEHomeUrl(userAgent.getOpenid())).getBytes());

@@ -64,9 +64,10 @@ public class SignContractService {
                 String birthday = element.elementText("BIRTHDAY");
                 String address = element.elementText("ADDRESS");
                 String sortType = element.elementText("SORT_TYPE");
-                int age= getAge(new Date(birthday.replace('-','/')));
-
-
+                String age = "";
+                if(!StringUtils.isEmpty(birthday)){
+                    age= getAge(new Date(birthday.replace("-","/")))+"";
+                }
                 JSONObject patient = new JSONObject();
                 patient.put("chId", chId);                //唯一id
                 patient.put("name", selfName);              //姓名
@@ -166,6 +167,7 @@ public class SignContractService {
 
     public JSONArray getToSignInfoList(String orgCode, String doctorId, String page, String pageSize) {
         try {
+            String[] groupName = {"未分拣", "高血压", "糖尿病", "结核病", "精神病", "老年人", "孕产妇", "儿童"};
             String toSignInfoList = NeuSoftWebService.getToSignInfoList(orgCode, doctorId, page, pageSize);
             Document document = DocumentHelper.parseText(toSignInfoList);
             List<Element> elements = document.getRootElement().elements("XMLDATA");
@@ -178,13 +180,25 @@ public class SignContractService {
                 String birthday = element.elementText("BIRTHDAY");
                 String address = element.elementText("ADDRESS");
                 String sortType = element.elementText("SORT_TYPE");
+                String age = "";
+                if(!StringUtils.isEmpty(birthday)){
+                    age= getAge(new Date(birthday.replace("-","/")))+"";
+                }
 
                 JSONObject json = new JSONObject();
                 json.put("chId", chId); //chId  居民主索引
                 json.put("name", selfName);              //姓名
                 json.put("sex", gender);                    // 性别
-                json.put("age", 65);                     //年龄（出生日期处理得到）
-                json.put("sortType", sortType);          //分拣标签
+                json.put("age", age);                     //年龄（出生日期处理得到）
+
+                String sortTypeName = "";
+                for(String str :sortType.split(",")){
+                    if(StringUtils.isEmpty(sortType)){
+                        str = "0";
+                    }
+                    sortTypeName = groupName[Integer.parseInt(str)]+",";
+                }
+                json.put("sortType", sortTypeName.substring(0,sortTypeName.length()-1));          //分拣标签
                 json.put("address", address);      //常住地址
                 json.put("birthday", birthday);     //出生日期
 
@@ -199,7 +213,7 @@ public class SignContractService {
             }
 
             return array;
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -227,6 +241,7 @@ public class SignContractService {
     //    </MSGFORM>
     public JSONArray getNotSignInfoList(String orgCode, String doctorId, String page, String pageSize) {
         try {
+            String[] groupName = {"未分拣", "高血压", "糖尿病", "结核病", "精神病", "老年人", "孕产妇", "儿童"};
             String toSignInfoList = NeuSoftWebService.getNotSignInfoList(orgCode, doctorId, page, pageSize);
             Document document = DocumentHelper.parseText(toSignInfoList);
             List<Element> elements = document.getRootElement().elements("XMLDATA");
@@ -239,13 +254,23 @@ public class SignContractService {
                 String birthday = element.elementText("BIRTHDAY");
                 String address = element.elementText("ADDRESS");
                 String sortType = element.elementText("SORT_TYPE");
-
+                String age = "";
+                if(!StringUtils.isEmpty(birthday)){
+                    age= getAge(new Date(birthday.replace("-","/")))+"";
+                }
                 JSONObject json = new JSONObject();
                 json.put("chId", chId); //chId  居民主索引
                 json.put("name", selfName);              //姓名
                 json.put("sex", gender);                    // 性别
-                json.put("age", 65);                     //年龄（出生日期处理得到）
-                json.put("sortType", sortType);          //分拣标签
+                json.put("age", age);                     //年龄（出生日期处理得到）
+                String sortTypeName = "";
+                for(String str :sortType.split(",")){
+                    if(StringUtils.isEmpty(sortType)){
+                        str = "0";
+                    }
+                    sortTypeName = groupName[Integer.parseInt(str)]+",";
+                }
+                json.put("sortType", sortTypeName.substring(0,sortTypeName.length()-1));
                 json.put("address", address);      //常住地址
                 json.put("birthday", birthday);     //出生日期
 
@@ -260,7 +285,7 @@ public class SignContractService {
             }
 
             return array;
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

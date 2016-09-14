@@ -277,14 +277,23 @@ public class NeuSoftWebService {
     public static String upConfirmSignedInfo(DataHandler dataHandler, String signTeam, String signTeamName, String signPeriod, String signPreiodFrom, String chid, String agreementName, String orgCode, String userId) {
         try {
             Map<String, String> param = new HashMap<>();
-            param.put("SIGNTEAM", signTeam); //签约团队信息
+            /*param.put("SIGNTEAM", signTeam); //签约团队信息
             param.put("SIGNTEAMNAME", signTeamName);  //置空
             param.put("SIGNPERIOD", signPeriod);  //签约周期 默认按年默认1年
             param.put("SIGNPERIODFROM", signPreiodFrom); //签约日期 当天
             param.put("CHID", chid);   //居民主索引
             param.put("AGREEMENTNAME", agreementName);  //上传协议名称
             param.put("ORGCODE", orgCode); //医生所属机构编号
-            param.put("USERID", userId); //医生ID
+            param.put("USERID", userId); //医生ID*/
+
+            param.put("SIGNTEAM", "74529931-1445-468d-8873-abfa63734e7c"); //签约团队信息
+            param.put("SIGNTEAMNAME", "");  //置空
+            param.put("SIGNPERIOD", "1");  //签约周期 默认按年默认1年
+            param.put("SIGNPERIODFROM", "2016-09-14"); //签约日期 当天
+            param.put("CHID", "bcc9e576-517f-4ed2-93d6-386b09f99184");   //居民主索引
+            param.put("AGREEMENTNAME", "协议");  //上传协议名称
+            param.put("ORGCODE", "2c9660e34f4fbb9d014f5d50be6c0016"); //医生所属机构编号
+            param.put("USERID", "a569522f-49d9-46ea-8209-1406e04787ea"); //医生ID
             String paramXml = XMLUtil.map2xml(param);
 
             Service service = new Service();

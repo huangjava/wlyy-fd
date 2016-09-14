@@ -34,7 +34,10 @@ public class SignController extends BaseController {
                     "\"signStatus\":0,\n" +
                     "}";
             JSONObject jsonObject = new JSONObject(json);
-            return write(200, "获取签约状态成功！", "data", jsonObject);
+            //TODO openID获取
+            Map<String,Object> info = signlTransFormService. getSignState("OCEF9T2HW1GBY0KINQK0NEL_ZOSK");
+
+            return write(200, "获取签约状态成功！", "data", info);
         } catch (Exception e) {
             error(e);
             return error(-1, "签约状态查询失败！");
@@ -42,20 +45,20 @@ public class SignController extends BaseController {
     }
 
 
-    @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
-    public String isAssign(
-            @ApiParam(name = "patientCode", value = "患者Code", required = true)
-            @RequestParam(value = "patientCode") String patientCode) {
-        try {
-
-            return write(200, "获取分拣状态成功！", "data",-1);
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "分拣状态查询失败！");
-        }
-    }
+//    @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+//    @ResponseBody
+//    @ApiOperation(value = "查询居民是否已经分拣", produces = "application/json", notes = "查询居民是否已经分拣")
+//    public String isAssign(
+//            @ApiParam(name = "patientCode", value = "患者Code", required = true)
+//            @RequestParam(value = "patientCode") String patientCode) {
+//        try {
+//
+//            return write(200, "获取分拣状态成功！", "data",-1);
+//        } catch (Exception e) {
+//            error(e);
+//            return error(-1, "分拣状态查询失败！");
+//        }
+//    }
 
     /**
      * 取消签约申请

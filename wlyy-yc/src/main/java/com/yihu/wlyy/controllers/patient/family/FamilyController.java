@@ -3,9 +3,9 @@ package com.yihu.wlyy.controllers.patient.family;
 import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.services.person.PersonService;
+import com.yihu.wlyy.services.person.SignlTransFormService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +26,8 @@ public class FamilyController extends BaseController {
     @Autowired
     private HospitalService hospitalService;
     @Autowired
+    private SignlTransFormService signlTransFormService;
+    @Autowired
     private PersonService personService;
 
     @RequestMapping(value = "isAssign", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
@@ -36,11 +38,18 @@ public class FamilyController extends BaseController {
             @RequestParam(value = "openId") String openId) {
         try {
             int sign = 0;
-            List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(openId);
+            List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(getOpenid());
+            Map<String,Object> info = signlTransFormService. getSignState(getOpenid());
+
             if (list!=null && list.size()>0){
-                sign = 1;
+                if (info!=null && "0".equals(info.get("signStatus")))
+                {
+                    sign = 0;//已分拣+未签约
+                }else {
+                    sign = 1;//已分拣+已签约
+                }
             }else {
-                sign = -1;
+                sign = -1;//未分拣
             }
             return write(200, "获取分拣状态成功！", "data",sign);
         } catch (Exception e) {
@@ -138,7 +147,7 @@ public class FamilyController extends BaseController {
             @ApiParam(name = "address", value = "患者Code", required = true)
             @RequestParam(value = "address") String address) {
         try {
-
+            //TODO 调用接口获取数据
             return write(200, "保存成功！", "data",  1);
         } catch (Exception e) {
             error(e);

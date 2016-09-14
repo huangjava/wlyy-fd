@@ -23,7 +23,7 @@ public class SignlTransFormService {
      * @return
      */
     public static Map<String,Object> getSignState(String openId){
-        Map<String,Object> result = new HashMap<>();
+        Map<String,Object> result = null;
         //TODO 调用东软接口返回数据
         String responseXml = NeuSoftWebService.getSignState(openId);
         responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -45,6 +45,7 @@ public class SignlTransFormService {
             List<Map<String,Object>> teams =  XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
                     Map<String,Object> obj = teams.get(0);
+                result = new HashMap<>();
                 result.put("signStatus", obj.get("STATUS"));
             }
         } catch (Exception e) {

@@ -43,7 +43,6 @@ public class HospitalService {
 //                "</MSGFORM>\n";
 
 
-            Map<String,Object> map  = XMLUtil.xml2map(responseXml);
             List<Map<String,Object>> teams =  XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
                 for (Map<String,Object> team:teams){
@@ -81,36 +80,35 @@ public class HospitalService {
         String responseXml = NeuSoftWebService.getGPTeamInfo(teamCode, page, pageSize);
 
         //TODO 调用东软接口返回数据
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<MSGFORM>\n" +
-                "  <XMLDATA>\n" +
-                "    <TEAMID>74529931-1445-468d-8873-abfa63734e7c</TEAMID>\n" +
-                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
-                "    <ORGCODE>123456</ORGCODE>\n" +
-                "    <CREATEDUNITNAME>宜昌市惠民医院</CREATEDUNITNAME>\n" +
-                "    <CREATEDUNITCODE>420503003000</CREATEDUNITCODE>\n" +
-                "    <CREATEDTIME>2016-08-10</CREATEDTIME>\n" +
-                "    <TEAMDESC>团队简介</TEAMDESC>\n" +
-                "    <USERID>42589bc0-e069-4a92-a70c-c8a19be9d7d2</USERID>\n" +
-                "    <USER_FULLNAME>宋文</USER_FULLNAME>\n" +
-                "    <DEPT_NAME>儿科</DEPT_NAME>\n" +
-                "  </XMLDATA>\n" +
-                "  <XMLDATA>\n" +
-                "    <TEAMID>74529931-1445-468d-8873-abfa63734e7c</TEAMID>\n" +
-                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
-                "    <ORGCODE>123456</ORGCODE>\n" +
-                "    <CREATEDUNITNAME>宜昌市惠民医院</CREATEDUNITNAME>\n" +
-                "    <CREATEDUNITCODE>420503003000</CREATEDUNITCODE>\n" +
-                "    <CREATEDTIME>2016-08-10</CREATEDTIME>\n" +
-                "    <TEAMDESC>团队简介</TEAMDESC>\n" +
-                "    <USERID>42589bc0-e069-4a92-a70c-c8a19be9d333</USERID>\n" +
-                "    <USER_FULLNAME>王明</USER_FULLNAME>\n" +
-                "    <DEPT_NAME>儿科</DEPT_NAME>\n" +
-                "  </XMLDATA>\n" +
-                "</MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<MSGFORM>\n" +
+//                "  <XMLDATA>\n" +
+//                "    <TEAMID>74529931-1445-468d-8873-abfa63734e7c</TEAMID>\n" +
+//                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
+//                "    <ORGCODE>123456</ORGCODE>\n" +
+//                "    <CREATEDUNITNAME>宜昌市惠民医院</CREATEDUNITNAME>\n" +
+//                "    <CREATEDUNITCODE>420503003000</CREATEDUNITCODE>\n" +
+//                "    <CREATEDTIME>2016-08-10</CREATEDTIME>\n" +
+//                "    <TEAMDESC>团队简介</TEAMDESC>\n" +
+//                "    <USERID>42589bc0-e069-4a92-a70c-c8a19be9d7d2</USERID>\n" +
+//                "    <USER_FULLNAME>宋文</USER_FULLNAME>\n" +
+//                "    <DEPT_NAME>儿科</DEPT_NAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "  <XMLDATA>\n" +
+//                "    <TEAMID>74529931-1445-468d-8873-abfa63734e7c</TEAMID>\n" +
+//                "    <TEAMNAME>高血压团队</TEAMNAME>\n" +
+//                "    <ORGCODE>123456</ORGCODE>\n" +
+//                "    <CREATEDUNITNAME>宜昌市惠民医院</CREATEDUNITNAME>\n" +
+//                "    <CREATEDUNITCODE>420503003000</CREATEDUNITCODE>\n" +
+//                "    <CREATEDTIME>2016-08-10</CREATEDTIME>\n" +
+//                "    <TEAMDESC>团队简介</TEAMDESC>\n" +
+//                "    <USERID>42589bc0-e069-4a92-a70c-c8a19be9d333</USERID>\n" +
+//                "    <USER_FULLNAME>王明</USER_FULLNAME>\n" +
+//                "    <DEPT_NAME>儿科</DEPT_NAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "</MSGFORM>\n";
 
         try {
-            Map<String,Object> map  = XMLUtil.xml2map(responseXml);
             List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
             if (teams!=null && teams.size()>0){
                 Map<String,Object> obj = teams.get(0);
@@ -123,7 +121,7 @@ public class HospitalService {
                 result.put("photo","");//toset
 
             }
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -140,19 +138,19 @@ public class HospitalService {
         Map<String,Object> result = new HashMap<>();
         //TODO 调用东软接口返回数据
         String responseXml = NeuSoftWebService.getGPInfo(doctorCode);
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<MSGFORM>\n" +
-                "  <XMLDATA>\n" +
-                "    <USER_FULLNAME>张三</USER_FULLNAME>\n" +
-                "    <GENDER>男</GENDER>\n" +
-                "    <PROFESSION>职业经历</PROFESSION>\n" +
-                "    <EDUCATION>硕士</EDUCATION>\n" +
-                "    <SPECIALTY>检查检验</SPECIALTY>\n" +
-                "    <UNIT_NAME>**社区</UNIT_NAME>\n" +
-                "    <DEPT_NAME>检验科</DEPT_NAME>\n" +
-                "    <PHOTO></PHOTO>\n" +
-                "  </XMLDATA>\n" +
-                "</MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<MSGFORM>\n" +
+//                "  <XMLDATA>\n" +
+//                "    <USER_FULLNAME>张三</USER_FULLNAME>\n" +
+//                "    <GENDER>男</GENDER>\n" +
+//                "    <PROFESSION>职业经历</PROFESSION>\n" +
+//                "    <EDUCATION>硕士</EDUCATION>\n" +
+//                "    <SPECIALTY>检查检验</SPECIALTY>\n" +
+//                "    <UNIT_NAME>**社区</UNIT_NAME>\n" +
+//                "    <DEPT_NAME>检验科</DEPT_NAME>\n" +
+//                "    <PHOTO></PHOTO>\n" +
+//                "  </XMLDATA>\n" +
+//                "</MSGFORM>\n";
 
         try {
             List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
@@ -181,7 +179,7 @@ public class HospitalService {
 
     /**
      *  TODO 待定，最新xml格式未给出
-     * 获取所有机构列表（根据居民微信主索引）
+     * 获取所有机构列表（根据居民微信主索引）(是否已分拣接口）
      * @param openId 微信主索引
      * @return
      */
@@ -189,13 +187,13 @@ public class HospitalService {
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
         String responseXml = NeuSoftWebService.getOrgListByOpenid(openId);
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<MSGFORM>\n" +
-                "  <XMLDATA>\n" +
-                "    <ORGCODE>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</ORGCODE>\n" +
-                "    <ORGNAME>**社区</ORGNAME>\n" +
-                "  </XMLDATA>\n" +
-                "</MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<MSGFORM>\n" +
+//                "  <XMLDATA>\n" +
+//                "    <ORGCODE>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</ORGCODE>\n" +
+//                "    <ORGNAME>**社区</ORGNAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "</MSGFORM>\n";
 
         try {
             List<Map<String,Object>> teams =  XMLUtil.xmltoList(responseXml);
@@ -227,13 +225,13 @@ public class HospitalService {
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
         String responseXml = NeuSoftWebService.getOrgList(community);
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<MSGFORM>\n" +
-                "  <XMLDATA>\n" +
-                "    <ORGCODE>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</ORGCODE>\n" +
-                "    <ORGNAME>**社区</ORGNAME>\n" +
-                "  </XMLDATA>\n" +
-                "</MSGFORM>\n";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "<MSGFORM>\n" +
+//                "  <XMLDATA>\n" +
+//                "    <ORGCODE>2705143a-f84c-4a9d-9cf8-7fd0df5a759c</ORGCODE>\n" +
+//                "    <ORGNAME>**社区</ORGNAME>\n" +
+//                "  </XMLDATA>\n" +
+//                "</MSGFORM>\n";
         try {
             Map<String,Object> map  = XMLUtil.xml2map(responseXml);
             List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
@@ -263,17 +261,17 @@ public class HospitalService {
         List<Map<String,Object>> result = new ArrayList<>();
         //TODO 调用东软接口返回数据
         String responseXml =  NeuSoftWebService.getMyTeam(orgCode, doctorCode);
-        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "  <MSGFORM>\n" +
-                "    <XMLDATA>\n" +
-                "       <TEAMID>420504202001</TEAMID>\n" +
-                "       <TEAMNAME>高血压管理团队</TEAMNAME>\n" +
-                "</XMLDATA>\n" +
-                "    <XMLDATA>\n" +
-                "       <TEAMID>420503003001</TEAMID>\n" +
-                "       <TEAMNAME>签约团队</TEAMNAME>\n" +
-                "    </XMLDATA>\n" +
-                "  </MSGFORM>";
+//        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+//                "  <MSGFORM>\n" +
+//                "    <XMLDATA>\n" +
+//                "       <TEAMID>420504202001</TEAMID>\n" +
+//                "       <TEAMNAME>高血压管理团队</TEAMNAME>\n" +
+//                "</XMLDATA>\n" +
+//                "    <XMLDATA>\n" +
+//                "       <TEAMID>420503003001</TEAMID>\n" +
+//                "       <TEAMNAME>签约团队</TEAMNAME>\n" +
+//                "    </XMLDATA>\n" +
+//                "  </MSGFORM>";
 
         try {
             Map<String,Object> map  = XMLUtil.xml2map(responseXml);

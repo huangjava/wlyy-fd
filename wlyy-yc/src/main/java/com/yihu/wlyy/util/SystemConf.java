@@ -1,14 +1,23 @@
 package com.yihu.wlyy.util;
 
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+import com.yihu.wlyy.configuration.EnvConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 public class SystemConf {
-
+	private static String profile;
+	private static String healthPutUrl;
+	private static String doctorUrl;
+	private static String patientUrl;
 	// 别处登录
 	public static final int LOGIN_OTHER = 999;
 	// 登录超时
@@ -91,7 +100,11 @@ public class SystemConf {
 		if (systemProperties == null) {
 			InputStream is = null;
 			try {
-				is = this.getClass().getResourceAsStream("/system.properties");
+				String conf = "/system.properties";
+				if (StringUtil.isNotEmpty(profile)) {
+					conf = profile;
+				}
+				is = this.getClass().getResourceAsStream(conf);
 				systemProperties = new Properties();
 				systemProperties.load(is);
 			} catch (IOException e1) {
@@ -286,4 +299,23 @@ public class SystemConf {
 		return getSystemProperties().getProperty(name);
 	}
 
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	public String getHealthPutUrl() {
+		return getSystemProperties().getProperty("health.data.put");
+	}
+
+	public String getDoctorUrl() {
+		return getSystemProperties().getProperty("neusoft.ws.doctor");
+	}
+
+	public String getPatientUrl() {
+		return getSystemProperties().getProperty("neusoft.ws.person");
+	}
 }

@@ -100,14 +100,17 @@ public class PatientDeviceController extends BaseController {
 	@ApiOperation("通过sn码获取设备绑定情况")
 	@RequestMapping(value = "patientDeviceIdCard", produces = "application/json;charset=UTF-8",method = RequestMethod.POST)
 	@ResponseBody
-	public String getDeviceUser(@ApiParam(name="type",value="设备类型",defaultValue = "1")
+	public String getDeviceUser(
+			@ApiParam(name="openId",value="openId")
+			@RequestParam(value="openId",required = true) String openId,
+			@ApiParam(name="type",value="设备类型",defaultValue = "1")
 									     @RequestParam(value="type",required = true) String type,
 										 @ApiParam(name="device_sn",value="设备SN码",defaultValue = "15L000002")
 										 @RequestParam(value="device_sn",required = true) String deviceSn) {
 		try {
 			String user = getUID();
 //			String user = "CS20160830001";
-			List<Map<String,String>> list = patientDeviceService.getDeviceUser(user,deviceSn,type);
+			List<Map<String,String>> list = patientDeviceService.getDeviceUser(openId, user,deviceSn,type);
 			return write(200, "获取设备绑定信息成功！", "data",list);
 		} catch (Exception ex) {
 			return invalidUserException(ex, -1, ex.getMessage());

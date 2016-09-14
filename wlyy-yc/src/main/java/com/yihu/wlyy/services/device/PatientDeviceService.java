@@ -1,10 +1,11 @@
 package com.yihu.wlyy.services.device;
 
 
-import com.yihu.wlyy.daos.PatientDao;
 import com.yihu.wlyy.daos.PatientDeviceDao;
 import com.yihu.wlyy.models.device.PatientDevice;
-import com.yihu.wlyy.models.patient.PatientModel;
+import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
+import com.yihu.wlyy.util.CollectionUtil;
+import com.yihu.wlyy.util.XMLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,10 +29,6 @@ public class PatientDeviceService  {
 
 	@Autowired
 	private PatientDeviceDao patientDeviceDao;
-
-
-	@Autowired
-	private PatientDao patientDao;
 
 	/**
 	 * 保存患者设备
@@ -73,8 +70,7 @@ public class PatientDeviceService  {
 		}
 		patientDevice.setCzrq(clock.getCurrentDate());
 		//当前用户的身份证
-		PatientModel patient = patientDao.findByCode(patientDevice.getUser());
-		patientDevice.setUserIdcard(patient.getIdCard());
+//		patientDevice.setUserIdcard(patient.getIdCard());
 		patientDeviceDao.save(patientDevice);
 
 		return true;
@@ -135,34 +131,33 @@ public class PatientDeviceService  {
 	/**
 	 * 通过sn码获取设备绑定情况
 	 **/
-	public List<Map<String,String>> getDeviceUser(String user,String deviceSn,String type) throws Exception {
+	public List<Map<String,String>> getDeviceUser(String openId, String user,String deviceSn,String type) throws Exception {
 		List<Map<String,String>> re = new ArrayList<Map<String, String>>();
 		List<PatientDevice> list =patientDeviceDao.findByDeviceSnAndCategoryCode(deviceSn,type);
 		if(list!=null)
 		{
-			for(PatientDevice item:list)
+			for(PatientDevice item : list)
 			{
 				Map<String,String> map = new HashMap<String, String>();
 				map.put("type",item.getUserType());
-				String code = item.getUser();
-				if(code.equals(user))
+				String userCode = item.getUser();
+				if(user.equals(userCode))
 				{
 					map.put("others","0");
 				}
 				else{
 					map.put("others","1");
 				}
-
-				//获取姓名
-				PatientModel patient = patientDao.findByCode(code);
-				if(patient!=null)
-				{
-					map.put("name",patient.getName());
+				Map<String,Object> result = new HashMap<>();
+				//TODO 调用东软接口返回数据
+//				openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+				String userInfoXml = NeuSoftWebService.getSignDetailInfo(openId);
+				List<Map<String,Object>> patientInfo = XMLUtil.xmltoList(userInfoXml);
+				if (CollectionUtil.isNotEmpty(patientInfo)) {
+					Map<String, Object> obj = patientInfo.get(0);
+					//获取姓名
+					map.put("name", (String) obj.get("SELFNAME"));
 				}
-				else{
-					map.put("name",code);
-				}
-
 				re.add(map);
 			}
 		}

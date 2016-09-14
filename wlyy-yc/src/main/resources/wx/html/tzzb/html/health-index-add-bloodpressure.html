@@ -59,7 +59,7 @@
 			<p class="c-f16 c5b plr15 pt10">收缩压 正常范围：<span id="minValue1">90</span>-<span id="maxValue1">139</span>mmHg</p>
 			<p class="c-f16 c5b plr15 pt10">舒张压 正常范围：<span id="minValue2">60</span>-<span id="maxValue2">89</span>mmHg</p>
 			<div class="bottom-box clearfix mt20 plr15">
-				<a href="javascript:;" id="save" class="c-btn-full c-btn-75BF00 c-btn-radius fl c-f18">保存</a>
+				<a onclick="save()" id="save" class="c-btn-full c-btn-75BF00 c-btn-radius fl c-f18">保存</a>
 			</div>
 
 		</div>
@@ -77,28 +77,28 @@
 	<script>
 		$(function() {
 			//queryWarning();
-			document.getElementById("save").addEventListener("tap", function() {
-				var record_date = document.getElementById("date").value;
-				var val_h = document.getElementById("val_h").value;
-				var val_l = document.getElementById("val_l").value;
-				if(!record_date){
-					dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请选择记录时间'}).show();
-					return ;
-				}
-				var p = /^[1-9]([0-9])*$/;
-				if(!val_h || !p.test(val_h)){
-					dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请输入收缩压,数值为正整数'}).show();
-					return ;
-				}
-				if(!val_l || !p.test(val_l)){
-					dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请输入舒张压,数值为正整数'}).show();
-					return ;
-				}							
-				//发送请求到服务器
-				addHealthIndex("", record_date, val_h, val_l, 0, 0, 0, 0, 0, 2, addBloodPressureSuccess);
-		
-			})
 		});
+		function save(){
+			var record_date = document.getElementById("date").value;
+			var val_h = document.getElementById("val_h").value;
+			var val_l = document.getElementById("val_l").value;
+			if(!record_date){
+				dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请选择记录时间'}).show();
+				return ;
+			}
+			var p = /^[1-9]([0-9])*$/;
+			if(!val_h || !p.test(val_h)){
+				dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请输入收缩压,数值为正整数'}).show();
+				return ;
+			}
+			if(!val_l || !p.test(val_l)){
+				dialog({contentType:'tipsbox',bottom:true, skin:'bk-popup' , content:'请输入舒张压,数值为正整数'}).show();
+				return ;
+			}
+			//发送请求到服务器
+			addHealthIndex("", record_date, val_h, val_l, 0, 0, 0, 0, 0, 2, addBloodPressureSuccess);
+
+		}
 		$(function() {
 			/* 选择日期  */
 			$('input')

@@ -171,7 +171,7 @@ function isValueChange(){
 }
 
 function checkSnBind(snCode,suc){
-	var params = {};
+	var params = {openId:openId, random:random};
 	params.type=type;
 	params.device_sn = snCode;
 	sendPost("patient/device/patientDeviceIdCard",params,"JSON","POST",

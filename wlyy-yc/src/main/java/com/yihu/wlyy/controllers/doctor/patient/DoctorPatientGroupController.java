@@ -253,38 +253,38 @@ public class DoctorPatientGroupController extends BaseController {
     public String getPatientInfo(
             @ApiParam(name = "patientId", value = "签约居民唯一标识", defaultValue = "patient001")
             @RequestParam(value = "patientId", required = false) String patientId) {
-//
-//        try {
-//            String info = personService.getInfo(patientId);
-//            return write(200, "获取居民生信息成功！", "data", info);
-//        } catch (Exception e) {
-//            error(e);
-//            return error(-1, "获取居民信息失败！");
-//        }
-
-        //接口调通前测试用
-
-        Map<String,Object> params = new HashMap<String, Object>();
-        params.put("doctor_id",patientId);
-        try{
-
-            JSONObject json = new JSONObject();
-            // 有提供
-            json.put("chId",patientId); //chId  居民主索引
-            json.put("name","李六"+patientId);              //姓名
-            json.put("sex","1");                    // 性别
-            json.put("age",65);                     //年龄（出生日期处理得到）
-            json.put("sortType", "糖尿病,高血压,老年人");       //分拣标签
-            json.put("address","湖北省宜昌市");       //常住地址
-            json.put("birthday","1990-01-01");
-
-            //TODO 未提供
-            json.put("mobile","15805926666");           //联系电话（未提供）
-            return write(200, "获取居民生信息成功！", "data", json);
+//        patientId = "bcc9e576-517f-4ed2-93d6-386b09f99184";
+        try {
+            JSONObject info = signContractService.getPatientInfo(patientId);
+            return write(200, "获取居民生信息成功！", "data", info);
         } catch (Exception e) {
             error(e);
             return error(-1, "获取居民信息失败！");
         }
+
+        //接口调通前测试用
+
+//        Map<String,Object> params = new HashMap<String, Object>();
+//        params.put("doctor_id",patientId);
+//        try{
+//
+//            JSONObject json = new JSONObject();
+//            // 有提供
+//            json.put("chId",patientId); //chId  居民主索引
+//            json.put("name","李六"+patientId);              //姓名
+//            json.put("sex","1");                    // 性别
+//            json.put("age",65);                     //年龄（出生日期处理得到）
+//            json.put("sortType", "糖尿病,高血压,老年人");       //分拣标签
+//            json.put("address","湖北省宜昌市");       //常住地址
+//            json.put("birthday","1990-01-01");
+//
+//            //TODO 未提供
+//            json.put("mobile","15805926666");           //联系电话（未提供）
+//            return write(200, "获取居民生信息成功！", "data", json);
+//        } catch (Exception e) {
+//            error(e);
+//            return error(-1, "获取居民信息失败！");
+//        }
     }
     //--------------------------------获取某个签约居民详情信息、标签、是否签约 结束---------------------------
 }

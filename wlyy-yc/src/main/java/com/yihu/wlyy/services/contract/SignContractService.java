@@ -291,4 +291,59 @@ public class SignContractService {
 
         return null;
     }
+
+
+//    <?xml version="1.0" encoding="UTF-8"?>
+//    <MSGFORM>
+//      <XMLDATA>
+//          <SERIALVERSIONUID>1</SERIALVERSIONUID>
+//          <SELFNAME>谢继珍</SELFNAME>
+//          <GENDERCODE>2</GENDERCODE>
+//          <GENDER>女</GENDER>
+//          <BIRTHDAY>1954-08-14</BIRTHDAY>
+//          <ADDRESS>古老背街道七里新村社区居委会湖北省宜昌市猇亭区云池街办云池居委会六组22</ADDRESS>
+//          <SORT_TYPE>1,2</SORT_TYPE>
+//      </XMLDATA>
+//    </MSGFORM>
+
+    public JSONObject getPatientInfo(String patientId){
+        try {
+            String[] groupName = {"未分拣", "高血压", "糖尿病", "结核病", "精神病", "老年人", "孕产妇", "儿童"};
+            String info = NeuSoftWebService.getSignDetailInfoByChid(patientId);
+            Document document = DocumentHelper.parseText(info);
+            Element element = document.getRootElement().element("XMLDATA");
+//            String chId = element.elementText("CHID");
+            String serialversionuid = element.elementText("SERIALVERSIONUID");
+            String selfName = element.elementText("SELFNAME");
+            String gender = element.elementText("GENDER");
+            String genderCode = element.elementText("GENDERCODE");
+            String birthday = element.elementText("BIRTHDAY");
+            String address = element.elementText("ADDRESS");
+            String sortType = element.elementText("SORT_TYPE");
+            String age = "";
+            if(!StringUtils.isEmpty(birthday)){
+                age= getAge(new Date(birthday.replace("-","/")))+"";
+            }
+            JSONObject json = new JSONObject();
+            json.put("chId", patientId); //chId  居民主索引
+            json.put("serialVersionUid",serialversionuid);
+            json.put("name", selfName);              //姓名
+            json.put("sex", genderCode);                    // 性别
+            json.put("age", age);                     //年龄（出生日期处理得到）
+            String sortTypeName = "";
+            for(String str :sortType.split(",")){
+                if(StringUtils.isEmpty(sortType)){
+                    str = "0";
+                }
+                sortTypeName = groupName[Integer.parseInt(str)]+",";
+            }
+            json.put("sortType", sortTypeName.substring(0,sortTypeName.length()-1));
+            json.put("address", address);      //常住地址
+            json.put("birthday", birthday);     //出生日期
+            return json;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

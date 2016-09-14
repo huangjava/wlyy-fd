@@ -55,8 +55,8 @@ public class DoctorPatientGroupController extends BaseController {
             @RequestParam(value = "orgId", required = false) String orgId,
             @ApiParam(name = "userId", value = "当前医生用户id", defaultValue = "doctor001")
             @RequestParam(value = "userId", required = false) String userId) {
-        orgId = "420503003000";
-        userId = "9bf5afea-3200-4489-b93a-b5261351479e";
+//        orgId = "420503003000";
+//        userId = "9bf5afea-3200-4489-b93a-b5261351479e";
         try {
             JSONArray signedPatients = signContractService.getSignedPatients(orgId, userId, "1", "100");
             return write(200, "获取已签约居民汇总列表成功！", "data", signedPatients);
@@ -140,8 +140,8 @@ public class DoctorPatientGroupController extends BaseController {
             @RequestParam(value = "orgId", required = false) String orgId,
             @ApiParam(name = "userId", value = "当前医生用户id", defaultValue = "doctor001")
             @RequestParam(value = "userId", required = false) String userId) {
-        orgId = "420503003000";
-        userId = "9bf5afea-3200-4489-b93a-b5261351479e";
+//        orgId = "420503003000";
+//        userId = "9bf5afea-3200-4489-b93a-b5261351479e";
         try {
             JSONArray toSignInfoList = signContractService.getToSignInfoList(orgId, userId, "1", "100");
             return write(200, "获取待签约居民汇总列表成功！", "data", toSignInfoList);
@@ -200,8 +200,8 @@ public class DoctorPatientGroupController extends BaseController {
             @RequestParam(value = "orgId", required = false) String orgId,
             @ApiParam(name = "userId", value = "当前医生用户id", defaultValue = "doctor001")
             @RequestParam(value = "userId", required = false) String userId) {
-        orgId = "420503003000";
-        userId = "9bf5afea-3200-4489-b93a-b5261351479e";
+//        orgId = "420503003000";
+//        userId = "9bf5afea-3200-4489-b93a-b5261351479e";
         try {
             JSONArray notSignInfoList = signContractService.getNotSignInfoList(orgId, userId, "1", "100");
             return write(200, "获取待签约居民汇总列表成功！", "data", notSignInfoList);

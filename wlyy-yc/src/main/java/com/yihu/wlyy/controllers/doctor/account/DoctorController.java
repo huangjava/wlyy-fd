@@ -48,8 +48,8 @@ public class DoctorController extends BaseController {
             @RequestParam(value = "userId", required = false) String userId,
             @ApiParam(name = "ticket", value = "ticket", defaultValue = "12121")
             @RequestParam(value = "ticket", required = false) String ticket) {
-        orgId = "2c9660e34f4fbb9d014f5d5453b8001b";
-        userId = "f93afa56-417c-4901-aeab-002ded330d86";
+//        orgId = "2c9660e34f4fbb9d014f5d5453b8001b";
+//        userId = "f93afa56-417c-4901-aeab-002ded330d86";
         try {
             JSONArray myTeam = doctorService.getMyTeam(orgId, userId);
             return write(200, "获取团队信息成功！", "data", myTeam);

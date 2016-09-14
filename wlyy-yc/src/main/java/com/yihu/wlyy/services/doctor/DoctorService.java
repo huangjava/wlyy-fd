@@ -140,7 +140,8 @@ public class DoctorService {
             String specialty = xmldata.elementText("SPECIALTY");
             String orgName = xmldata.elementText("UNIT_NAME");
             String deptName = xmldata.elementText("DEPT_NAME");
-            String photo = xmldata.elementText("PHOTO");
+//            String photo = xmldata.elementText("PHOTO");
+            String photo = "";  //医生图像暂时根据性别设置默认
 
             JSONObject json = new JSONObject();
             json.put("photo", photo);                   // 照片 8    原有使用的是src

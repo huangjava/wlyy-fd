@@ -88,9 +88,11 @@ public class FamilyController extends BaseController {
     @RequestMapping(value = "baseinfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "获取患者基本信息", produces = "application/json", notes = "获取患者基本信息")
-    public String baseinfo() {
+    public String baseinfo(
+            @ApiParam(name = "openId", value = "openId", required = true)
+           @RequestParam(required = true) String openId) {
         try {
-            Map<String,Object> info = personService.getBaseInfByOpenId(getOpenid());
+            Map<String,Object> info = personService.getBaseInfByOpenId(openId);
             return write(200, "患者信息查询成功！", "data", info);
         } catch (Exception e) {
             error(e);

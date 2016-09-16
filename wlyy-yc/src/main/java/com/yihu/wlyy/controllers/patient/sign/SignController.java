@@ -37,7 +37,7 @@ public class SignController extends BaseController {
             //TODO openID获取
 //            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
             String openId = getOpenid();
-            Map<String,Object> info = signlTransFormService. getSignState(openId);
+            Map<String,Object> info = signlTransFormService.getSignState(openId);
 
             return write(200, "获取签约状态成功！", "data", info);
         } catch (Exception e) {

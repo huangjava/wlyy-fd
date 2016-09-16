@@ -1,4 +1,4 @@
-var d = dialog({contentType:'load', skin:'bk-popup'}).show();
+﻿var d = dialog({contentType:'load', skin:'bk-popup'}).show();
 saveAgentPage("../../qygl/html/search-community.html");
 var Request = GetRequest(),
 	userAgent = Request["userAgent"],
@@ -12,7 +12,6 @@ if(Request["r"]){
 	random = Request["r"];
 	window.localStorage.setItem("random", random);
 }
-
 if (userAgent!=null) {
 	var userStr = $.parseJSON(decodeURIComponent(userAgent));
 	wxSaveUserAgent(userStr.uid, userStr.openid, userStr.token);
@@ -45,7 +44,6 @@ var $communityView = $('#community_view'),
 // 搜索框
 $('.searchbar').searchBar();
 
-
 getReqPromise("patient/sign/getSignStatus",{patientCode:"1",openId:openId,random:random}).then(function(data) {
 	if (data.loginUrl) {
 		window.location.href = data.loginUrl;
@@ -54,6 +52,7 @@ getReqPromise("patient/sign/getSignStatus",{patientCode:"1",openId:openId,random
 	// TODO 示例数据
 	var sign = data.data.signStatus;
 	if (sign==1) {
+	
 		dialog({
 				content: '您已签约！',
 				cancelValue: '我知道了',

@@ -125,9 +125,10 @@ public class UserSessionService {
     }
 
     public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String openId = request.getParameter("openId");
-        String random = request.getParameter("random");
-        openId = AESUtil.decryptByRandom(openId, random);
+//        String openId = request.getParameter("openId");
+//        String random = request.getParameter("random");
+//        openId = AESUtil.decryptByRandom(openId, random);
+        String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
         response.getOutputStream().write(responseKit.write(200, "reLogin", "loginUrl", genEHomeUrl(openId)).getBytes());
         return false;
     }

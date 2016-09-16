@@ -31,14 +31,14 @@ neusoft:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://172.19.103.77:3306/yichang?useUnicode=true&characterEncoding=utf-8&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true
     username: root
-    password: 123456
+    password:
 #    driverClassName: com.mysql.jdbc.Driver
     maxTotal: 500
     maxIdle: 30
 system:
-  profile: /system.dev.properties
+  profile: /system.yichang.properties
 ---
 spring:
   profiles: test

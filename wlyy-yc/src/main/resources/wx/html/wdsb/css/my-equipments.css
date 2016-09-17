@@ -16,7 +16,13 @@ body, html{margin: 0;padding: 0;}
 .f-vam, .f-vama * {vertical-align: middle;}
 .modal-overlay{position: absolute;left: 0;top: 0;width: 100%;height: 100%;background: transparent;z-index: 3; visibility: hidden;opacity: 0;-webkit-transition-duration: 400ms;transition-duration: 400ms;}
 .modal-overlay.modal-overlay-visible{ visibility: visible;opacity: 1;}
-
+.no-result-img {
+    display: block;
+    width: 320px;
+    height: 184px;
+    margin: 0 auto;
+    margin-top: 160px;
+}
 .div-dialog-content{width: 250px;height: 250px;background: url(../images/tuoyuan.png) no-repeat center top;background-size: 250px;position: absolute;z-index: 4;left: 50%;top: 50%;margin-left: -125px;margin-top: -125px;}  
 .xueyaji-icon{width: 55px; height: 55px;background: url(../images/xueyaji_btn.png) no-repeat center top; background-size: 55px;position: absolute;      z-index: 4;top: 50%;margin-top: -77px;left: 20px;}
 .xuetangyi-icon{width: 55px; height: 55px;background: url(../images/xuetangyi_bth.png) no-repeat center top; background-size: 55px;position: absolute;      z-index: 4;top: 50%;margin-top: -77px;right: 10px;}

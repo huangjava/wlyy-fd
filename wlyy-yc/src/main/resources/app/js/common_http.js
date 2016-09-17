@@ -27,7 +27,7 @@ if(publish_version == true) {
 } else {
 	appId = "wxd03f859efdf0873d";
 	server1 = "http%3a%2f%2fweixin.xmtyw.cn%2fwlyy%2f";
-	server = "http://localhost:9111/fd/"
+	server = "http://yichangqy.yihu.com/fd/"
 	//	alert("注意：这是测试版！");
 	//接口服务器
 //		server = "http://weixin.xmtyw.cn/wlyy/";//卫计委的测试服务器

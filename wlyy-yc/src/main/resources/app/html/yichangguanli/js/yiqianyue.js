@@ -13,12 +13,13 @@ $(function() {
 });
 
 /**
- * 获取所有居民
+ * 获取医生关联已签约的所有居民
  */
 function searchPatients(){
-	var orgId = plus.storage.getItem("orgId");
-	var userId = plus.storage.getItem("userId");
-	var params = {orgId:orgId,userId:userId};
+	//var orgId = plus.storage.getItem("orgId");
+	var userId = plus.storage.getItem("doctorId");
+	var idNumber = plus.storage.getItem("idNumber");
+	var params = {/*orgId:orgId,*/userId:userId,idNumber:idNumber};
 	sendPost(patiUrl, params, null, handleSuccess); 
 }
 

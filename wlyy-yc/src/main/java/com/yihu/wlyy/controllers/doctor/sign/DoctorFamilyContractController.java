@@ -4,6 +4,7 @@ import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpClientUtil;
+import com.yihu.wlyy.util.StringUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.ArrayUtils;
@@ -17,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,15 +43,16 @@ public class DoctorFamilyContractController extends BaseController {
 
     NeuSoftWebService neuSoftWebService = new NeuSoftWebService();
 
-    @ApiOperation("更新签约处理信息（复用接口）")
+    @ApiOperation("更新签约处理信息")
     @RequestMapping(value = "/sign" , method = RequestMethod.POST)
     @ResponseBody
-    public String sign(HttpServletRequest request,
+    public String sign(
+            HttpServletRequest req,
             @ApiParam(name = "signTeam", value = "签约团队代码", defaultValue = "1")
             @RequestParam(value = "signTeam",required = true, defaultValue = "1") String signTeam,
             @ApiParam(name = "signTeamName", value = "签约团队名称", defaultValue = " ")
             @RequestParam(value = "signTeamName", required = false) String signTeamName,
-            @ApiParam(name = "signPeriod", value = "签约周期\t单位：年", defaultValue = " ")
+            @ApiParam(name = "signPeriod", value = "签约周期单位：年", defaultValue = " ")
             @RequestParam(value = "signPeriod", required = false) String signPeriod,
             @ApiParam(name = "signPreiodFrom", value = "签约日期", defaultValue = " ")
             @RequestParam(value = "signPreiodFrom", required = false, defaultValue = "1") String signPreiodFrom,
@@ -59,36 +63,29 @@ public class DoctorFamilyContractController extends BaseController {
             @ApiParam(name = "orgCode", value = "医生所属机构编码", defaultValue = " ")
             @RequestParam(value = "orgCode", required = false) String orgCode,
             @ApiParam(name = "userId", value = "医生主索引", defaultValue = " ")
-            @RequestParam(value = "userId", required = false) String userId) {
-        try {
-            //图像信息
-            DataHandler dataHandler = null;
-            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-            Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-            for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-                MultipartFile mf = entity.getValue();
-                InputStream inputStream = mf.getInputStream();
-                int temp = 0;
-                byte[] tempBuffer = new byte[1024];
-                byte[] fileBuffer = new byte[0];
-                while ((temp = inputStream.read(tempBuffer)) != -1) {
-                    fileBuffer = ArrayUtils.addAll(fileBuffer, ArrayUtils.subarray(tempBuffer, 0, temp));
-                }
-                inputStream.close();
-                dataHandler = new DataHandler(fileBuffer, "application/octet-stream");
-                break; // 取完第一张照片即中断
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam MultipartFile file) throws Exception{
+        if (!file.isEmpty()) {
+            try {
+                // 文件保存路径
+                String filePath = req.getSession().getServletContext().getRealPath("/") + "upload/"
+                        + file.getOriginalFilename();
+                //转存文件到本地的指定目录下
+                file.transferTo(new File(filePath));
+                DataHandler dataHandler = new DataHandler(new FileDataSource(new File(filePath).getAbsoluteFile().getCanonicalPath()));
+
+                signPreiodFrom = DateUtil.getNow().toString();
+                signPeriod = StringUtil.isEmpty(signPeriod)?"1":signPeriod;
+                agreementName = file.getOriginalFilename();
+                String res = neuSoftWebService.upConfirmSignedInfo(dataHandler,signTeam,signTeamName,signPeriod,signPreiodFrom,chid,agreementName,orgCode,userId);
+                return write(200, "更新成功", "data", res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return error(-1, "操作失败！");
             }
-
-            //其他信息处理。
-            signPeriod = "1";  //默认为1年
-            signPreiodFrom = DateUtil.getNow().toString(); //默认当天
-            agreementName = chid + "agreement";   //居民唯一标识 + agreement
-            String res = neuSoftWebService.upConfirmSignedInfo(dataHandler,signTeam,signTeamName,signPeriod,signPreiodFrom,chid,agreementName,orgCode,userId);
-
-            return write(200, "更新成功", "data", res);
-        } catch (Exception e) {
-            error(e);
-            return error(-1, "操作失败！");
+        }
+        else{
+            return error(-1, "签约协议文件不存在，请确认！");
         }
     }
 

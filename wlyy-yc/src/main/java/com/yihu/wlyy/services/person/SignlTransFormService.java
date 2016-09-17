@@ -46,7 +46,7 @@ public class SignlTransFormService {
             if (teams!=null && teams.size()>0){
                     Map<String,Object> obj = teams.get(0);
                 result = new HashMap<>();
-                result.put("signStatus", obj.get("STATUS"));
+//                result.put("signStatus", 0);
             }
         } catch (Exception e) {
             e.printStackTrace();

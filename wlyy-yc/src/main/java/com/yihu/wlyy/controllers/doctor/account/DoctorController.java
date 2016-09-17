@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 医生信息相关的的Controller.
  * 医生信息、医生团队信息、团队成员信息
@@ -109,7 +106,7 @@ public class DoctorController extends BaseController {
 
         //doctorId = "a569522f-49d9-46ea-8209-1406e04787ea";
         // 接口调通前测试用
-        if(StringUtil.isEmpty(doctorId)){
+        if (StringUtil.isEmpty(doctorId)) {
             doctorId = doctorService.getDoctorId(uid).toString();
         }
         try {

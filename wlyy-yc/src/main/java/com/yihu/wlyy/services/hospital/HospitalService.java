@@ -256,8 +256,8 @@ public class HospitalService {
      * @param doctorCode  医生主索引
      * @return
      */
-    public List<Map<String,Object>> getTeamByDoctorCode(String orgCode,String doctorCode){
-        List<Map<String,Object>> result = new ArrayList<>();
+    public Map<String,Object> getTeamByDoctorCode(String orgCode,String doctorCode){
+        Map result = new HashMap<>();
         //TODO 调用东软接口返回数据
         String responseXml =  NeuSoftWebService.getMyTeam(orgCode, doctorCode);
 //        responseXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -273,20 +273,12 @@ public class HospitalService {
 //                "  </MSGFORM>";
 
         try {
-            Map<String,Object> map  = XMLUtil.xml2map(responseXml);
-            List<Map<String,Object>> teams = (List<Map<String, Object>>) map.get("XMLDATA");
-            if (teams!=null && teams.size()>0){
-                for (Map<String,Object> team:teams){
-                    Map<String,Object> obj = new HashMap<String,Object>();
-                    obj.put("code", team.get("TEAMID"));
-                    obj.put("name", team.get("TEAMNAME"));
-                    result.add(obj);
-                }
-            }
-        } catch (DocumentException e) {
+            List<Map<String,Object>> teams = XMLUtil.xmltoList(responseXml);
+            result.put("TEAMID", teams.get(0).get("TEAMID").toString());
+            result.put("TEAMNAME", teams.get(0).get("TEAMNAME").toString());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         return result;
     }
 

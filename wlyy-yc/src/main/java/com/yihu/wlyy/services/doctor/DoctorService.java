@@ -132,33 +132,35 @@ public class DoctorService {
 
             Document document = DocumentHelper.parseText(info);
             Element xmldata = document.getRootElement().element("XMLDATA");
-
-            String name = xmldata.elementText("USER_FULLNAME");
-            String gender = xmldata.elementText("GENDER");
-            String profession = xmldata.elementText("PROFESSION");
-            String education = xmldata.elementText("EDUCATION");
-            String specialty = xmldata.elementText("SPECIALTY");
-            String orgName = xmldata.elementText("UNIT_NAME");
-            String deptName = xmldata.elementText("DEPT_NAME");
+            if (xmldata != null) {
+                String name = xmldata.elementText("USER_FULLNAME");
+                String gender = xmldata.elementText("GENDER");
+                String profession = xmldata.elementText("PROFESSION");
+                String education = xmldata.elementText("EDUCATION");
+                String specialty = xmldata.elementText("SPECIALTY");
+                String orgName = xmldata.elementText("UNIT_NAME");
+                String deptName = xmldata.elementText("DEPT_NAME");
 //            String photo = xmldata.elementText("PHOTO");
-            String photo = "";  //医生图像暂时根据性别设置默认
+                String photo = "";  //医生图像暂时根据性别设置默认
 
-            JSONObject json = new JSONObject();
-            json.put("photo", photo);                   // 照片 8    原有使用的是src
-            json.put("name", name);                 // 医生姓名1
-            json.put("sex", gender.equals("男") ? "1" : "2");                    // 医生性别2
-            // 职业经历3 ****
-            // 教育背景4 ****
-            json.put("mobile", "");     // 医生联系方式（未提供）
-            json.put("expertise", profession);        // 专业特长5
-            json.put("hospitalName", orgName);//所属机构6
-            json.put("deptName", deptName);             // 所属科室7
-            json.put("jobName", "");       // （无）
-            json.put("introduce", specialty);      // 简介（无）
-            json.put("provinceName", "");    // 省份（无）--湖北
-            json.put("cityName", "");        // 城市（无）--宜昌
+                JSONObject json = new JSONObject();
+                json.put("photo", photo);                   // 照片 8    原有使用的是src
+                json.put("name", name);                 // 医生姓名1
+                json.put("sex", gender.equals("男") ? "1" : "2");                    // 医生性别2
+                // 职业经历3 ****
+                // 教育背景4 ****
+                json.put("mobile", "");     // 医生联系方式（未提供）
+                json.put("expertise", profession);        // 专业特长5
+                json.put("hospitalName", orgName);//所属机构6
+                json.put("deptName", deptName);             // 所属科室7
+                json.put("jobName", "");       // （无）
+                json.put("introduce", specialty);      // 简介（无）
+                json.put("provinceName", "");    // 省份（无）--湖北
+                json.put("cityName", "");        // 城市（无）--宜昌
 
-            return json;
+                return json;
+            }
+
         } catch (DocumentException e) {
             e.printStackTrace();
         }

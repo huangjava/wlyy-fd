@@ -20,12 +20,14 @@
 
 	<body>
 		<div class="main">
-			<div class="h45">
-				<div class="demo-comtop">
-					<!--<a class="mui-action-back"></a>-->
-					<h1>我的</h1>
-				</div>
-			</div>
+			<!--<div class="h45">-->
+				<!--<div class="demo-comtop">-->
+					<!---->
+					<!--<h1>我的</h1>-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<a class="mui-action-back"></a>
 			<div class="bgc-fff">
 				<div class="c-100 c-position-r" id="doc_info">
 					
@@ -120,8 +122,9 @@
 		});
 		
 		function getDocGroup(){
-			var orgId = plus.storage.getItem("orgId");
-			var userId = plus.storage.getItem("userId");
+			debugger
+			var orgId = plus.storage.getItem("orgCode");
+			var userId = plus.storage.getItem("doctorId");
 			var params = {orgId:orgId,userId:userId}
 			sendPost("doctor/teamInfo", params,
 				function queryFailed(res) {
@@ -150,9 +153,10 @@
 		}
 		
 		function getDocInfo(){
-			var userId = plus.storage.getItem("userId");
+			debugger
+			var doctorId = plus.storage.getItem("doctorId");
 //			var ticket = plus.storage.getItem("ticket");
-			var params = {userId:userId}
+			var params = {doctorId:doctorId}
             sendPost("doctor/baseinfo", params,
 				function queryFailed(res) {
 					if (res && res.msg) {

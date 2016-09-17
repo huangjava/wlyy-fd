@@ -59,18 +59,19 @@
 </head>
 
 <body>
-<div class="h45">
-	<div class="demo-comtop">
-		<a class="mui-action-back" id="mui-action-back"></a>
-		&lt;!&ndash;团队成员医生信息页&ndash;&gt;
-		<h1>签约审核</h1>
-	</div>
-</div>
+<!--<div class="h45">-->
+	<!--<div class="demo-comtop">-->
+		<!---->
+		<!--&lt;!&ndash;团队成员医生信息页&ndash;&gt;-->
+		<!--<h1>签约审核</h1>-->
+	<!--</div>-->
+<!--</div>-->
+
+<a class="mui-action-back" id="mui-action-back"></a>
 <div class="main" style="overflow: auto;">
 
 	<div class="bgc-fff">
 		<div class="c-100 c-position-r" id="pati_info">
-
 		</div>
 	</div>
 
@@ -196,7 +197,7 @@
 	});
 
 	function cycture(file){//处理图片上传后回调
-		//window.history.go(-1);
+		parent.location.reload();
 	}
 
 	var imgArea = document.querySelector(".add-img");

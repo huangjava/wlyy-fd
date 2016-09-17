@@ -28,12 +28,10 @@ $(function() {
 	var userAgent = JSON.stringify(oUserAgent);
 	plus.storage.setItem("userAgent", userAgent);
 
-
-
 	/**
 	 * 通过健康之路APP的用户ID，获取东软的医生ID信息
 	 */
-	sendPost("/user?userId="+uId+"&appUID="+appUID+"&orgId="+orgId+"&appType="+appType+"&vaildTime="+vaildTime+"&ticket="+ticket ,
+	sendPost("/user?userId="+uId+"&appUID="+appUID+"&orgId="+orgId+"&appType="+appType+"&vaildTime="+vaildTime+"&ticket="+ticket,
 		{
 			"userAgent": userAgent
 		},
@@ -44,29 +42,10 @@ $(function() {
 				orgCode = res.orgCode;
 				plus.storage.setItem("userId", doctorId);
 				plus.storage.setItem("orgCode", orgCode);
+
+				getBaseInfo(doctorId,uId);
 			}
 			//plus.nativeUI.closeWaiting();
-		});
-
-	/**
-	 * 请求医生基本信息
-	 */
-	sendPost("doctor/baseinfo",
-		{
-			"doctorId": doctorId,
-			"uid":uId
-		},
-		null, function(res) {
-			debugger
-			if(res.status == 200) {
-				plus.storage.setItem("docInfo", JSON.stringify(res.data));
-				$.each($('.main iframe'), function (i, v) {
-					$(v).attr('src', $(v).attr('data-html'));
-				})
-			} else {
-				mui.toast("获取医生信息失败");
-			}
-			plus.nativeUI.closeWaiting();
 		});
 
 	$('.main iframe').height($(window).height() - 51);
@@ -89,4 +68,27 @@ function openSubPage(url){
 
 function closeSubPage(){
 	$('#subPage').hide().attr('src','');
+}
+
+/**
+ * 请求医生基本信息
+ */
+function getBaseInfo(doctorId,uId){
+	sendPost("doctor/baseinfo",
+		{
+			"doctorId": doctorId,
+			"uid": uId
+		},
+		null, function(res) {
+			debugger
+			if(res.status == 200) {
+				plus.storage.setItem("docInfo", JSON.stringify(res.data));
+				$.each($('.main iframe'), function (i, v) {
+					$(v).attr('src', $(v).attr('data-html'));
+				})
+			} else {
+				mui.toast("获取医生信息失败");
+			}
+			plus.nativeUI.closeWaiting();
+		});
 }

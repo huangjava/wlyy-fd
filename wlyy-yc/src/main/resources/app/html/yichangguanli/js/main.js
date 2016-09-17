@@ -7,12 +7,11 @@ $(function() {
 	plus.nativeUI.showWaiting();
 	//param setting
 	var	Request = GetRequest();
-
 	var doctorId = "";   //东软提供医生ID
 	//var userId = Request["userId"];
 	var	uId = Request["userId"];//健康之路用户ID
 	var	ticket = Request["ticket"];
-	//var	orgId = Request["orgId"];
+	var	orgId = Request["orgId"];
 	var	vaildTime = Request["vaildTime"];
 	var	appUID = Request["appUID"];
 	var	appType = Request["appType"];
@@ -29,10 +28,12 @@ $(function() {
 	var userAgent = JSON.stringify(oUserAgent);
 	plus.storage.setItem("userAgent", userAgent);
 
+
+
 	/**
 	 * 通过健康之路APP的用户ID，获取东软的医生ID信息
 	 */
-	sendPost("/user",
+	sendPost("/user?userId="+uId+"&appUID="+appUID+"&orgId="+orgId+"&appType="+appType+"&vaildTime="+vaildTime+"&ticket="+ticket ,
 		{
 			"userAgent": userAgent
 		},

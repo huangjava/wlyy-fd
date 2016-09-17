@@ -18,15 +18,22 @@ var isSignForView = function(data) {
 		$('#btnSign').closest("div").addClass("h64");
 		$("#divAgree").hide();
 		
-	} else if(sign == 1) { // 已签约
-		//document.getElementById("btnSign").innerHTML = '<a onclick="overSign()" class="c-btn c-btn-E0A526 c-btn-full c-btn-radius c-f18">申请解约</a>';
+	}
+	//else if(sign == 1) { // 已签约
+	//	//document.getElementById("btnSign").innerHTML = '<a onclick="overSign()" class="c-btn c-btn-E0A526 c-btn-full c-btn-radius c-f18">申请解约</a>';
+	//	$('#btnSign').hide();
+	//	$('.btn-main').show();
+	//	$('#btnSign').closest("div").removeClass("h64");
+	//	$("#divAgree").show();
+	//} else if(sign == 2) {//待签约
+	//	document.getElementById("btnSign").innerHTML = '<a onclick="cancelSign()" class="c-btn c-btn-E0A526 c-btn-full c-btn-radius c-f18">取消申请</a>';
+	//	$('#btnSign').show();
+	//	$('.btn-main').show();
+	//	$('#btnSign').closest("div").removeClass("h64");
+	//	$("#divAgree").show();
+	//}
+	else{
 		$('#btnSign').hide();
-		$('.btn-main').show();
-		$('#btnSign').closest("div").removeClass("h64");
-		$("#divAgree").show();
-	} else if(sign == 2) {//待签约
-		document.getElementById("btnSign").innerHTML = '<a onclick="cancelSign()" class="c-btn c-btn-E0A526 c-btn-full c-btn-radius c-f18">取消申请</a>';
-		$('#btnSign').show();
 		$('.btn-main').show();
 		$('#btnSign').closest("div").removeClass("h64");
 		$("#divAgree").show();
@@ -111,7 +118,7 @@ getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,org
 	
 	$showAllMemberBtn.click(function() {
 		d.show();
-		getReqPromise("patient/hospital/getDoctorList",{teamCode:"1",begin:0, end:1,openId:openId,random:random}).then(function(data) {
+		getReqPromise("patient/hospital/getDoctorList",{teamCode:teamCode,begin:0, end:1,openId:openId,random:random}).then(function(data) {
 			if (data.loginUrl) {
 				window.location.href = data.loginUrl;
 				return;

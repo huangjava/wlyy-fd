@@ -122,6 +122,7 @@
 		});
 		
 		function getDocGroup(){
+			debugger
 			var orgId = plus.storage.getItem("orgCode");
 			var userId = plus.storage.getItem("doctorId");
 			var params = {orgId:orgId,userId:userId}
@@ -152,9 +153,10 @@
 		}
 		
 		function getDocInfo(){
-			var userId = plus.storage.getItem("doctorId");
+			debugger
+			var doctorId = plus.storage.getItem("doctorId");
 //			var ticket = plus.storage.getItem("ticket");
-			var params = {userId:userId}
+			var params = {doctorId:doctorId}
             sendPost("doctor/baseinfo", params,
 				function queryFailed(res) {
 					if (res && res.msg) {

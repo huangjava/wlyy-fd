@@ -17,6 +17,7 @@ $(function() {
 	var	appType = Request["appType"];
 	var	idNumber = "420505198104127043";
 	var oUserAgent = {
+		//"id": userId,
 		"uid": uId,
 		"imei": iMei,
 		"token": ticket,
@@ -41,6 +42,7 @@ $(function() {
 			}
 			//plus.nativeUI.closeWaiting();
 		});
+
 
 	/**
 	 * 请求医生基本信息

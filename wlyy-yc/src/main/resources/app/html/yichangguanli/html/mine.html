@@ -120,8 +120,8 @@
 		});
 		
 		function getDocGroup(){
-			var orgId = plus.storage.getItem("orgId");
-			var userId = plus.storage.getItem("userId");
+			var orgId = plus.storage.getItem("orgCode");
+			var userId = plus.storage.getItem("doctorId");
 			var params = {orgId:orgId,userId:userId}
 			sendPost("doctor/teamInfo", params,
 				function queryFailed(res) {
@@ -150,7 +150,7 @@
 		}
 		
 		function getDocInfo(){
-			var userId = plus.storage.getItem("userId");
+			var userId = plus.storage.getItem("doctorId");
 //			var ticket = plus.storage.getItem("ticket");
 			var params = {userId:userId}
             sendPost("doctor/baseinfo", params,

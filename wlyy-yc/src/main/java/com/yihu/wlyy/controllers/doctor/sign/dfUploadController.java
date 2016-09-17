@@ -18,6 +18,7 @@ import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -63,13 +64,11 @@ public class dfUploadController extends BaseController {
                 file.transferTo(new File(filePath));
                 DataHandler dataHandler = new DataHandler(new FileDataSource(new File(filePath).getAbsoluteFile().getCanonicalPath()));
 
-                List<Map<String,Object>> teamList =  hospitalService.getTeamByDoctorCode(orgCode, userId);
-                if(teamList.size()> 0){
-                    Map<String,Object> teamInfo = teamList.get(0);
-                    signTeam = teamInfo.get("TEAMID").toString();
-                    signTeamName = teamInfo.get("TEAMNAME").toString();
-                }
-                String signPreiodFrom = DateUtil.getNow().toString();
+                Map<String,Object> teamInfo =  hospitalService.getTeamByDoctorCode(orgCode, userId);
+                signTeam = teamInfo.get("TEAMID").toString();
+                signTeamName = teamInfo.get("TEAMNAME").toString();
+
+                String signPreiodFrom = DateUtil.dateToStrShort(new Date());
                 String signPeriod = "1";
                 String agreementName = file.getOriginalFilename();
                 String res = neuSoftWebService.upConfirmSignedInfo(dataHandler,signTeam,signTeamName,signPeriod,signPreiodFrom,chid,agreementName,orgCode,userId);

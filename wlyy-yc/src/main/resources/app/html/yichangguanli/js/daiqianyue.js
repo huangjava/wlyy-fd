@@ -11,10 +11,9 @@ $(function() {
  * 获取所有居民
  */
 function searchPatients(){
-	//var orgId = plus.storage.getItem("orgId");
+	var orgId = plus.storage.getItem("orgCode");
 	var userId = plus.storage.getItem("userId");
-	var idNumber = plus.storage.getItem("idNumber");
-	var params = {/*orgId:orgId,*/userId:userId,idNumber:idNumber};
+	var params = {orgId:orgId,userId:userId};
 //	var patiUrl = "doctor/patient_group/patients"; // 原url 20160905 yww测试改
 	//var patiUrl = "doctor/login";
 	var signingPatiUrl = "doctor/patient_group/signingPatients"//待签约

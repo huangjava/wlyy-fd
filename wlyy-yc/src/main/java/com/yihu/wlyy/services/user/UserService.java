@@ -6,6 +6,7 @@ import com.yihu.wlyy.daos.UserDao;
 import com.yihu.wlyy.models.user.UserModel;
 import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.util.SystemConf;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +31,12 @@ public class UserService {
 
     public Map<String, String> getExternal(String idCard) {
         Map<String, String> mapExternal = new HashMap<>();
-        String identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
-        ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
         try {
-            JsonNode jsonNode = objectMapper.readValue(identity, JsonNode.class);
-            mapExternal.put("userId", jsonNode.findPath("userId").asText());
-            mapExternal.put("orgCode", jsonNode.findPath("orgCode").asText());
-        } catch (IOException e) {
+            mapExternal.put("userId", identity.get("userId").toString());
+            mapExternal.put("orgCode", identity.get("orgCode").toString());
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

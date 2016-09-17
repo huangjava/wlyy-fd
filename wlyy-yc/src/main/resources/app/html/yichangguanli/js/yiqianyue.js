@@ -16,10 +16,9 @@ $(function() {
  * 获取医生关联已签约的所有居民
  */
 function searchPatients(){
-	//var orgId = plus.storage.getItem("orgId");
+	var orgId = plus.storage.getItem("orgCode");
 	var userId = plus.storage.getItem("doctorId");
-	var idNumber = plus.storage.getItem("idNumber");
-	var params = {/*orgId:orgId,*/userId:userId,idNumber:idNumber};
+	var params = {orgId:orgId,userId:userId};
 	sendPost(patiUrl, params, null, handleSuccess); 
 }
 

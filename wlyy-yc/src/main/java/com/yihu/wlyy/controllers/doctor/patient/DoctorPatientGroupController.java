@@ -43,19 +43,11 @@ public class DoctorPatientGroupController extends BaseController {
     @ResponseBody
     @ApiOperation(value = "获取已签约居民列表")
     public String getSignedPatients(
-            /*@ApiParam(name = "orgId", value = "机构编码", defaultValue = " ")
-            @RequestParam(value = "orgId", required = false) String orgId,*/
+            @ApiParam(name = "orgId", value = "机构编码", defaultValue = " ")
+            @RequestParam(value = "orgId", required = false) String orgId,
             @ApiParam(name = "userId", value = "当前医生用户id", defaultValue = "doctor001")
-            @RequestParam(value = "userId", required = false) String userId,
-            @ApiParam(name = "idNumber", value = "当前医生用户id", defaultValue = "420505198104127043")
-            @RequestParam(value = "idNumber", required = false) String idNumber) {
+            @RequestParam(value = "userId", required = false) String userId) {
         try {
-            //get orgId by idNumber
-            String loginKey =  SystemConf.getInstance().getValue("neusoft.ws.key");
-            JSONObject xmlDocValidaInfo = doctorService.loginByID(idNumber,loginKey);
-            String orgId = xmlDocValidaInfo.get("orgCode").toString();
-
-            //get signed patients
             JSONArray signedPatients = signContractService.getSignedPatients(orgId, userId, "1", "1000");
             return write(200, "获取已签约居民汇总列表成功！", "data", signedPatients);
         } catch (Exception e) {
@@ -69,18 +61,11 @@ public class DoctorPatientGroupController extends BaseController {
     @ResponseBody
     @ApiOperation(value = "获取待签约居民列表")
     public String getSigningPatients(
-            /*@ApiParam(name = "orgId", value = "机构编码", defaultValue = "11")
-            @RequestParam(value = "orgId", required = false) String orgId,*/
+            @ApiParam(name = "orgId", value = "机构编码", defaultValue = "11")
+            @RequestParam(value = "orgId", required = false) String orgId,
             @ApiParam(name = "userId", value = "当前医生用户id", defaultValue = "doctor001")
-            @RequestParam(value = "userId", required = false) String userId,
-            @ApiParam(name = "idNumber", value = "当前医生用户id", defaultValue = "420505198104127043")
-            @RequestParam(value = "idNumber", required = false) String idNumber) {
+            @RequestParam(value = "userId", required = false) String userId) {
         try {
-            //get orgId by idNumber
-            String loginKey =  SystemConf.getInstance().getValue("neusoft.ws.key");
-            JSONObject xmlDocValidaInfo = doctorService.loginByID(idNumber,loginKey);
-            String orgId = xmlDocValidaInfo.get("orgCode").toString();
-
             JSONArray toSignInfoList = signContractService.getToSignInfoList(orgId, userId, "1", "1000");
             return write(200, "获取待签约居民汇总列表成功！", "data", toSignInfoList);
         } catch (Exception e) {
@@ -95,18 +80,11 @@ public class DoctorPatientGroupController extends BaseController {
     @ResponseBody
     @ApiOperation(value = "获取未签约居民列表")
     public String getNoSigningPatients(
-           /* @ApiParam(name = "orgId", value = "机构编码", defaultValue = "11")
-            @RequestParam(value = "orgId", required = false) String orgId,*/
+            @ApiParam(name = "orgId", value = "机构编码", defaultValue = "11")
+            @RequestParam(value = "orgId", required = false) String orgId,
             @ApiParam(name = "userId", value = "当前医生用户id", defaultValue = "doctor001")
-            @RequestParam(value = "userId", required = false) String userId,
-            @ApiParam(name = "idNumber", value = "当前医生用户id", defaultValue = "420505198104127043")
-            @RequestParam(value = "idNumber", required = false) String idNumber) {
+            @RequestParam(value = "userId", required = false) String userId) {
         try {
-            //get orgId by idNumber
-            String loginKey =  SystemConf.getInstance().getValue("neusoft.ws.key");
-            JSONObject xmlDocValidaInfo = doctorService.loginByID(idNumber,loginKey);
-            String orgId = xmlDocValidaInfo.get("orgCode").toString();
-
             JSONArray notSignInfoList = signContractService.getNotSignInfoList(orgId, userId, "1", "1000");
             return write(200, "获取待签约居民汇总列表成功！", "data", notSignInfoList);
         } catch (Exception e) {

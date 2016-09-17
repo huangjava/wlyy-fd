@@ -8,14 +8,16 @@ $(function() {
 	//param setting
 	var	Request = GetRequest();
 
-	var doctorId = "";
-	var	uId = Request["userId"]; //健康之路用户ID
+	var doctorId = "";   //东软提供医生ID
+	//var userId = Request["userId"];
+	var	uId = Request["userId"];//健康之路用户ID
 	var	ticket = Request["ticket"];
-	var	orgId = Request["orgId"];
+	//var	orgId = Request["orgId"];
 	var	vaildTime = Request["vaildTime"];
 	var	appUID = Request["appUID"];
 	var	appType = Request["appType"];
-	var	idNumber = "420505198104127043";
+	var orgCode = "";
+	var iMei = "ceshi";
 	var oUserAgent = {
 		//"id": userId,
 		"uid": uId,
@@ -26,7 +28,6 @@ $(function() {
 	};
 	var userAgent = JSON.stringify(oUserAgent);
 	plus.storage.setItem("userAgent", userAgent);
-	plus.storage.setItem("idNumber", idNumber);
 
 	/**
 	 * 通过健康之路APP的用户ID，获取东软的医生ID信息
@@ -36,13 +37,15 @@ $(function() {
 			"userAgent": userAgent
 		},
 		null, function(res) {
+			debugger
 			if(res.status == 200) {
 				doctorId = res.doctorId;
-				plus.storage.setItem("doctorId", userId);
+				orgCode = res.orgCode;
+				plus.storage.setItem("userId", doctorId);
+				plus.storage.setItem("orgCode", orgCode);
 			}
 			//plus.nativeUI.closeWaiting();
 		});
-
 
 	/**
 	 * 请求医生基本信息

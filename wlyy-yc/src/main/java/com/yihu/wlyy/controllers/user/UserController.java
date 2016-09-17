@@ -26,7 +26,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public String get(HttpServletRequest request) {
         try {
-            String userAgent = request.getParameter("userAgent");
+            String userAgent = request.getHeader("userAgent");
             JSONObject jsonObject = JSONObject.fromObject(userAgent);
             String userCode = jsonObject.getString("uid");
             String clientType = jsonObject.getString("clientType");

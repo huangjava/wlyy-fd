@@ -12,7 +12,7 @@ $(function() {
  */
 function searchPatients(){
 	var orgId = plus.storage.getItem("orgCode");
-	var userId = plus.storage.getItem("userId");
+	var userId = plus.storage.getItem("doctorId");
 	var params = {orgId:orgId,userId:userId};
 //	var patiUrl = "doctor/patient_group/patients"; // 原url 20160905 yww测试改
 	//var patiUrl = "doctor/login";

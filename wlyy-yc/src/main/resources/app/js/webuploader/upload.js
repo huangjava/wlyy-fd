@@ -1,7 +1,7 @@
 (function( $ ){
     // 当domReady的时候开始初始化
     $(function() {
-        $.extend({upload:function(patientId,creatorId,ticket){
+        $.extend({upload:function(patientId,doctorId,orgCode){
             var $wrap = $('#uploader'),
 
             // 图片容器
@@ -145,9 +145,9 @@
                     label: '点击选择图片'
                 },
                 formData: {//传参
-                    patientId:patientId,
-                    creatorId:creatorId,
-                    ticket:ticket,
+                        chid:patientId,
+                        userId:doctorId,
+                        orgCode:orgCode
                 },
                 dnd: '#dndArea',
                 paste: '#uploader',

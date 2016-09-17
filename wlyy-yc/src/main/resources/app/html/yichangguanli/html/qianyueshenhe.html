@@ -191,7 +191,7 @@
 		var orgCode = plus.storage.getItem("orgCode");
 
 //			var myScroll = new IScroll('.main', { mouseWheel: true, tap: true });
-		$.upload("","",""); //图片控件初始化
+		$.upload(patientId,doctorId,orgCode); //图片控件初始化
 	});
 
 	function cycture(file){//处理图片上传后回调,返回上一层主页

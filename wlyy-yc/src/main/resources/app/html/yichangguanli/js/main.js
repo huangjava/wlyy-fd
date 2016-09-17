@@ -31,21 +31,26 @@ $(function() {
 	/**
 	 * 通过健康之路APP的用户ID，获取东软的医生ID信息
 	 */
-	sendPost("/user?userId="+uId+"&appUID="+appUID+"&orgId="+orgId+"&appType="+appType+"&vaildTime="+vaildTime+"&ticket="+ticket,
+	sendPost("/user",
 		{
-			"userAgent": userAgent
+			"userId": uId,
+			"appUID": appUID,
+			"orgId": orgId,
+			"appType": appType,
+			"vaildTime": vaildTime,
+			"ticket": ticket
 		},
 		null, function(res) {
-			debugger
 			if(res.status == 200) {
 				doctorId = res.doctorId;
 				orgCode = res.orgCode;
-				plus.storage.setItem("userId", doctorId);
-				plus.storage.setItem("orgCode", orgCode);
-
+				/*plus.storage.setItem("doctorId", doctorId);
+				plus.storage.setItem("orgCode", orgCode);*/
+				plus.storage.setItem("doctorId", "9bf5afea-3200-4489-b93a-b5261351479e");
+				plus.storage.setItem("orgCode", "420503003000");
 				getBaseInfo(doctorId,uId);
 			}
-			//plus.nativeUI.closeWaiting();
+			plus.nativeUI.closeWaiting();
 		});
 
 	$('.main iframe').height($(window).height() - 51);
@@ -89,6 +94,6 @@ function getBaseInfo(doctorId,uId){
 			} else {
 				mui.toast("获取医生信息失败");
 			}
-			plus.nativeUI.closeWaiting();
+			//plus.nativeUI.closeWaiting();
 		});
 }

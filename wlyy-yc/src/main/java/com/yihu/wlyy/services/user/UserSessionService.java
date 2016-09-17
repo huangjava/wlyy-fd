@@ -8,10 +8,8 @@ import com.yihu.wlyy.models.user.UserAgent;
 import com.yihu.wlyy.models.user.UserModel;
 import com.yihu.wlyy.models.user.UserSessionModel;
 import com.yihu.wlyy.services.doctor.DoctorService;
-import com.yihu.wlyy.services.gateway.GateWayApi;
 import com.yihu.wlyy.services.gateway.GateWayService;
 import com.yihu.wlyy.util.*;
-import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -186,17 +184,15 @@ public class UserSessionService {
             UserModel user = userDao.findOneByCode(userCode);
             if (user == null) {
                 user = new UserModel(userName, userCode);
-                //暂时不处理关联
                 String idCard = getIdCard(userCode);
                 user.setIdCard(idCard);
                 user.setExternalIdentity(userService.getExternal(idCard).get("userId"));
                 user = userDao.save(user);
             } else {
                 if (StringUtil.isEmpty(user.getIdCard()) || StringUtil.isEmpty(user.getExternalIdentity())) {
-                    //暂时不处理关联
                     String idCard = getIdCard(userCode);
                     user.setIdCard(idCard);
-                    user.setIdCard(userService.getExternal(idCard).get("userId"));
+                    user.setExternalIdentity(userService.getExternal(idCard).get("userId"));
                     user = userDao.save(user);
                 }
             }
@@ -231,28 +227,28 @@ public class UserSessionService {
     }
 
     private String getIdCard(String userCode) {
-//        return "420505198104127043";
+        return "420505198104127043";//TODO:  FOR TEST
 
-        Map<String, String> apiParam = new HashMap<>();
-        apiParam.put("returnMsg", "IdNumber");
-        apiParam.put("doctorUid", userCode);
-        String result = gateWayService.post(GateWayApi.queryUserInfoByID, apiParam);
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = null;
-        try {
-            jsonNode = objectMapper.readValue(result, JsonNode.class);
-            String code = jsonNode.findPath("Code").asText();
-            if (!code.equals("10000")) {
-                logger.error("调用网关接口失败");
-                return "";
-            }
-
-            return jsonNode.findPath("IdNumber").asText();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "";
+//        Map<String, String> apiParam = new HashMap<>();
+//        apiParam.put("returnMsg", "IdNumber");
+//        apiParam.put("doctorUid", userCode);
+//        String result = gateWayService.post(GateWayApi.queryUserInfoByID, apiParam);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        JsonNode jsonNode = null;
+//        try {
+//            jsonNode = objectMapper.readValue(result, JsonNode.class);
+//            String code = jsonNode.findPath("Code").asText();
+//            if (!code.equals("10000")) {
+//                logger.error("调用网关接口失败");
+//                return "";
+//            }
+//
+//            return jsonNode.findPath("IdNumber").asText();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return "";
     }
 
 

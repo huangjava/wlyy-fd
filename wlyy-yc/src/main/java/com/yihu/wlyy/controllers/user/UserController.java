@@ -22,7 +22,7 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String get(HttpServletRequest request) {
         try {
@@ -35,7 +35,7 @@ public class UserController extends BaseController {
                 if (clientType.equals("weChat")) {
                     jsonObject.put("openid", userModel.getExternalIdentity());
                 } else {    //app
-                    Map<String, String> external = userService.getExternal("userCode");
+                    Map<String, String> external = userService.getExternal(userModel.getIdCard());
                     jsonObject.put("doctorId", external.get("userId"));
                     jsonObject.put("orgCode", external.get("orgCode"));
                 }

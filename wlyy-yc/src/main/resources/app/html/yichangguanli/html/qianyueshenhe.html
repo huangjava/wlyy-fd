@@ -192,11 +192,11 @@
 
 //			var myScroll = new IScroll('.main', { mouseWheel: true, tap: true });
 		$.upload(patientId,doctorId,orgCode); //图片控件初始化
+
 	});
 
-	function cycture(file){//处理图片上传后回调,返回上一层主页
-		debugger
-		window.history.go(-1);
+	function cycture(file){//处理图片上传后回调
+		//window.history.go(-1);
 	}
 
 	var imgArea = document.querySelector(".add-img");

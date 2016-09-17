@@ -33,7 +33,7 @@ import java.util.Map;
  * @author George
  */
 @Controller
-@RequestMapping(value = "/doctor/family_contract")
+@RequestMapping(value = "/upload/family_contract")
 public class DoctorFamilyContractController extends BaseController {
 
     @Value("${service-gateway.username}")
@@ -58,13 +58,13 @@ public class DoctorFamilyContractController extends BaseController {
             @ApiParam(name = "userId", value = "医生主索引", defaultValue = " ")
             @RequestParam(value = "userId", required = false) String userId,
             @RequestParam MultipartFile file) throws Exception{
+
         if (!file.isEmpty()) {
             String signTeam = "";
             String signTeamName = "";
             try {
                 // 文件保存路径
-                String filePath = req.getSession().getServletContext().getRealPath("/") + "upload/"
-                        + file.getOriginalFilename();
+                String filePath = req.getSession().getServletContext().getRealPath("/") + file.getOriginalFilename();
                 //转存文件到本地的指定目录下
                 file.transferTo(new File(filePath));
                 DataHandler dataHandler = new DataHandler(new FileDataSource(new File(filePath).getAbsoluteFile().getCanonicalPath()));

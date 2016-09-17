@@ -3,6 +3,7 @@ var Request = GetRequest();
 var teamCode = Request["teamCode"];
 var orgName = decodeURIComponent(Request["orgName"]||"");
 var teamName ="";
+var lastPage = 1;
 // 页面载入显示提示“加载中”
 var d = dialog({contentType:'load', skin:'bk-popup'}).show(),
 	// 团队成员列表
@@ -52,6 +53,10 @@ var doctorInfo = function(doctorCode) {
 	window.location.href = "../../qygl/html/doctor-info.html?teamCode=" + teamCode + "&teamName=" + teamName + "&orgCode=" + orgCode+ "&orgName=" + orgName+'&doctorCode='+doctorCode;
 }
 
+var toArgument = function() {
+	location.href = "../../qygl/html/argument.html";
+}
+
 var showTeamInfo = function(data) {
 	
 	if(!data) return ;
@@ -74,7 +79,7 @@ var showTeamInfo = function(data) {
 
 // TODO url,data示例参数为空
 getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,orgCode:"1",openId:openId,random:random}},
-{url: 'patient/hospital/getDoctorList',data:{teamCode:teamCode,begin:0, end:1,openId:openId,random:random}},
+{url: 'patient/hospital/getDoctorList',data:{teamCode:teamCode,page:lastPage, pageSize:5,openId:openId,random:random}},
 {url: '/patient/sign/getSignStatus',data:{patientCode:teamCode,openId:openId,random:random}}])
 .then(function(datas) {
 	if (datas[0].loginUrl) {
@@ -104,7 +109,7 @@ getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,org
 	// 关闭页面加载提示
 	d.close();
 })
-//getReqPromise("patient/hospital/getDoctorList",{teamCode:"1",begin:0, end:1})
+//getReqPromise("patient/hospital/getDoctorList",{teamCode:"1",page:0, pageSize:1})
 //
 //// 数据成功返回，处理页面展示
 //.then(function(data) {
@@ -118,7 +123,8 @@ getReqPromises([{url: 'patient/hospital/getTeamInfo',data:{teamCode:teamCode,org
 	
 	$showAllMemberBtn.click(function() {
 		d.show();
-		getReqPromise("patient/hospital/getDoctorList",{teamCode:teamCode,begin:0, end:1,openId:openId,random:random}).then(function(data) {
+		lastPage+=1;
+		getReqPromise("patient/hospital/getDoctorList",{teamCode:teamCode,page:lastPage, pageSize:5,openId:openId,random:random}).then(function(data) {
 			if (data.loginUrl) {
 				window.location.href = data.loginUrl;
 				return;

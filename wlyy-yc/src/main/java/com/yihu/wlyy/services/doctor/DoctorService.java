@@ -243,11 +243,11 @@ public class DoctorService {
      * @param teamId
      * @return
      */
-    public JSONArray getDoctorsByTeam(String teamId) {
+    public JSONArray getDoctorsByTeam(String teamId,String page,String pageSize) {
         JSONArray doctorArray = new JSONArray();
 
         try {
-            String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, "1", "100");
+            String gpTeamInfo = NeuSoftWebService.getGPTeamInfo(teamId, page, pageSize);
             Document docGpTeam = DocumentHelper.parseText(gpTeamInfo);
             List<Element> doctorList = docGpTeam.getRootElement().elements("XMLDATA");
 

@@ -98,7 +98,7 @@ public class HospitalController extends BaseController {
             @ApiParam(name = "page", value = "页数")
             @RequestParam(required = false,defaultValue = "1") String page,
             @ApiParam(name = "pageSize", value = "每页大小")
-            @RequestParam(required = false,defaultValue = "15") String pageSize) {
+            @RequestParam(required = false,defaultValue = "10") String pageSize) {
 
         Map<String,Object> params = new HashMap<String, Object>();
         params.put("orgCode",orgCode);
@@ -165,10 +165,10 @@ public class HospitalController extends BaseController {
     public String getDoctorList(
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
             @RequestParam(required = true) String teamCode,
-            @ApiParam(name = "begin", value = "开始个数", required = false)
-            @RequestParam(required = false,defaultValue = "1") Integer begin,
-            @ApiParam(name = "end", value = "结束个数", required = false)
-            @RequestParam(required = false,defaultValue = "10") Integer end) {
+            @ApiParam(name = "page", value = "页数", required = false)
+            @RequestParam(required = false,defaultValue = "1") String page,
+            @ApiParam(name = "pageSize", value = "每页个数", required = false)
+            @RequestParam(required = false,defaultValue = "10") String pageSize) {
 
         try {
             //TODO 调用获取团队成员列表接口
@@ -229,7 +229,7 @@ public class HospitalController extends BaseController {
 //            resultModel.setResultMap(resultMap);
 //            return resultModel.toJson();
 //            teamCode = "74529931-1445-468d-8873-abfa63734e7c    ";
-            JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode);
+            JSONArray jsonArray = doctorService.getDoctorsByTeam(teamCode,page,pageSize);
             return write(200, "查询成功！", "list", jsonArray);
         } catch (Exception ex) {
             error(ex);

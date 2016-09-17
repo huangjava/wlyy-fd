@@ -185,6 +185,11 @@
 		getPatientInfo();
 		initEvent();
 
+		var doctorId = plus.storage.getItem("doctorId");
+		var	Request = GetRequest();
+		var	patientId = Request["patientId"];
+		var orgCode = plus.storage.getItem("orgCode");
+
 //			var myScroll = new IScroll('.main', { mouseWheel: true, tap: true });
 		$.upload("","",""); //图片控件初始化
 	});

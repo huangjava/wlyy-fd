@@ -1,6 +1,7 @@
 package com.yihu.wlyy.controllers.doctor.sign;
 
 import com.yihu.wlyy.controllers.BaseController;
+import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.DateUtil;
 import com.yihu.wlyy.util.HttpClientUtil;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,30 +44,23 @@ public class DoctorFamilyContractController extends BaseController {
     private String comUrl;
 
     NeuSoftWebService neuSoftWebService = new NeuSoftWebService();
+    HospitalService hospitalService = new HospitalService();
 
     @ApiOperation("更新签约处理信息")
     @RequestMapping(value = "/sign" , method = RequestMethod.POST)
     @ResponseBody
     public String sign(
             HttpServletRequest req,
-            @ApiParam(name = "signTeam", value = "签约团队代码", defaultValue = "1")
-            @RequestParam(value = "signTeam",required = true, defaultValue = "1") String signTeam,
-            @ApiParam(name = "signTeamName", value = "签约团队名称", defaultValue = " ")
-            @RequestParam(value = "signTeamName", required = false) String signTeamName,
-            @ApiParam(name = "signPeriod", value = "签约周期单位：年", defaultValue = " ")
-            @RequestParam(value = "signPeriod", required = false) String signPeriod,
-            @ApiParam(name = "signPreiodFrom", value = "签约日期", defaultValue = " ")
-            @RequestParam(value = "signPreiodFrom", required = false, defaultValue = "1") String signPreiodFrom,
             @ApiParam(name = "chid", value = "居民主索引", defaultValue = " ")
             @RequestParam(value = "chid", required = false) String chid,
-            @ApiParam(name = "agreementName", value = "上传协议名称", defaultValue = " ")
-            @RequestParam(value = "agreementName", required = false) String agreementName,
             @ApiParam(name = "orgCode", value = "医生所属机构编码", defaultValue = " ")
             @RequestParam(value = "orgCode", required = false) String orgCode,
             @ApiParam(name = "userId", value = "医生主索引", defaultValue = " ")
             @RequestParam(value = "userId", required = false) String userId,
             @RequestParam MultipartFile file) throws Exception{
         if (!file.isEmpty()) {
+            String signTeam = "";
+            String signTeamName = "";
             try {
                 // 文件保存路径
                 String filePath = req.getSession().getServletContext().getRealPath("/") + "upload/"
@@ -74,9 +69,15 @@ public class DoctorFamilyContractController extends BaseController {
                 file.transferTo(new File(filePath));
                 DataHandler dataHandler = new DataHandler(new FileDataSource(new File(filePath).getAbsoluteFile().getCanonicalPath()));
 
-                signPreiodFrom = DateUtil.getNow().toString();
-                signPeriod = StringUtil.isEmpty(signPeriod)?"1":signPeriod;
-                agreementName = file.getOriginalFilename();
+                List<Map<String,Object>> teamList =  hospitalService.getTeamByDoctorCode(orgCode, userId);
+                if(teamList.size()> 0){
+                    Map<String,Object> teamInfo = teamList.get(0);
+                    signTeam = teamInfo.get("TEAMID").toString();
+                    signTeamName = teamInfo.get("TEAMNAME").toString();
+                }
+                String signPreiodFrom = DateUtil.getNow().toString();
+                String signPeriod = "1";
+                String agreementName = file.getOriginalFilename();
                 String res = neuSoftWebService.upConfirmSignedInfo(dataHandler,signTeam,signTeamName,signPeriod,signPreiodFrom,chid,agreementName,orgCode,userId);
                 return write(200, "更新成功", "data", res);
             } catch (Exception e) {

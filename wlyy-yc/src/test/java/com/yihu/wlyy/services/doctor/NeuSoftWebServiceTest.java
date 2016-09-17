@@ -27,7 +27,7 @@ public class NeuSoftWebServiceTest {
         System.out.println(info);
     }
 
-    //1.4签约申请 doSignApply  --未通过
+    //1.4签约申请 doSignApply  --通过
     @Test
     public void doSignApply() throws Exception {
         String info = neuSoftWebService.doSignApply("小黄人儿22","13889457565","13889457565","2016-09-08","Dummy007", "09549d72-0511-48ac-b0af-b8453cc2681a");

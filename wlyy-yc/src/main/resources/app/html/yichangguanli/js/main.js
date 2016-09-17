@@ -43,14 +43,14 @@ $(function() {
 		null, function(res) {
 			if(res.status == 200) {
 				debugger;
-				doctorId = res.doctorId;
-				orgCode = res.orgCode;
+				doctorId = res.data.doctorId;
+				orgCode = res.data.orgCode;
 				plus.storage.setItem("doctorId", doctorId);
 				plus.storage.setItem("orgCode", orgCode);
 				//plus.storage.setItem("doctorId", "9bf5afea-3200-4489-b93a-b5261351479e");
 				//plus.storage.setItem("orgCode", "420503003000");
-				//getBaseInfo( "9bf5afea-3200-4489-b93a-b5261351479e","420503003000");
-				getBaseInfo(doctorId,uId);
+				getBaseInfo( doctorId,uId);
+				//getBaseInfo("9bf5afea-3200-4489-b93a-b5261351479e","420503003000");
 			}
 			plus.nativeUI.closeWaiting();
 		});
@@ -87,7 +87,6 @@ function getBaseInfo(doctorId,uId){
 			"uid": uId
 		},
 		null, function(res) {
-			debugger
 			if(res.status == 200) {
 				plus.storage.setItem("docInfo", JSON.stringify(res.data));
 				$.each($('.main iframe'), function (i, v) {

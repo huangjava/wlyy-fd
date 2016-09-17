@@ -3,6 +3,7 @@
     $(function() {
         $.extend({upload:function(patientId,doctorId,orgCode){
             var $wrap = $('#uploader'),
+                userAgent = plus.storage.getItem("userAgent"),
 
             // 图片容器
                 $queue = $( '<ul class="filelist"></ul>' )
@@ -145,23 +146,23 @@
                     label: '点击选择图片'
                 },
                 formData: {//传参
-                        chid:patientId,
-                        userId:doctorId,
-                        orgCode:orgCode
+                    chid:patientId,
+                    userId:doctorId,
+                    orgCode:orgCode
                 },
                 dnd: '#dndArea',
                 paste: '#uploader',
                 swf: '../../dist/Uploader.swf',
                 chunked: false,
                 chunkSize: 512 * 1024,
-                server:  'http://192.168.131.102:9111/fd/doctor/family_contract/sign',
+                server:  'http://192.168.131.102:9111/fd/upload/family_contract/sign',
                 // runtimeOrder: 'flash',
 
-                 accept: {
-                     title: 'Images',
-                     extensions: 'gif,jpg,jpeg,bmp,png',
-                     mimeTypes: 'image/*'
-                 },
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                },
 
                 // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
                 disableGlobalDnd: true,
@@ -188,6 +189,14 @@
 
                 return !denied;
             });
+
+             /*uploader.on('uploadBeforeSend', function(obj, data, headers) {
+                jQuery.extend(headers, {
+                    "Origin": "http://192.168.131.102:9111/fd/doctor/family_contract/sign",
+                    "Access-Control-Request-Method": "POST"
+                });
+             });*/
+
 
             // uploader.on('filesQueued', function() {
             //     uploader.sort(function( a, b ) {
@@ -290,7 +299,7 @@
 
                     // 成功
                     if ( cur === 'error' || cur === 'invalid' ) {
-                       // console.log( file.statusText );
+                        // console.log( file.statusText );
                         showError( file.statusText );
                         percentages[ file.id ][ 1 ] = 1;
                     } else if ( cur === 'interrupt' ) {
@@ -445,7 +454,7 @@
                         //$placeHolder.addClass( 'element-invisible' );
                         //$( '#filePicker2' ).removeClass( 'element-invisible');
                         $queue.show();
-                       // $statusBar.removeClass('element-invisible');
+                        // $statusBar.removeClass('element-invisible');
                         uploader.refresh();
                         break;
 
@@ -475,7 +484,7 @@
                         stats = uploader.getStats();
                         if ( stats.successNum ) {
                             //console.log(uploader)
-                           console.log( '上传图片成功' );
+                            console.log( '上传图片成功' );
 
                         }
                         //else {

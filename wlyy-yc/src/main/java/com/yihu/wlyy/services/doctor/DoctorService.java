@@ -175,7 +175,7 @@ public class DoctorService {
     //    <ORGCODE></ORGCODE>
     //    </XMLDATA>
     //    </MSGFORM>
-    public String loginByID(String idCard, String loginKey) {
+    public JSONObject loginByID(String idCard, String loginKey) {
         try {
             String info = NeuSoftWebService.loginByID(idCard, loginKey);
             Document document = DocumentHelper.parseText(info);
@@ -188,7 +188,7 @@ public class DoctorService {
             json.put("orgCode", orgCode);
             json.put("name", userId);
 
-            return json.toString();
+            return json;
         } catch (DocumentException e) {
             e.printStackTrace();
         }

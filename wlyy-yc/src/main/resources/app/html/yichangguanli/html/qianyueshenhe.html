@@ -59,13 +59,13 @@
 </head>
 
 <body>
-<div class="h45">
+<!--<div class="h45">
 	<div class="demo-comtop">
 		<a class="mui-action-back" id="mui-action-back"></a>
-		<!--团队成员医生信息页-->
+		&lt;!&ndash;团队成员医生信息页&ndash;&gt;
 		<h1>签约审核</h1>
 	</div>
-</div>
+</div>-->
 <div class="main" style="overflow: auto;">
 
 	<div class="bgc-fff">
@@ -189,8 +189,9 @@
 		$.upload("","",""); //图片控件初始化
 	});
 
-	function cycture(file){//处理图片上传后回调
+	function cycture(file){//处理图片上传后回调,返回上一层主页
 		debugger
+		window.history.go(-1);
 	}
 
 	var imgArea = document.querySelector(".add-img");

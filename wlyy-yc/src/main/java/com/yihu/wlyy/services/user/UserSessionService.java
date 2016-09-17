@@ -11,6 +11,7 @@ import com.yihu.wlyy.services.doctor.DoctorService;
 import com.yihu.wlyy.services.gateway.GateWayApi;
 import com.yihu.wlyy.services.gateway.GateWayService;
 import com.yihu.wlyy.util.*;
+import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -254,15 +255,16 @@ public class UserSessionService {
     }
 
     private String getExternalIdentity(String idCard) {
-        String identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
+        /*String identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonNode = objectMapper.readValue(identity, JsonNode.class);
             return jsonNode.findPath("idCard").asText();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        return "";
+        JSONObject identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
+        return identity.get("idCard").toString();
     }
 }

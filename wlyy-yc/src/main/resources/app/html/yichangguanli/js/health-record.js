@@ -78,6 +78,7 @@ $(function() {
 				}
 			});
 	}
+
 	queryData();
 //	queryListByType(charType, page, pagesize, queryListSuccesss, begindate, enddate);
 

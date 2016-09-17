@@ -39,6 +39,8 @@ public class UserSessionService {
     @Autowired
     private UserDao userDao;
     @Autowired
+    private UserService userService;
+    @Autowired
     private GateWayService gateWayService;
     @Autowired
     private DoctorService doctorService;
@@ -126,10 +128,9 @@ public class UserSessionService {
     }
 
     public boolean isLoginWeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        String openId = request.getParameter("openId");
-//        String random = request.getParameter("random");
-//        openId = AESUtil.decryptByRandom(openId, random);
-        String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+        String openId = request.getParameter("openId");
+        String random = request.getParameter("random");
+        openId = AESUtil.decryptByRandom(openId, random);
         response.getOutputStream().write(responseKit.write(200, "reLogin", "loginUrl", genEHomeUrl(openId)).getBytes());
         return false;
     }
@@ -188,14 +189,14 @@ public class UserSessionService {
                 //暂时不处理关联
                 String idCard = getIdCard(userCode);
                 user.setIdCard(idCard);
-                user.setIdCard(getExternalIdentity(idCard));
+                user.setExternalIdentity(userService.getExternal(idCard).get("userId"));
                 user = userDao.save(user);
             } else {
                 if (StringUtil.isEmpty(user.getIdCard()) || StringUtil.isEmpty(user.getExternalIdentity())) {
                     //暂时不处理关联
                     String idCard = getIdCard(userCode);
                     user.setIdCard(idCard);
-                    user.setIdCard(getExternalIdentity(idCard));
+                    user.setIdCard(userService.getExternal(idCard).get("userId"));
                     user = userDao.save(user);
                 }
             }
@@ -254,17 +255,5 @@ public class UserSessionService {
         return "";
     }
 
-    private String getExternalIdentity(String idCard) {
-        /*String identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            JsonNode jsonNode = objectMapper.readValue(identity, JsonNode.class);
-            return jsonNode.findPath("idCard").asText();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
 
-        JSONObject identity = doctorService.loginByID(idCard, SystemConf.getInstance().getValue("neusoft.ws.key"));
-        return identity.get("idCard").toString();
-    }
 }

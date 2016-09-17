@@ -186,7 +186,7 @@ public class DoctorService {
 
             JSONObject json = new JSONObject();
             json.put("orgCode", orgCode);
-            json.put("name", userId);
+            json.put("userId", userId);
 
             return json;
         } catch (DocumentException e) {

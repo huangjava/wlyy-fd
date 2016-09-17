@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @created Airhead 2016/9/4.
@@ -21,7 +22,7 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String get(HttpServletRequest request) {
         try {
@@ -34,7 +35,9 @@ public class UserController extends BaseController {
                 if (clientType.equals("weChat")) {
                     jsonObject.put("openid", userModel.getExternalIdentity());
                 } else {    //app
-                    jsonObject.put("doctorId", userModel.getExternalIdentity());
+                    Map<String, String> external = userService.getExternal("userCode");
+                    jsonObject.put("doctorId", external.get("userId"));
+                    jsonObject.put("orgCode", external.get("orgCode"));
                 }
 
                 return write(200, "获取用户信息成功！", "data", jsonObject);

@@ -178,8 +178,11 @@ public class UserSessionService {
             UserSessionModel userSession = userSessionDao.findOne(userCode);
             if (userSession != null) {
                 if (DateUtil.compareDate(userSession.getExpireTime(), DateUtil.getNow()) > 0) {
-                    userSession.setToken(ticket);   //APP产生ticket可能已经更新了
-                    userSessionDao.save(userSession);
+                    if (!StringUtil.isEmpty(ticket)){
+                        userSession.setToken(ticket);   //APP产生ticket可能已经更新了
+                        userSessionDao.save(userSession);
+                    }
+
                     return true;
                 }
             }

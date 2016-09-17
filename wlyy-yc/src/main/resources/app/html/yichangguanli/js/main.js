@@ -42,12 +42,14 @@ $(function() {
 		},
 		null, function(res) {
 			if(res.status == 200) {
+				debugger;
 				doctorId = res.doctorId;
 				orgCode = res.orgCode;
-				/*plus.storage.setItem("doctorId", doctorId);
-				plus.storage.setItem("orgCode", orgCode);*/
-				plus.storage.setItem("doctorId", "9bf5afea-3200-4489-b93a-b5261351479e");
-				plus.storage.setItem("orgCode", "420503003000");
+				plus.storage.setItem("doctorId", doctorId);
+				plus.storage.setItem("orgCode", orgCode);
+				//plus.storage.setItem("doctorId", "9bf5afea-3200-4489-b93a-b5261351479e");
+				//plus.storage.setItem("orgCode", "420503003000");
+				//getBaseInfo( "9bf5afea-3200-4489-b93a-b5261351479e","420503003000");
 				getBaseInfo(doctorId,uId);
 			}
 			plus.nativeUI.closeWaiting();

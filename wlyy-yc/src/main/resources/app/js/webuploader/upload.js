@@ -154,7 +154,7 @@
                 swf: '../../dist/Uploader.swf',
                 chunked: false,
                 chunkSize: 512 * 1024,
-                server:  'http://192.168.131.17:9111/fd/doctor/family_contract/sign',
+                server:  'http://192.168.131.102:9111/fd/doctor/family_contract/sign',
                 // runtimeOrder: 'flash',
 
                  accept: {

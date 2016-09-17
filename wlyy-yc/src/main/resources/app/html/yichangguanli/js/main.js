@@ -42,8 +42,9 @@ $(function() {
 		},
 		null, function(res) {
 			if(res.status == 200) {
-				doctorId = res.doctorId;
-				orgCode = res.orgCode;
+				debugger;
+				doctorId = res.data.doctorId;
+				orgCode = res.data.orgCode;
 				plus.storage.setItem("doctorId", doctorId);
 				plus.storage.setItem("orgCode", orgCode);
 				//plus.storage.setItem("doctorId", "9bf5afea-3200-4489-b93a-b5261351479e");

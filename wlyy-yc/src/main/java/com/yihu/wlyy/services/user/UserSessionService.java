@@ -178,6 +178,8 @@ public class UserSessionService {
             UserSessionModel userSession = userSessionDao.findOne(userCode);
             if (userSession != null) {
                 if (DateUtil.compareDate(userSession.getExpireTime(), DateUtil.getNow()) > 0) {
+                    userSession.setToken(ticket);   //APP产生ticket可能已经更新了
+                    userSessionDao.save(userSession);
                     return true;
                 }
             }
@@ -227,7 +229,7 @@ public class UserSessionService {
     }
 
     private String getIdCard(String userCode) {
-        return "420505198104127043";//TODO:  FOR TEST
+        return "420500196911241845";//TODO:  FOR TEST
 
 //        Map<String, String> apiParam = new HashMap<>();
 //        apiParam.put("returnMsg", "IdNumber");

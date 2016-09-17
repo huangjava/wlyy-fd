@@ -65,21 +65,21 @@ public class NeuSoftWebServiceTest {
     //3.1获取已签约的记录列表 getSignedInfoList  -- 通过
     @Test
     public void getSignedInfoList() throws Exception {
-        String info = neuSoftWebService.getSignedInfoList("420503003000","9bf5afea-3200-4489-b93a-b5261351479e","1","10");
+        String info = neuSoftWebService.getSignedInfoList("2c9660e34f4fbb9d014f5d50be6c0016","f8cb1926-dba9-412d-8ffc-0dab78975bbb","1","10");
         System.out.println(info);
     }
 
     //3.2获取未签约的记录列表  getNotSignInfoList  -- 通过
     @Test
     public void getNotSignInfoList() throws Exception {
-        String info = neuSoftWebService.getNotSignInfoList("420503003000","9bf5afea-3200-4489-b93a-b5261351479e","1","10");
+        String info = neuSoftWebService.getNotSignInfoList("2c9660e34f4fbb9d014f5d50be6c0016","f8cb1926-dba9-412d-8ffc-0dab78975bbb","1","10");
         System.out.println(info);
     }
 
     //3.3获取待签约的记录列表 getToSignInfoList -- 通过
     @Test
     public void getToSignInfoList() throws Exception {
-        String info = neuSoftWebService.getToSignInfoList("420503003000", "9bf5afea-3200-4489-b93a-b5261351479e","1","10");
+        String info = neuSoftWebService.getToSignInfoList("2c9660e34f4fbb9d014f5d50be6c0016", "f8cb1926-dba9-412d-8ffc-0dab78975bbb","1","10");
         System.out.println(info);
     }
 
@@ -99,7 +99,7 @@ public class NeuSoftWebServiceTest {
     //5.2登陆验证(根据医生身份证)  loginByID -- 未通过
     @Test
     public void loginByID() throws Exception {
-        String info = neuSoftWebService.loginByID("420505198104127043", "JKZL");
+        String info = neuSoftWebService.loginByID("420500196911241845", "JKZL");
         System.out.println(info);
     }
 

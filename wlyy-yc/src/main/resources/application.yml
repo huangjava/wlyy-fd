@@ -38,7 +38,7 @@ spring:
     maxTotal: 500
     maxIdle: 30
 system:
-  profile: /system.yichang.properties
+  profile: /system.properties
 ---
 spring:
   profiles: test

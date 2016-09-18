@@ -1,6 +1,8 @@
 package com.yihu.wlyy.services.person;
 
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
+import com.yihu.wlyy.util.CollectionUtil;
+import com.yihu.wlyy.util.StringUtil;
 import com.yihu.wlyy.util.XMLUtil;
 import org.springframework.stereotype.Component;
 
@@ -47,6 +49,13 @@ public class SignlTransFormService {
             if (teams != null && teams.size() > 0) {
                 Map<String, Object> obj = teams.get(0);
                 result.put("signStatus", obj.get("STATUS"));
+                result.put("teamCode", obj.get("TEAMID"));
+                result.put("teamName", obj.get("TEAMNAME"));
+                result.put("orgCode", obj.get("ORGCODE"));
+                result.put("orgName", obj.get("UNIT_NAME"));
+                if (StringUtil.isEmpty(obj.get("STATUS"))) {
+                    result.put("signStatus", "0");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

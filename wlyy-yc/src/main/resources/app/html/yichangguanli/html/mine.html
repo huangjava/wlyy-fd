@@ -176,15 +176,6 @@
 		
 		mui("body").on("tap","#doc_info",function(){
             openWindow('gerenziliao.html');
-//                window.open('gerenziliao.html');
-//            mui.openWindow({
-//                url: 'gerenziliao.html',
-//                id: 'gerenziliao.html',
-//                extras: {
-//                    title: '个人资料'
-//                }
-//            });
-//			openWindowWithSub("gerenziliao", "gerenziliao.html", "个人资料", {});
 		})
 		
 		mui("#list").on("tap", "li.tab", function() {
@@ -196,29 +187,21 @@
 		mui("#group").on("tap", "li", function() {
 			var id = $(this).attr("data-id");
             openWindow('yishengxinxi.html?doctorId='+id);
-//			mui.openWindow({
-//				url: "yishengxinxi.html",
-//				id: id,
-//				extras: {
-//					id: id
-//				}
-//			});
-//			openWebview("yishengxinxi.html?id="+id);
 		});
 		/*
 		 * 更新头像
 		 */
-		window.addEventListener("updataPhoto", function(e) {
-			var photo=e.detail.photo;
-			$("#photo").attr("src",photo);
-		});
+//		window.addEventListener("updataPhoto", function(e) {
+//			var photo=e.detail.photo;
+//			$("#photo").attr("src",photo);
+//		});
 		
 		/*
 		 * 更新页面数据
 		 */
-		window.addEventListener("refresh", function(e) {
-			getDocInfo();
-		});
+//		window.addEventListener("refresh", function(e) {
+//			getDocInfo();
+//		});
 	</script>
 	
 </html>

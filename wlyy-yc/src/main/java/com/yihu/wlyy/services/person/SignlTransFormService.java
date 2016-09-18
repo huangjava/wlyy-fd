@@ -46,7 +46,17 @@ public class SignlTransFormService {
             List<Map<String, Object>> teams = XMLUtil.xmltoList(responseXml);
             if (teams != null && teams.size() > 0) {
                 Map<String, Object> obj = teams.get(0);
-                result.put("signStatus", obj.get("STATUS"));
+                result.put("signStatus", obj.get("STATUS"));//签约状态
+                result.put("teamCode", obj.get("TEAMID"));
+                result.put("teamName", obj.get("TEAMNAME"));
+                result.put("orgCode", obj.get("ORGCODE"));
+                result.put("orgName", obj.get("UNIT_NAME"));
+                result.put("desc", obj.get("TEAMDESC"));
+                //创建单位
+                result.put("createDate", obj.get("CREATEDTIME"));
+                result.put("createDunitCode", obj.get("CREATEDUNITCODE"));
+                result.put("createDunitName", obj.get("CREATEDUNITNAME"));
+
             }
         } catch (Exception e) {
             e.printStackTrace();

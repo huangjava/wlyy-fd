@@ -37,8 +37,8 @@ public class FamilyController extends BaseController {
     public String isAssign() {
         try {
             int sign = 0;
-//            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
-            String openId = getOpenid();
+            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+//            String openId = getOpenid();
 
             List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(openId);
 
@@ -48,13 +48,17 @@ public class FamilyController extends BaseController {
                 if (info!=null && "0".equals(info.get("signStatus")))
                 {
                     sign = 0;//已分拣+未签约
+                    Map<String,Object> org = list.get(0);
+                    info.put("unitCode",org.get("code"));
+                    info.put("unitName",org.get("name"));
                 }else {
                     sign = 1;//已分拣+已签约
                 }
             }else {
                 sign = -1;//未分拣
             }
-            return write(200, "获取分拣状态成功！", "data",sign);
+            info.put("assign",sign);
+            return write(200, "获取分拣状态成功！", "data",info);
         } catch (Exception e) {
             error(e);
             return error(-1, "分拣状态查询失败！");

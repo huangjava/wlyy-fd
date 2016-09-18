@@ -2,6 +2,7 @@ var tab = 0;
 var patients; 		//缓存所有居民信息，为查询准备
 var myTeamDom = $('.my-team');
 $(function() {
+	parent.document.title="签约居民管理";
 	plus.nativeUI.showWaiting();
 	searchPatients(); //请求所有居民
 	groupClick();

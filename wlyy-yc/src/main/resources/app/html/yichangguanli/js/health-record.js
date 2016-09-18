@@ -12,6 +12,7 @@ var charType = 1;
 $(function() {
 	$('div[tabindex="-1"]').remove()
 	bindEvents();
+	parent.document.title="健康记录";
 	//开关控件
 	var changeCheckbox = document.querySelector('#jobStatusSwitch');
 	var swiper = new Swiper('.xuetang-container', {

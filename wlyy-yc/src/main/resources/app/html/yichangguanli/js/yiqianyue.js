@@ -3,6 +3,7 @@ var patiUrl = "doctor/patient_group/signedPatients";
 var patients; 		//缓存所有居民信息，为查询准备
 var openedGroup = {}; //打开的分组，为了切换tab能保持分组状态
 $(function() {
+	parent.document.title="签约居民管理";
     $('.mui-action-back').on('tap', function(){
         alert(1);
         window.history.go(-1);

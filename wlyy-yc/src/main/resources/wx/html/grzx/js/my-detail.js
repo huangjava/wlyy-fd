@@ -13,6 +13,9 @@ if(Request["r"]){
 
 $(function() {	
 	queryInit();
+	$('#unbunding').on('click',function() {
+		unbunding();
+	});
 });	
 
 function queryInit(){
@@ -117,4 +120,8 @@ function setValue(data){
 	document.getElementById("mobile").innerHTML = mobile;
 	document.getElementById("idcard").innerHTML = idcard;
 	document.getElementById("address").value = address;
+}
+
+function unbunding(){
+	dialog({contentType:'tipsbox', skin:'bk-popup' , content:'该功能未实现'}).show();
 }

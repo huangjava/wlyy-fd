@@ -19,13 +19,13 @@
 	</head>
 
 	<body>
-    <!--<div class="h45">-->
-        <!--<div class="demo-comtop">-->
-            <!--<a class="mui-action-back" id="mui-action-back"></a>-->
-            <!--&lt;!&ndash;团队成员医生信息页&ndash;&gt;-->
-            <!--<h1>个人资料</h1>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="h45">
+        <div class="demo-comtop">
+            <a class="mui-action-back" id="mui-action-back"></a>
+            <!--团队成员医生信息页-->
+            <h1>个人资料</h1>
+        </div>
+    </div>
 
 
 	
@@ -143,15 +143,16 @@
 		<script type="text/javascript" src="../js/common.js"></script>
 		<script type="text/javascript">
 			
-			mui.plusReady(function() {
+			$(function() {
 				getDocInfo();
 			});
 
 			function getDocInfo(){
 //				plus.nativeUI.showWaiting();
-				var userId = plus.storage.getItem("userId");
-				var ticket = plus.storage.getItem("ticket");
-				var params = {userId:userId,ticket:ticket}
+				var doctorId = plus.storage.getItem("doctorId");
+				var uid = '';
+                var ticket = plus.storage.getItem("ticket");
+				var params = {doctorId:doctorId,uid:uid,ticket:ticket}
 				sendPost("doctor/baseinfo", params,
 					function(res) {
 						if(res && res.msg) {

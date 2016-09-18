@@ -26,7 +26,7 @@ function getPatientInfo(){
 		function(res) {
 			if(res.status == 200) {
 				$("body").append(template("detail_info_tmpl", res.data));
-                clickEvent();
+                //clickEvent();
 			} else {
 				mui.toast(res.msg);
 			}
@@ -36,7 +36,7 @@ function getPatientInfo(){
 }
 function clickEvent() {
 
-    document.getElementById('mui-action-back').addEventListener('tap', function () {
+    /*document.getElementById('mui-action-back').addEventListener('tap', function () {
         var	Request = GetRequest();
         var	patientId = Request["patientId"];
         var supPage = Request["supPage"];
@@ -44,5 +44,5 @@ function clickEvent() {
         if(supPage){
             openWindow(supPage+'.html?patientId='+patientId);
         }
-    });
+    });*/
 }

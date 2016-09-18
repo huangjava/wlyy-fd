@@ -18,7 +18,6 @@ $(function() {
 	var orgCode = "";
 	var iMei = "ceshi";
 	var oUserAgent = {
-		//"id": userId,
 		"uid": uId,
 		"imei": iMei,
 		"token": ticket,
@@ -42,15 +41,11 @@ $(function() {
 		},
 		null, function(res) {
 			if(res.status == 200) {
-				debugger;
 				doctorId = res.data.doctorId;
 				orgCode = res.data.orgCode;
 				plus.storage.setItem("doctorId", doctorId);
 				plus.storage.setItem("orgCode", orgCode);
-				//plus.storage.setItem("doctorId", "9bf5afea-3200-4489-b93a-b5261351479e");
-				//plus.storage.setItem("orgCode", "420503003000");
 				getBaseInfo( doctorId,uId);
-				//getBaseInfo("9bf5afea-3200-4489-b93a-b5261351479e","420503003000");
 			}
 			plus.nativeUI.closeWaiting();
 		});

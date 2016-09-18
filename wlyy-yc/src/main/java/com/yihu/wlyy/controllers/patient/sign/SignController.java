@@ -30,10 +30,6 @@ public class SignController extends BaseController {
     @ApiOperation(value = "查询患者是否有签约信息", produces = "application/json", notes = "查询患者是否有签约信息")
     public String isSign() {
         try {
-            String json = "{\n" +
-                    "\"signStatus\":0,\n" +
-                    "}";
-            JSONObject jsonObject = new JSONObject(json);
             //TODO openID获取
 //            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
             String openId = getOpenid();

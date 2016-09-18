@@ -83,19 +83,7 @@ public class PersonService {
         //TODO 调用东软接口返回数据
        if (!StringUtil.isEmpty(openId)) {
            String userInfoXml = NeuSoftWebService.getSignDetailInfo(openId);
-           String stateXml = NeuSoftWebService.getSignState(openId);
            try {
-               result.put("sign", "0");
-               List<Map<String, Object>> stateInfo = XMLUtil.xmltoList(stateXml);
-               if (CollectionUtil.isNotEmpty(stateInfo)) {
-                   Map<String, Object> obj = stateInfo.get(0);
-                   result.put("sign", obj.get("STATUS"));
-                   result.put("teamCode", obj.get("TEAMID"));
-                   result.put("teamName", obj.get("TEAMNAME"));
-                   result.put("orgCode", obj.get("ORGCODE"));
-                   result.put("orgName", obj.get("UNIT_NAME"));
-               }
-
                Map<String, String> sortMap = new HashMap<>();
                sortMap.put("1", "高血压");
                sortMap.put("2", "糖尿病");

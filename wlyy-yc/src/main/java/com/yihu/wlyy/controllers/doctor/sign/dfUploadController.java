@@ -4,6 +4,7 @@ import com.yihu.wlyy.controllers.BaseController;
 import com.yihu.wlyy.services.hospital.HospitalService;
 import com.yihu.wlyy.services.neusoft.NeuSoftWebService;
 import com.yihu.wlyy.util.DateUtil;
+import com.yihu.wlyy.util.StringUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 医生端：家庭签约控制类
@@ -59,8 +61,8 @@ public class dfUploadController extends BaseController {
             String signTeam = " ";
             String signTeamName = " ";
             try {
-                // 文件保存路径
-                String filePath = req.getSession().getServletContext().getRealPath("/") + file.getOriginalFilename();
+                //文件保存路径
+                String filePath = req.getSession().getServletContext().getRealPath("/") + "upload" + File.separator + UUID.randomUUID()+ file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")) ;
                 System.out.println(filePath);
                 //转存文件到本地的指定目录下
                 file.transferTo(new File(filePath));

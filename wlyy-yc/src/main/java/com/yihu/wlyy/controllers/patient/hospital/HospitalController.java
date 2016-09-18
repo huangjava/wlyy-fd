@@ -102,23 +102,9 @@ public class HospitalController extends BaseController {
 
         Map<String,Object> params = new HashMap<String, Object>();
         params.put("orgCode",orgCode);
-//        params.put("ticket",ticket);
-//        try {
-//            String url = "";
-//            String resultStr = HttpClientUtil.post(comUrl + url, params, username, password);
-//            return write(200, "身份认证成功！", "obj", "");
-//        } catch (Exception e) {
-//            error(e);
-//            return error(-1, "身份认证失败！");
-//        }
 
         try {
             //TODO 示例
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            List list = objectMapper.readValue("[{\"code\":\"D2016080002\",\"job_name\":\" 第一社团\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1262,\"expertise\":\"思明高级社区服务\",\"hospital_name\":\"第一社团\"},{\"code\":\"D2016080005\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2016080006\",\"job_name\":\"  第一社团2\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\"第一社团2\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1271,\"expertise\":\"第一社团2\",\"hospital_name\":\"思明区中华街道社区卫生服务中心\"},{\"code\":\"D2010080225\",\"job_name\":\" 第一社团3\",\"introduce\":\"思明区中华街道社区卫生服务中心\",\"name\":\" 第一社团3)\",\"dept_name\":\"\",\"photo\":\"\",\"id\":1276,\"expertise\":\"思明区中华街道社区卫生服务中心\",\"hospital_name\":\" 第一社团3\"}]",List.class);
-
-//             orgCode ="2c9660e34f4fbb9d014f5d50be6c0016";
-
             List<Map<String,Object>> list = hospitalService.getTeamsByorgCode(orgCode, page, pageSize);
 
             return write(200, "查询成功！", "list", list);
@@ -131,8 +117,6 @@ public class HospitalController extends BaseController {
     @RequestMapping(value = "/getTeamInfo", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     @ApiOperation(value = "获取医生团队详细信息", produces = "application/json", notes = "获取医生团队详细信息")
     public String getTeamInfo(
-//            @ApiParam(name = "orgCode", value = "机构编码", required = true)
-//            @RequestParam(required = true) String orgCode,
             @ApiParam(name = "teamCode", value = "团队编码", required = true)
             @RequestParam(required = true) String teamCode,
             @ApiParam(name = "page", value = "页数", required = false)
@@ -140,18 +124,7 @@ public class HospitalController extends BaseController {
             @ApiParam(name = "pageSize", value = "每页大小", required = false)
             @RequestParam(required = false,defaultValue = "15") String pageSize) {
         try {
-//            String json = "{\n" +
-//                    "\"photo\":\"\",\n" +
-//                    "\"teamCode\":\""+teamCode+"\",\n" +
-//                    "\"teamName\":\"第一社团\",\n" +
-//                    "\"orgCode\":\""+orgCode+"\",\n" +
-//                    "\"orgName\":\"思明区中华街道社区卫生服务中心\",\n" +
-//                    "\"introduce\":\"思明高级社区服务\",\n" +
-//                    "}";
-//            JSONObject jsonObject = new JSONObject(json);
-
-//            teamCode ="74529931-1445-468d-8873-abfa63734e7c";
-            Map<String,Object> info = hospitalService.getTeamInfoByTeamCode( teamCode,page,pageSize);
+            Map<String,Object> info = hospitalService.getTeamInfoByTeamCode(teamCode,page,pageSize);
 
             return write(200, "查询成功！", "data", info);
         } catch (Exception ex) {

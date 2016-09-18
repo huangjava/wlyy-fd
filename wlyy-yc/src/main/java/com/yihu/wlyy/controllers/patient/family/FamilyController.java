@@ -37,8 +37,8 @@ public class FamilyController extends BaseController {
     public String isAssign() {
         try {
             int sign = 0;
-            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
-//            String openId = getOpenid();
+//            String openId = "OCEF9T2HW1GBY0KINQK0NEL_ZOSK";
+            String openId = getOpenid();
 
             List<Map<String,Object>> list = hospitalService.getOrgsByOpenId(openId);
 
@@ -49,8 +49,8 @@ public class FamilyController extends BaseController {
                 {
                     sign = 0;//已分拣+未签约
                     Map<String,Object> org = list.get(0);
-                    info.put("unitCode",org.get("code"));
-                    info.put("unitName",org.get("name"));
+                    info.put("unitCode",org.get("code"));//机构编码
+                    info.put("unitName",org.get("name"));//机构名
                 }else {
                     sign = 1;//已分拣+已签约
                 }

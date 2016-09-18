@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Console;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +61,7 @@ public class dfUploadController extends BaseController {
             try {
                 // 文件保存路径
                 String filePath = req.getSession().getServletContext().getRealPath("/") + file.getOriginalFilename();
+                System.out.println(filePath);
                 //转存文件到本地的指定目录下
                 file.transferTo(new File(filePath));
                 DataHandler dataHandler = new DataHandler(new FileDataSource(new File(filePath).getAbsoluteFile().getCanonicalPath()));

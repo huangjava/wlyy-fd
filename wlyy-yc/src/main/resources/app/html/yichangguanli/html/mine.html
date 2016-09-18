@@ -94,7 +94,7 @@
 
 			<div class="n-list-info">
 				<h4 class="c-nowrap c-f16">{{value.name}}
-					<em class="ml5 c-f15 c-909090">{{value.dept}} {{value.jobName}}岁</em></h4>
+					<em class="ml5 c-f15 c-909090">{{value.dept}} {{value.jobName}}</em></h4>
 					<p class="c-f15 c-909090 pt5"></p>
 				<em class="red-point"></em> 
 			</div>
@@ -153,9 +153,7 @@
 		}
 		
 		function getDocInfo(){
-			debugger
 			var doctorId = plus.storage.getItem("doctorId");
-//			var ticket = plus.storage.getItem("ticket");
 			var params = {doctorId:doctorId}
             sendPost("doctor/baseinfo", params,
 				function queryFailed(res) {

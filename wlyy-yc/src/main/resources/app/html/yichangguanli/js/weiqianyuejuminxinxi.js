@@ -1,5 +1,6 @@
 
 $(function() {
+	parent.document.title="居民资料";
 	getPatientInfo();
 });
 

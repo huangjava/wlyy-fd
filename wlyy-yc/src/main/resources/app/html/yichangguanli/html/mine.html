@@ -94,7 +94,7 @@
 
 			<div class="n-list-info">
 				<h4 class="c-nowrap c-f16">{{value.name}}
-					<em class="ml5 c-f15 c-909090">{{value.dept}} {{value.jobName}}岁</em></h4>
+					<em class="ml5 c-f15 c-909090">{{value.dept}} {{value.jobName}}</em></h4>
 					<p class="c-f15 c-909090 pt5"></p>
 				<em class="red-point"></em> 
 			</div>
@@ -153,7 +153,6 @@
 		}
 		
 		function getDocInfo(){
-			debugger
 			var doctorId = plus.storage.getItem("doctorId");
 //			var ticket = plus.storage.getItem("ticket");
 			var params = {doctorId:doctorId}
@@ -178,15 +177,6 @@
 		
 		mui("body").on("tap","#doc_info",function(){
             openWindow('gerenziliao.html');
-//                window.open('gerenziliao.html');
-//            mui.openWindow({
-//                url: 'gerenziliao.html',
-//                id: 'gerenziliao.html',
-//                extras: {
-//                    title: '个人资料'
-//                }
-//            });
-//			openWindowWithSub("gerenziliao", "gerenziliao.html", "个人资料", {});
 		})
 		
 		mui("#list").on("tap", "li.tab", function() {
@@ -198,29 +188,21 @@
 		mui("#group").on("tap", "li", function() {
 			var id = $(this).attr("data-id");
             openWindow('yishengxinxi.html?doctorId='+id);
-//			mui.openWindow({
-//				url: "yishengxinxi.html",
-//				id: id,
-//				extras: {
-//					id: id
-//				}
-//			});
-//			openWebview("yishengxinxi.html?id="+id);
 		});
 		/*
 		 * 更新头像
 		 */
-		window.addEventListener("updataPhoto", function(e) {
-			var photo=e.detail.photo;
-			$("#photo").attr("src",photo);
-		});
+//		window.addEventListener("updataPhoto", function(e) {
+//			var photo=e.detail.photo;
+//			$("#photo").attr("src",photo);
+//		});
 		
 		/*
 		 * 更新页面数据
 		 */
-		window.addEventListener("refresh", function(e) {
-			getDocInfo();
-		});
+//		window.addEventListener("refresh", function(e) {
+//			getDocInfo();
+//		});
 	</script>
 	
 </html>
